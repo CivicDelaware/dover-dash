@@ -1,0 +1,60 @@
+{
+  "143689": {
+    "legislation_id": "143689",
+    "bill_code": "SA 2 to HB 75",
+    "short_title": "",
+    "long_title": "",
+    "synopsis": "This Amendment does all of the following:\r\n(1) Provides definitions of terms used throughout this Act, including a definition of \u201cperson\u201d for use when describing the employer of the victim\u2019s alleged abuser.\r\n(2) Provides requirements for obtaining damages from a person that employed the victim\u2019s alleged abuser, or had some degree of responsibility and control over the victim\u2019s alleged abuser.\r\n(3) Specifically waives the sovereign immunity of this State or a county or other political subdivision of this State, including a school district and a charter school.\r\n(4) Provides that the victim\u2019s alleged abuser and a person that employed the victim\u2019s alleged abuser and owed a duty of care to the victim, or had some degree of responsibility and control over an activity which the victim and the victim\u2019s alleged abuser were engaged in, are not joint tortfeasors.\r\n(5) Establishes limits on the damages that may be recovered by the victim.\r\n(6) Establishes evidentiary criteria for a civil cause of action for sexual abuse of a minor by an adult when the adult is deceased or not sufficiently competent to participate in the defense of the sexual abuse allegations.\r\n(7) Makes technical corrections to conform existing law to the standards of the Delaware Legislative Drafting Manual, including by making words that are plural into words that are singular as \u00a7 304 of Title 1 provides that the singular includes the plural.\r\n\r\nThis Amendment differs from Senate Amendment No. 1 by doing the following:\r\n(1) Redrafting for clarity the provisions related to scope and sovereign immunity, including clarifying that the waiver of sovereign immunity includes charter schools.\r\n(2) Clarifying that health care expenses include medical and counseling expenses.",
+    "sponsor": "Sokola",
+    "chamber": "Senate",
+    "stage": "introduced",
+    "committee": null,
+    "personas": [
+      "pubsec"
+    ],
+    "first_seen": "2026-07-15",
+    "last_updated": "2026-07-15",
+    "alerted_stages": [
+      "introduced"
+    ]
+  },
+  "143693": {
+    "legislation_id": "143693",
+    "bill_code": "SA 3 to HB 75",
+    "short_title": "",
+    "long_title": "",
+    "synopsis": "This Amendment does all of the following:\r\n(1) Provides definitions of terms used throughout this Act, including a definition of \u201cperson\u201d for use when describing the employer of the victim\u2019s alleged abuser.\r\n(2) Provides requirements for obtaining damages from a person that employed the victim\u2019s alleged abuser, or had some degree of responsibility and control over the victim\u2019s alleged abuser.\r\n(3) Specifically waives the sovereign immunity of this State or a county or other political subdivision of this State, including a school district and a charter school.\r\n(4) Provides that the victim\u2019s alleged abuser and a person that employed the victim\u2019s alleged abuser and owed a duty of care to the victim, or had some degree of responsibility and control over an activity which the victim and the victim\u2019s alleged abuser were engaged in, are not joint tortfeasors.\r\n(5) Establishes limits on the damages that may be recovered by the victim.\r\n(6) Establishes evidentiary criteria for a civil cause of action for sexual abuse of a minor by an adult when the adult is deceased or not sufficiently competent to participate in the defense of the sexual abuse allegations.\r\n(7) Makes technical corrections to conform existing law to the standards of the Delaware Legislative Drafting Manual, including by making words that are plural into words that are singular as \u00a7 304 of Title 1 provides that the singular includes the plural.\r\n\r\nThis Amendment differs from Senate Amendment No. 1 by doing the following:\r\n(1) Redrafting for clarity the provisions related to scope and sovereign immunity, including clarifying that the waiver of sovereign immunity includes charter schools.\r\n(2) Clarifying that health care expenses include medical and counseling expenses\r\n(3) Providing that \u00a7 8145(f) through (i) of Title 10 applies only to sexual abuse that occurred on or before July 9, 2007.",
+    "sponsor": "Sokola",
+    "chamber": "Senate",
+    "stage": "introduced",
+    "committee": null,
+    "personas": [
+      "pubsec"
+    ],
+    "first_seen": "2026-07-15",
+    "last_updated": "2026-07-15",
+    "alerted_stages": [
+      "introduced"
+    ]
+  },
+  "143688": {
+    "legislation_id": "143688",
+    "bill_code": "SB 360",
+    "short_title": "",
+    "long_title": "AN ACT TO AMEND TITLE 19 OF THE DELAWARE CODE RELATING TO THE FAMILY AND MEDICAL LEAVE INSURANCE PROGRAM.",
+    "synopsis": "This Act changes the eligibility for Delaware's Family and Medical Leave Insurance Program (\"Program\") by removing the requirement that an individual be employed for at least 12 months by an employer with respect to whom leave is requested. This change would make eligible for the Program individuals who meet the hours-of-service requirement in less than 12 months.",
+    "sponsor": "Townsend",
+    "chamber": "Senate",
+    "stage": "introduced",
+    "committee": null,
+    "personas": [
+      "workpro",
+      "lowwage"
+    ],
+    "first_seen": "2026-07-15",
+    "last_updated": "2026-07-15",
+    "alerted_stages": [
+      "introduced"
+    ]
+  }
+}

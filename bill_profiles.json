@@ -1,0 +1,721 @@
+[
+  {
+    "bill_number": "HB 133 w/ HA 4",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "Currently, even when a defendant or individual obviously does not have the means to pay a financial penalty or fee, Delaware Courts are unable to waive certain mandatory minimum fines or fees at sentencing. This can create a constitutional crossroads, as our justice system has long recognized that the Fourteen Amendment prohibits \"punishing a person for his poverty.\" Bearden v. Georgia, 461 U.S. 660, 671 (1983). This Act gives courts the discretion to waive fines and fees, in whole or in part, in appropriate circumstances. It also creates a presumption that fines and fees will not be imposed when a defendant shows evidence of certain conditions, including receiving a public assistance benefit (like Medicaid, SNAP, or veterans' benefits) or being represented by the Office of Defense Services. It also creates a hearing process for anyone already sentenced to pay a fine or fee. The changes in this Act are based on recommendations of the Criminal Legal System Imposed Debt Study Group created by House Bill 244, as amended by House Amendment No 2, of the 151st General Assembly, in its December 7, 2023, report.\nThis Act takes effect 180 days after its enactment.",
+    "plain_english": "Courts can now waive fines and fees entirely if you're on Medicaid, SNAP, veterans' benefits, or simply can't afford to pay \u2014 so a court case won't spiral into a debt you can never climb out of. If you've already been ordered to pay, you can request a hearing to have those amounts reduced.",
+    "profiles": {
+      "lowwage": "Helps You"
+    },
+    "wallet_rationale": "Allows courts to waive mandatory minimum fines and fees for defendants who demonstrably cannot pay, directly reducing compounding court debt burdens on low-income individuals caught in the justice system"
+  },
+  {
+    "bill_number": "HB 217 w/ HA 1",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "This Act requires a lease to set forth clear procedures for the surrender of rental unit keys at the end of the rental term in residential leases, and provides default procedures for key return when there is no lease provision or other agreement.",
+    "plain_english": "Your lease must now spell out exactly how and when to return your keys at move-out \u2014 and if it doesn't, the law sets a clear default process so landlords can't hit you with disputed fees over unclear key-return rules.",
+    "profiles": {
+      "renter": "Helps You"
+    },
+    "wallet_rationale": "Amends Title 25 to allow tenants to keep pets in rental housing, removing lease restrictions that force renters to choose between housing and pet ownership, and reducing arbitrary pet deposit demands"
+  },
+  {
+    "bill_number": "HB 283",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "This Act provides updates to Title 30 relating to the Realty Transfer Tax. First it clarifies that the exception for spouses is not solely limited between a husband and wife and instead applies to spouses in general. It also adds an exception for conveyances between grandparents and their grandchildren or the spouse of such a grandchild.",
+    "plain_english": "Transferring your home to a grandchild \u2014 or receiving one from a grandparent \u2014 now skips the state realty transfer tax entirely, potentially saving thousands of dollars in closing costs on family property transfers. The spousal exemption has also been updated to cover all legally married spouses.",
+    "profiles": {
+      "homeowner": "Watch Out"
+    },
+    "wallet_rationale": "Amends the realty transfer tax under Title 30; any change to transfer tax rates or exemptions directly affects the cost of buying or selling a home in Delaware"
+  },
+  {
+    "bill_number": "HB 310 w/ SA 1",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "This Act excludes large energy use facilities from the definition of a qualified facility for purposes of determining eligibility for a tax credit or license fee reduction for the creation of employment and qualified investment in business facilities.",
+    "plain_english": "Large energy-hungry facilities \u2014 like data centers \u2014 are no longer eligible for the job-creation tax credit that smaller businesses can use, which keeps that credit available and meaningful for you as a qualifying small business. If your operation doesn't fall into the \"large energy use\" category, your access to those credits is unchanged.",
+    "profiles": {
+      "smallbiz": "Helps You"
+    },
+    "wallet_rationale": "Amends Title 30 business tax credits and deductions, directly reducing state tax liability for qualifying businesses through new or expanded credit opportunities"
+  },
+  {
+    "bill_number": "HB 338",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "This Act clarifies that individual, group, and blanket health insurance carriers must provide for and pay for services (including immunizations) that were recommended by the Advisory Committee on Immunization Practices of the Center for Disease Control (CDC) and the comprehensive guidelines supported by the Health Resources and Services Administration (HRSA) that were in effect as of January 1, 2025. They must also cover immunizations that were supported by national clinical guidelines or national standards of care in effect on January 1, 2025. To that end, this Act removes provisions that permit carriers to deny coverage for these items or services simply because they are not currently recommended by the Advisory Committee on Immunization Practices of the CDC and the comprehensive guidelines supported by the HRSA. This Act also removes obsolete United States Preventative Task Force provisions related to breast cancer screening from 2009.",
+    "plain_english": "Your health insurance must continue covering all preventive care and vaccines that were recommended as of January 1, 2025 \u2014 even if federal guidance changes going forward \u2014 so you won't lose no-cost coverage for screenings and immunizations due to policy shifts in Washington.",
+    "profiles": {
+      "workpro": "Helps You",
+      "senior": "Helps You"
+    },
+    "wallet_rationale": "Amends health carrier coverage requirements for immunizations and preventive services; mandating no-cost or low-cost preventive coverage directly reduces out-of-pocket healthcare expenses for insured workers and seniors"
+  },
+  {
+    "bill_number": "HB 363 w/ HA 1",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "This Act changes the statutory speed limit for residential districts to 20 miles per hour. This Act provides a 5-year window for signage to be updated.",
+    "plain_english": "Speed limits in your neighborhood are dropping to 20 mph, which can reduce traffic noise and accident risk on your street \u2014 though if you drive through residential zones, watch for updated signage over the next five years to avoid speeding tickets.",
+    "profiles": {
+      "homeowner": "Helps You",
+      "renter": "Helps You"
+    },
+    "wallet_rationale": "Changes residential parking rules, likely limiting predatory towing in residential zones; reduces unexpected vehicle removal fees for homeowners and renters in residential areas"
+  },
+  {
+    "bill_number": "HB 364 w/ HA 2",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "This Act creates a film production tax credit. It requires companies to obtain, at their own expense, an independent audit certifying eligible expenditures. The audit must be submitted to the Division of Small Business for approval and allocation of credits. The credit is nonrefundable, transferable, and may be carried forward for up to 5 years. The credit may be applied against personal income tax, corporate income tax, bank franchise tax, and insurance premiums tax. All credit transfers must be approved by the Division of Small Business. This Act further authorizes necessary data sharing among agencies. Applicants and transferees consent to disclosure of credit amounts by virtue of applying or receiving a transfer. This Act also grants regulatory authority to the Division of Small Business and the Secretary of State to administer the annual credit cap; prioritize and manage awards; and issue reports relating to awards and utilization with input from relevant state agencies. The Division of Small Business may create alternative audit procedures for small businesses where a full audit would be prohibitively expensive. This Act sunsets on June 30, 2031, and no applications may be submitted after that date.",
+    "plain_english": "Delaware now has a film production tax credit you can apply against your state income or corporate tax bill if your small business spends money on qualifying film or media production in the state. The credit can be carried forward up to five years and even transferred, and the state may offer a streamlined audit process so the cost of qualifying doesn't eat your savings.",
+    "profiles": {
+      "smallbiz": "Helps You"
+    },
+    "wallet_rationale": "Creates a Delaware film and entertainment production tax credit, reducing tax liability for qualifying production companies and incentivizing small media business activity in the state"
+  },
+  {
+    "bill_number": "HB 373 w/ HA 1 + SA 3",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "This Act sets forth requirements and restrictions for the manufacture, distribution, and sale of THC-infused beverages in this State, allowing manufacturers to operate with authorization and setting manufacturing/product requirements. Out-of-state and in-state manufacturers must deliver infused beverages to licensed importers, who must comply with notice/testing requirements before transport to package stores, and must keep detailed shipment records. Package stores may obtain authorization to sell infused beverages for off-premises consumption, subject to placement, signage, and packaging requirements; licensed retail marijuana stores may also sell infused beverages. This Act classifies CBD, CBG, CBN, and CBC as nonintoxicating cannabinoids not excluded from consumer sale. This Act increases civil penalties for selling marijuana, marijuana products, and infused beverages to individuals under 21 (up to $10,000 for subsequent offenses within 5 years) and sets administrative penalties for infused-beverage violations. This Act sets taxation of infused beverages at $0.50 per container, taxed at the warehouse distributor rather than retail point of sale, and takes effect 90 days after enactment, with a sunset possibility if federal law reclassifies hemp as a controlled substance. This Act requires a greater than majority vote because Article VIII, Section 11 of the Delaware Constitution requires a three-fifths vote to impose or levy a tax or license fee. This Act also makes technical corrections.",
+    "plain_english": "If you manufacture, distribute, or sell THC-infused beverages in Delaware, a new regulatory framework kicks in with licensing, testing, packaging, and recordkeeping requirements \u2014 plus a $0.50 per-container tax collected at the distributor level that will affect your pricing and margins.",
+    "profiles": {
+      "smallbiz": "Watch Out"
+    },
+    "wallet_rationale": "Establishes new regulatory framework for THC-infused beverages including manufacturing, labeling, and distribution requirements; creates new compliance costs for cannabis beverage manufacturers and distributors"
+  },
+  {
+    "bill_number": "HB 380 w/ HA 2",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "This Act amends the Delaware Personal Data Privacy Act (DPDPA), Chapter 12D of Title 6, originally enacted in 2023, to more closely align the DPDPA with similar consumer data protection laws enacted in other states. This Act amends the applicability threshold of the DPDPA to entities who process the personal data of not less than 15,000 consumers, which on a population percentage basis closely aligns to thresholds in Connecticut and New Jersey. This Act amends Gramm-Leach-Bliley Act (GLBA) applicability exemptions, adopting approaches to financial data in similar laws in Connecticut, Montana, and Oregon, by exempting all data regulated by GLBA while limiting entity-level exemptions specifically to banks and insurers and their respective affiliates. This Act introduces contracting and due diligence requirements where businesses sell or disclose personal data to third parties and also harmonizes several DPDPA business requirements and consumer rights with personal data privacy laws in other states. This Act also makes technical changes to existing law to conform to the standards of the Delaware Legislative Drafting Manual.",
+    "plain_english": "Delaware's data privacy law is being strengthened, giving you new rights and protections over how companies collect and sell your personal information \u2014 and requiring businesses to do more due diligence before sharing your data with third parties.",
+    "profiles": {
+      "workpro": "Helps You",
+      "lowwage": "Helps You"
+    },
+    "wallet_rationale": "Expands or strengthens personal data privacy protections under Title 6, giving consumers and workers control over their personal data and reducing exposure to financial harm from data misuse by employers or corporations"
+  },
+  {
+    "bill_number": "HB 381",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "This Act amends Chapter 12B of Title 6 relating to Computer Security Breaches to clarify when businesses must provide notice of a computer security breach to the Attorney General.",
+    "plain_english": "If your business experiences a data breach, this law clarifies exactly when you must report it to the state Attorney General \u2014 giving you clearer legal guardrails, but also tighter obligations that require updating your breach response procedures.",
+    "profiles": {
+      "smallbiz": "Watch Out"
+    },
+    "wallet_rationale": "Amends computer security breach notification law in Title 6, expanding or tightening breach notification requirements and increasing compliance costs and potential legal exposure for businesses that handle consumer data"
+  },
+  {
+    "bill_number": "HB 393 w/ HA 1",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "This Act provides that an individual electric supplier agent cannot be fined or imprisoned for violations under Section 218 of Chapter I of Title 26. This Act provides that the Commission must develop a training and educational program for any entity or individual that is certified by the Commission as an electric supplier that demonstrates a thorough understanding of the Commission's regulations regarding (1) sales; (2) consumer protection; and (3) any other matter the Commission deems appropriate. This Act requires that third-party electric supplier report data concerning customer choices in its service territory and third-party electric supplier rates. They must submit a monthly report to the Commission on customer choice in their service territories for the preceding month, including all of the following: (1) the total kilowatt hours distributed to customers purchasing electricity from a third-party electric supplier; (2) the total supply cost charged to customers purchasing electric from a third\u2013party electric supplier; (3) the total cost that customers who chose third-party suppliers would have paid under standard offer service; (4) the net third\u2013party total cost compared to the standard offer service; (5) the total third\u2013party average rate; (6) the standard offer service average rate; (7) the difference between the total third\u2013party average rate and the standard offer service average rate; (8) the third\u2013party average residential rates broken out by supplier and the variance between each of these rates and the standard offer service average rate; (9) the third\u2013party average general service nondemand rates broken out by supplier and the variance between each of these third\u2013party rates and the standard offer service average rate; (10) the third\u2013party average general service demand rates broken out by supplier and the variance between each of these third\u2013party rates and the standard offer service average rate; (11) the third\u2013party average large power demand rates broken out by supplier and the variance between each of these third\u2013party rates and the standard offer service average rate; and (12) other pertinent information the Commission considers appropriate. This Act requires a third-party electric supplier to provide residential customers or small commercial customers with written notice of the pending renewal of a contract 90 and 30 days before the end of the contract term is scheduled to occur and provides regulations regarding electric supplier rates. It requires a third-party electric supplier to provide written confirmation within 15 business days of enrollment and written notification at least 15 days in advance of any changes to the customer's rate. This Act requires a greater than majority vote for passage because \u00a7 28 of Article IV of the Delaware Constitution requires the affirmative vote of two-thirds of the members elected to each house of the General Assembly to give jurisdiction to inferior courts or justices of the peace of \"such \u2026 misdemeanors as the General Assembly may from time to time \u2026 prescribe.\"",
+    "plain_english": "If you buy electricity through a third-party supplier, you must now receive written notice 90 and 30 days before your contract renews, and at least 15 days' warning before any rate change \u2014 so you're never surprised by a higher electric bill or locked into terms you didn't knowingly agree to.",
+    "profiles": {
+      "homeowner": "Helps You",
+      "renter": "Helps You"
+    },
+    "wallet_rationale": "Adds explicit consumer protections for public utility customers, giving residential ratepayers new rights against rate discrimination, service disconnections, and unfair billing practices"
+  },
+  {
+    "bill_number": "HB 406",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "This Act updates auto insurance protections by prohibiting carriers from limiting repair or replacement work to particular facilities, individuals, or business establishments as a condition of payment of a claim. This Act makes technical corrections to conform the statute with the Delaware Legislative Drafting Manual.",
+    "plain_english": "Your auto insurer can no longer force you to use a specific repair shop as a condition of paying your claim \u2014 you can choose any qualified mechanic or body shop and still get your repair covered.",
+    "profiles": {
+      "homeowner": "Helps You",
+      "workpro": "Helps You"
+    },
+    "wallet_rationale": "Restricts unfair trade practices in automobile insurance, limiting insurer ability to discriminate in auto coverage pricing or claims handling, directly protecting policyholders from arbitrary rate increases or denials"
+  },
+  {
+    "bill_number": "HB 419 w/ HA 1",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "This Act provides that a child is automatically eligible for Purchase of Care upon placement in foster care.",
+    "plain_english": "Children placed into foster care are now automatically eligible for the state's child care subsidy program, removing a bureaucratic hurdle so foster families can access child care coverage right away without a separate application.",
+    "profiles": {
+      "lowwage": "Helps You"
+    },
+    "wallet_rationale": "Amends eligibility rules for child care assistance under Title 31; changes to income thresholds or qualifying criteria directly expand access to subsidized child care for low-wage working parents, providing substantial household cost relief"
+  },
+  {
+    "bill_number": "HB 423",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "This Act establishes an automatic enrollment feature for newly hired state employees in the State's 457(b) deferred compensation retirement plan. The Board may, through a plan amendment, modify the definition of a covered employee. Under the Act, a predetermined percentage of an employee's salary will be automatically deducted from each paycheck and contributed to the 457(b) plan upon hire. This Act allows new employees to opt out at any time prior to the commencement of automatic withdrawals, which normally commences 90 days after hire. If an employee does not opt out of automatic enrollment during this 90-day period, the employee will be enrolled and contributions will commence. The employee will thereafter have an additional 30 days to opt out and request a refund of any contributions. Refund requests must be submitted no later than 120 days after the date of hire. Employees under a collective bargaining agreement are not subjected to auto-enrollment but are able to participate if should they elect to do so. This Act takes effect 10 days after the date of publication in the Register of Regulations of a notice from the State Treasurer that the Office of Management and Budget has certified to the State Treasurer that necessary payroll upgrades necessary to implement this Act have been completed.",
+    "plain_english": "As a new state employee, you'll be automatically enrolled in the 457(b) retirement savings plan within your first 90 days \u2014 contributions start from your paycheck, but you can opt out or request a full refund within 120 days of your hire date if you prefer to manage retirement savings differently.",
+    "profiles": {
+      "pubsec": "Helps You"
+    },
+    "wallet_rationale": "Amends deferred compensation rules for state employees under Title 29, improving retirement savings options or contribution limits for public employees and directly increasing their long-term financial security"
+  },
+  {
+    "bill_number": "HB 429",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "This Act modernizes Delaware law by adding modern medical treatment options biologics or biosimilars to the step therapy exception process. The current law was passed before biosimilars were widely available. Biosimilars are to biologics what generic drugs are to traditional drugs once their exclusivity expires. This revision adds an exclusion to step therapy protocol exceptions for interchangeable biologics and biosimilars.",
+    "plain_english": "If your doctor prescribes a biologic medication, your insurer can no longer make you try a cheaper alternative first if an interchangeable biosimilar is available \u2014 getting you to the right treatment faster without the delays and extra out-of-pocket costs of insurer-mandated detours.",
+    "profiles": {
+      "workpro": "Helps You",
+      "senior": "Helps You"
+    },
+    "wallet_rationale": "Strengthens the step therapy exception process, requiring faster insurer overrides when prescribed first-line drugs are contraindicated; prevents delays in access to medically necessary medications and reduces costs from forced use of ineffective treatments"
+  },
+  {
+    "bill_number": "HB 438",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "This Act adds the definition of child-serving entity for the purpose of requiring a service letter verification from any child-serving entity where an employee may have worked. \"Child-serving entity\" is already defined in \u00a7 309 of Title 31 and includes DSCYF, residential child-care facilities, public and private schools, youth camps, summer schools, and other entities. If a previous employer fails to respond to a service letter, this Act also requires that the prospective employee report the failure to respond to the DOL.",
+    "plain_english": "If you work in a school, youth camp, or other child-serving setting, prospective employers must now verify your work history through a service letter \u2014 giving you a paper trail of your employment record while placing the responsibility to respond on your former employers.",
+    "profiles": {
+      "smallbiz": "Watch Out",
+      "workpro": "Helps You"
+    },
+    "wallet_rationale": "Requires child care and health care facility employers to provide service letters to departing employees, giving workers documentation of employment terms critical for job applications and unemployment claims while adding an administrative obligation for care facility operators"
+  },
+  {
+    "bill_number": "HB 445 w/ HA 1 + SA 3",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "This Act requires large energy use facilities to produce renewable energy within the state to power their operations to prevent a drain on the electric grid. It provides for a \"ramp-up\" period requiring that a large energy use facility provide a plan to the Public Service Commission to ramp up their energy production within the state each year so that by the 10th year of operations, the facility is producing 100% of its energy usage through in-state production. This Act also allows the Public Service Commission to regulate electric suppliers insofar as necessary to ensure that large energy use facilities do not negatively affect the reliability of the electric grid.",
+    "plain_english": "Large energy consumers like data centers will be required to generate their own renewable power in Delaware over 10 years, protecting the electric grid from overload \u2014 which helps shield your home electricity bill from rate spikes caused by big facilities hogging shared grid capacity.",
+    "profiles": {
+      "homeowner": "Helps You",
+      "renter": "Helps You",
+      "smallbiz": "Watch Out"
+    },
+    "wallet_rationale": "Requires large energy facilities to generate their own in-state renewable power rather than drawing from the shared grid, preventing grid overload that would otherwise trigger residential electricity rate increases; imposes significant compliance costs on large commercial energy users"
+  },
+  {
+    "bill_number": "HB 458 w/ HA 1",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "This Act prohibits counties and municipalities from requiring the use of water backflow preventers in certain types of low hazard buildings. In doing so, this Act reduces costs for businesses and single-family residential homeowners by exempting them from backflow preventer installation and inspection requirements in buildings where backflow does not pose a risk to fresh water or drinking water. Buildings deemed low hazard will nonetheless be required to have backflow preventers if they have fresh water supplied by a public well. Under \u00a7 1 of Article IX of the Delaware Constitution, this Act requires a two-thirds majority vote because it involves indirect changes to municipal charters.",
+    "plain_english": "If your single-family home is classified as a low-hazard building and uses municipal water (not a public well), counties and towns can no longer require you to install or pay for backflow preventer inspections \u2014 potentially saving you hundreds of dollars in mandated plumbing costs.",
+    "profiles": {
+      "homeowner": "Watch Out"
+    },
+    "wallet_rationale": "Changes backflow prevention requirements for plumbing systems; homeowners with backflow devices face new testing, inspection, or certification costs under revised standards"
+  },
+  {
+    "bill_number": "HB 461",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "This Act provides special authority to school districts in New Castle County to reset their tax rate for the 2026-2027 tax year. This authority is necessary because several adjustments to the New Castle County tax roll are continuing to be made after the completion of the general reassessment that took effect for the 2025-2026 tax year. This includes the ongoing adjudication of appeals from the assessment values set in the general reassessment as well as quality control reviews, and potential changes pending in other legislation. This Act allows the New Castle County school districts to adjust the tax rate so that no increase in operating revenue over the prior year will be realized, with two exceptions: (1) revenue increases from approved referenda; and (2) revenue equal to the 5-year average growth rate for each district. The 5-year average growth rates for NCC districts are as follows: (1) Appoquinimink, 3.68%; (2) Brandywine, 0.54%; (3) Christina, 0.32%; (4) Colonial, 1.10%; (5) Red Clay, 0.58%; (6) Smyrna, 0.31%; and (7) New Castle County Vocational Technical, 0.96%. This Act sunsets on March 31, 2027.",
+    "plain_english": "New Castle County school districts must reset their tax rates for 2026\u20132027 so they don't collect more revenue than last year \u2014 limiting your school tax increase to your district's historical growth rate (as low as 0.31% for Smyrna, up to 3.68% for Appoquinimink) while assessment appeals are still being sorted out.",
+    "profiles": {
+      "homeowner": "Watch Out"
+    },
+    "wallet_rationale": "Amends school tax rules under Title 14; changes to school district tax calculations or rate-setting authority directly affect homeowners' annual property tax bills"
+  },
+  {
+    "bill_number": "HB 462",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "In 2025, the General Assembly passed House Bill No. 242 (now found at Chapter 135, Volume 85 of the Laws of Delaware), allowing school districts located entirely in New Castle County to use different tax rates for residential and non-residential properties. This Act amends the Delaware Code to continue the authority for non-vocational technical school districts in New Castle County to utilize a residential and non-residential tax rate for school tax purposes. Such a split rate may be established or adjusted in the year after a general reassessment or as part of a referendum. The rate must be uniform for each class of property. Under this Act, the non-residential rate must be at least equal to the residential rate and may be no more than 1.85 times the residential rate. For purposes of the split tax rate, a school district must follow the classifications of the county in which the district is located. Under the transition provisions of this Act, a district that initially established split tax rates under the authority of House Bill No. 242, may continue to use those split rates at the same or a lower ratio between residential and non-residential tax rates established in the 2025-2026 tax year. But if a district's non-residential tax rate for the 2025-2026 tax year was more than 1.85 times the residential tax rate, it must adjust its rates to meet the 1.85 maximum ratio permitted under this Act. The New Castle County Vocational Technical District may not continue the use of different tax rates past the 2025-2026 tax year. The Act also changes the amount a school district must add to its tax rate to account for delinquencies and late payments to \"up to 10%\" rather than requiring that a school district must add exactly 10% to its tax rate for this purpose. This Act also makes technical corrections to conform this chapter of the Delaware Code to the Delaware Legislative Drafting Manual and strikes references to the City of Wilmington School District, which no longer exists. It also revises \u00a7 1913 of Title 14 to reflect current practice. It strikes an outdated requirement in \u00a7 1918 of Title 14 that the school districts deliver a copy of the assessment list to the County along with their tax warrant. This is inconsistent with the role of the school districts and with current practice.",
+    "plain_english": "New Castle County school districts can continue charging commercial and industrial properties a higher school tax rate than homeowners \u2014 up to 1.85 times your residential rate \u2014 meaning part of the school funding burden is shifted toward businesses rather than falling entirely on your property tax bill.",
+    "profiles": {
+      "homeowner": "Watch Out"
+    },
+    "wallet_rationale": "Amends school tax assessment rules under Title 14; any change to how school tax rates are computed or levied has a direct dollar impact on homeowner property tax obligations"
+  },
+  {
+    "bill_number": "HB 89 w/ HA 1",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "This Act directs the Division of Consumer Protection to establish a Home Improvement Dispute Resolution process through which a person who purchases home improvement services or materials from a contractor can initiate a dispute resolution process with the assistance of the Division. To be eligible for the dispute resolution process, the buyer must first send the contractor a written request to resolve the dispute and allow the contractor 20 days to respond. If the dispute is not resolved or the contractor fails to respond, the buyer may submit an application to the Division for assistance. Upon receiving notice from the Division that the buyer has initiated the dispute resolution process, a contractor must participate in good faith in the process. If the contractor fails to respond to the notice or fails to participate in good faith, it is deemed a violation of the Consumer Fraud Act and a notice will also be sent to the Department of Labor. A contractor who fails to participate in good faith in the dispute resolution process may also have their certificate of registration denied, suspended, or revoked. This Act also establishes that a buyer who initiates a civil action for damages incurred as a result of a violation of the Consumer Fraud Act related to a home improvement contract may be awarded actual damages, court costs, and reasonable attorneys fees. A buyer who initiates a civil action may also obtain up to treble damages if the buyer completed the steps to be eligible for the dispute resolution process, if the buyer made an offer of settlement at least 10 days prior to filing the civil suit and the contractor rejected the offer, if the offer was for less than the buyer is ultimately awarded by the court, and if the court holds that the contractor's violation was wilful. This Act takes effect immediately and is to be implemented 6 months from the date of enactment.",
+    "plain_english": "If a contractor leaves your home repair job unfinished or does poor work, you now have a state-backed dispute resolution process to get your money back \u2014 and if the contractor still refuses, you can sue for up to triple your actual damages plus attorney fees.",
+    "profiles": {
+      "homeowner": "Helps You",
+      "smallbiz": "Watch Out"
+    },
+    "wallet_rationale": "Creates a mandatory dispute resolution process for home improvement contracts, giving homeowners a formal mechanism to recover money paid for unfinished or substandard work while adding compliance obligations for contractors"
+  },
+  {
+    "bill_number": "SB 141 w/ SA 1",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This bill allows auction houses that are licensed by the Delaware Office of the Alcoholic Beverage Control Commissioner to auction spirits, so long as the spirits being auctioned are not made available for sale in any licensed facility or store.",
+    "plain_english": "Licensed auction houses in Delaware can now auction off spirits \u2014 opening a new revenue channel if your business handles high-end or collectible liquor sales, as long as those bottles are kept out of your regular retail inventory.",
+    "profiles": {
+      "smallbiz": "Watch Out"
+    },
+    "wallet_rationale": "Amends alcoholic liquor licensing rules under Title 4; changes to license types, fees, transfer rules, or eligibility criteria directly affect the operating costs and regulatory burden on bars, restaurants, and liquor retailers"
+  },
+  {
+    "bill_number": "SB 18 w/ SA 1 + HA 2",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This Act repeals the existing Chapter 23 of Title 5 and replaces it with the \"Delaware Money Transmission and Virtual Currency Modernization Act.\" This Act modernizes the State's regulatory framework for money transmission and addresses the emergence of virtual currency. The Act allows the State Bank Commissioner to coordinate with other states in the licensing and supervision of money transmitters, utilizing the NMLS system. The Act establishes new safety and soundness standards, including a tiered net worth requirement based on total assets and updates surety bond requirements scaled to a licensee's average daily money transmission liability. The Act standardizes receipt requirements for both fiat and virtual currency transactions, provides a 10-day refund window for certain transmissions, and establishes specific disclosure rules for payroll processing services. This Act provides a 6-month window for general compliance and a 1-year period for licensees to meet new net worth and permissible investment standards. This Act creates new regulatory framework for virtual currency business activity. It defines virtual currency and virtual currency business activity. It mandates specific consumer disclosures regarding the risks of virtual currency and establishes that virtual currency held by a licensee is a pro rata property interest not subject to the claims of the licensee's creditors. The Act allows the Commissioner to adopt rules and regulations for the administration of this chapter. The Act is to be implemented the earlier of 1 year from the date of the Act's enactment or notice from the State Banking Commissioner that final regulations have been promulgated. This Act requires a greater than majority vote for passage because \u00a7 1 of Article IX of the Delaware Constitution requires the affirmative vote of two-thirds of the members elected to each house of the General Assembly to amend the general corporation law.",
+    "plain_english": "If your business transmits money or deals in cryptocurrency in Delaware, you'll face new net worth thresholds, updated surety bond requirements, and tighter disclosure and refund rules \u2014 with up to a year to come into compliance with the new standards.",
+    "profiles": {
+      "smallbiz": "Watch Out"
+    },
+    "wallet_rationale": "Amends money transmission licensing requirements under Title 5; updated compliance standards and licensing obligations increase the regulatory cost burden on fintech companies and money service businesses operating in Delaware"
+  },
+  {
+    "bill_number": "SB 192",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This Act imposes certain requirements upon a public utility if it intends to relocate a call center outside the service territory of the public utility or contract call center work outside of the service territory of the public utility. The requirements include providing notice to the Public Service Commission, current and prospective employees at the call center, and the union leadership of any current or prospective employees at the call center.",
+    "plain_english": "If your electric or gas utility plans to move its customer service call center out of state, they must now give advance notice to regulators, workers, and union reps \u2014 giving Delaware residents and employees a heads-up before local jobs disappear and service quality potentially changes.",
+    "profiles": {
+      "homeowner": "Helps You",
+      "renter": "Helps You"
+    },
+    "wallet_rationale": "Amends Title 26 to strengthen consumer protections for public utility customers, limiting utilities' ability to impose unreasonable charges or service terms on Delaware residential ratepayers"
+  },
+  {
+    "bill_number": "SB 219 w/ SA 1",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "Of the 41 states with a state income tax, 27 states fully exempt military retirement pay and 12 states partially exempt it. In 2022, Delaware increased the pension exclusion for military pensioners under 60 to $12,500, and in 2024 expanded the definition of a U.S. military pension. This Act phases in, over 3 years, an increased exemption for military pensions from state income taxation, regardless of age, from $12,500 to $25,000 for all military pensioners beginning in taxable years on or after January 1, 2029.",
+    "plain_english": "Your Delaware state income tax exemption on military retirement pay will rise from $12,500 to $25,000 \u2014 phased in over three years starting in 2027, regardless of your age \u2014 putting more of your pension back in your pocket.",
+    "profiles": {
+      "senior": "Helps You",
+      "pubsec": "Helps You"
+    },
+    "wallet_rationale": "Phases in a full state income tax exemption for military pensions over 3 years, directly increasing net retirement income for military retirees; veterans in public service retirement also benefit"
+  },
+  {
+    "bill_number": "SB 22 w/ HA 1",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "Approximately one in five adults report experiencing a mental health condition. At the same time, many individuals continue to face delays or barriers when trying to access care, even when they have insurance coverage. Delays, denials, or truncation of treatment leave families and their doctors battling for coverage instead of focusing on treatment and recovery. Families must pay out of pocket for care, on top of premiums for coverage they are not receiving. Further, Delawareans are five times more likely to go out-of-network for mental health care than for primary care, resulting in higher costs. This Act, known as the Fair Standards in Mental Health Care Act, builds on previous work to advance mental health parity and aims to ensure patients with private insurance can access timely, evidence-based mental health and substance use disorder care in Delaware. This Act supports improved access to mental health disorder and substance use disorder treatment by: 1. Adding and refining key terms, including definitions of mental health disorders and substance use disorders, level of care criteria, medically necessary treatment, utilization review and utilization review criteria to ensure consistency with widely accepted clinical standards of treatment and service intensity determination. This bill forges gold-standard clinical guidelines through requiring insurers to use transparent, evidence-based standards from independent experts, including the American Academy of Child and Adolescent Psychiatry. 2. Requiring coverage for all medically necessary treatment, including emergency services and all clinically appropriate levels of care. 3. Requiring at least one formulation of certain FDA-approved medications to treat substance use disorders to be placed on the lowest-cost tier of drug formularies. 4. Prohibiting discrimination against individuals with current or predicted mental health disorders or substance use disorders. 5. Requiring carriers to arrange coverage of medically necessary out-of-network services without additional cost to the enrollee if in-network options are unavailable within applicable network access standards, thus ensuring real network access. 6. Removing language currently in the code barring a private right of action for violations of 18 Del. Code \u00a7 3343. In addition, the Act clarifies that carriers must provide nonquantitative treatment limitation parity analysis (NQTL parity analysis) that they are required to have completed under federal law to health care providers and current and prospective covered persons, free of charge, upon request. This Act applies to individual health insurance policies under Chapter 33 of Title 18 and group and blanket health insurance policies under Chapter 35 of Title 18. This Act applies to all policies, contracts, or certificates issued, renewed, modified, altered, amended, or reissued after December 31, 2027.",
+    "plain_english": "Your health insurer must now cover mental health and substance use disorder treatment on the same terms as physical health care \u2014 including emergency mental health services, all appropriate levels of care, and out-of-network coverage when in-network providers aren't available nearby \u2014 so you pay no more for mental health than you would for a physical illness.",
+    "profiles": {
+      "workpro": "Helps You",
+      "senior": "Helps You"
+    },
+    "wallet_rationale": "Amends health insurance coverage requirements under Title 18; mandated coverage expansions directly reduce out-of-pocket healthcare costs for workers with employer-sponsored plans and seniors with supplemental insurance"
+  },
+  {
+    "bill_number": "SB 231",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This Act provides that School Social Workers who have successfully passed the Association of Social Work Boards National Clinical Examination and hold a Licensed Clinical Social Worker License receive a salary supplement. This Act also makes technical corrections to conform existing law to the standards of the Delaware Legislative Drafting Manual.",
+    "plain_english": "If you're a school social worker with a Licensed Clinical Social Worker credential, you'll now receive an additional salary supplement on top of your base pay \u2014 a direct increase to your take-home income.",
+    "profiles": {
+      "pubsec": "Helps You"
+    },
+    "wallet_rationale": "Grants school social workers who hold a Licensed Clinical Social Worker license a salary supplement, directly increasing take-home pay for this class of public school employees"
+  },
+  {
+    "bill_number": "SB 235",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This Act repeals the sunset date on the rent increase calculations for manufactured home communities that were enacted as a pilot under Senate Bill No. 317 (151st General Assembly), 83 Del. Laws, c. 341. Under this Act, the calculations used for rent increases under \u00a7 7052A and \u00a7 7052B of Title 25 replace the grounds for rent increases under \u00a7 7052 of Title 25.",
+    "plain_english": "If you live in a manufactured home community, the formula that limits how much your lot rent can increase is now permanent \u2014 replacing the old rules that gave landlords broader leeway to raise your rent.",
+    "profiles": {
+      "renter": "Helps You",
+      "smallbiz": "Watch Out"
+    },
+    "wallet_rationale": "Amends Title 25 to limit rent increases in residential leases, directly capping how much landlords may raise rent and providing renters with predictable, lower housing costs; constrains rental income for landlord-businesses"
+  },
+  {
+    "bill_number": "SB 237",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This bill directly responds to New Castle County Council Resolution 26-018 by expressly authorizing New Castle County Council to establish a right of tenure for New Castle County's Assistant County Attorneys and other professional legal staff by ordinance. Like the similar rights granted to the employees of the State of Delaware Department of Justice and the City of Wilmington's legal staff, these rights will serve to promote recruitment and retention of high-quality legal professionals, promote continuity of legal services, and further the public's interest in the provision of independent legal advice.",
+    "plain_english": "If you're an Assistant County Attorney or legal professional working for New Castle County, the County can now grant you tenure protections \u2014 giving your position greater job security and making your employment harder to eliminate for political reasons.",
+    "profiles": {
+      "pubsec": "Helps You"
+    },
+    "wallet_rationale": "Amends Title 9 to update compensation or employment rules for New Castle County attorneys and legal professionals, directly affecting salaries or benefits for county government employees"
+  },
+  {
+    "bill_number": "SB 26",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "Under current Delaware law, if a labor dispute constitutes a lockout, employees who meet all other eligibility requirements qualify for unemployment benefits from the date they file their claim. However, if a labor dispute does not constitute a lockout, employees do not qualify for (i.e. are disqualified from receiving) unemployment benefits. This Act changes the law to allow an employee who is subject to a labor dispute, other than a lockout, to collect unemployment benefits after a 2-week waiting period, if the employee meets all the eligibility requirements for unemployment benefits, including being able and available for work and completing weekly job requirements. This Act provides that the 2-week waiting period established by this Act is waived if one or both of the following apply: (1) The labor dispute is caused by the failure or refusal of the employer to comply with an agreement or contract between the employer and the individual, including a collective bargaining agreement with a union representing the individual, or a State or federal law pertaining to hours, wages, or other conditions of work. (2) The employer hires a permanent replacement worker for the individual's position. The Department of Labor may impose a penalty on an employer who fraudulently certifies the ability of an employee to return to the employee's prior position on conclusion of the labor dispute. This Act also makes technical corrections to conform existing law to the standards of the Delaware Legislative Drafting Manual.",
+    "plain_english": "If you're off work due to a labor dispute \u2014 including a strike \u2014 you can now collect unemployment benefits after a two-week waiting period, and that waiting period is waived entirely if your employer broke a contract or hired a permanent replacement for your job.",
+    "profiles": {
+      "lowwage": "Helps You",
+      "smallbiz": "Watch Out"
+    },
+    "wallet_rationale": "Amends unemployment compensation rules under Title 19; likely expands benefit amounts, eligibility periods, or qualifying criteria, providing more wage replacement income to displaced low-wage workers while increasing UI payroll costs for employers"
+  },
+  {
+    "bill_number": "SB 263",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This Act adds minor league baseball players to the existing exemptions from state minimum wage and recordkeeping standards. After minor league players formed a union in 2022, minor league players represented by the Major League Baseball Players Association (MLBPA) signed their first collective bargaining agreement with Major League Baseball (MLB) in 2023. This exemption actualizes that existing collective bargaining agreement between the players union and MLB.",
+    "plain_english": "Minor league baseball players in Delaware are now exempt from state minimum wage laws because their pay and conditions are governed by a collective bargaining agreement with Major League Baseball \u2014 so their wages and terms are set by that union contract rather than state labor minimums.",
+    "profiles": {
+      "workpro": "Helps You",
+      "lowwage": "Helps You",
+      "smallbiz": "Watch Out"
+    },
+    "wallet_rationale": "Amends Delaware's labor code (Title 19); labor law changes of this type typically expand worker wage protections, overtime rights, or leave entitlements with corresponding employer compliance obligations"
+  },
+  {
+    "bill_number": "SB 271 w/ SA 1",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This Act strengthens procedural protections for pharmacies, pharmacists, and consumers related to regulation of a pharmacy benefits manager by: adding definitions for several key terms; applying audit notice requirements uniformly, requiring at least 5 business days' notice of records sought, limiting audits to once every 12 months, setting wholesale invoice audit standards, and requiring the PBM to bear audit costs; clarifying pharmacies' right to appeal reimbursement amounts, extending the appeal window from 10 to 40 days, and requiring detailed denial reasons; prohibiting retaliation against pharmacists/pharmacies who disclose information to a government agency in good faith; requiring at least 60 days' notice before amending a pharmacy contract; clarifying that the spread-pricing prohibition applies to all purchasers; changing rebate reporting from quarterly to annual; and amending national drug acquisition cost compliance and dispensing requirements to protect patient costs and data privacy. This Act also makes technical corrections.",
+    "plain_english": "New rules on pharmacy benefit managers \u2014 the middlemen who manage your drug coverage \u2014 are designed to lower what you pay at the pharmacy counter by prohibiting spread pricing on all purchasers and setting stricter reimbursement standards that protect local pharmacies from being underpaid.",
+    "profiles": {
+      "senior": "Helps You",
+      "workpro": "Helps You"
+    },
+    "wallet_rationale": "Strengthens PBM regulations \u2014 advance audit notice, annual audit limits, reimbursement standards \u2014 directly reducing out-of-pocket prescription drug costs for patients and workers whose health plans use pharmacy benefit managers"
+  },
+  {
+    "bill_number": "SB 275 w/ SA 1 + HA 1",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "House",
+    "status": "Passed",
+    "synopsis": "This Act updates and clarifies the Underground Utility Damage Prevention and Safety Act (UUDPSA), which dates from the mid-1990s. Specifically, the Act clarifies the obligations of facility owners and facility operators, which the Act defines as the person or entity that owns, operates, or controls an underground or submerged conductor, pipe, or structure used to provide electric or communications service, or an underground or submerged pipe used to carry, provide, or gather gas, oil, sewage, water, or other liquid service. Under the Act, in addition to their existing obligations under the UUDPSA, facility owners and facility operators must respond to requests from an excavator concerning the location of their facilities within 3 business days after receipt of the request, and must provide information to the excavator via the Owner/Operator/Excavator Information Exchange System, which is an interactive system that facilitates communication for that purpose. In addition, \"designers,\" meaning an architect, engineer, or other person who prepares or issues a drawing for a construction or other project requiring excavation or demolition work, are required to meet with a facility owner or facility operator who requests more information on the scope of a project and to make reasonable efforts to prepare construction drawings in a way that avoids damage and minimizes interference with facilities in the construction area. \"Excavators,\" meaning any person proposing to engage in excavation or demolition work, must ascertain the location and type of facilities by contacting the Owner/Operator/Excavator Information Exchange System, and may not begin excavation until a positive response code of \"clear\" or \"no conflict\" or \"marked\" is received from each facility owner or facility operator through the Owner/Operator/Excavator Information System. In the event of an emergency that the excavator discovers or creates, the excavator must immediately notify the occupants of the premises, and, in the event of damage to a facility by the excavator resulting in the escape of a flammable, toxic, or corrosive gas or liquid, or other event that poses a danger to life, health or property, the excavator must immediately notify 911 and the facility owner or facility operator. The excavator is required to exercise due care and take all reasonable steps to avoid injury or interference with facilities, and, in the case of a complex project, to meet with the facility owner or facility operator or their agents before construction begins. The Utilities Service Protection Center of Delmarva, Inc. is required to provide for the approved notification center that, among other things, receives and records information regarding the location of facility owners' and facility operators' facilities within the State and notice by excavators and designers of intended excavation and demolition activity and notifies facility owners and facility operators of the information received from excavators and designers. A facility owner's or facility operator's failure to perform an act required under the UUDPSA is subject to a civil penalty of up to $1 million, for violations that result in a death; up to $500,000 for violations causing damage to a structure, and up to $100,000 for all other violations. For all violations other than those resulting in death or damage to a structure, the Public Service Commission of Delaware may determine that training provided by the approved notification center may be substituted in lieu of a civil penalty. The imposition of a civil penalty does not restrict any party from obtaining civil damages for personal injury or property damage in a private action. Civil penalties will be used by the approved notification center for public awareness programs, training and education programs for members and violators of the UUDPSA, improvements to the approved notification center, or to reduce the cost to members of the approved notification center. This Act also makes technical corrections to conform existing law to the standards of the Delaware Legislative Drafting Manual.",
+    "plain_english": "If you're digging on your property for any reason, contractors and utility operators now have stricter obligations to mark underground lines within three business days \u2014 reducing the risk that a careless excavation near your home damages your gas, water, or power service and leaves you footing an emergency repair bill.",
+    "profiles": {
+      "homeowner": "Watch Out"
+    },
+    "wallet_rationale": "Amends underground utility damage prevention rules; changes to cost allocation for utility underground work may be passed through to ratepayers, increasing homeowner utility bills"
+  },
+  {
+    "bill_number": "SB 279",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This Act clarifies the pay schedule for school-based occupational therapists. Due to varying program lengths and differing methods colleges use to award credits, it is challenging to accurately and equitably determine the appropriate lane on the salary schedule for school-based occupational therapists. This Act creates a uniform baseline for school-based occupational therapists on the salary schedule, similar to other school-based clinicians such as audiologists and speech-language pathologists.",
+    "plain_english": "If you're a school-based occupational therapist in Delaware, this law sets a standardized salary lane placement so your degree and credits are evaluated the same way as audiologists and speech-language pathologists \u2014 giving you a fairer starting salary and clearer path for pay increases.",
+    "profiles": {
+      "pubsec": "Helps You"
+    },
+    "wallet_rationale": "Clarifies pay schedule lane placement for school-based occupational therapists in public schools, directly affecting salary determination for this class of public school employees"
+  },
+  {
+    "bill_number": "SB 292",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This Act requires that when all or part of the tenant's rent is paid from a state fund for reentry services, a landlord must assist the tenant in completing a discharge plan to attempt to provide a warm handoff before terminating the tenant's lease. This Act also closes a loophole in existing law that allows unlicensed or uncertified operators of residential housing to claim exemption from the Residential Landlord-Tenant Code, including the procedural requirements for an eviction. Existing laws prohibit someone from losing their housing without notice because \u2022 A landlord must comply with the notice and judicial procedure under the Residential Landlord-Tenant Code, Part III, Title 25. \u2022 Licensed health care providers must provide discharge planning before an individual is required to leave a residential treatment program under \u00a7 1127, \u00a7 5161, and \u00a7 3004J of Title 16. \u2022 Certified recovery homes must make a reasonable effort to connect a resident with appropriate services when terminating the resident's admission agreement under \u00a7 2206A of Title 16. Section 1 of this Act closes a loophole in current law that allows some landlords to claim their tenants are excluded under \u00a7 5102(1) of Title 25 from the protections required before eviction under the Residential Landlord-Tenant Code without being required to provide discharge planning or connecting the resident with appropriate services. This Act revises 3 of the exclusions by using the modern terms and where possible, the applicable licensing law for this State, to prevent housing providers from claiming exclusion from the Residential Landlord-Tenant Code even if the provider is not licensed or certified to provide services. This Act does not apply to or revise the exclusions to the Residential Landlord-Tenant Code under paragraphs (4) through (6) of \u00a7 5102 of Title 25, including the existing exclusion for certified recovery houses. Section 2 of this Act creates new requirements under \u00a7 5512A of Title 25 if all or part of a tenant's rent is paid using money from a State reentry fund. Before or with the first payment, the person responsible for payments from the fund must provide the landlord with an explanation of these requirements, contact information, and the model discharge plan. The Department of Health and Social Services (DHSS), in consultation with the Department of Justice (DOJ), must create a model discharge plan. Then, before terminating the tenant's lease, the landlord must assist the individual in creating a discharge plan that includes shelter or housing and provide notice that the tenant's lease is being terminated as follows: \u2022 To the person making rent payments from the fund. \u2022 If the landlord knows that the tenant is under the supervision of the Department of Correction, to the Department of Correction and the local law enforcement agency. If a landlord fails to comply with the discharge planning and notice requirements, the landlord is debarred from receiving payments from any State reentry fund for 1 year. If the landlord is receiving payments from a State reentry fund for any other tenants, those tenants are not responsible for the share of the rent that was paid by the fund and have the option to do any of the following: \u2022 Continue the tenancy without payments from the fund. \u2022 Terminate the lease immediately. \u2022 Terminate the lease with 30 to 60 days notice. These requirements are enforceable by the Department of Justice and also by the Justice of the Peace Court, because the contents of an eviction complaint must include a brief statement of compliance with the requirements under \u00a7 5512A(c) and copies of all required notices. Section 3 of this Act is a technical clarification to clarify that \"this Code\" and \"Landlord-Tenant Code\" both refer to the Residential Landlord-Tenant Code under Part III of this title. Both \"this Code\" and \"Landlord-Tenant Code\" are used throughout Chapter 51 through Chapter 59 of Title 25 as abbreviations of the Residential Landlord-Tenant Code and under \u00a7 101 of Title 1, \"this Code\" could also refer to the entire Delaware Code. Section 4 of this Act makes the new requirements for reentry funds under \u00a7 5512A of Title 25 applicable to the rental of single rooms in owner-occupied buildings under \u00a7 5512 of Title 25. Section 4 also reorganizes the existing language in \u00a7 5512 because as 1 sentence, the current language is difficult to understand. This Act takes effect 6 months after enactment to provide time for DHSS and DOJ to develop the model discharge plan and for agencies, including the Department of Correction and local law enforcement agencies, to develop policies and procedures necessary to implement and respond to notification under these requirements. The new requirements under \u00a7 5512A of Title 25 apply to rental agreements entered into on or after the effective date of this Act. This Act also makes technical corrections to conform existing law to the standards of the Delaware Legislative Drafting Manual. This Act is known as \"The Grace Peterson Act\".",
+    "plain_english": "Unlicensed housing operators can no longer use a legal loophole to sidestep the eviction notice requirements that licensed landlords must follow, and if your rent is paid partly through a state reentry fund, your landlord must help you create a housing plan before they can end your lease.",
+    "profiles": {
+      "renter": "Helps You"
+    },
+    "wallet_rationale": "Amends the Delaware Landlord-Tenant Code; substantive changes to notice periods, deposit limits, habitability standards, or eviction grounds have direct financial and legal consequences for renters' housing costs and security"
+  },
+  {
+    "bill_number": "SB 293 w/ SA 1 + HA 1",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This Act simplifies the licensing requirements for youth camps that are accredited by the American Camp Association (ACA) by requiring that the Department of Education's Office of Child Care Licensing (OCCL) deem a youth camp as meeting all equivalent health and safety requirements necessary for a youth camp license if the youth camp has ACA accreditation. By streamlining the OCCL licensing requirements, this Act also increases the availability of summer child care eligible for provider reimbursement from the Purchase of Care (POC) program, since license-exempt youth camps are otherwise ineligible for POC reimbursement. This Act also codifies existing OCCL child care licensing regulations regarding youth camp licenses, permit requirements, and school-age care exemptions.",
+    "plain_english": "If your youth camp is already accredited by the American Camp Association, you're now automatically treated as meeting Delaware's licensing requirements \u2014 cutting red tape and also making your camp eligible to accept Purchase of Care child care subsidies, which can open your enrollment to more families.",
+    "profiles": {
+      "smallbiz": "Watch Out"
+    },
+    "wallet_rationale": "Changes child care licensing requirements under Title 14, including inspections and standards; raises compliance and operational costs for child care providers, who are predominantly small businesses"
+  },
+  {
+    "bill_number": "SB 297",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This Act adds a clarifying interpretive paragraph to the Delaware Consumer Fraud Act (Subchapter II, Chapter 25, Title 6 of the Code) to address a recent decision by the Delaware Supreme Court and to make clear that the Consumer Fraud Act's use of the phrase \"in connection with\" in \u00a7 2513 should be interpreted to include unfair and deceptive acts and practices that occur \"before, during, and after\" the sale, lease, receipt, or advertisement of any merchandise. The Delaware Supreme Court recently construed the Consumer Fraud Act to be confined to conduct \"between businesses and consumers which happen before a transaction or during the transaction itself.\" Blue Beach Bungalows DE, LLC v. State, No. 14, 2025, 2025 WL 3768232, at *11 (Del. Dec. 30, 2025). However, in recognition of the broad purpose of the Consumer Fraud Act set forth by the 123rd General Assembly in Section 2512, subsequent amendments to the Consumer Fraud Act to include the \"receipt\" of merchandise, and the scope of comparable statutes in other states, this bill ensures that the Consumer Fraud Act is interpreted to apply to unfair or deceptive conduct that occurs after a sale, lease, receipt, or advertisement, including, but not limited to, conduct occurring in instances in which a sale, lease, receipt, or advertisement creates an ongoing relationship or a continuing obligation, or where performance has not yet been completed. This aligns the Consumer Fraud Act with Unfair or Deceptive Acts or Practices (\"UDAP\") laws with similar language in other states, as well as many other UDAP laws, including the FTC Act, that cover post-transaction conduct. This Act will allow the Delaware Department of Justice to use the Consumer Fraud Act to address the full range of unfair and deceptive acts or practices that consumers report to the Delaware Department of Justice, including, for example, false and threatening landlord communications, unscrupulous debt collection tactics, and failures to honor promises to fix returned merchandise. It will also ensure that businesses throughout the state can compete on a level playing field throughout the duration of their relationships with consumers, without being undercut by unscrupulous competitors who engage in post-transaction misconduct. Additionally, it ensures that the Delaware Department of Justice is not disadvantaged when coordinating with other states to hold entities accountable for unfair or deceptive acts or practices that are nationwide in scope.",
+    "plain_english": "Delaware's consumer fraud law now covers shady business behavior that happens after a purchase \u2014 like a landlord sending threatening collection letters or a company refusing to honor a repair promise \u2014 so you have legal protection against deceptive tactics at every stage of a transaction, not just at the point of sale.",
+    "profiles": {
+      "smallbiz": "Watch Out",
+      "workpro": "Helps You",
+      "lowwage": "Helps You"
+    },
+    "wallet_rationale": "Amends consumer protection law under Title 6; expanded consumer protection provisions create new compliance obligations for businesses while giving workers and consumers stronger protections against deceptive practices"
+  },
+  {
+    "bill_number": "SB 301",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This Act requires that a hospital create a discharge plan if a pregnant patient experiencing signs or symptoms consistent with labor is discharged before delivery, whether from in-patient or observation status. The plan must include aftercare instructions explained to the patient, an assessment of travel distance/time to the hospital, verification of reliable transportation, and identification of a back-up hospital or facility for labor and delivery services. This Act is modeled on the federal WELLS Act, named after Mercedes Wells, who was forced to give birth on the side of the road minutes after being discharged from a hospital while in active labor.",
+    "plain_english": "If a hospital sends you home while you're showing signs of labor, they must now give you a written discharge plan that includes aftercare instructions, confirms you have reliable transportation, and identifies a backup delivery facility \u2014 protecting you from an unsafe discharge that could lead to a dangerous and costly emergency.",
+    "profiles": {
+      "senior": "Helps You",
+      "workpro": "Helps You"
+    },
+    "wallet_rationale": "Requires hospitals to create discharge plans for pregnant patients sent home before delivery, including transportation verification and aftercare instructions; prevents costly readmissions and reduces unexpected medical bills from inadequate discharge planning"
+  },
+  {
+    "bill_number": "SB 307",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This Act gives Delaware's Public Service Commission (\"Commission\") the authority to designate a telecommunications provider or reseller as an eligible telecommunications carrier (\"ETC\") for the purpose of providing Lifeline services. Lifeline is a Federal Communications Commission (\"FCC\") program that helps make phone and internet services more affordable for low-income consumers. Approximately 8,700 Delawareans participate in Lifeline. Currently, the determination of which telecommunications services companies can operate as Lifeline ETCs in Delaware is made by the FCC. This Act shifts that authority to the Commission, and in doing so, brings Delaware into line with nearly every other state in the nation. The reason for this nationwide trend is that in the past 15-20 years, the FCC has stopped taking action on approving ETCs for Lifeline on behalf of states. The FCC is not opposed to states stepping into this gap, but Delaware cannot do so absent statutory changes. By giving the Commission the authority to designate Lifeline ETCs, this Act will allow additional Lifeline providers to support this State's residents. Because the FCC handles the administration and expenses of the program, there is no cost to the State as a result of taking on this authority. This Act takes effect immediately, but implementation is delayed to give the Commission time to amend its regulations to be consistent with this Act.",
+    "plain_english": "Delaware can now approve more phone and internet companies to participate in the federal Lifeline program \u2014 which discounts your monthly phone or internet bill if you're on a qualifying low-income benefit \u2014 potentially giving you more provider options and keeping that subsidy accessible.",
+    "profiles": {
+      "lowwage": "Helps You",
+      "senior": "Helps You"
+    },
+    "wallet_rationale": "Changes eligibility rules for Lifeline telecommunications carriers under Title 26; Lifeline subsidizes phone and internet access for low-income households and seniors, so carrier qualification changes directly affect whether qualifying households can access the program"
+  },
+  {
+    "bill_number": "SB 308 w/ SA 1",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This legislation shall be known and may be cited as the \"Load Forecast Accountability Act.\" Recent reports by PJM Interconnection, L.L.C. (PJM), have highlighted that electricity demand across the PJM footprint, including Delaware, is projected to grow due to data centers, electrification of vehicles and buildings, and other large load additions. PJM recently projected that, by 2030, PJM expects to add 32 GW of load to the grid \u2013 30 GW of which is attributable to data centers. PJM relies upon load forecasts submitted by Commission-regulated electric distribution companies in Delaware to establish system planning needs and capacity requirements which ultimately have costs associated with both. Accurate, transparent, load forecasting is essential to ensure the adequacy of electric supply, maintain system reliability, and protect Delaware consumers from unnecessary costs caused by overbuilding or underbuilding system resources. This Act requires the Commission to submit a written report to the Governor, the General Assembly, and the Director and the Librarian of the Division of Legislative Services no later than May 1 of each year on its progress in implementing this Act.",
+    "plain_english": "Delaware regulators must now independently review and verify the electricity demand forecasts that utilities submit \u2014 a watchdog measure aimed at preventing the grid from being overbuilt (at your expense) or underbuilt (risking outages) as data centers drive a surge in power demand.",
+    "profiles": {
+      "homeowner": "Watch Out",
+      "renter": "Watch Out"
+    },
+    "wallet_rationale": "Establishes load forecast accountability requirements for electric utilities; forecasting mandates shape future rate proceedings, with resulting cost decisions flowing through to residential electric bills"
+  },
+  {
+    "bill_number": "SB 309 w/ SA 1",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This Act removes authority from the Department of Corrections to deduct pay from inmate accounts for a proportionate share of the costs of incarceration of inmates in the facility in which the inmate is housed. This Act also makes technical corrections to conform existing law to the standards of the Delaware Legislative Drafting Manual.",
+    "plain_english": "The state can no longer take money out of incarcerated workers' pay to cover the cost of their own housing in a correctional facility \u2014 meaning any wages they earn stay in their account to use for reentry, family support, or basic needs.",
+    "profiles": {
+      "lowwage": "Helps You"
+    },
+    "wallet_rationale": "Removes the authority of the Department of Corrections to deduct incarceration costs from inmate pay, directly preserving more earned wages for incarcerated individuals \u2014 who are among the lowest-earning workers in any classification"
+  },
+  {
+    "bill_number": "SB 315 w/ SA 1 + HA 1",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This act updates the Delaware Technical Innovation Program at Title 29 of the Delaware Code, Chapter 87A, Subchapter III by authorizing the Division of Small Business to provide matching funds or supplemental grant funds to eligible Delaware small businesses receiving federal SBIR or STTR awards in order to support research, development, commercialization, and economic benefit in this State. This act also authorizes the State to provide matching funds or supplemental grant funds to an eligible small business that has received a federal SBIR or STTR Phase I or Phase II award.\n\nTo qualify for funding under Title 29, \u00a7 8737A, a small business must have its principal place of business in Delaware and must certify that the funded work, related research and development, or commercialization activity will benefit the Delaware economy. The Division of Small Business shall administer the program using funds allocated or otherwise made available for such purpose and may establish application requirements, program guidelines, allowable uses of funds, award amounts, and such other criteria as are necessary to carry out \u00a7 8737A.",
+    "plain_english": "If your small business wins a federal SBIR or STTR research grant, Delaware can now layer on matching or supplemental state funds \u2014 giving you more capital to develop and commercialize your product without taking on debt or diluting ownership.",
+    "profiles": {
+      "smallbiz": "Helps You"
+    },
+    "wallet_rationale": "Authorizes matching or supplemental grant funds for Delaware small businesses receiving federal SBIR/STTR research and innovation awards, directly increasing available R&D funding for qualifying small tech and science companies"
+  },
+  {
+    "bill_number": "SB 316",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "Currently, if a licensed Delaware attorney pays off a mortgage in conjunction with a real-estate settlement and the lender fails to file a satisfaction piece within 60 days, the attorney may administratively satisfy that mortgage to clear the title record. Unfortunately, often other types of liens that are paid off remain unsatisfied and cloud title for the homeowner. This Act clarifies that a licensed Delaware attorney may also file an administrative satisfaction or partial release for any other type of lien that the Delaware attorney paid off.",
+    "plain_english": "If you paid off a lien on your property \u2014 not just a mortgage, but any lien \u2014 your real estate attorney can now file a legal release on your behalf if the creditor fails to do so, preventing a lingering cloud on your title that could delay or block a future home sale.",
+    "profiles": {
+      "homeowner": "Watch Out"
+    },
+    "wallet_rationale": "Amends Title 25 attorney satisfaction-of-mortgage rules; changes to lien release procedures and attorney authority may alter closing costs and legal fees for homeowners paying off mortgages"
+  },
+  {
+    "bill_number": "SB 321 w/ SA 1",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "Net crediting is the preferred utility consolidated billing methodology for Delmarva Power and Light as it has already been successfully implemented in Atlantic City Electric, Pepco Maryland, and Delmarva Maryland jurisdictions. Net crediting delivers a simpler, more transparent experience for both subscribers and subscription coordinators by netting subscription charges from monthly credits on behalf of the subscribers, who receive the net credit. Then, the utility aggregates those subscription charges on behalf of the subscription coordinators, who receive a payment from Delmarva. Net crediting marries the concept of world class customer experience with market scalability, while also being the lowest risk option for Delmarva's customers.",
+    "plain_english": "Delmarva Power will now use a \"net crediting\" system for community solar subscribers \u2014 meaning your solar credits and subscription charges are automatically netted together on your monthly bill, so you see one clear number rather than juggling separate invoices.",
+    "profiles": {
+      "homeowner": "Helps You",
+      "renter": "Helps You"
+    },
+    "wallet_rationale": "Amends utility billing rules under Title 26, improving accuracy, notice, or dispute rights for residential customers; directly reduces risk of overcharges on household utility accounts"
+  },
+  {
+    "bill_number": "SB 322",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This Act repeals the ability of school districts to increase tax rates by up to 10% when recalculating the district's rate of taxation after a general reassessment, replacing the 10% maximum with a formula tied to actual prior operating revenue plus average taxable-property growth. This Act also allows school districts to increase a referendum-approved tax by up to 2% annually without a new referendum if the district's operational reserve balance is not more than 10% of annual revenue and it is not the same fiscal year as a general reassessment recalculation. The new recalculation equation applies beginning the fiscal year following the next general reassessment, and districts cannot use the 2% no-referendum increase until after the next general reassessment or FY2031, whichever is earlier. Vocational-technical districts' tax authority under Chapter 26 is unaffected. Includes technical corrections to conform to the Delaware Legislative Drafting Manual.",
+    "plain_english": "After a property reassessment, your school district can no longer automatically raise its tax rate by up to 10% \u2014 instead, increases are capped by a formula tied to actual revenue and property growth, directly limiting the property tax jump you'll see on your next bill.",
+    "profiles": {
+      "homeowner": "Helps You"
+    },
+    "wallet_rationale": "Caps post-reassessment school tax rate increases by replacing the blanket 10% allowance with a formula tied to actual prior revenue and taxable-property growth, directly limiting property tax hikes on homeowners after county-wide reassessments"
+  },
+  {
+    "bill_number": "SB 325 w/ SA 1, SA 2 + HA 1",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This Act defines terms used in Chapter 66, Title 16 of the Delaware Code for clarity. It also provides the State Fire Prevention Commission with the authority to receive and review criminal history records of applicants and members to determine whether the applicant or member is prohibited from serving as a member of a fire company. An applicant or member is not qualified to serve as a member if the individual's criminal history record includes a crime listed in this Act, including felonies, specified financial or property crimes, sex crimes, specified crimes against a victim who is acting in the lawful performance of the victim's duty, or crimes involving controlled substances or designer drugs. This Act updates the criminal history record language in Chapter 66, Title 16 to ensure Delaware law meets the requirements of the Federal Bureau of Investigation in requesting federal criminal history records. This Act also makes technical corrections to make existing law conform to the standards of the Delaware Legislative Drafting Manual.",
+    "plain_english": "The State Fire Prevention Commission can now run background checks on fire company applicants and members, barring anyone with certain criminal convictions \u2014 a change that affects who can serve in a volunteer capacity but doesn't directly alter fire inspection fees or homeowner costs.",
+    "profiles": {
+      "homeowner": "Watch Out",
+      "smallbiz": "Watch Out"
+    },
+    "wallet_rationale": "Expands fire prevention inspection scope and requirements; homeowners in covered structures and business owners face new or expanded inspection requirements with associated compliance and remediation costs"
+  },
+  {
+    "bill_number": "SB 326 w/ SA 1",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This bill builds on the customer protections created in Senate Bill 60 in 2025, as follows: 1. Increases transparency in rates and communications by public utilities. 2. Requires regular management audits of certain public utilities and regulatory accounting reviews with each rate case proceeding. 3. Provides greater consistency in the data used by public utilities in rate case proceedings. 4. Limits how much utilities can collect in interim rates before the Commission has ruled on a rate increase request. 5. Prohibits public utilities from recovering certain expenses from ratepayers. 6. Requires the Commission to provide rationale for its decisions in accepting settlement agreements. 7. Puts limits on Delmarva Power's infrastructure spending, which is a major driver of rate increases. Delmarva Power is operating its electric distribution system at a level far in excess of reliability standards set by the Commission. In support of its parent company's strategic goal to increase earnings by increasing rate base, Delmarva Power's annual capital spending leads to frequent rate increase requests to the Commission. Part of Delmarva Power's capital spending includes \"non-mandatory projects,\" which by definition are projects that are not required to maintain system reliability. This bill limits the amount of non-mandatory capital expenses the company may recover from ratepayers in rates and is indexed to the company's rate base, i.e. the value of all its capital assets. Limiting non-mandatory cost recovery will in no way impact Delmarva Power's ability to restore service after storms nor impact its vegetation management (tree trimming) program.",
+    "plain_english": "Delmarva Power is now barred from passing the cost of non-essential infrastructure projects on to customers through rate increases \u2014 and the bill caps how much the utility can collect in interim rates while a rate hike request is pending, which should slow the pace of electric bill increases for Delaware households.",
+    "profiles": {
+      "homeowner": "Watch Out",
+      "renter": "Watch Out"
+    },
+    "wallet_rationale": "Amends Public Service Commission structure or authority; changes to utility regulatory oversight affect the PSC's capacity to scrutinize or reject utility rate increase requests, with impacts flowing through to residential electric bills"
+  },
+  {
+    "bill_number": "SB 335",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This Bill is the Fiscal Year 2027 Appropriations Act.",
+    "plain_english": "Delaware's Fiscal Year 2027 budget has been approved, funding state agency operations, employee salaries, and public services for the year \u2014 your paycheck, pension contributions, and benefits as a state worker are all covered under this spending plan.",
+    "profiles": {
+      "pubsec": "Helps You"
+    },
+    "wallet_rationale": "State operating budget appropriations act for FY2027; directly funds public employee salaries, pension contributions, healthcare benefits, and government operations across all state agencies"
+  },
+  {
+    "bill_number": "SB 336",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This Act appropriates $146,199,300 to provide one-time funded items through the Office of Management and Budget.",
+    "plain_english": "The state is putting an extra $146 million in one-time funds through the Office of Management and Budget for FY2027 \u2014 money that may cover supplemental pay, deferred maintenance at state facilities, or other one-time agency needs that affect your work conditions or compensation.",
+    "profiles": {
+      "pubsec": "Helps You"
+    },
+    "wallet_rationale": "One-time supplemental appropriation for FY2027; provides additional funding beyond the regular budget that may cover state employee pay adjustments, benefit costs, or agency operational needs"
+  },
+  {
+    "bill_number": "SB 340 w/ SA 1",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This Act requires long-term care facilities to have insurance policies that provide a minimum of $1 million per claim/$3 million aggregate coverage each for general liability and professional liability. This Act takes effect 180 days after enactment.",
+    "plain_english": "Nursing homes and long-term care facilities in Delaware must now carry at least $1 million in liability insurance per claim \u2014 meaning if something goes wrong during your care or a family member's care, there's a larger pool of money available to cover damages and legal claims.",
+    "profiles": {
+      "senior": "Watch Out"
+    },
+    "wallet_rationale": "Amends long-term care rules under Title 16; changes to facility requirements, eligibility standards, or cost structures directly affect the financial exposure of seniors relying on nursing home or assisted living services"
+  },
+  {
+    "bill_number": "SB 347",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Passed",
+    "synopsis": "This Act expands the scope of prohibited extraordinary collection actions to include a large health-care facility levying on tangible personal property of a patient. It also clarifies that any party taking action to collect medical debt must disclose in court pleadings whether the party is a large health-care facility, and makes technical corrections.",
+    "plain_english": "Large hospitals can no longer seize your personal property \u2014 your car, furniture, or other belongings \u2014 to collect an unpaid medical bill, and any collector trying to sue you over medical debt must now disclose whether a hospital is behind the claim.",
+    "profiles": {
+      "senior": "Helps You",
+      "workpro": "Helps You",
+      "lowwage": "Helps You"
+    },
+    "wallet_rationale": "Medical Debt Protection Act restricts the collection and credit reporting of medical debt, directly shielding individuals from debt-driven financial ruin; seniors \u2014 who face higher medical costs \u2014 and low-wage workers with high out-of-pocket expenses benefit most"
+  },
+  {
+    "bill_number": "SB 63 w/ SA 1",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Veto Overridden",
+    "synopsis": "Chapter 35 of Title 19 prohibits an employer from improperly classifying an individual who is an employee as an independent contractor. Not only is this improper classification unfair to employees because it violates state and federal laws related to income tax withholding, unemployment insurance, wage laws, and workers' compensation, it is also unfair to contractors who comply with Chapter 35 and these other employment laws. When employers who violate Chapter 35 are subcontractors who have not registered as contractors as required under Chapter 36 of Title 19, the Department of Labor (Department) has no recourse for enforcing compliance with Chapter 35. This Act makes a general contractor responsible for a subcontractor's compliance with Chapter 35 by making the general contractor jointly and severally liable for restitution and penalties assessed against the subcontractor. This Act also allows the Department to deny, suspend, or revoke the certificate of registration of a contractor who contracts with a subcontractor who has not registered on any project. In addition, Section 3 of this Act makes technical corrections to conform existing law to the standards of the Delaware Legislative Drafting Manual.",
+    "plain_english": "If you've been misclassified as an independent contractor when you're really an employee, this law (passed over the governor's veto) makes the general contractor on a project jointly responsible for a subcontractor's wage and classification violations \u2014 so you have a better shot at recovering back wages, tax withholding, and workers' comp you were owed.",
+    "profiles": {
+      "workpro": "Helps You",
+      "lowwage": "Helps You",
+      "smallbiz": "Watch Out"
+    },
+    "wallet_rationale": "Labor law amendment (veto overridden, signaling significant employer opposition) to Title 19; veto-override status indicates a substantive worker protection \u2014 likely expanding paid leave, wage theft remedies, or minimum wage indexing \u2014 that imposes new financial obligations on employers"
+  },
+  {
+    "bill_number": "SB 75 w/ SA 1, SA 2",
+    "legis_id": null,
+    "legislation_url": "",
+    "origin_chamber": "Senate",
+    "status": "Veto Overridden",
+    "synopsis": "This Act limits the restrictions a county may impose on the operation of marijuana establishments, including: requiring that a medical marijuana compassion center granted a conversion license for a retail marijuana store be allowed to operate as a nonconforming use; prohibiting denial of a building permit if improvements comply with physical zoning requirements; requiring counties to allow minimum operating hours of 9 a.m.-9 p.m. Monday-Saturday and noon-8 p.m. Sunday; permitting indoor, fully-enclosed cultivation facilities in agricultural/industrial zones; and allowing retail marijuana stores in commercial/industrial zones to be restricted only within \u00bd mile of another store or within 500 feet of a place of worship, school, licensed child care, residential treatment facility, park, or library. These limits preempt and supersede existing and future county ordinances regarding marijuana establishments. This Act also makes corresponding and technical changes to align language regarding municipalities.",
+    "plain_english": "Counties in Delaware can no longer block or over-restrict licensed marijuana stores and cultivation facilities through local ordinances \u2014 if your cannabis business meets state licensing and zoning rules, counties must allow you to operate with standard hours and cannot deny your building permits.",
+    "profiles": {
+      "smallbiz": "Watch Out"
+    },
+    "wallet_rationale": "Limits county authority to restrict marijuana retail operations, including overriding building permit denials for licensed cannabis retailers; creates regulatory uncertainty and compliance complexity for cannabis business operators"
+  }
+]

@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Dover Dash — Civic Delaware Bill Tracker</title>
+  <meta name="description" content="Delaware bills that could affect your wallet — explained in plain English. Pick your profile and see what's Watch Out vs. Helps You.">
+  <meta property="og:title" content="Dover Dash — Delaware Bill Tracker">
+  <meta property="og:description" content="Bills moving right now in Dover that could affect your life. Nonpartisan. Plain English. Updated daily.">
+  <meta property="og:url" content="https://civicdelaware.com/tracker">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-97TWNW3TDT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-97TWNW3TDT');
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #F5F3EF;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 16px 0 40px;
+      font-family: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+    }
+
+    #app {
+      width: 100%;
+      max-width: 440px;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.15);
+      overflow: hidden;
+      margin: 0 auto;
+    }
+
+    /* ── HEADER ── */
+    /* ── HERO CARD ── */
+    .hero-card {
+      margin: 14px 14px 0;
+      border-radius: 10px 10px 0 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      overflow: hidden;
+    }
+    .hero-dark {
+      background: #002868;
+      padding: 18px 16px;
+      text-align: center;
+    }
+    .eyebrow {
+      font-size: 9px; color: #fff; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      margin-bottom: 4px;
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+    .hero-brand {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 28px; font-weight: 900;
+      color: #fff; line-height: 1; margin-bottom: 4px;
+    }
+    .hero-brand em { color: #BAFF5C; font-style: italic; }
+    .hero-byline {
+      font-size: 11px; font-weight: 700; color: #BAFF5C;
+      letter-spacing: 0.5px; margin-bottom: 8px;
+    }
+    .hero-subtitle {
+      font-size: 11px; font-weight: 600;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 1px; margin-bottom: 6px;
+    }
+    .session-badge {
+      display: inline-flex; align-items: center;
+      gap: 5px; justify-content: center;
+    }
+    .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: #D93B3B; flex-shrink: 0; }
+    .badge-text { font-size: 11px; font-weight: 800; color: #BAFF5C; }
+    .hero-stats {
+      display: flex; gap: 10px; justify-content: center;
+    }
+    .h-stat {
+      background: rgba(255,255,255,0.08);
+      border-radius: 8px; padding: 7px 14px; text-align: center;
+    }
+    .h-stat-num { font-size: 22px; font-weight: 900; line-height: 1; }
+    .h-stat-lbl {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.5px;
+      text-transform: uppercase; margin-top: 2px; opacity: 0.7; color: #fff;
+    }
+    .h-stat.red  .h-stat-num { color: #FF6B6B; }
+    .h-stat.grn  .h-stat-num { color: #BAFF5C; }
+    .h-stat.neu  .h-stat-num { color: #fff; }
+
+    /* ── INTRO ── */
+    .hero-white { background: #fff; padding: 16px 18px 0; margin: 0 14px 0; }
+    .sect-lbl { font-size: 16px; font-weight: 800; color: #111827; margin-bottom: 14px; }
+    .sect-hint { font-size: 11px; color: #6B7280; margin-bottom: 12px; line-height: 1.4; }
+
+    .prof-btn {
+      width: 100%; border: 1.5px solid #E5E7EB; border-radius: 10px;
+      padding: 11px 14px; cursor: pointer;
+      display: flex; align-items: flex-start; gap: 12px;
+      text-align: left; margin-bottom: 7px; background: #fff;
+      transition: border-color .15s, background .15s;
+      font-family: 'Source Sans 3', sans-serif;
+      position: relative;
+    }
+    .prof-btn:hover { border-color: #9CA3AF; }
+    .prof-btn.sel { background: #FFFDE7; border: 2px solid #002868; }
+.prof-em { font-size: 22px; flex-shrink: 0; margin-top: 2px; width: 36px; text-align: center; }
+    .prof-label { font-size: 13px; font-weight: 700; line-height: 1.2; color: #111827; }
+    .prof-btn.sel .prof-label { color: #002868; }
+    .prof-sub { font-size: 10px; color: #6B7280; margin-top: 2px; line-height: 1.3; }
+    .prof-stat { font-size: 10px; font-weight: 700; margin-top: 5px; }
+    .prof-stat.has-wo { color: #D93B3B; }
+    .prof-stat.no-wo  { color: #1A7A4A; }
+    .check {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 1.5px solid #E5E7EB;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; flex-shrink: 0;
+      background: #F5F3EF; margin-left: auto; margin-top: 2px; color: transparent;
+    }
+    .check.on { background: #002868; border-color: #002868; color: #BAFF5C; }
+
+    /* ── BLURRED PREVIEW ── */
+    .preview-wrap { margin: 4px 0 16px; }
+    .preview-lbl {
+      font-size: 10px; font-weight: 800; letter-spacing: 1px;
+      text-transform: uppercase; color: #6B7280; margin-bottom: 8px;
+    }
+    .preview-rel { position: relative; }
+    .preview-cards { filter: blur(4px); pointer-events: none; user-select: none; }
+    .preview-overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.55);
+    }
+    .unlock-btn {
+      background: #D93B3B; color: #fff; border: none;
+      border-radius: 8px; padding: 11px 20px;
+      font-size: 13px; font-weight: 800; cursor: pointer;
+      font-family: 'Source Sans 3', sans-serif;
+      box-shadow: 0 4px 16px rgba(217,59,59,0.4);
+      transition: background .15s, box-shadow .15s;
+    }
+    .unlock-btn:hover { background: #B82E2E; }
+    .unlock-btn.pulsing { animation: pulse 1.5s infinite; }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 4px 16px rgba(217,59,59,0.4); }
+      50%      { box-shadow: 0 4px 28px rgba(217,59,59,0.75); }
+    }
+    .mini-card {
+      background: #fff; border: 1.5px solid #E5E7EB;
+      border-radius: 8px; padding: 10px 12px; margin-bottom: 7px;
+    }
+    .mini-card.watch { border-left: 4px solid #D93B3B; }
+    .mini-card.helps { border-left: 4px solid #1A7A4A; }
+    .mc-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+    .mc-code { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; }
+    .mc-bw { background: #FDECEA; color: #D93B3B; font-size: 8px; font-weight: 700; border-radius: 3px; padding: 2px 6px; }
+    .mc-bh { background: #F0FDE4; color: #1A7A4A; font-size: 8px; font-weight: 700; border-radius: 3px; padding: 2px 6px; }
+    .mc-hl { font-size: 11px; font-weight: 700; color: #111827; line-height: 1.3; }
+
+    /* ── CTA ── */
+    .cta-btn {
+      width: 100%; border: none; border-radius: 8px; padding: 15px;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      margin-top: 4px; margin-bottom: 18px;
+      font-family: 'Source Sans 3', sans-serif;
+      background: #D93B3B; color: #fff;
+      transition: background .15s;
+    }
+    .cta-btn:hover:not(:disabled) { background: #B82E2E; }
+    .cta-btn:disabled { background: #E5E7EB; color: #6B7280; cursor: default; }
+    .cta-btn.loading { background: #9CA3AF; cursor: wait; }
+
+    /* ── FORECAST ── */
+    .prof-hdr {
+      background: #fff;
+      border-top: 3px solid #BAFF5C;
+      border-bottom: 1px solid #E5E7EB;
+      padding: 12px 18px 18px;
+      text-align: center;
+      position: relative;
+    }
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: none; border: none; padding: 0;
+      font-size: 11px; font-weight: 700; color: #6B7280;
+      cursor: pointer; margin-bottom: 14px;
+      font-family: 'Source Sans 3', sans-serif;
+      text-decoration: none;
+    }
+    .back-btn:hover { color: #002868; }
+    .prof-em-big { font-size: 40px; line-height: 1; display: block; margin-bottom: 6px; }
+    .prof-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 20px; font-weight: 800; color: #111827; margin-bottom: 3px;
+    }
+    .prof-hdr-sub { font-size: 10px; color: #9CA3AF; margin-bottom: 12px; }
+    .impact-row { display: flex; justify-content: center; gap: 8px; margin-top: 2px; }
+    .sponsor-line { font-size: 9px; color: #9CA3AF; margin-top: 10px; letter-spacing: 0.3px; }
+    .sponsor-line a { color: #6B7280; font-weight: 700; text-decoration: none; }
+    .sponsor-line a:hover { text-decoration: underline; }
+    .impact-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 800; border-radius: 20px;
+      padding: 5px 13px;
+    }
+    .impact-chip.wo { background: #FDECEA; color: #D93B3B; }
+    .impact-chip.hy { background: #F0FDE4; color: #1A7A4A; }
+
+    .filter-tabs {
+      display: flex; gap: 8px; padding: 12px 18px;
+      border-bottom: 1px solid #E5E7EB; background: #fff;
+      justify-content: center;
+    }
+    .ftab {
+      padding: 7px 18px; font-size: 11px; font-weight: 700;
+      border: 1.5px solid #E5E7EB; border-radius: 20px; cursor: pointer;
+      background: #fff; color: #6B7280; font-family: 'Source Sans 3', sans-serif;
+      white-space: nowrap;
+    }
+    .ftab:hover { border-color: #9CA3AF; color: #374151; }
+    .ftab.wo.on  { background: #D93B3B; border-color: #D93B3B; color: #fff; }
+    .ftab.hy.on  { background: #1A7A4A; border-color: #1A7A4A; color: #fff; }
+    .ftab.all.on { background: #002868; border-color: #002868; color: #fff; }
+
+    /* ── BILL CARDS ── */
+    .bill-list { padding: 14px 14px 0; background: #F5F3EF; }
+    .bill-card {
+      background: #fff; border: 1.5px solid #E5E7EB;
+      border-radius: 10px; margin-bottom: 12px; overflow: hidden;
+    }
+    .bc-floor-warn {
+      background: #FDECEA; border-bottom: 2px solid #D93B3B;
+      padding: 7px 14px; font-size: 9px; font-weight: 900; color: #8B1A1A;
+    }
+    .bc-inner { padding: 12px 14px 10px; }
+    .bc-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+    .bc-code { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: #111827; line-height: 1.2; flex: 1; }
+    .badge { font-size: 9px; font-weight: 700; border-radius: 4px; padding: 3px 8px; white-space: nowrap; flex-shrink: 0; margin-top: 3px; }
+    .badge-h { background: #F0FDE4; color: #1A7A4A; }
+    .badge-w { background: #FDECEA; color: #D93B3B; }
+    .badge-n { background: #F3F4F6; color: #6B7280; }
+    .bc-hl { font-size: 13px; font-weight: 700; color: #111827; line-height: 1.4; margin-bottom: 7px; }
+    .stage-pill {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 9px; font-weight: 700; border-radius: 4px; padding: 3px 7px;
+    }
+    .sp-ready  { background: #FDECEA; color: #8B1A1A; }
+    .sp-comm   { background: #EFF6FF; color: #1E40AF; }
+    .sp-intro  { background: #F3F4F6; color: #6B7280; }
+    .sp-passed { background: #F0FDE4; color: #1A7A4A; }
+    .sp-gov    { background: #FEF9C3; color: #854D0E; }
+    .bc-meta { font-size: 10px; color: #6B7280; margin-top: 5px; }
+    .exp-btn {
+      width: 100%; border: none; background: #F9F9F7;
+      border-top: 1px solid #F0EFE9; padding: 9px 14px;
+      display: flex; align-items: center; justify-content: flex-end;
+      cursor: pointer; font-size: 10px; color: #6B7280;
+      font-family: 'Source Sans 3', sans-serif; font-weight: 600; gap: 4px;
+    }
+    .exp-btn:hover { background: #F0EFE9; }
+    .bc-expanded { border-top: 1px solid #E5E7EB; background: #F9F9F7; padding: 12px 14px 14px; }
+    .bc-sec-lbl {
+      font-size: 9px; font-weight: 800; letter-spacing: 1.5px;
+      text-transform: uppercase; color: #6B7280; margin: 10px 0 4px;
+    }
+    .bc-sec-lbl:first-child { margin-top: 0; }
+    .bc-sum { font-size: 13px; color: #374151; line-height: 1.65; }
+    .bc-link {
+      display: block; text-align: center; background: #fff;
+      color: #002868; border: 1.5px solid #002868; border-radius: 7px;
+      padding: 9px 0; font-size: 11px; font-weight: 700; text-decoration: none; margin-top: 12px;
+    }
+    .bc-link:hover { background: #EEF2FF; }
+
+    /* ── INLINE EMAIL CAPTURE ── */
+    .inline-cap {
+      background: #002868; border-radius: 10px;
+      padding: 14px 16px; margin-bottom: 12px;
+    }
+    .ic-hl { font-size: 13px; font-weight: 800; color: #fff; margin-bottom: 2px; }
+    .ic-sub { font-size: 10px; color: rgba(255,255,255,0.65); margin-bottom: 10px; }
+    .ic-row { display: flex; gap: 7px; }
+    .ic-inp {
+      flex: 1; border: none; border-radius: 6px; padding: 9px 11px;
+      font-size: 12px; font-family: 'Source Sans 3', sans-serif;
+      color: #111827; background: #fff; outline: none;
+    }
+    .ic-btn {
+      background: #BAFF5C; color: #002868; border: none; border-radius: 6px;
+      padding: 9px 13px; font-size: 11px; font-weight: 800; cursor: pointer;
+      white-space: nowrap; font-family: 'Source Sans 3', sans-serif;
+    }
+    .ic-btn:hover { background: #A8F04A; }
+    .ic-success { font-size: 12px; font-weight: 700; color: #BAFF5C; text-align: center; padding: 6px 0; }
+
+    /* ── EMPTY / LOADING ── */
+    .empty-wo {
+      text-align: center; padding: 22px 18px;
+      background: #F0FDE4; border-radius: 10px; margin-bottom: 12px;
+    }
+    .switch-btn {
+      background: #1A7A4A; color: #fff; border: none; border-radius: 6px;
+      padding: 9px 18px; font-size: 11px; font-weight: 700; cursor: pointer;
+      font-family: 'Source Sans 3', sans-serif; margin-top: 10px;
+    }
+    .loading-msg { text-align: center; padding: 28px 18px; font-size: 13px; color: #6B7280; }
+
+    /* ── AGENDA BAR ── */
+    .agenda-bar {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      background: #FFFDE7; padding: 11px 16px; text-decoration: none;
+      border-top: 1px solid #FDE68A; margin: 0 -14px 14px;
+    }
+    .agenda-bar:hover { background: #FEF9C3; }
+    .agenda-bar span { font-size: 11px; font-weight: 800; color: #002868; }
+
+    /* ── FOOTER ── */
+    .foot { border-top: 1px solid #E5E7EB; padding: 14px 16px; text-align: center; }
+    .foot a { color: #002868; font-weight: 700; }
+    .foot-line { font-size: 10px; color: #6B7280; line-height: 1.7; }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <div id="screen"></div>
+</div>
+
+<script>
+(function(){
+
+var FN_SUBSCRIBE    = "/.netlify/functions/subscribe";
+var FN_SPONSORS     = "/.netlify/functions/get-sponsors";
+var FN_TRACK        = "/.netlify/functions/track-profile";
+var LEGIS_BASE      = "https://legis.delaware.gov";
+
+/* ── SPONSORS — loaded async on init, degrades gracefully ── */
+var SPONSORS = {};
+(function loadSponsors() {
+  fetch(FN_SPONSORS)
+    .then(function(r){ return r.ok ? r.json() : {sponsors:[]}; })
+    .then(function(data){
+      (data.sponsors || []).forEach(function(s){
+        if (s.profile) SPONSORS[s.profile] = s;
+      });
+      // Re-render if already on forecast screen so sponsor shows immediately
+      if (st && st.screen === "forecast") render();
+    })
+    .catch(function(){}); // silent fail — sponsors are enhancement, not core
+})();
+
+/* ── SESSION CONFIG ── */
+var SESSION = {
+  assembly: "153rd General Assembly",
+  years:    "2024–2026",
+  label:    "Session has ended",
+};
+
+var PROFILES = [
+  {key:"homeowner",em:"🏠",label:"Home Owner",                          sub:"(own outright or mortgage)"},
+  {key:"renter",   em:"🏢",label:"Renter",                              sub:"(no asset cushion)"},
+  {key:"senior",   em:"🧓",label:"Retiree / Fixed Income",             sub:"(Social Security, pensions, investment income)"},
+  {key:"smallbiz", em:"💼",label:"Small Business Owner / Self-Employed", sub:"(construction, professional services, sole proprietors)"},
+  {key:"pubsec",   em:"🏛️",label:"Public Sector Employee",               sub:"(state, local, federal)"},
+  {key:"workpro",  em:"🏬",label:"Private Sector Worker, Full-Time",    sub:"(finance, professionals — stable higher-wage jobs)"},
+  {key:"lowwage",  em:"🛒",label:"Private Sector Worker, Low-Wage / Vulnerable",sub:"(hospitality, retail, personal services)"},
+];
+
+var STAGE_LABELS = {
+  "passed":         "✅ Enacted — 153rd GA",
+  "introduced":     "📋 Introduced",
+  "in_committee":   "🏛️ In Committee",
+  "ready_list":     "🚨 Floor Vote Pending",
+  "passed_chamber": "✅ Passed Chamber",
+  "governor":       "📜 Sent to Governor",
+};
+var STAGE_CSS = {
+  "passed":         "sp-passed",
+  "introduced":     "sp-intro",
+  "in_committee":   "sp-comm",
+  "ready_list":     "sp-ready",
+  "passed_chamber": "sp-passed",
+  "governor":       "sp-gov",
+};
+
+/* ── BILL DATA (153rd GA — embedded from bill_profiles.json) ── */
+var BILL_PROFILES = [{"n":"HB 133 w/ HA 4","b":"HB 133","p":"Courts can now waive fines and fees entirely if you're on Medicaid, SNAP, veterans' benefits, or simply can't afford to pay \u2014 so a court case won't spiral into a debt you can never climb out of. If you've already been ordered to pay, you can request a hearing to have those amounts reduced.","s":"Currently, even when a defendant or individual obviously does not have the means to pay a financial penalty or fee, Delaware Courts are unable to waive certain mandatory minimum fines or fees at sentencing. This can create a constitutional crossroads, as our justice system has long recognized that the Fourteen Amendment prohibits \"punishing a person for his poverty.\" Bearden v. Georgia, 461 U.S. 660, 671 (1983). This Act gives courts the discretion to waive fines and fees, in whole or in part, in appropriate circumstances. It also creates a presumption that fines and fees will not be imposed when a defendant shows evidence of certain conditions, including receiving a public assistance benefit (like Medicaid, SNAP, or veterans' benefits) or being represented by the Office of Defense Services. It also creates a hearing process for anyone already sentenced to pay a fine or fee. The changes in this Act are based on recommendations of the Criminal Legal System Imposed Debt Study Group created by House Bill 244, as amended by House Amendment No 2, of the 151st General Assembly, in its December 7, 2023, report.\nThis Act takes effect 180 days after its enactment.","d":{"lowwage":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=HB+133"},{"n":"HB 217 w/ HA 1","b":"HB 217","p":"Your lease must now spell out exactly how and when to return your keys at move-out \u2014 and if it doesn't, the law sets a clear default process so landlords can't hit you with disputed fees over unclear key-return rules.","s":"This Act requires a lease to set forth clear procedures for the surrender of rental unit keys at the end of the rental term in residential leases, and provides default procedures for key return when there is no lease provision or other agreement.","d":{"renter":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=HB+217"},{"n":"HB 283","b":"HB 283","p":"Transferring your home to a grandchild \u2014 or receiving one from a grandparent \u2014 now skips the state realty transfer tax entirely, potentially saving thousands of dollars in closing costs on family property transfers. The spousal exemption has also been updated to cover all legally married spouses.","s":"This Act provides updates to Title 30 relating to the Realty Transfer Tax. First it clarifies that the exception for spouses is not solely limited between a husband and wife and instead applies to spouses in general. It also adds an exception for conveyances between grandparents and their grandchildren or the spouse of such a grandchild.","d":{"homeowner":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=HB+283"},{"n":"HB 310 w/ SA 1","b":"HB 310","p":"Large energy-hungry facilities \u2014 like data centers \u2014 are no longer eligible for the job-creation tax credit that smaller businesses can use, which keeps that credit available and meaningful for you as a qualifying small business. If your operation doesn't fall into the \"large energy use\" category, your access to those credits is unchanged.","s":"This Act excludes large energy use facilities from the definition of a qualified facility for purposes of determining eligibility for a tax credit or license fee reduction for the creation of employment and qualified investment in business facilities.","d":{"smallbiz":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=HB+310"},{"n":"HB 338","b":"HB 338","p":"Your health insurance must continue covering all preventive care and vaccines that were recommended as of January 1, 2025 \u2014 even if federal guidance changes going forward \u2014 so you won't lose no-cost coverage for screenings and immunizations due to policy shifts in Washington.","s":"This Act clarifies that individual, group, and blanket health insurance carriers must provide for and pay for services (including immunizations) that were recommended by the Advisory Committee on Immunization Practices of the Center for Disease Control (CDC) and the comprehensive guidelines supported by the Health Resources and Services Administration (HRSA) that were in effect as of January 1, 2025. They must also cover immunizations that were supported by national clinical guidelines or national standards of care in effect on January 1, 2025. To that end, this Act removes provisions that permit carriers to deny coverage for these items or services simply because they are not currently recommended by the Advisory Committee on Immunization Practices of the CDC and the comprehensive guidelines supported by the HRSA. This Act also removes obsolete United States Preventative Task Force provisions related to breast cancer screening from 2009.","d":{"workpro":"Helps You","senior":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=HB+338"},{"n":"HB 363 w/ HA 1","b":"HB 363","p":"Speed limits in your neighborhood are dropping to 20 mph, which can reduce traffic noise and accident risk on your street \u2014 though if you drive through residential zones, watch for updated signage over the next five years to avoid speeding tickets.","s":"This Act changes the statutory speed limit for residential districts to 20 miles per hour. This Act provides a 5-year window for signage to be updated.","d":{"homeowner":"Helps You","renter":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=HB+363"},{"n":"HB 364 w/ HA 2","b":"HB 364","p":"Delaware now has a film production tax credit you can apply against your state income or corporate tax bill if your small business spends money on qualifying film or media production in the state. The credit can be carried forward up to five years and even transferred, and the state may offer a streamlined audit process so the cost of qualifying doesn't eat your savings.","s":"This Act creates a film production tax credit. It requires companies to obtain, at their own expense, an independent audit certifying eligible expenditures. The audit must be submitted to the Division of Small Business for approval and allocation of credits. The credit is nonrefundable, transferable, and may be carried forward for up to 5 years. The credit may be applied against personal income tax, corporate income tax, bank franchise tax, and insurance premiums tax. All credit transfers must be approved by the Division of Small Business. This Act further authorizes necessary data sharing among agencies. Applicants and transferees consent to disclosure of credit amounts by virtue of applying or receiving a transfer. This Act also grants regulatory authority to the Division of Small Business and the Secretary of State to administer the annual credit cap; prioritize and manage awards; and issue reports relating to awards and utilization with input from relevant state agencies. The Division of Small Business may create alternative audit procedures for small businesses where a full audit would be prohibitively expensive. This Act sunsets on June 30, 2031, and no applications may be submitted after that date.","d":{"smallbiz":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=HB+364"},{"n":"HB 373 w/ HA 1 + SA 3","b":"HB 373","p":"If you manufacture, distribute, or sell THC-infused beverages in Delaware, a new regulatory framework kicks in with licensing, testing, packaging, and recordkeeping requirements \u2014 plus a $0.50 per-container tax collected at the distributor level that will affect your pricing and margins.","s":"This Act sets forth requirements and restrictions for the manufacture, distribution, and sale of THC-infused beverages in this State, allowing manufacturers to operate with authorization and setting manufacturing/product requirements. Out-of-state and in-state manufacturers must deliver infused beverages to licensed importers, who must comply with notice/testing requirements before transport to package stores, and must keep detailed shipment records. Package stores may obtain authorization to sell infused beverages for off-premises consumption, subject to placement, signage, and packaging requirements; licensed retail marijuana stores may also sell infused beverages. This Act classifies CBD, CBG, CBN, and CBC as nonintoxicating cannabinoids not excluded from consumer sale. This Act increases civil penalties for selling marijuana, marijuana products, and infused beverages to individuals under 21 (up to $10,000 for subsequent offenses within 5 years) and sets administrative penalties for infused-beverage violations. This Act sets taxation of infused beverages at $0.50 per container, taxed at the warehouse distributor rather than retail point of sale, and takes effect 90 days after enactment, with a sunset possibility if federal law reclassifies hemp as a controlled substance. This Act requires a greater than majority vote because Article VIII, Section 11 of the Delaware Constitution requires a three-fifths vote to impose or levy a tax or license fee. This Act also makes technical corrections.","d":{"smallbiz":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=HB+373"},{"n":"HB 380 w/ HA 2","b":"HB 380","p":"Delaware's data privacy law is being strengthened, giving you new rights and protections over how companies collect and sell your personal information \u2014 and requiring businesses to do more due diligence before sharing your data with third parties.","s":"This Act amends the Delaware Personal Data Privacy Act (DPDPA), Chapter 12D of Title 6, originally enacted in 2023, to more closely align the DPDPA with similar consumer data protection laws enacted in other states. This Act amends the applicability threshold of the DPDPA to entities who process the personal data of not less than 15,000 consumers, which on a population percentage basis closely aligns to thresholds in Connecticut and New Jersey. This Act amends Gramm-Leach-Bliley Act (GLBA) applicability exemptions, adopting approaches to financial data in similar laws in Connecticut, Montana, and Oregon, by exempting all data regulated by GLBA while limiting entity-level exemptions specifically to banks and insurers and their respective affiliates. This Act introduces contracting and due diligence requirements where businesses sell or disclose personal data to third parties and also harmonizes several DPDPA business requirements and consumer rights with personal data privacy laws in other states. This Act also makes technical changes to existing law to conform to the standards of the Delaware Legislative Drafting Manual.","d":{"workpro":"Helps You","lowwage":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=HB+380"},{"n":"HB 381","b":"HB 381","p":"If your business experiences a data breach, this law clarifies exactly when you must report it to the state Attorney General \u2014 giving you clearer legal guardrails, but also tighter obligations that require updating your breach response procedures.","s":"This Act amends Chapter 12B of Title 6 relating to Computer Security Breaches to clarify when businesses must provide notice of a computer security breach to the Attorney General.","d":{"smallbiz":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=HB+381"},{"n":"HB 393 w/ HA 1","b":"HB 393","p":"If you buy electricity through a third-party supplier, you must now receive written notice 90 and 30 days before your contract renews, and at least 15 days' warning before any rate change \u2014 so you're never surprised by a higher electric bill or locked into terms you didn't knowingly agree to.","s":"This Act provides that an individual electric supplier agent cannot be fined or imprisoned for violations under Section 218 of Chapter I of Title 26. This Act provides that the Commission must develop a training and educational program for any entity or individual that is certified by the Commission as an electric supplier that demonstrates a thorough understanding of the Commission's regulations regarding (1) sales; (2) consumer protection; and (3) any other matter the Commission deems appropriate. This Act requires that third-party electric supplier report data concerning customer choices in its service territory and third-party electric supplier rates. They must submit a monthly report to the Commission on customer choice in their service territories for the preceding month, including all of the following: (1) the total kilowatt hours distributed to customers purchasing electricity from a third-party electric supplier; (2) the total supply cost charged to customers purchasing electric from a third\u2013party electric supplier; (3) the total cost that customers who chose third-party suppliers would have paid under standard offer service; (4) the net third\u2013party total cost compared to the standard offer service; (5) the total third\u2013party average rate; (6) the standard offer service average rate; (7) the difference between the total third\u2013party average rate and the standard offer service average rate; (8) the third\u2013party average residential rates broken out by supplier and the variance between each of these rates and the standard offer service average rate; (9) the third\u2013party average general service nondemand rates broken out by supplier and the variance between each of these third\u2013party rates and the standard offer service average rate; (10) the third\u2013party average general service demand rates broken out by supplier and the variance between each of these third\u2013party rates and the standard offer service average rate; (11) the third\u2013party average large power demand rates broken out by supplier and the variance between each of these third\u2013party rates and the standard offer service average rate; and (12) other pertinent information the Commission considers appropriate. This Act requires a third-party electric supplier to provide residential customers or small commercial customers with written notice of the pending renewal of a contract 90 and 30 days before the end of the contract term is scheduled to occur and provides regulations regarding electric supplier rates. It requires a third-party electric supplier to provide written confirmation within 15 business days of enrollment and written notification at least 15 days in advance of any changes to the customer's rate. This Act requires a greater than majority vote for passage because \u00a7 28 of Article IV of the Delaware Constitution requires the affirmative vote of two-thirds of the members elected to each house of the General Assembly to give jurisdiction to inferior courts or justices of the peace of \"such \u2026 misdemeanors as the General Assembly may from time to time \u2026 prescribe.\"","d":{"homeowner":"Helps You","renter":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=HB+393"},{"n":"HB 406","b":"HB 406","p":"Your auto insurer can no longer force you to use a specific repair shop as a condition of paying your claim \u2014 you can choose any qualified mechanic or body shop and still get your repair covered.","s":"This Act updates auto insurance protections by prohibiting carriers from limiting repair or replacement work to particular facilities, individuals, or business establishments as a condition of payment of a claim. This Act makes technical corrections to conform the statute with the Delaware Legislative Drafting Manual.","d":{"homeowner":"Helps You","workpro":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=HB+406"},{"n":"HB 419 w/ HA 1","b":"HB 419","p":"Children placed into foster care are now automatically eligible for the state's child care subsidy program, removing a bureaucratic hurdle so foster families can access child care coverage right away without a separate application.","s":"This Act provides that a child is automatically eligible for Purchase of Care upon placement in foster care.","d":{"lowwage":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=HB+419"},{"n":"HB 423","b":"HB 423","p":"As a new state employee, you'll be automatically enrolled in the 457(b) retirement savings plan within your first 90 days \u2014 contributions start from your paycheck, but you can opt out or request a full refund within 120 days of your hire date if you prefer to manage retirement savings differently.","s":"This Act establishes an automatic enrollment feature for newly hired state employees in the State's 457(b) deferred compensation retirement plan. The Board may, through a plan amendment, modify the definition of a covered employee. Under the Act, a predetermined percentage of an employee's salary will be automatically deducted from each paycheck and contributed to the 457(b) plan upon hire. This Act allows new employees to opt out at any time prior to the commencement of automatic withdrawals, which normally commences 90 days after hire. If an employee does not opt out of automatic enrollment during this 90-day period, the employee will be enrolled and contributions will commence. The employee will thereafter have an additional 30 days to opt out and request a refund of any contributions. Refund requests must be submitted no later than 120 days after the date of hire. Employees under a collective bargaining agreement are not subjected to auto-enrollment but are able to participate if should they elect to do so. This Act takes effect 10 days after the date of publication in the Register of Regulations of a notice from the State Treasurer that the Office of Management and Budget has certified to the State Treasurer that necessary payroll upgrades necessary to implement this Act have been completed.","d":{"pubsec":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=HB+423"},{"n":"HB 429","b":"HB 429","p":"If your doctor prescribes a biologic medication, your insurer can no longer make you try a cheaper alternative first if an interchangeable biosimilar is available \u2014 getting you to the right treatment faster without the delays and extra out-of-pocket costs of insurer-mandated detours.","s":"This Act modernizes Delaware law by adding modern medical treatment options biologics or biosimilars to the step therapy exception process. The current law was passed before biosimilars were widely available. Biosimilars are to biologics what generic drugs are to traditional drugs once their exclusivity expires. This revision adds an exclusion to step therapy protocol exceptions for interchangeable biologics and biosimilars.","d":{"workpro":"Helps You","senior":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=HB+429"},{"n":"HB 438","b":"HB 438","p":"If you work in a school, youth camp, or other child-serving setting, prospective employers must now verify your work history through a service letter \u2014 giving you a paper trail of your employment record while placing the responsibility to respond on your former employers.","s":"This Act adds the definition of child-serving entity for the purpose of requiring a service letter verification from any child-serving entity where an employee may have worked. \"Child-serving entity\" is already defined in \u00a7 309 of Title 31 and includes DSCYF, residential child-care facilities, public and private schools, youth camps, summer schools, and other entities. If a previous employer fails to respond to a service letter, this Act also requires that the prospective employee report the failure to respond to the DOL.","d":{"smallbiz":"Watch Out","workpro":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=HB+438"},{"n":"HB 445 w/ HA 1 + SA 3","b":"HB 445","p":"Large energy consumers like data centers will be required to generate their own renewable power in Delaware over 10 years, protecting the electric grid from overload \u2014 which helps shield your home electricity bill from rate spikes caused by big facilities hogging shared grid capacity.","s":"This Act requires large energy use facilities to produce renewable energy within the state to power their operations to prevent a drain on the electric grid. It provides for a \"ramp-up\" period requiring that a large energy use facility provide a plan to the Public Service Commission to ramp up their energy production within the state each year so that by the 10th year of operations, the facility is producing 100% of its energy usage through in-state production. This Act also allows the Public Service Commission to regulate electric suppliers insofar as necessary to ensure that large energy use facilities do not negatively affect the reliability of the electric grid.","d":{"homeowner":"Helps You","renter":"Helps You","smallbiz":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=HB+445"},{"n":"HB 458 w/ HA 1","b":"HB 458","p":"If your single-family home is classified as a low-hazard building and uses municipal water (not a public well), counties and towns can no longer require you to install or pay for backflow preventer inspections \u2014 potentially saving you hundreds of dollars in mandated plumbing costs.","s":"This Act prohibits counties and municipalities from requiring the use of water backflow preventers in certain types of low hazard buildings. In doing so, this Act reduces costs for businesses and single-family residential homeowners by exempting them from backflow preventer installation and inspection requirements in buildings where backflow does not pose a risk to fresh water or drinking water. Buildings deemed low hazard will nonetheless be required to have backflow preventers if they have fresh water supplied by a public well. Under \u00a7 1 of Article IX of the Delaware Constitution, this Act requires a two-thirds majority vote because it involves indirect changes to municipal charters.","d":{"homeowner":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=HB+458"},{"n":"HB 461","b":"HB 461","p":"New Castle County school districts must reset their tax rates for 2026\u20132027 so they don't collect more revenue than last year \u2014 limiting your school tax increase to your district's historical growth rate (as low as 0.31% for Smyrna, up to 3.68% for Appoquinimink) while assessment appeals are still being sorted out.","s":"This Act provides special authority to school districts in New Castle County to reset their tax rate for the 2026-2027 tax year. This authority is necessary because several adjustments to the New Castle County tax roll are continuing to be made after the completion of the general reassessment that took effect for the 2025-2026 tax year. This includes the ongoing adjudication of appeals from the assessment values set in the general reassessment as well as quality control reviews, and potential changes pending in other legislation. This Act allows the New Castle County school districts to adjust the tax rate so that no increase in operating revenue over the prior year will be realized, with two exceptions: (1) revenue increases from approved referenda; and (2) revenue equal to the 5-year average growth rate for each district. The 5-year average growth rates for NCC districts are as follows: (1) Appoquinimink, 3.68%; (2) Brandywine, 0.54%; (3) Christina, 0.32%; (4) Colonial, 1.10%; (5) Red Clay, 0.58%; (6) Smyrna, 0.31%; and (7) New Castle County Vocational Technical, 0.96%. This Act sunsets on March 31, 2027.","d":{"homeowner":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=HB+461"},{"n":"HB 462","b":"HB 462","p":"New Castle County school districts can continue charging commercial and industrial properties a higher school tax rate than homeowners \u2014 up to 1.85 times your residential rate \u2014 meaning part of the school funding burden is shifted toward businesses rather than falling entirely on your property tax bill.","s":"In 2025, the General Assembly passed House Bill No. 242 (now found at Chapter 135, Volume 85 of the Laws of Delaware), allowing school districts located entirely in New Castle County to use different tax rates for residential and non-residential properties. This Act amends the Delaware Code to continue the authority for non-vocational technical school districts in New Castle County to utilize a residential and non-residential tax rate for school tax purposes. Such a split rate may be established or adjusted in the year after a general reassessment or as part of a referendum. The rate must be uniform for each class of property. Under this Act, the non-residential rate must be at least equal to the residential rate and may be no more than 1.85 times the residential rate. For purposes of the split tax rate, a school district must follow the classifications of the county in which the district is located. Under the transition provisions of this Act, a district that initially established split tax rates under the authority of House Bill No. 242, may continue to use those split rates at the same or a lower ratio between residential and non-residential tax rates established in the 2025-2026 tax year. But if a district's non-residential tax rate for the 2025-2026 tax year was more than 1.85 times the residential tax rate, it must adjust its rates to meet the 1.85 maximum ratio permitted under this Act. The New Castle County Vocational Technical District may not continue the use of different tax rates past the 2025-2026 tax year. The Act also changes the amount a school district must add to its tax rate to account for delinquencies and late payments to \"up to 10%\" rather than requiring that a school district must add exactly 10% to its tax rate for this purpose. This Act also makes technical corrections to conform this chapter of the Delaware Code to the Delaware Legislative Drafting Manual and strikes references to the City of Wilmington School District, which no longer exists. It also revises \u00a7 1913 of Title 14 to reflect current practice. It strikes an outdated requirement in \u00a7 1918 of Title 14 that the school districts deliver a copy of the assessment list to the County along with their tax warrant. This is inconsistent with the role of the school districts and with current practice.","d":{"homeowner":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=HB+462"},{"n":"HB 89 w/ HA 1","b":"HB 89","p":"If a contractor leaves your home repair job unfinished or does poor work, you now have a state-backed dispute resolution process to get your money back \u2014 and if the contractor still refuses, you can sue for up to triple your actual damages plus attorney fees.","s":"This Act directs the Division of Consumer Protection to establish a Home Improvement Dispute Resolution process through which a person who purchases home improvement services or materials from a contractor can initiate a dispute resolution process with the assistance of the Division. To be eligible for the dispute resolution process, the buyer must first send the contractor a written request to resolve the dispute and allow the contractor 20 days to respond. If the dispute is not resolved or the contractor fails to respond, the buyer may submit an application to the Division for assistance. Upon receiving notice from the Division that the buyer has initiated the dispute resolution process, a contractor must participate in good faith in the process. If the contractor fails to respond to the notice or fails to participate in good faith, it is deemed a violation of the Consumer Fraud Act and a notice will also be sent to the Department of Labor. A contractor who fails to participate in good faith in the dispute resolution process may also have their certificate of registration denied, suspended, or revoked. This Act also establishes that a buyer who initiates a civil action for damages incurred as a result of a violation of the Consumer Fraud Act related to a home improvement contract may be awarded actual damages, court costs, and reasonable attorneys fees. A buyer who initiates a civil action may also obtain up to treble damages if the buyer completed the steps to be eligible for the dispute resolution process, if the buyer made an offer of settlement at least 10 days prior to filing the civil suit and the contractor rejected the offer, if the offer was for less than the buyer is ultimately awarded by the court, and if the court holds that the contractor's violation was wilful. This Act takes effect immediately and is to be implemented 6 months from the date of enactment.","d":{"homeowner":"Helps You","smallbiz":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=HB+89"},{"n":"SB 141 w/ SA 1","b":"SB 141","p":"Licensed auction houses in Delaware can now auction off spirits \u2014 opening a new revenue channel if your business handles high-end or collectible liquor sales, as long as those bottles are kept out of your regular retail inventory.","s":"This bill allows auction houses that are licensed by the Delaware Office of the Alcoholic Beverage Control Commissioner to auction spirits, so long as the spirits being auctioned are not made available for sale in any licensed facility or store.","d":{"smallbiz":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+141"},{"n":"SB 18 w/ SA 1 + HA 2","b":"SB 18","p":"If your business transmits money or deals in cryptocurrency in Delaware, you'll face new net worth thresholds, updated surety bond requirements, and tighter disclosure and refund rules \u2014 with up to a year to come into compliance with the new standards.","s":"This Act repeals the existing Chapter 23 of Title 5 and replaces it with the \"Delaware Money Transmission and Virtual Currency Modernization Act.\" This Act modernizes the State's regulatory framework for money transmission and addresses the emergence of virtual currency. The Act allows the State Bank Commissioner to coordinate with other states in the licensing and supervision of money transmitters, utilizing the NMLS system. The Act establishes new safety and soundness standards, including a tiered net worth requirement based on total assets and updates surety bond requirements scaled to a licensee's average daily money transmission liability. The Act standardizes receipt requirements for both fiat and virtual currency transactions, provides a 10-day refund window for certain transmissions, and establishes specific disclosure rules for payroll processing services. This Act provides a 6-month window for general compliance and a 1-year period for licensees to meet new net worth and permissible investment standards. This Act creates new regulatory framework for virtual currency business activity. It defines virtual currency and virtual currency business activity. It mandates specific consumer disclosures regarding the risks of virtual currency and establishes that virtual currency held by a licensee is a pro rata property interest not subject to the claims of the licensee's creditors. The Act allows the Commissioner to adopt rules and regulations for the administration of this chapter. The Act is to be implemented the earlier of 1 year from the date of the Act's enactment or notice from the State Banking Commissioner that final regulations have been promulgated. This Act requires a greater than majority vote for passage because \u00a7 1 of Article IX of the Delaware Constitution requires the affirmative vote of two-thirds of the members elected to each house of the General Assembly to amend the general corporation law.","d":{"smallbiz":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+18"},{"n":"SB 192","b":"SB 192","p":"If your electric or gas utility plans to move its customer service call center out of state, they must now give advance notice to regulators, workers, and union reps \u2014 giving Delaware residents and employees a heads-up before local jobs disappear and service quality potentially changes.","s":"This Act imposes certain requirements upon a public utility if it intends to relocate a call center outside the service territory of the public utility or contract call center work outside of the service territory of the public utility. The requirements include providing notice to the Public Service Commission, current and prospective employees at the call center, and the union leadership of any current or prospective employees at the call center.","d":{"homeowner":"Helps You","renter":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+192"},{"n":"SB 219 w/ SA 1","b":"SB 219","p":"Your Delaware state income tax exemption on military retirement pay will rise from $12,500 to $25,000 \u2014 phased in over three years starting in 2027, regardless of your age \u2014 putting more of your pension back in your pocket.","s":"Of the 41 states with a state income tax, 27 states fully exempt military retirement pay and 12 states partially exempt it. In 2022, Delaware increased the pension exclusion for military pensioners under 60 to $12,500, and in 2024 expanded the definition of a U.S. military pension. This Act phases in, over 3 years, an increased exemption for military pensions from state income taxation, regardless of age, from $12,500 to $25,000 for all military pensioners beginning in taxable years on or after January 1, 2029.","d":{"senior":"Helps You","pubsec":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+219"},{"n":"SB 22 w/ HA 1","b":"SB 22","p":"Your health insurer must now cover mental health and substance use disorder treatment on the same terms as physical health care \u2014 including emergency mental health services, all appropriate levels of care, and out-of-network coverage when in-network providers aren't available nearby \u2014 so you pay no more for mental health than you would for a physical illness.","s":"Approximately one in five adults report experiencing a mental health condition. At the same time, many individuals continue to face delays or barriers when trying to access care, even when they have insurance coverage. Delays, denials, or truncation of treatment leave families and their doctors battling for coverage instead of focusing on treatment and recovery. Families must pay out of pocket for care, on top of premiums for coverage they are not receiving. Further, Delawareans are five times more likely to go out-of-network for mental health care than for primary care, resulting in higher costs. This Act, known as the Fair Standards in Mental Health Care Act, builds on previous work to advance mental health parity and aims to ensure patients with private insurance can access timely, evidence-based mental health and substance use disorder care in Delaware. This Act supports improved access to mental health disorder and substance use disorder treatment by: 1. Adding and refining key terms, including definitions of mental health disorders and substance use disorders, level of care criteria, medically necessary treatment, utilization review and utilization review criteria to ensure consistency with widely accepted clinical standards of treatment and service intensity determination. This bill forges gold-standard clinical guidelines through requiring insurers to use transparent, evidence-based standards from independent experts, including the American Academy of Child and Adolescent Psychiatry. 2. Requiring coverage for all medically necessary treatment, including emergency services and all clinically appropriate levels of care. 3. Requiring at least one formulation of certain FDA-approved medications to treat substance use disorders to be placed on the lowest-cost tier of drug formularies. 4. Prohibiting discrimination against individuals with current or predicted mental health disorders or substance use disorders. 5. Requiring carriers to arrange coverage of medically necessary out-of-network services without additional cost to the enrollee if in-network options are unavailable within applicable network access standards, thus ensuring real network access. 6. Removing language currently in the code barring a private right of action for violations of 18 Del. Code \u00a7 3343. In addition, the Act clarifies that carriers must provide nonquantitative treatment limitation parity analysis (NQTL parity analysis) that they are required to have completed under federal law to health care providers and current and prospective covered persons, free of charge, upon request. This Act applies to individual health insurance policies under Chapter 33 of Title 18 and group and blanket health insurance policies under Chapter 35 of Title 18. This Act applies to all policies, contracts, or certificates issued, renewed, modified, altered, amended, or reissued after December 31, 2027.","d":{"workpro":"Helps You","senior":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+22"},{"n":"SB 231","b":"SB 231","p":"If you're a school social worker with a Licensed Clinical Social Worker credential, you'll now receive an additional salary supplement on top of your base pay \u2014 a direct increase to your take-home income.","s":"This Act provides that School Social Workers who have successfully passed the Association of Social Work Boards National Clinical Examination and hold a Licensed Clinical Social Worker License receive a salary supplement. This Act also makes technical corrections to conform existing law to the standards of the Delaware Legislative Drafting Manual.","d":{"pubsec":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+231"},{"n":"SB 235","b":"SB 235","p":"If you live in a manufactured home community, the formula that limits how much your lot rent can increase is now permanent \u2014 replacing the old rules that gave landlords broader leeway to raise your rent.","s":"This Act repeals the sunset date on the rent increase calculations for manufactured home communities that were enacted as a pilot under Senate Bill No. 317 (151st General Assembly), 83 Del. Laws, c. 341. Under this Act, the calculations used for rent increases under \u00a7 7052A and \u00a7 7052B of Title 25 replace the grounds for rent increases under \u00a7 7052 of Title 25.","d":{"renter":"Helps You","smallbiz":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+235"},{"n":"SB 237","b":"SB 237","p":"If you're an Assistant County Attorney or legal professional working for New Castle County, the County can now grant you tenure protections \u2014 giving your position greater job security and making your employment harder to eliminate for political reasons.","s":"This bill directly responds to New Castle County Council Resolution 26-018 by expressly authorizing New Castle County Council to establish a right of tenure for New Castle County's Assistant County Attorneys and other professional legal staff by ordinance. Like the similar rights granted to the employees of the State of Delaware Department of Justice and the City of Wilmington's legal staff, these rights will serve to promote recruitment and retention of high-quality legal professionals, promote continuity of legal services, and further the public's interest in the provision of independent legal advice.","d":{"pubsec":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+237"},{"n":"SB 26","b":"SB 26","p":"If you're off work due to a labor dispute \u2014 including a strike \u2014 you can now collect unemployment benefits after a two-week waiting period, and that waiting period is waived entirely if your employer broke a contract or hired a permanent replacement for your job.","s":"Under current Delaware law, if a labor dispute constitutes a lockout, employees who meet all other eligibility requirements qualify for unemployment benefits from the date they file their claim. However, if a labor dispute does not constitute a lockout, employees do not qualify for (i.e. are disqualified from receiving) unemployment benefits. This Act changes the law to allow an employee who is subject to a labor dispute, other than a lockout, to collect unemployment benefits after a 2-week waiting period, if the employee meets all the eligibility requirements for unemployment benefits, including being able and available for work and completing weekly job requirements. This Act provides that the 2-week waiting period established by this Act is waived if one or both of the following apply: (1) The labor dispute is caused by the failure or refusal of the employer to comply with an agreement or contract between the employer and the individual, including a collective bargaining agreement with a union representing the individual, or a State or federal law pertaining to hours, wages, or other conditions of work. (2) The employer hires a permanent replacement worker for the individual's position. The Department of Labor may impose a penalty on an employer who fraudulently certifies the ability of an employee to return to the employee's prior position on conclusion of the labor dispute. This Act also makes technical corrections to conform existing law to the standards of the Delaware Legislative Drafting Manual.","d":{"lowwage":"Helps You","smallbiz":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+26"},{"n":"SB 263","b":"SB 263","p":"Minor league baseball players in Delaware are now exempt from state minimum wage laws because their pay and conditions are governed by a collective bargaining agreement with Major League Baseball \u2014 so their wages and terms are set by that union contract rather than state labor minimums.","s":"This Act adds minor league baseball players to the existing exemptions from state minimum wage and recordkeeping standards. After minor league players formed a union in 2022, minor league players represented by the Major League Baseball Players Association (MLBPA) signed their first collective bargaining agreement with Major League Baseball (MLB) in 2023. This exemption actualizes that existing collective bargaining agreement between the players union and MLB.","d":{"workpro":"Helps You","lowwage":"Helps You","smallbiz":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+263"},{"n":"SB 271 w/ SA 1","b":"SB 271","p":"New rules on pharmacy benefit managers \u2014 the middlemen who manage your drug coverage \u2014 are designed to lower what you pay at the pharmacy counter by prohibiting spread pricing on all purchasers and setting stricter reimbursement standards that protect local pharmacies from being underpaid.","s":"This Act strengthens procedural protections for pharmacies, pharmacists, and consumers related to regulation of a pharmacy benefits manager by: adding definitions for several key terms; applying audit notice requirements uniformly, requiring at least 5 business days' notice of records sought, limiting audits to once every 12 months, setting wholesale invoice audit standards, and requiring the PBM to bear audit costs; clarifying pharmacies' right to appeal reimbursement amounts, extending the appeal window from 10 to 40 days, and requiring detailed denial reasons; prohibiting retaliation against pharmacists/pharmacies who disclose information to a government agency in good faith; requiring at least 60 days' notice before amending a pharmacy contract; clarifying that the spread-pricing prohibition applies to all purchasers; changing rebate reporting from quarterly to annual; and amending national drug acquisition cost compliance and dispensing requirements to protect patient costs and data privacy. This Act also makes technical corrections.","d":{"senior":"Helps You","workpro":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+271"},{"n":"SB 275 w/ SA 1 + HA 1","b":"SB 275","p":"If you're digging on your property for any reason, contractors and utility operators now have stricter obligations to mark underground lines within three business days \u2014 reducing the risk that a careless excavation near your home damages your gas, water, or power service and leaves you footing an emergency repair bill.","s":"This Act updates and clarifies the Underground Utility Damage Prevention and Safety Act (UUDPSA), which dates from the mid-1990s. Specifically, the Act clarifies the obligations of facility owners and facility operators, which the Act defines as the person or entity that owns, operates, or controls an underground or submerged conductor, pipe, or structure used to provide electric or communications service, or an underground or submerged pipe used to carry, provide, or gather gas, oil, sewage, water, or other liquid service. Under the Act, in addition to their existing obligations under the UUDPSA, facility owners and facility operators must respond to requests from an excavator concerning the location of their facilities within 3 business days after receipt of the request, and must provide information to the excavator via the Owner/Operator/Excavator Information Exchange System, which is an interactive system that facilitates communication for that purpose. In addition, \"designers,\" meaning an architect, engineer, or other person who prepares or issues a drawing for a construction or other project requiring excavation or demolition work, are required to meet with a facility owner or facility operator who requests more information on the scope of a project and to make reasonable efforts to prepare construction drawings in a way that avoids damage and minimizes interference with facilities in the construction area. \"Excavators,\" meaning any person proposing to engage in excavation or demolition work, must ascertain the location and type of facilities by contacting the Owner/Operator/Excavator Information Exchange System, and may not begin excavation until a positive response code of \"clear\" or \"no conflict\" or \"marked\" is received from each facility owner or facility operator through the Owner/Operator/Excavator Information System. In the event of an emergency that the excavator discovers or creates, the excavator must immediately notify the occupants of the premises, and, in the event of damage to a facility by the excavator resulting in the escape of a flammable, toxic, or corrosive gas or liquid, or other event that poses a danger to life, health or property, the excavator must immediately notify 911 and the facility owner or facility operator. The excavator is required to exercise due care and take all reasonable steps to avoid injury or interference with facilities, and, in the case of a complex project, to meet with the facility owner or facility operator or their agents before construction begins. The Utilities Service Protection Center of Delmarva, Inc. is required to provide for the approved notification center that, among other things, receives and records information regarding the location of facility owners' and facility operators' facilities within the State and notice by excavators and designers of intended excavation and demolition activity and notifies facility owners and facility operators of the information received from excavators and designers. A facility owner's or facility operator's failure to perform an act required under the UUDPSA is subject to a civil penalty of up to $1 million, for violations that result in a death; up to $500,000 for violations causing damage to a structure, and up to $100,000 for all other violations. For all violations other than those resulting in death or damage to a structure, the Public Service Commission of Delaware may determine that training provided by the approved notification center may be substituted in lieu of a civil penalty. The imposition of a civil penalty does not restrict any party from obtaining civil damages for personal injury or property damage in a private action. Civil penalties will be used by the approved notification center for public awareness programs, training and education programs for members and violators of the UUDPSA, improvements to the approved notification center, or to reduce the cost to members of the approved notification center. This Act also makes technical corrections to conform existing law to the standards of the Delaware Legislative Drafting Manual.","d":{"homeowner":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+275"},{"n":"SB 279","b":"SB 279","p":"If you're a school-based occupational therapist in Delaware, this law sets a standardized salary lane placement so your degree and credits are evaluated the same way as audiologists and speech-language pathologists \u2014 giving you a fairer starting salary and clearer path for pay increases.","s":"This Act clarifies the pay schedule for school-based occupational therapists. Due to varying program lengths and differing methods colleges use to award credits, it is challenging to accurately and equitably determine the appropriate lane on the salary schedule for school-based occupational therapists. This Act creates a uniform baseline for school-based occupational therapists on the salary schedule, similar to other school-based clinicians such as audiologists and speech-language pathologists.","d":{"pubsec":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+279"},{"n":"SB 292","b":"SB 292","p":"Unlicensed housing operators can no longer use a legal loophole to sidestep the eviction notice requirements that licensed landlords must follow, and if your rent is paid partly through a state reentry fund, your landlord must help you create a housing plan before they can end your lease.","s":"This Act requires that when all or part of the tenant's rent is paid from a state fund for reentry services, a landlord must assist the tenant in completing a discharge plan to attempt to provide a warm handoff before terminating the tenant's lease. This Act also closes a loophole in existing law that allows unlicensed or uncertified operators of residential housing to claim exemption from the Residential Landlord-Tenant Code, including the procedural requirements for an eviction. Existing laws prohibit someone from losing their housing without notice because \u2022 A landlord must comply with the notice and judicial procedure under the Residential Landlord-Tenant Code, Part III, Title 25. \u2022 Licensed health care providers must provide discharge planning before an individual is required to leave a residential treatment program under \u00a7 1127, \u00a7 5161, and \u00a7 3004J of Title 16. \u2022 Certified recovery homes must make a reasonable effort to connect a resident with appropriate services when terminating the resident's admission agreement under \u00a7 2206A of Title 16. Section 1 of this Act closes a loophole in current law that allows some landlords to claim their tenants are excluded under \u00a7 5102(1) of Title 25 from the protections required before eviction under the Residential Landlord-Tenant Code without being required to provide discharge planning or connecting the resident with appropriate services. This Act revises 3 of the exclusions by using the modern terms and where possible, the applicable licensing law for this State, to prevent housing providers from claiming exclusion from the Residential Landlord-Tenant Code even if the provider is not licensed or certified to provide services. This Act does not apply to or revise the exclusions to the Residential Landlord-Tenant Code under paragraphs (4) through (6) of \u00a7 5102 of Title 25, including the existing exclusion for certified recovery houses. Section 2 of this Act creates new requirements under \u00a7 5512A of Title 25 if all or part of a tenant's rent is paid using money from a State reentry fund. Before or with the first payment, the person responsible for payments from the fund must provide the landlord with an explanation of these requirements, contact information, and the model discharge plan. The Department of Health and Social Services (DHSS), in consultation with the Department of Justice (DOJ), must create a model discharge plan. Then, before terminating the tenant's lease, the landlord must assist the individual in creating a discharge plan that includes shelter or housing and provide notice that the tenant's lease is being terminated as follows: \u2022 To the person making rent payments from the fund. \u2022 If the landlord knows that the tenant is under the supervision of the Department of Correction, to the Department of Correction and the local law enforcement agency. If a landlord fails to comply with the discharge planning and notice requirements, the landlord is debarred from receiving payments from any State reentry fund for 1 year. If the landlord is receiving payments from a State reentry fund for any other tenants, those tenants are not responsible for the share of the rent that was paid by the fund and have the option to do any of the following: \u2022 Continue the tenancy without payments from the fund. \u2022 Terminate the lease immediately. \u2022 Terminate the lease with 30 to 60 days notice. These requirements are enforceable by the Department of Justice and also by the Justice of the Peace Court, because the contents of an eviction complaint must include a brief statement of compliance with the requirements under \u00a7 5512A(c) and copies of all required notices. Section 3 of this Act is a technical clarification to clarify that \"this Code\" and \"Landlord-Tenant Code\" both refer to the Residential Landlord-Tenant Code under Part III of this title. Both \"this Code\" and \"Landlord-Tenant Code\" are used throughout Chapter 51 through Chapter 59 of Title 25 as abbreviations of the Residential Landlord-Tenant Code and under \u00a7 101 of Title 1, \"this Code\" could also refer to the entire Delaware Code. Section 4 of this Act makes the new requirements for reentry funds under \u00a7 5512A of Title 25 applicable to the rental of single rooms in owner-occupied buildings under \u00a7 5512 of Title 25. Section 4 also reorganizes the existing language in \u00a7 5512 because as 1 sentence, the current language is difficult to understand. This Act takes effect 6 months after enactment to provide time for DHSS and DOJ to develop the model discharge plan and for agencies, including the Department of Correction and local law enforcement agencies, to develop policies and procedures necessary to implement and respond to notification under these requirements. The new requirements under \u00a7 5512A of Title 25 apply to rental agreements entered into on or after the effective date of this Act. This Act also makes technical corrections to conform existing law to the standards of the Delaware Legislative Drafting Manual. This Act is known as \"The Grace Peterson Act\".","d":{"renter":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+292"},{"n":"SB 293 w/ SA 1 + HA 1","b":"SB 293","p":"If your youth camp is already accredited by the American Camp Association, you're now automatically treated as meeting Delaware's licensing requirements \u2014 cutting red tape and also making your camp eligible to accept Purchase of Care child care subsidies, which can open your enrollment to more families.","s":"This Act simplifies the licensing requirements for youth camps that are accredited by the American Camp Association (ACA) by requiring that the Department of Education's Office of Child Care Licensing (OCCL) deem a youth camp as meeting all equivalent health and safety requirements necessary for a youth camp license if the youth camp has ACA accreditation. By streamlining the OCCL licensing requirements, this Act also increases the availability of summer child care eligible for provider reimbursement from the Purchase of Care (POC) program, since license-exempt youth camps are otherwise ineligible for POC reimbursement. This Act also codifies existing OCCL child care licensing regulations regarding youth camp licenses, permit requirements, and school-age care exemptions.","d":{"smallbiz":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+293"},{"n":"SB 297","b":"SB 297","p":"Delaware's consumer fraud law now covers shady business behavior that happens after a purchase \u2014 like a landlord sending threatening collection letters or a company refusing to honor a repair promise \u2014 so you have legal protection against deceptive tactics at every stage of a transaction, not just at the point of sale.","s":"This Act adds a clarifying interpretive paragraph to the Delaware Consumer Fraud Act (Subchapter II, Chapter 25, Title 6 of the Code) to address a recent decision by the Delaware Supreme Court and to make clear that the Consumer Fraud Act's use of the phrase \"in connection with\" in \u00a7 2513 should be interpreted to include unfair and deceptive acts and practices that occur \"before, during, and after\" the sale, lease, receipt, or advertisement of any merchandise. The Delaware Supreme Court recently construed the Consumer Fraud Act to be confined to conduct \"between businesses and consumers which happen before a transaction or during the transaction itself.\" Blue Beach Bungalows DE, LLC v. State, No. 14, 2025, 2025 WL 3768232, at *11 (Del. Dec. 30, 2025). However, in recognition of the broad purpose of the Consumer Fraud Act set forth by the 123rd General Assembly in Section 2512, subsequent amendments to the Consumer Fraud Act to include the \"receipt\" of merchandise, and the scope of comparable statutes in other states, this bill ensures that the Consumer Fraud Act is interpreted to apply to unfair or deceptive conduct that occurs after a sale, lease, receipt, or advertisement, including, but not limited to, conduct occurring in instances in which a sale, lease, receipt, or advertisement creates an ongoing relationship or a continuing obligation, or where performance has not yet been completed. This aligns the Consumer Fraud Act with Unfair or Deceptive Acts or Practices (\"UDAP\") laws with similar language in other states, as well as many other UDAP laws, including the FTC Act, that cover post-transaction conduct. This Act will allow the Delaware Department of Justice to use the Consumer Fraud Act to address the full range of unfair and deceptive acts or practices that consumers report to the Delaware Department of Justice, including, for example, false and threatening landlord communications, unscrupulous debt collection tactics, and failures to honor promises to fix returned merchandise. It will also ensure that businesses throughout the state can compete on a level playing field throughout the duration of their relationships with consumers, without being undercut by unscrupulous competitors who engage in post-transaction misconduct. Additionally, it ensures that the Delaware Department of Justice is not disadvantaged when coordinating with other states to hold entities accountable for unfair or deceptive acts or practices that are nationwide in scope.","d":{"smallbiz":"Watch Out","workpro":"Helps You","lowwage":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+297"},{"n":"SB 301","b":"SB 301","p":"If a hospital sends you home while you're showing signs of labor, they must now give you a written discharge plan that includes aftercare instructions, confirms you have reliable transportation, and identifies a backup delivery facility \u2014 protecting you from an unsafe discharge that could lead to a dangerous and costly emergency.","s":"This Act requires that a hospital create a discharge plan if a pregnant patient experiencing signs or symptoms consistent with labor is discharged before delivery, whether from in-patient or observation status. The plan must include aftercare instructions explained to the patient, an assessment of travel distance/time to the hospital, verification of reliable transportation, and identification of a back-up hospital or facility for labor and delivery services. This Act is modeled on the federal WELLS Act, named after Mercedes Wells, who was forced to give birth on the side of the road minutes after being discharged from a hospital while in active labor.","d":{"senior":"Helps You","workpro":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+301"},{"n":"SB 307","b":"SB 307","p":"Delaware can now approve more phone and internet companies to participate in the federal Lifeline program \u2014 which discounts your monthly phone or internet bill if you're on a qualifying low-income benefit \u2014 potentially giving you more provider options and keeping that subsidy accessible.","s":"This Act gives Delaware's Public Service Commission (\"Commission\") the authority to designate a telecommunications provider or reseller as an eligible telecommunications carrier (\"ETC\") for the purpose of providing Lifeline services. Lifeline is a Federal Communications Commission (\"FCC\") program that helps make phone and internet services more affordable for low-income consumers. Approximately 8,700 Delawareans participate in Lifeline. Currently, the determination of which telecommunications services companies can operate as Lifeline ETCs in Delaware is made by the FCC. This Act shifts that authority to the Commission, and in doing so, brings Delaware into line with nearly every other state in the nation. The reason for this nationwide trend is that in the past 15-20 years, the FCC has stopped taking action on approving ETCs for Lifeline on behalf of states. The FCC is not opposed to states stepping into this gap, but Delaware cannot do so absent statutory changes. By giving the Commission the authority to designate Lifeline ETCs, this Act will allow additional Lifeline providers to support this State's residents. Because the FCC handles the administration and expenses of the program, there is no cost to the State as a result of taking on this authority. This Act takes effect immediately, but implementation is delayed to give the Commission time to amend its regulations to be consistent with this Act.","d":{"lowwage":"Helps You","senior":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+307"},{"n":"SB 308 w/ SA 1","b":"SB 308","p":"Delaware regulators must now independently review and verify the electricity demand forecasts that utilities submit \u2014 a watchdog measure aimed at preventing the grid from being overbuilt (at your expense) or underbuilt (risking outages) as data centers drive a surge in power demand.","s":"This legislation shall be known and may be cited as the \"Load Forecast Accountability Act.\" Recent reports by PJM Interconnection, L.L.C. (PJM), have highlighted that electricity demand across the PJM footprint, including Delaware, is projected to grow due to data centers, electrification of vehicles and buildings, and other large load additions. PJM recently projected that, by 2030, PJM expects to add 32 GW of load to the grid \u2013 30 GW of which is attributable to data centers. PJM relies upon load forecasts submitted by Commission-regulated electric distribution companies in Delaware to establish system planning needs and capacity requirements which ultimately have costs associated with both. Accurate, transparent, load forecasting is essential to ensure the adequacy of electric supply, maintain system reliability, and protect Delaware consumers from unnecessary costs caused by overbuilding or underbuilding system resources. This Act requires the Commission to submit a written report to the Governor, the General Assembly, and the Director and the Librarian of the Division of Legislative Services no later than May 1 of each year on its progress in implementing this Act.","d":{"homeowner":"Watch Out","renter":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+308"},{"n":"SB 309 w/ SA 1","b":"SB 309","p":"The state can no longer take money out of incarcerated workers' pay to cover the cost of their own housing in a correctional facility \u2014 meaning any wages they earn stay in their account to use for reentry, family support, or basic needs.","s":"This Act removes authority from the Department of Corrections to deduct pay from inmate accounts for a proportionate share of the costs of incarceration of inmates in the facility in which the inmate is housed. This Act also makes technical corrections to conform existing law to the standards of the Delaware Legislative Drafting Manual.","d":{"lowwage":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+309"},{"n":"SB 315 w/ SA 1 + HA 1","b":"SB 315","p":"If your small business wins a federal SBIR or STTR research grant, Delaware can now layer on matching or supplemental state funds \u2014 giving you more capital to develop and commercialize your product without taking on debt or diluting ownership.","s":"This act updates the Delaware Technical Innovation Program at Title 29 of the Delaware Code, Chapter 87A, Subchapter III by authorizing the Division of Small Business to provide matching funds or supplemental grant funds to eligible Delaware small businesses receiving federal SBIR or STTR awards in order to support research, development, commercialization, and economic benefit in this State. This act also authorizes the State to provide matching funds or supplemental grant funds to an eligible small business that has received a federal SBIR or STTR Phase I or Phase II award.\n\nTo qualify for funding under Title 29, \u00a7 8737A, a small business must have its principal place of business in Delaware and must certify that the funded work, related research and development, or commercialization activity will benefit the Delaware economy. The Division of Small Business shall administer the program using funds allocated or otherwise made available for such purpose and may establish application requirements, program guidelines, allowable uses of funds, award amounts, and such other criteria as are necessary to carry out \u00a7 8737A.","d":{"smallbiz":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+315"},{"n":"SB 316","b":"SB 316","p":"If you paid off a lien on your property \u2014 not just a mortgage, but any lien \u2014 your real estate attorney can now file a legal release on your behalf if the creditor fails to do so, preventing a lingering cloud on your title that could delay or block a future home sale.","s":"Currently, if a licensed Delaware attorney pays off a mortgage in conjunction with a real-estate settlement and the lender fails to file a satisfaction piece within 60 days, the attorney may administratively satisfy that mortgage to clear the title record. Unfortunately, often other types of liens that are paid off remain unsatisfied and cloud title for the homeowner. This Act clarifies that a licensed Delaware attorney may also file an administrative satisfaction or partial release for any other type of lien that the Delaware attorney paid off.","d":{"homeowner":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+316"},{"n":"SB 321 w/ SA 1","b":"SB 321","p":"Delmarva Power will now use a \"net crediting\" system for community solar subscribers \u2014 meaning your solar credits and subscription charges are automatically netted together on your monthly bill, so you see one clear number rather than juggling separate invoices.","s":"Net crediting is the preferred utility consolidated billing methodology for Delmarva Power and Light as it has already been successfully implemented in Atlantic City Electric, Pepco Maryland, and Delmarva Maryland jurisdictions. Net crediting delivers a simpler, more transparent experience for both subscribers and subscription coordinators by netting subscription charges from monthly credits on behalf of the subscribers, who receive the net credit. Then, the utility aggregates those subscription charges on behalf of the subscription coordinators, who receive a payment from Delmarva. Net crediting marries the concept of world class customer experience with market scalability, while also being the lowest risk option for Delmarva's customers.","d":{"homeowner":"Helps You","renter":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+321"},{"n":"SB 322","b":"SB 322","p":"After a property reassessment, your school district can no longer automatically raise its tax rate by up to 10% \u2014 instead, increases are capped by a formula tied to actual revenue and property growth, directly limiting the property tax jump you'll see on your next bill.","s":"This Act repeals the ability of school districts to increase tax rates by up to 10% when recalculating the district's rate of taxation after a general reassessment, replacing the 10% maximum with a formula tied to actual prior operating revenue plus average taxable-property growth. This Act also allows school districts to increase a referendum-approved tax by up to 2% annually without a new referendum if the district's operational reserve balance is not more than 10% of annual revenue and it is not the same fiscal year as a general reassessment recalculation. The new recalculation equation applies beginning the fiscal year following the next general reassessment, and districts cannot use the 2% no-referendum increase until after the next general reassessment or FY2031, whichever is earlier. Vocational-technical districts' tax authority under Chapter 26 is unaffected. Includes technical corrections to conform to the Delaware Legislative Drafting Manual.","d":{"homeowner":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+322"},{"n":"SB 325 w/ SA 1, SA 2 + HA 1","b":"SB 325","p":"The State Fire Prevention Commission can now run background checks on fire company applicants and members, barring anyone with certain criminal convictions \u2014 a change that affects who can serve in a volunteer capacity but doesn't directly alter fire inspection fees or homeowner costs.","s":"This Act defines terms used in Chapter 66, Title 16 of the Delaware Code for clarity. It also provides the State Fire Prevention Commission with the authority to receive and review criminal history records of applicants and members to determine whether the applicant or member is prohibited from serving as a member of a fire company. An applicant or member is not qualified to serve as a member if the individual's criminal history record includes a crime listed in this Act, including felonies, specified financial or property crimes, sex crimes, specified crimes against a victim who is acting in the lawful performance of the victim's duty, or crimes involving controlled substances or designer drugs. This Act updates the criminal history record language in Chapter 66, Title 16 to ensure Delaware law meets the requirements of the Federal Bureau of Investigation in requesting federal criminal history records. This Act also makes technical corrections to make existing law conform to the standards of the Delaware Legislative Drafting Manual.","d":{"homeowner":"Watch Out","smallbiz":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+325"},{"n":"SB 326 w/ SA 1","b":"SB 326","p":"Delmarva Power is now barred from passing the cost of non-essential infrastructure projects on to customers through rate increases \u2014 and the bill caps how much the utility can collect in interim rates while a rate hike request is pending, which should slow the pace of electric bill increases for Delaware households.","s":"This bill builds on the customer protections created in Senate Bill 60 in 2025, as follows: 1. Increases transparency in rates and communications by public utilities. 2. Requires regular management audits of certain public utilities and regulatory accounting reviews with each rate case proceeding. 3. Provides greater consistency in the data used by public utilities in rate case proceedings. 4. Limits how much utilities can collect in interim rates before the Commission has ruled on a rate increase request. 5. Prohibits public utilities from recovering certain expenses from ratepayers. 6. Requires the Commission to provide rationale for its decisions in accepting settlement agreements. 7. Puts limits on Delmarva Power's infrastructure spending, which is a major driver of rate increases. Delmarva Power is operating its electric distribution system at a level far in excess of reliability standards set by the Commission. In support of its parent company's strategic goal to increase earnings by increasing rate base, Delmarva Power's annual capital spending leads to frequent rate increase requests to the Commission. Part of Delmarva Power's capital spending includes \"non-mandatory projects,\" which by definition are projects that are not required to maintain system reliability. This bill limits the amount of non-mandatory capital expenses the company may recover from ratepayers in rates and is indexed to the company's rate base, i.e. the value of all its capital assets. Limiting non-mandatory cost recovery will in no way impact Delmarva Power's ability to restore service after storms nor impact its vegetation management (tree trimming) program.","d":{"homeowner":"Watch Out","renter":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+326"},{"n":"SB 335","b":"SB 335","p":"Delaware's Fiscal Year 2027 budget has been approved, funding state agency operations, employee salaries, and public services for the year \u2014 your paycheck, pension contributions, and benefits as a state worker are all covered under this spending plan.","s":"This Bill is the Fiscal Year 2027 Appropriations Act.","d":{"pubsec":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+335"},{"n":"SB 336","b":"SB 336","p":"The state is putting an extra $146 million in one-time funds through the Office of Management and Budget for FY2027 \u2014 money that may cover supplemental pay, deferred maintenance at state facilities, or other one-time agency needs that affect your work conditions or compensation.","s":"This Act appropriates $146,199,300 to provide one-time funded items through the Office of Management and Budget.","d":{"pubsec":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+336"},{"n":"SB 340 w/ SA 1","b":"SB 340","p":"Nursing homes and long-term care facilities in Delaware must now carry at least $1 million in liability insurance per claim \u2014 meaning if something goes wrong during your care or a family member's care, there's a larger pool of money available to cover damages and legal claims.","s":"This Act requires long-term care facilities to have insurance policies that provide a minimum of $1 million per claim/$3 million aggregate coverage each for general liability and professional liability. This Act takes effect 180 days after enactment.","d":{"senior":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+340"},{"n":"SB 347","b":"SB 347","p":"Large hospitals can no longer seize your personal property \u2014 your car, furniture, or other belongings \u2014 to collect an unpaid medical bill, and any collector trying to sue you over medical debt must now disclose whether a hospital is behind the claim.","s":"This Act expands the scope of prohibited extraordinary collection actions to include a large health-care facility levying on tangible personal property of a patient. It also clarifies that any party taking action to collect medical debt must disclose in court pleadings whether the party is a large health-care facility, and makes technical corrections.","d":{"senior":"Helps You","workpro":"Helps You","lowwage":"Helps You"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+347"},{"n":"SB 63 w/ SA 1","b":"SB 63","p":"If you've been misclassified as an independent contractor when you're really an employee, this law (passed over the governor's veto) makes the general contractor on a project jointly responsible for a subcontractor's wage and classification violations \u2014 so you have a better shot at recovering back wages, tax withholding, and workers' comp you were owed.","s":"Chapter 35 of Title 19 prohibits an employer from improperly classifying an individual who is an employee as an independent contractor. Not only is this improper classification unfair to employees because it violates state and federal laws related to income tax withholding, unemployment insurance, wage laws, and workers' compensation, it is also unfair to contractors who comply with Chapter 35 and these other employment laws. When employers who violate Chapter 35 are subcontractors who have not registered as contractors as required under Chapter 36 of Title 19, the Department of Labor (Department) has no recourse for enforcing compliance with Chapter 35. This Act makes a general contractor responsible for a subcontractor's compliance with Chapter 35 by making the general contractor jointly and severally liable for restitution and penalties assessed against the subcontractor. This Act also allows the Department to deny, suspend, or revoke the certificate of registration of a contractor who contracts with a subcontractor who has not registered on any project. In addition, Section 3 of this Act makes technical corrections to conform existing law to the standards of the Delaware Legislative Drafting Manual.","d":{"workpro":"Helps You","lowwage":"Helps You","smallbiz":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+63"},{"n":"SB 75 w/ SA 1, SA 2","b":"SB 75","p":"Counties in Delaware can no longer block or over-restrict licensed marijuana stores and cultivation facilities through local ordinances \u2014 if your cannabis business meets state licensing and zoning rules, counties must allow you to operate with standard hours and cannot deny your building permits.","s":"This Act limits the restrictions a county may impose on the operation of marijuana establishments, including: requiring that a medical marijuana compassion center granted a conversion license for a retail marijuana store be allowed to operate as a nonconforming use; prohibiting denial of a building permit if improvements comply with physical zoning requirements; requiring counties to allow minimum operating hours of 9 a.m.-9 p.m. Monday-Saturday and noon-8 p.m. Sunday; permitting indoor, fully-enclosed cultivation facilities in agricultural/industrial zones; and allowing retail marijuana stores in commercial/industrial zones to be restricted only within \u00bd mile of another store or within 500 feet of a place of worship, school, licensed child care, residential treatment facility, park, or library. These limits preempt and supersede existing and future county ordinances regarding marijuana establishments. This Act also makes corresponding and technical changes to align language regarding municipalities.","d":{"smallbiz":"Watch Out"},"u":"https://legis.delaware.gov/Legislation?SearchText=SB+75"}];
+
+/* ── STATE ── */
+var st = {
+  screen:   "intro",
+  profile:  null,
+  filter:   "watchout",
+  expanded: {},
+  capDone:  {},
+  subDone:  false,
+};
+
+/* ── DATA HELPERS ── */
+function getBillsForProfile(profileKey) {
+  return BILL_PROFILES
+    .filter(function(b){ return b.d && b.d[profileKey]; })
+    .map(function(b){
+      return {
+        id:        b.b.replace(/[\s\/+]/g,"_"),
+        code:      b.b,
+        fullCode:  b.n,
+        synopsis:  b.p || b.s,
+        direction: b.d[profileKey],
+        stage:     "passed",
+        link:      b.u,
+      };
+    });
+}
+
+function getStats() {
+  var wo = 0, hy = 0;
+  BILL_PROFILES.forEach(function(b){
+    var dirs = Object.keys(b.d).map(function(k){ return b.d[k]; });
+    if (dirs.indexOf("Watch Out") !== -1) wo++;
+    if (dirs.indexOf("Helps You") !== -1) hy++;
+  });
+  return {wo:wo, hy:hy, total:BILL_PROFILES.length};
+}
+
+function getProfileStats(key) {
+  var wo = 0, hy = 0;
+  BILL_PROFILES.forEach(function(b){
+    if (!b.d[key]) return;
+    if (b.d[key] === "Watch Out") wo++; else hy++;
+  });
+  return {wo:wo, hy:hy};
+}
+
+/* ── RENDER ── */
+function render() {
+  document.getElementById("screen").innerHTML =
+    st.screen === "intro" ? renderIntro() : renderForecast();
+}
+
+/* INTRO */
+function renderIntro() {
+  var stats = getStats();
+
+  var heroHtml =
+    '<div class="eyebrow">Delaware\'s Legislative Bill Tracker</div>' +
+    '<div class="hero-brand">Dover <em>Dash</em></div>' +
+    '<div class="hero-subtitle">' + SESSION.assembly + ' &nbsp;·&nbsp; ' + SESSION.years + '</div>' +
+    '<div class="session-badge">' +
+      '<div class="badge-dot"></div>' +
+      '<div class="badge-text">' + SESSION.label + '</div>' +
+    '</div>';
+
+  var btns = PROFILES.map(function(p) {
+    var sel = st.profile === p.key;
+    var ps  = getProfileStats(p.key);
+    var statHtml = ps.wo > 0
+      ? '<div class="prof-stat has-wo">' + ps.wo + ' Watch Out · ' + ps.hy + ' Helps You</div>'
+      : '<div class="prof-stat no-wo">' + ps.hy + ' laws working in your favor</div>';
+    return '<button class="prof-btn' + (sel?" sel":"") + '" onclick="pick(\'' + p.key + '\')">' +
+      '<span class="prof-em">' + p.em + '</span>' +
+      '<div style="flex:1"><div class="prof-label">' + p.label + '</div><div class="prof-sub">' + p.sub + '</div>' + statHtml + '</div>' +
+      '<div class="check' + (sel?" on":"") + '">' + (sel?"✓":"") + '</div>' +
+    '</button>';
+  }).join("");
+
+  var woEx = BILL_PROFILES.filter(function(b){ return Object.keys(b.d).some(function(k){ return b.d[k]==="Watch Out"; }); })[0];
+  var hyEx = BILL_PROFILES.filter(function(b){ return Object.keys(b.d).some(function(k){ return b.d[k]==="Helps You"; }); })[0];
+  var previewCards = [
+    woEx ? {code:woEx.b,direction:"Watch Out", headline:woEx.p.slice(0,88)+"…"} : null,
+    hyEx ? {code:hyEx.b,direction:"Helps You", headline:hyEx.p.slice(0,88)+"…"} : null,
+  ].filter(Boolean).map(function(b){
+    var cls     = b.direction==="Watch Out" ? "watch" : "helps";
+    var bdgCls  = b.direction==="Watch Out" ? "mc-bw"  : "mc-bh";
+    return '<div class="mini-card ' + cls + '">' +
+      '<div class="mc-top"><span class="mc-code">' + esc(b.code) + '</span><span class="' + bdgCls + '">' + b.direction + '</span></div>' +
+      '<div class="mc-hl">' + esc(b.headline) + '</div>' +
+    '</div>';
+  }).join("");
+
+  var unlockTxt = st.profile ? "🔓 Unlock my bills →" : "Select a profile to unlock";
+  var ctaDis    = st.profile ? "" : "disabled";
+  var ctaTxt    = st.profile ? "Submit →" : "Select a profile above";
+
+  return '<div class="hero-card"><div class="hero-dark">' + heroHtml + '</div></div>' +
+    '<div class="hero-white">' +
+      '<div class="sect-lbl">Pick your profile:</div>' +
+      btns +
+      '<div class="preview-wrap">' +
+        '<div class="preview-lbl">Bills tracked this session:</div>' +
+        '<div class="preview-rel">' +
+          '<div class="preview-cards">' + previewCards + '</div>' +
+          '<div class="preview-overlay">' +
+            '<button class="unlock-btn' + (st.profile?" pulsing":"") + '" onclick="goForecast()">' + unlockTxt + '</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<button class="cta-btn" ' + ctaDis + ' onclick="goForecast()">' + ctaTxt + '</button>' +
+    '</div>' +
+    renderFoot();
+}
+
+/* FORECAST */
+function renderForecast() {
+  var p = PROFILES.filter(function(x){ return x.key===st.profile; })[0];
+  var myBills = getBillsForProfile(st.profile);
+
+  var filtered = myBills.filter(function(b){
+    if (st.filter==="watchout") return b.direction==="Watch Out";
+    if (st.filter==="helps")    return b.direction==="Helps You";
+    return true;
+  });
+
+  var tabs = [
+    {key:"watchout",label:"Watch Out",css:"wo"},
+    {key:"helps",   label:"Helps You",css:"hy"},
+    {key:"all",     label:"All Bills", css:"all"},
+  ].map(function(t){
+    return '<button class="ftab ' + t.css + (st.filter===t.key?" on":"") + '" onclick="setFilter(\'' + t.key + '\')">' + t.label + '</button>';
+  }).join("");
+
+  var cards;
+  if (!filtered.length && st.filter==="watchout") {
+    cards = '<div class="empty-wo">' +
+      '<div style="font-size:16px;margin-bottom:6px;">✅</div>' +
+      '<div style="font-size:13px;font-weight:700;color:#1A7A4A;">No Watch Out bills for your profile this session.</div>' +
+      '<div style="font-size:11px;color:#6B7280;margin-top:4px;">The 153rd GA\'s legislation actually worked in your favor.</div>' +
+      '<button class="switch-btn" onclick="setFilter(\'helps\')">See bills that help you →</button>' +
+    '</div>';
+  } else if (!filtered.length) {
+    cards = '<div class="loading-msg" style="font-style:italic;">No bills match this filter.</div>';
+  } else {
+    var capInserted = false;
+    cards = filtered.map(function(b) {
+      var borderColor = b.direction==="Helps You" ? "#1A7A4A"
+                      : b.direction==="Watch Out"  ? "#D93B3B" : "#D1D5DB";
+      var badgeCls    = b.direction==="Helps You" ? "badge badge-h"
+                      : b.direction==="Watch Out"  ? "badge badge-w" : "badge badge-n";
+      var stageCss    = STAGE_CSS[b.stage] || "sp-passed";
+      var stageLabel  = STAGE_LABELS[b.stage] || "Enacted";
+      var exp         = st.expanded[b.id];
+      var showAmend   = b.fullCode !== b.code;
+
+      var card = '<div class="bill-card" style="border-left:4px solid ' + borderColor + '">' +
+        '<div class="bc-inner">' +
+          '<div class="bc-top">' +
+            '<div>' +
+              '<div class="bc-code">' + esc(b.code) + '</div>' +
+              (showAmend ? '<div style="font-size:9px;color:#9CA3AF;margin-top:1px;line-height:1.3;">' + esc(b.fullCode) + '</div>' : '') +
+            '</div>' +
+            '<span class="' + badgeCls + '">' + (b.direction||"Monitoring") + '</span>' +
+          '</div>' +
+          '<span class="stage-pill ' + stageCss + '" style="margin-bottom:2px;display:inline-flex;">' + stageLabel + '</span>' +
+        '</div>' +
+        (exp
+          ? '<div class="bc-expanded">' +
+              '<div class="bc-sec-lbl">What this means for you</div>' +
+              '<div class="bc-sum">' + esc(b.synopsis) + '</div>' +
+              '<a href="' + b.link + '" target="_blank" rel="noopener" class="bc-link">Find on legis.delaware.gov →</a>' +
+            '</div>' +
+            '<button class="exp-btn" onclick="toggle(\'' + b.id + '\')">Collapse ▲</button>'
+          : '<button class="exp-btn" onclick="toggle(\'' + b.id + '\')">Tap to read what this means ▼</button>') +
+      '</div>';
+
+      var cap = "";
+      if (b.direction==="Watch Out" && !capInserted) {
+        capInserted = true;
+        cap = st.capDone[b.id]
+          ? '<div class="inline-cap"><div class="ic-success">✅ You\'re on the list! We\'ll alert you when new bills move.</div></div>'
+          : '<div class="inline-cap">' +
+              '<div class="ic-hl">🚨 Bills like this will move again next session.</div>' +
+              '<div class="ic-sub">Get an early alert when new legislation affects your profile.</div>' +
+              '<div class="ic-row">' +
+                '<input class="ic-inp" id="ic-email-' + b.id + '" type="email" placeholder="your@email.com">' +
+                '<button class="ic-btn" onclick="doInlineSub(\'' + b.id + '\')">Alert me</button>' +
+              '</div>' +
+            '</div>';
+      }
+      return card + cap;
+    }).join("");
+  }
+
+  var billWord = myBills.length === 1 ? "bill" : "bills";
+  var ps = getProfileStats(st.profile);
+  return '<div class="prof-hdr">' +
+      '<div style="text-align:left;">' +
+        '<button class="back-btn" onclick="goIntro()">← All Profiles</button>' +
+      '</div>' +
+      '<span class="prof-em-big">' + (p?p.em:"") + '</span>' +
+      '<div class="prof-name">' + (p?esc(p.label):"") + '</div>' +
+      '<div class="prof-hdr-sub">' + (p?esc(p.sub):"") + '</div>' +
+      '<div class="impact-row">' +
+        (ps.wo > 0 ? '<span class="impact-chip wo">⚠ ' + ps.wo + ' Watch Out</span>' : '') +
+        '<span class="impact-chip hy">✓ ' + ps.hy + ' Help' + (ps.hy!==1?'s':' ') + ' You</span>' +
+      '</div>' +
+      (SPONSORS[st.profile]
+        ? '<div class="sponsor-line">Supported by <a href="' + esc(SPONSORS[st.profile].url) + '" target="_blank" rel="noopener sponsored">' + esc(SPONSORS[st.profile].name) + '</a></div>'
+        : '') +
+    '</div>' +
+    '<div class="filter-tabs">' + tabs + '</div>' +
+    '<div class="bill-list">' +
+      cards +
+      '<a href="' + LEGIS_BASE + '/Legislation" target="_blank" rel="noopener" class="agenda-bar">' +
+        '<span style="font-size:14px;">📋</span><span>View All Legislation on legis.delaware.gov →</span>' +
+      '</a>' +
+    '</div>' +
+    renderFoot();
+}
+
+function renderFoot() {
+  return '<div class="foot">' +
+    '<div class="foot-line">Source: <a href="' + LEGIS_BASE + '" target="_blank" rel="noopener">Delaware General Assembly</a></div>' +
+    '<div class="foot-line">Bills shown were passed by the 153rd General Assembly</div>' +
+    '<div class="foot-line" style="margin-top:6px;">Dover Dash is an independent, nonpartisan project of Civic Delaware.<br>' +
+      '<a href="mailto:info@civicdelaware.com">info@civicdelaware.com</a></div>' +
+    '<div class="foot-line" style="margin-top:4px;">&copy; 2026 Civic Delaware. All rights reserved.</div>' +
+  '</div>';
+}
+
+/* ── ACTIONS ── */
+function pick(key) {
+  st.profile = key;
+  render();
+  gtag("event","profile_selected",{profile:key});
+  // Fire-and-forget click counter — never blocks UI
+  fetch(FN_TRACK, {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({profile:key})
+  }).catch(function(){});
+}
+
+function goForecast() {
+  if (!st.profile) return;
+  var bills = getBillsForProfile(st.profile);
+  var hasWO = bills.some(function(b){ return b.direction==="Watch Out"; });
+  st.screen = "forecast";
+  st.filter = hasWO ? "watchout" : "helps";
+  st.expanded = {};
+  render();
+  gtag("event","forecast_view",{profile:st.profile,bill_count:bills.length});
+}
+
+function goIntro()    { st.screen = "intro"; render(); }
+function setFilter(f) { st.filter = f; render(); gtag("event","filter_changed",{filter:f,profile:st.profile}); }
+function toggle(id)   { st.expanded[id] = !st.expanded[id]; render(); gtag("event","bill_expanded",{bill:id}); }
+
+function doInlineSub(billId) {
+  var emailEl = document.getElementById("ic-email-"+billId);
+  var email   = emailEl ? emailEl.value.trim() : "";
+  if (!email || email.indexOf("@")<0) { if (emailEl) emailEl.focus(); return; }
+  fetch(FN_SUBSCRIBE, {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({email:email,profile:st.profile||"unknown"}),
+  }).catch(function(){});
+  st.capDone[billId] = true;
+  render();
+  gtag("event","email_subscribed",{profile:st.profile,source:"inline"});
+}
+
+function esc(s) {
+  return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+/* ── BOOT ── */
+render();
+
+})();
+</script>
+
+</body>
+</html>
