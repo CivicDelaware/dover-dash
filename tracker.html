@@ -97,6 +97,8 @@ body {
 .bill-sponsor { font-size: 11px; color: #6B7280; margin-bottom: 4px; }
 .bill-sponsor a { color: #002868; font-weight: 700; text-decoration: none; border-bottom: 1px solid #BAFF5C; }
 .bill-sponsor a:hover { color: #D93B3B; border-bottom-color: #D93B3B; }
+.bill-full-link { display: inline-block; margin-top: 8px; font-size: 11px; font-weight: 600; color: #6B7280; text-decoration: none; border-bottom: 1px solid #E5E7EB; }
+.bill-full-link:hover { color: #002868; border-bottom-color: #002868; }
 .primary-nudge { font-size: 10px; color: #002868; font-weight: 600; margin-top: 6px; line-height: 1.4; text-decoration: none; display: block; border-bottom: 1px solid #BAFF5C; padding-bottom: 2px; width: fit-content; }
 .primary-nudge:hover { color: #D93B3B; }
 .leg-finder { background: #EEF2FF; border-radius: 10px; padding: 12px 14px; margin-bottom: 4px; }
@@ -373,10 +375,11 @@ function renderBills() {
     var bodyText  = bill.plain_english || bill.synopsis || bill.bill_text || '';
     var sponsorHtml = bill.primary_sponsor
       ? (bill.legislator_url
-          ? '<div class="bill-sponsor">Sponsored by <a href="' + esc(bill.legislator_url) + '" target="_blank" rel="noopener">' + esc(bill.primary_sponsor) + ' → Bio</a></div>'
+          ? '<div class="bill-sponsor">Sponsored by <a href="' + esc(bill.legislator_url) + '" target="_blank" rel="noopener">' + esc(bill.primary_sponsor) + ' ↗ Bio</a></div>'
           : '<div class="bill-sponsor">Sponsored by ' + esc(bill.primary_sponsor) + '</div>')
       : '';
-    return '<div class="' + cardClass + '"><div class="bill-top"><span class="bill-num">' + esc(bill.full_code || bill.bill_number) + '</span>' + catChip + dirBadge + '</div><p class="bill-plain">' + esc(bodyText) + '</p>' + sponsorHtml + '</div>';
+    var billLink = bill.url ? '<a href="' + esc(bill.url) + '" target="_blank" rel="noopener" class="bill-full-link">Read full bill ↗</a>' : '';
+    return '<div class="' + cardClass + '"><div class="bill-top"><span class="bill-num">' + esc(bill.full_code || bill.bill_number) + '</span>' + catChip + dirBadge + '</div><p class="bill-plain">' + esc(bodyText) + '</p>' + sponsorHtml + billLink + '</div>';
   }).join('');
   if (showExpand) {
     html += '<div style="padding:14px 16px;text-align:center;"><button onclick="expandFilter(\'' + currentFilter + '\')" style="background:none;border:1.5px solid #002868;border-radius:20px;padding:8px 20px;font-size:12px;font-weight:700;color:#002868;cursor:pointer;font-family:\'Inter\',sans-serif;">See all ' + bills.length + ' bills ↓</button></div>';
