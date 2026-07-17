@@ -93,7 +93,9 @@ body {
 .dir-badge { font-size: 9px; font-weight: 800; border-radius: 4px; padding: 2px 7px; text-transform: uppercase; letter-spacing: 0.5px; margin-left: auto; }
 .dir-badge.wo { background: #FEE2E2; color: #D93B3B; }
 .dir-badge.hy { background: #D1FAE5; color: #1A7A4A; }
-.bill-nickname { font-size: 14px; font-weight: 800; color: #111827; margin-bottom: 3px; line-height: 1.3; }
+.bill-nickname { font-size: 15px; font-weight: 800; color: #111827; margin-bottom: 6px; line-height: 1.3; display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.bill-num-link { font-size: 11px; font-weight: 800; color: #002868; text-decoration: none; border-bottom: 1px solid #BAFF5C; }
+.bill-num-link:hover { color: #D93B3B; }
 .bill-official { font-size: 9px; color: #9CA3AF; line-height: 1.4; margin-bottom: 8px; font-style: italic; }
 .bill-synopsis-text { font-size: 11.5px; color: #374151; line-height: 1.55; margin-bottom: 8px; padding-top: 8px; border-top: 1px solid #F3F4F6; }
 .bill-rationale { font-size: 11px; color: #002868; background: #EFF6FF; border-radius: 6px; padding: 7px 10px; margin-bottom: 8px; line-height: 1.5; font-weight: 500; }
@@ -388,7 +390,11 @@ function renderBills() {
           : '<div class="bill-sponsor">Sponsored by ' + esc(bill.primary_sponsor) + '</div>')
       : '';
     var billLink = bill.url ? '<a href="' + esc(bill.url) + '" target="_blank" rel="noopener" class="bill-full-link">Read full bill ↗</a>' : '';
-    return '<div class="' + cardClass + '"><div class="bill-top"><span class="bill-num">' + esc(bill.full_code || bill.bill_number) + '</span>' + catChip + dirBadge + '</div><div class="bill-nickname">' + esc(nickname) + '</div>' + official + synopsis + rationale + sponsorHtml + billLink + '</div>';
+    var billCode = bill.full_code || bill.bill_number;
+    var billNumHtml = bill.url
+      ? '<a href="' + esc(bill.url) + '" target="_blank" rel="noopener" class="bill-num-link">' + esc(billCode) + ' ↗</a>'
+      : '<span class="bill-num">' + esc(billCode) + '</span>';
+    return '<div class="' + cardClass + '"><div class="bill-nickname">' + esc(nickname) + dirBadge + '</div><div class="bill-top">' + billNumHtml + catChip + '</div>' + official + synopsis + rationale + sponsorHtml + '</div>';
   }).join('');
   if (showExpand) {
     html += '<div style="padding:14px 16px;text-align:center;"><button onclick="expandFilter(\'' + currentFilter + '\')" style="background:none;border:1.5px solid #002868;border-radius:20px;padding:8px 20px;font-size:12px;font-weight:700;color:#002868;cursor:pointer;font-family:\'Inter\',sans-serif;">See all ' + bills.length + ' bills ↓</button></div>';
