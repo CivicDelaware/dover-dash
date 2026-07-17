@@ -73,8 +73,9 @@ body {
 .profile-hero-emoji { display: block; font-size: 40px; line-height: 1; margin-bottom: 8px; }
 .bills-profile-label { display: block; font-size: 18px; font-weight: 800; color: #111827; }
 .profile-stat-line { font-size: 10px; color: #9CA3AF; margin-top: 5px; line-height: 1.4; }
-.filter-row { background: #fff; padding: 10px 14px 0; display: flex; gap: 6px; border-bottom: 1px solid #F3F4F6; }
-.filter-btn { border: none; border-radius: 20px; padding: 6px 12px; font-size: 11px; font-weight: 700; cursor: pointer; background: #F3F4F6; color: #6B7280; font-family: 'Inter', sans-serif; margin-bottom: 10px; transition: all .12s; white-space: nowrap; }
+.profile-section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #9CA3AF; margin-bottom: 6px; }
+.filter-row { background: #F3F4F6; padding: 0 14px; display: flex; gap: 0; border-bottom: 2px solid #002868; }
+.filter-btn { border: none; border-radius: 8px 8px 0 0; padding: 8px 14px; font-size: 11px; font-weight: 700; cursor: pointer; background: #E5E7EB; color: #6B7280; font-family: 'Inter', sans-serif; margin: 6px 3px 0; transition: all .12s; white-space: nowrap; position: relative; top: 2px; }
 .filter-btn.active { background: #002868; color: #BAFF5C; }
 .filter-btn.wo.active { background: #D93B3B; color: #fff; }
 .filter-btn.hy.active { background: #1A7A4A; color: #fff; }
@@ -185,9 +186,11 @@ body {
 
   <div id="screen-bills">
     <div class="bills-header">
-      <button class="back-btn" onclick="backToProfiles()">‹ Profiles</button>
+      <button class="back-btn" onclick="backToProfiles()">‹ Back</button>
+      <div class="profile-section-label">Profiles</div>
       <span class="profile-hero-emoji" id="profile-hero-emoji"></span>
       <span class="bills-profile-label" id="profile-label"></span>
+      <div class="bill-count-bar" id="bill-count-bar"></div>
       <div class="profile-stat-line" id="profile-stat-line"></div>
     </div>
     <div class="filter-row">
@@ -195,7 +198,6 @@ body {
       <button class="filter-btn hy" id="filter-hy" onclick="setFilter('Helps You')">🟢 Helps You</button>
       <button class="filter-btn" id="filter-all" onclick="setFilter('all')">All</button>
     </div>
-    <div class="bill-count-bar" id="bill-count-bar"></div>
     <div class="bills-loading" id="bills-loading"><span class="loading-spin">⏳</span>Loading bills…</div>
     <div class="bills-list" id="bills-list"></div>
     <div class="bills-empty" id="bills-empty" style="display:none;">
@@ -275,7 +277,7 @@ function selectProfile(key) {
   var p = PROFILES[key];
   document.getElementById('profile-hero-emoji').textContent = p.emoji;
   document.getElementById('profile-label').textContent = p.label;
-  document.getElementById('profile-stat-line').textContent = p.stat || '';
+  document.getElementById('profile-stat-line').textContent = p.stat ? '(' + p.stat + ')' : '';
   document.getElementById('screen-profiles').style.display = 'none';
   document.getElementById('screen-bills').style.display = 'block';
   setFilterUI('Watch Out');
@@ -387,7 +389,7 @@ function renderBills() {
     var cardClass = 'bill-card' + (isWO ? ' wo' : isHY ? ' hy' : '');
     var dirBadge  = direction ? '<span class="dir-badge ' + (isWO ? 'wo' : 'hy') + '">' + direction + '</span>' : '';
     var catChip   = bill.category ? '<span class="bill-cat-chip">' + esc(bill.category) + '</span>' : '';
-    var nickname  = bill.nickname || bill.full_code || bill.bill_number;
+    var nickname  = (bill.nickname || bill.full_code || bill.bill_number) + ' Bill';
     var bodyText  = bill.plain_english || bill.synopsis || '';
     var billCode  = bill.full_code || bill.bill_number;
     var billNumHtml = bill.url
