@@ -53,7 +53,7 @@ exports.handler = async function (event) {
   try {
     // Use the bills_with_profiles view for a single joined query
     const params = new URLSearchParams({
-      select:         "session_number,bill_number,full_code,bill_text,origin_chamber,category,intro_date,amendments,legislation_id,status,stage,synopsis,plain_english,legislation_url,primary_sponsor,sponsor_person_id,legislator_url,profile_key,direction,rationale",
+      select:         "session_number,bill_number,full_code,bill_text,nickname,origin_chamber,category,intro_date,amendments,legislation_id,status,stage,synopsis,plain_english,legislation_url,primary_sponsor,sponsor_person_id,legislator_url,profile_key,direction,rationale",
       session_number: `eq.${session}`,
     });
 
@@ -84,6 +84,7 @@ exports.handler = async function (event) {
           bill_number:    r.bill_number,
           full_code:      r.full_code || r.bill_number,
           bill_text:      r.bill_text || "",
+          nickname:       r.nickname || "",
           origin_chamber: r.origin_chamber || "",
           category:       r.category || "",
           intro_date:     r.intro_date || "",
@@ -93,7 +94,7 @@ exports.handler = async function (event) {
           stage:          r.stage || "",
           synopsis:       r.synopsis || "",
           plain_english:    r.plain_english || "",
-          url:              r.legislation_url || "",
+          url:              r.legislation_url || (r.legislation_id ? `https://legis.delaware.gov/BillDetail?LegislationId=${r.legislation_id}` : ""),
           primary_sponsor:  r.primary_sponsor || "",
           legislator_url:   fixLegUrl(r.legislator_url),
           profiles:         {},
