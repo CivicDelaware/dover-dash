@@ -35,18 +35,19 @@ body {
 }
 #app { width: 100%; max-width: 390px; display: flex; flex-direction: column; }
 
-/* ── HEADER ── */
+/* ── HOME HEADER ── */
 .header {
   background: #002868; border-radius: 10px 10px 0 0;
-  margin: 14px 14px 0; padding: 8px 16px 8px;
+  margin: 14px 14px 0; padding: 20px 16px 18px;
   text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  display: flex; align-items: center; justify-content: space-between;
 }
-.eyebrow { display: none; }
-.brand { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 900; color: #fff; line-height: 1; }
+.eyebrow { font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.6); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+.brand { font-family: 'Playfair Display', Georgia, serif; font-size: 32px; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 8px; }
 .brand em { color: #BAFF5C; font-style: italic; }
-.session-line { font-size: 8px; font-weight: 600; color: #FFE600; letter-spacing: 0.5px; text-transform: uppercase; line-height: 1.4; text-align: right; }
-.session-dot { font-size: 8px; color: #D93B3B; vertical-align: middle; }
+.tagline { font-size: 11px; color: rgba(255,255,255,0.75); margin-bottom: 10px; line-height: 1.5; }
+.session-pill { display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.1); border-radius: 20px; padding: 4px 10px; }
+.session-line { font-size: 9px; font-weight: 700; color: #FFE600; letter-spacing: 0.5px; text-transform: uppercase; line-height: 1; }
+.session-dot { font-size: 8px; color: #D93B3B; }
 
 /* ── ARCHIVE BANNER ── */
 .archive-bar { margin: 0 14px; background: #BAFF5C; padding: 4px 0; overflow: hidden; white-space: nowrap; }
@@ -144,15 +145,18 @@ body {
 <body>
 <div id="app">
 
-  <div class="header">
+  <div class="header" id="home-header">
+    <div class="eyebrow">Delaware's Legislative Bill Tracker</div>
     <div class="brand">Dover <em>Dash</em></div>
-    <div>
-      <div class="session-line">153rd GA · 2024–2026</div>
-      <div class="session-line"><span class="session-dot">●</span> Session Ended June 30</div>
+    <div class="tagline">216 bills. Plain English. Pick your profile<br>and see what passed — and who voted for it.</div>
+    <div class="session-pill">
+      <span class="session-line">153rd GA · 2024–2026</span>
+      <span class="session-dot">●</span>
+      <span class="session-line">Session Ended June 30</span>
     </div>
   </div>
 
-  <div class="archive-bar">
+  <div class="archive-bar" id="archive-bar">
     <span>A total of 216 bills passed the last two years. Know where your legislators stand before you vote in the primaries on Sept. 15th! &nbsp;&nbsp; *** &nbsp;&nbsp; A total of 216 bills passed the last two years. Know where your legislators stand before you vote in the primaries on Sept. 15th! &nbsp;&nbsp; *** &nbsp;&nbsp;</span>
   </div>
 
@@ -272,6 +276,8 @@ function selectProfile(key) {
   document.getElementById('profile-label').textContent = p.label;
   document.getElementById('profile-stat-line').textContent = p.stat ? '(' + p.stat + ')' : '';
   document.getElementById('screen-profiles').style.display = 'none';
+  document.getElementById('home-header').style.display = 'none';
+  document.getElementById('archive-bar').style.display = 'none';
   document.getElementById('screen-bills').style.display = 'block';
   setFilterUI('Watch Out');
   loadBills(key);
@@ -281,6 +287,8 @@ function selectProfile(key) {
 
 function backToProfiles() {
   document.getElementById('screen-bills').style.display = 'none';
+  document.getElementById('home-header').style.display = 'block';
+  document.getElementById('archive-bar').style.display = 'block';
   document.getElementById('screen-profiles').style.display = 'block';
   window.scrollTo(0, 0);
 }
