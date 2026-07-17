@@ -162,9 +162,9 @@ body {
       <span class="bills-profile-label" id="profile-label"></span>
     </div>
     <div class="filter-row">
-      <button class="filter-btn active" id="filter-all" onclick="setFilter('all')">All</button>
       <button class="filter-btn wo" id="filter-wo" onclick="setFilter('Watch Out')">🔴 Watch Out</button>
       <button class="filter-btn hy" id="filter-hy" onclick="setFilter('Helps You')">🟢 Helps You</button>
+      <button class="filter-btn" id="filter-all" onclick="setFilter('all')">All</button>
     </div>
     <div class="bill-count-bar" id="bill-count-bar"></div>
     <div class="bills-loading" id="bills-loading"><span class="loading-spin">⏳</span>Loading bills…</div>
@@ -206,16 +206,18 @@ var PROFILES = {
 
 var currentProfileKey = null;
 var allBills = [];
-var currentFilter = 'all';
+var currentFilter = 'Watch Out';
+var expanded = { 'Watch Out': false, 'Helps You': false };
 
 function selectProfile(key) {
   currentProfileKey = key;
-  currentFilter = 'all';
+  currentFilter = 'Watch Out';
+  expanded = { 'Watch Out': false, 'Helps You': false };
   var p = PROFILES[key];
   document.getElementById('profile-label').textContent = p.emoji + ' ' + p.label;
   document.getElementById('screen-profiles').style.display = 'none';
   document.getElementById('screen-bills').style.display = 'block';
-  setFilterUI('all');
+  setFilterUI('Watch Out');
   loadBills(key);
   if (typeof gtag !== 'undefined') gtag('event', 'select_profile', { profile: key });
   window.scrollTo(0, 0);
@@ -229,7 +231,13 @@ function backToProfiles() {
 
 function setFilter(dir) {
   currentFilter = dir;
+  if (dir !== 'all') expanded[dir] = false;
   setFilterUI(dir);
+  renderBills();
+}
+
+function expandFilter(dir) {
+  expanded[dir] = true;
   renderBills();
 }
 
@@ -300,7 +308,10 @@ function renderBills() {
   } else {
     countEl.innerHTML = 'Showing <strong>' + bills.length + '</strong> of ' + allBills.length + ' bills';
   }
-  listEl.innerHTML = bills.map(function(bill) {
+  var showAll = currentFilter === 'all' || expanded[currentFilter];
+  var visibleBills = showAll ? bills : bills.slice(0, 3);
+  var showExpand = !showAll && bills.length > 3;
+  var html = visibleBills.map(function(bill) {
     var prof      = bill.profiles[key];
     var direction = prof ? prof.direction : null;
     var isWO      = direction === 'Watch Out';
@@ -317,6 +328,10 @@ function renderBills() {
     var nudge = bill.legislator_url ? '<div class="primary-nudge">Check their full record before the primary →</div>' : '';
     return '<div class="' + cardClass + '"><div class="bill-top"><span class="bill-num">' + esc(bill.full_code || bill.bill_number) + '</span>' + catChip + dirBadge + '</div><p class="bill-plain">' + esc(bodyText) + '</p>' + sponsorHtml + nudge + '</div>';
   }).join('');
+  if (showExpand) {
+    html += '<div style="padding:14px 16px;text-align:center;"><button onclick="expandFilter(\'' + currentFilter + '\')" style="background:none;border:1.5px solid #002868;border-radius:20px;padding:8px 20px;font-size:12px;font-weight:700;color:#002868;cursor:pointer;font-family:\'Inter\',sans-serif;">See all ' + bills.length + ' bills ↓</button></div>';
+  }
+  listEl.innerHTML = html;
 }
 
 function esc(str) {
