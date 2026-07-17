@@ -187,10 +187,9 @@ body {
   <div id="screen-bills">
     <div class="bills-header">
       <button class="back-btn" onclick="backToProfiles()">‹ Back</button>
-      <div class="profile-section-label">Profiles</div>
+      <div class="bill-count-bar" id="bill-count-bar"></div>
       <span class="profile-hero-emoji" id="profile-hero-emoji"></span>
       <span class="bills-profile-label" id="profile-label"></span>
-      <div class="bill-count-bar" id="bill-count-bar"></div>
       <div class="profile-stat-line" id="profile-stat-line"></div>
     </div>
     <div class="filter-row">
@@ -369,7 +368,10 @@ function renderBills() {
   } else {
     countEl.innerHTML = 'Showing <strong>' + bills.length + '</strong> of ' + allBills.length + ' bills';
   }
-  var html = bills.map(function(bill) {
+  var showAll = currentFilter === 'all' || expanded[currentFilter];
+  var visibleBills = showAll ? bills : bills.slice(0, 3);
+  var showExpand = !showAll && bills.length > 3;
+  var html = visibleBills.map(function(bill) {
     var prof      = bill.profiles[key];
     var direction = prof ? prof.direction : null;
     var isWO      = direction === 'Watch Out';
@@ -393,6 +395,9 @@ function renderBills() {
     var readMore = bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more ↓</button>' : '';
     return '<div class="' + cardClass + '"><div class="bill-nickname">' + esc(nickname) + dirBadge + '</div><div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + catChip + '</div>' + sponsorHtml + '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' + readMore + primaryNudge + '</div>';
   }).join('');
+  if (showExpand) {
+    html += '<div style="padding:14px 16px;text-align:center;"><button onclick="expandFilter(\'' + currentFilter + '\')" style="background:none;border:1.5px solid #002868;border-radius:20px;padding:8px 20px;font-size:12px;font-weight:700;color:#002868;cursor:pointer;font-family:\'Inter\',sans-serif;">See all ' + bills.length + ' bills ↓</button></div>';
+  }
   listEl.innerHTML = html;
 }
 
