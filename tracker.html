@@ -45,13 +45,14 @@ body {
 .brand { font-family: 'Playfair Display', Georgia, serif; font-size: 28px; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 12px; }
 .brand em { color: #BAFF5C; font-style: italic; }
 .brand-sub { font-size: 11px; font-weight: 600; color: #fff; letter-spacing: 1px; margin-bottom: 6px; }
-.session-badge { display: flex; align-items: center; gap: 6px; justify-content: center; }
-.s-dot { width: 7px; height: 7px; border-radius: 50%; background: #BAFF5C; flex-shrink: 0; }
-.s-text { font-size: 11px; font-weight: 700; color: #BAFF5C; }
+.session-badge { display: flex; align-items: flex-start; gap: 6px; justify-content: center; margin-top: 4px; }
+.s-dot { width: 7px; height: 7px; border-radius: 50%; background: #BAFF5C; flex-shrink: 0; margin-top: 3px; }
+.s-text { font-size: 11px; font-weight: 700; color: #BAFF5C; text-align: left; }
+.s-text span { display: block; }
 
 /* ── ARCHIVE BANNER ── */
 .archive-bar { margin: 0 14px; background: #BAFF5C; padding: 8px 14px; text-align: center; }
-.archive-bar span { font-size: 11px; font-weight: 800; color: #002868; line-height: 1.3; }
+.archive-bar span { font-size: 11px; font-weight: 400; color: #002868; line-height: 1.3; }
 .archive-icon { font-size: 14px; flex-shrink: 0; }
 
 /* ── PROFILE PICKER ── */
@@ -119,11 +120,11 @@ body {
   <div class="header">
     <div class="eyebrow">Delaware's Legislative Bill Tracker</div>
     <div class="brand">Dover <em>Dash</em></div>
-    <div class="session-badge"><div class="s-dot"></div><div class="s-text">153rd General Assembly · 2024–2026 · Session Ended June 30, 2026</div></div>
+    <div class="session-badge"><div class="s-dot"></div><div class="s-text"><span>153rd General Assembly · 2024–2026</span><span>Session Ended June 30, 2026</span></div></div>
   </div>
 
   <div class="archive-bar">
-    <span>A total of 216 bills passed the last two years. Know where your legislators stand before you vote in the primaries on Sept. 15th.</span>
+    <span>A total of 216 bills passed the last two years. Know where your legislators stand before you vote in the primaries on Sept. 15th!</span>
   </div>
 
   <div id="screen-profiles">
