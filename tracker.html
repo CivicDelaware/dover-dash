@@ -95,7 +95,8 @@ body {
 .dir-badge { font-size: 9px; font-weight: 800; border-radius: 4px; padding: 2px 7px; text-transform: uppercase; letter-spacing: 0.5px; margin-left: auto; }
 .dir-badge.wo { background: #FEE2E2; color: #D93B3B; }
 .dir-badge.hy { background: #D1FAE5; color: #1A7A4A; }
-.bill-nickname { font-size: 15px; font-weight: 800; color: #111827; margin-bottom: 6px; line-height: 1.3; display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.bill-nickname { font-size: 15px; font-weight: 800; color: #111827; margin-bottom: 3px; line-height: 1.3; display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.bill-status-line { font-size: 10px; font-weight: 600; color: #6B7280; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.4px; }
 .bill-num-link { font-size: 11px; font-weight: 800; color: #002868; text-decoration: none; border-bottom: 1px solid #BAFF5C; }
 .bill-num-link:hover { color: #D93B3B; }
 .bill-official { font-size: 9px; color: #9CA3AF; line-height: 1.4; margin-bottom: 8px; font-style: italic; }
@@ -380,6 +381,7 @@ function renderBills() {
     var isHY      = direction === 'Helps You';
     var cardClass = 'bill-card' + (isWO ? ' wo' : isHY ? ' hy' : '');
     var dirBadge  = direction ? '<span class="dir-badge ' + (isWO ? 'wo' : 'hy') + '">' + direction + '</span>' : '';
+    var statusLine = (bill.status || bill.stage) ? '<div class="bill-status-line">' + esc(bill.status || bill.stage) + '</div>' : '';
     var catChip   = bill.category ? '<span class="bill-cat-chip">' + esc(bill.category) + '</span>' : '';
     var nickname  = (bill.nickname || bill.full_code || bill.bill_number) + ' Bill';
     var bodyText  = bill.plain_english || bill.synopsis || '';
@@ -392,10 +394,10 @@ function renderBills() {
           ? '<div class="bill-sponsor">Sponsored by <a href="' + esc(bill.legislator_url) + '" target="_blank" rel="noopener">' + esc(bill.primary_sponsor) + ' ↗ Bio</a></div>'
           : '<div class="bill-sponsor">Sponsored by ' + esc(bill.primary_sponsor) + '</div>')
       : '';
-    var primaryNudge = '<div class="primary-cta">🗳️ Primary: Sept. 15 — this sponsor may be on your ballot</div>';
+
     var plainId = 'bp-' + bill.bill_number.replace(/\s+/g, '-');
     var readMore = bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more ↓</button>' : '';
-    return '<div class="' + cardClass + '"><div class="bill-nickname">' + esc(nickname) + dirBadge + '</div><div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + catChip + '</div>' + sponsorHtml + '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' + readMore + primaryNudge + '</div>';
+    return '<div class="' + cardClass + '"><div class="bill-nickname">' + esc(nickname) + dirBadge + '</div>' + statusLine + '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + catChip + '</div>' + sponsorHtml + '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' + readMore + '</div>';
   }).join('');
   if (showExpand) {
     html += '<div style="padding:14px 16px;text-align:center;"><button onclick="expandFilter(\'' + currentFilter + '\')" style="background:none;border:1.5px solid #002868;border-radius:20px;padding:8px 20px;font-size:12px;font-weight:700;color:#002868;cursor:pointer;font-family:\'Inter\',sans-serif;">See all ' + bills.length + ' bills ↓</button></div>';
