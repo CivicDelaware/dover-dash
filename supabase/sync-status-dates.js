@@ -19,7 +19,8 @@
  */
 
 const SUPABASE_URL = process.env.SUPABASE_URL || 'https://vqkloboidffggdwykakf.supabase.co';
-const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZxa2xvYm9pZGZmZ2dkd3lrYWtmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4Mzk1NzM5NCwiZXhwIjoyMDk5NTMzMzk0fQ.mMkrrKqGyN32cMW7-XZFfqajBgrQoIIffPx7rK8fJUU';
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
+if (!SUPABASE_KEY) { console.error('Error: SUPABASE_SERVICE_KEY env var is required.\nRun: SUPABASE_SERVICE_KEY=your_key node supabase/sync-status-dates.js'); process.exit(1); }
 const DRY_RUN    = process.argv.includes('--dry-run');
 const DELAY_MS   = 1500; // polite crawl delay between requests
 
