@@ -387,7 +387,12 @@ function renderBills() {
                     : rawStatus.includes('veto override') ? '✓ Veto Overridden'
                     : rawStatus.includes('pass') ? '✓ Passed' : (bill.status ? '✓ ' + bill.status : '');
     var statusBadgeClass = rawStatus.includes('veto') ? 'veto' : rawStatus.includes('sign') || rawStatus.includes('approv') ? '' : 'passed';
-    var statusBadge = statusLabel ? '<span class="bill-status-badge ' + statusBadgeClass + '">' + statusLabel + '</span>' : '';
+    var dateStr = '';
+    if (bill.passed_date) {
+      var d = new Date(bill.passed_date + 'T00:00:00');
+      dateStr = ' · ' + (d.getMonth()+1) + '/' + d.getDate() + '/' + String(d.getFullYear()).slice(2);
+    }
+    var statusBadge = statusLabel ? '<span class="bill-status-badge ' + statusBadgeClass + '">' + statusLabel + dateStr + '</span>' : '';
     var statusLine = '';
     var catChip   = bill.category ? '<span class="bill-cat-chip">' + esc(bill.category) + '</span>' : '';
     var nickname  = (bill.nickname || bill.full_code || bill.bill_number) + ' Bill';
