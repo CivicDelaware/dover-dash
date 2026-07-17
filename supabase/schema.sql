@@ -67,6 +67,9 @@ CREATE TABLE IF NOT EXISTS bills (
   synopsis         TEXT,               -- official synopsis from legis.delaware.gov
   plain_english    TEXT,               -- our plain-English wallet-impact explanation
   legislation_url  TEXT,
+  primary_sponsor  TEXT,               -- legislator last name, from legis.delaware.gov
+  sponsor_person_id INTEGER,           -- DE GA personId for legislator detail link
+  legislator_url   TEXT,               -- full URL to legislator profile on legis.delaware.gov
   last_updated     TIMESTAMPTZ DEFAULT NOW(),
   created_at       TIMESTAMPTZ DEFAULT NOW(),
   UNIQUE (session_number, full_code)   -- full_code is unique (includes amendments)
@@ -149,6 +152,7 @@ $$;
 -- bills_with_profiles: every bill with all its profile classifications joined
 CREATE OR REPLACE VIEW bills_with_profiles AS
 SELECT
+  b.id,
   b.session_number,
   b.bill_number,
   b.full_code,
@@ -163,6 +167,9 @@ SELECT
   b.synopsis,
   b.plain_english,
   b.legislation_url,
+  b.primary_sponsor,
+  b.sponsor_person_id,
+  b.legislator_url,
   c.profile_key,
   c.direction,
   c.rationale
