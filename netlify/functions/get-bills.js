@@ -2,8 +2,8 @@
  * Netlify Function: get-bills
  * ────────────────────────────
  * Returns bills + classifications from Supabase.
- * Used for future dynamic updates without redeploying tracker.html.
- * The tracker currently uses embedded data for speed — this powers future features.
+ * Queries bills and classifications tables directly (not the view)
+ * to ensure passed_date is always included.
  *
  * Env vars required:
  *   SUPABASE_URL          — https://xxxxxxxxxxxx.supabase.co
@@ -16,15 +16,10 @@
  *   ?direction=Watch+Out  — filter by direction (optional)
  */
 
-// Some legislator_url values were stored as "https://legis.delaware.govhttps://..."
-// because LegislatorDetailLink was already a full URL. Fix them here at read time.
 function fixLegUrl(url) {
   if (!url) return "";
   const base = "https://legis.delaware.gov";
-  // Broken pattern: base URL prepended to an already-full URL
-  if (url.startsWith(base + "http")) {
-    return url.slice(base.length);
-  }
+  if (url.startsWith(base + "http")) return url.slice(base.length);
   return url;
 }
 
@@ -45,76 +40,85 @@ exports.handler = async function (event) {
     return { statusCode: 500, headers: CORS, body: JSON.stringify({ error: "Not configured" }) };
   }
 
-  const q       = event.queryStringParameters || {};
-  const session = parseInt(q.session || CURRENT_SESSION, 10);
-  const profile = q.profile   || null;
+  const q         = event.queryStringParameters || {};
+  const session   = parseInt(q.session || CURRENT_SESSION, 10);
+  const profile   = q.profile   || null;
   const direction = q.direction || null;
 
+  const SB_HEADERS = {
+    apikey:        SUPABASE_SERVICE_KEY,
+    Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+  };
+
   try {
-    // Use the bills_with_profiles view for a single joined query
-    const params = new URLSearchParams({
-      select:         "session_number,bill_number,full_code,bill_text,nickname,origin_chamber,category,intro_date,passed_date,amendments,legislation_id,status,stage,synopsis,plain_english,legislation_url,primary_sponsor,sponsor_person_id,legislator_url,profile_key,direction,rationale",
+    // 1. Fetch all bills for this session directly from the bills table
+    const billsParams = new URLSearchParams({
+      select:         "id,session_number,bill_number,full_code,bill_text,nickname,origin_chamber,category,intro_date,passed_date,amendments,legislation_id,status,stage,synopsis,plain_english,legislation_url,primary_sponsor,sponsor_person_id,legislator_url",
       session_number: `eq.${session}`,
     });
 
-    if (profile)   params.set("profile_key", `eq.${profile}`);
-    if (direction) params.set("direction", `eq.${direction}`);
-
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/bills_with_profiles?${params}`, {
-      headers: {
-        apikey:        SUPABASE_SERVICE_KEY,
-        Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
-      },
-    });
-
-    if (!res.ok) {
-      const err = await res.text();
-      console.error("Supabase get-bills error:", err);
+    const billsRes = await fetch(`${SUPABASE_URL}/rest/v1/bills?${billsParams}`, { headers: SB_HEADERS });
+    if (!billsRes.ok) {
+      console.error("Bills fetch error:", await billsRes.text());
       return { statusCode: 502, headers: CORS, body: JSON.stringify({ error: "Upstream error" }) };
     }
+    const billsData = await billsRes.json();
 
-    const rows = await res.json();
-
-    // Group by bill_number so each bill has all its profile classifications
-    const billMap = {};
-    rows.forEach((r) => {
-      if (!billMap[r.bill_number]) {
-        billMap[r.bill_number] = {
-          session:        r.session_number,
-          bill_number:    r.bill_number,
-          full_code:      r.full_code || r.bill_number,
-          bill_text:      r.bill_text || "",
-          nickname:       r.nickname || "",
-          origin_chamber: r.origin_chamber || "",
-          category:       r.category || "",
-          intro_date:     r.intro_date || "",
-          passed_date:    r.passed_date || "",
-          amendments:     r.amendments || 0,
-          legislation_id: r.legislation_id || "",
-          status:         r.status || "",
-          stage:          r.stage || "",
-          synopsis:       r.synopsis || "",
-          plain_english:    r.plain_english || "",
-          url:              r.legislation_url || (r.legislation_id ? `https://legis.delaware.gov/BillDetail?LegislationId=${r.legislation_id}` : ""),
-          primary_sponsor:  r.primary_sponsor || "",
-          legislator_url:   fixLegUrl(r.legislator_url),
-          profiles:         {},
-        };
-      }
-      if (r.profile_key) {
-        billMap[r.bill_number].profiles[r.profile_key] = {
-          direction: r.direction,
-          rationale: r.rationale,
-        };
-      }
+    // 2. Fetch all classifications for this session
+    const classParams = new URLSearchParams({
+      select:         "bill_id,profile_key,direction,rationale",
+      session_number: `eq.${session}`,
     });
 
-    const bills = Object.values(billMap);
+    const classRes = await fetch(`${SUPABASE_URL}/rest/v1/classifications?${classParams}`, { headers: SB_HEADERS });
+    if (!classRes.ok) {
+      console.error("Classifications fetch error:", await classRes.text());
+      return { statusCode: 502, headers: CORS, body: JSON.stringify({ error: "Upstream error" }) };
+    }
+    const classData = await classRes.json();
+
+    // 3. Build classification map: bill_id → { profile_key: { direction, rationale } }
+    const classMap = {};
+    classData.forEach((c) => {
+      if (!classMap[c.bill_id]) classMap[c.bill_id] = {};
+      classMap[c.bill_id][c.profile_key] = { direction: c.direction, rationale: c.rationale };
+    });
+
+    // 4. Build bill objects with profile data
+    let bills = billsData.map((b) => ({
+      session:        b.session_number,
+      bill_number:    b.bill_number,
+      full_code:      b.full_code || b.bill_number,
+      bill_text:      b.bill_text || "",
+      nickname:       b.nickname  || "",
+      origin_chamber: b.origin_chamber || "",
+      category:       b.category  || "",
+      intro_date:     b.intro_date || "",
+      passed_date:    b.passed_date || "",
+      amendments:     b.amendments || 0,
+      legislation_id: b.legislation_id || "",
+      status:         b.status || "",
+      stage:          b.stage  || "",
+      synopsis:       b.synopsis || "",
+      plain_english:  b.plain_english || "",
+      url:            b.legislation_url || (b.legislation_id ? `https://legis.delaware.gov/BillDetail?LegislationId=${b.legislation_id}` : ""),
+      primary_sponsor: b.primary_sponsor || "",
+      legislator_url:  fixLegUrl(b.legislator_url),
+      profiles:        classMap[b.id] || {},
+    }));
+
+    // 5. Filter by profile and/or direction
+    if (profile) {
+      bills = bills.filter((b) => b.profiles[profile]);
+    }
+    if (direction && profile) {
+      bills = bills.filter((b) => b.profiles[profile] && b.profiles[profile].direction === direction);
+    }
 
     return {
       statusCode: 200,
-      headers: CORS,
-      body: JSON.stringify({ bills, count: bills.length, session }),
+      headers:    CORS,
+      body:       JSON.stringify({ bills, count: bills.length, session }),
     };
 
   } catch (err) {
