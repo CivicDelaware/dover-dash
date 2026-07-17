@@ -95,7 +95,14 @@ body {
 .bill-sponsor { font-size: 11px; color: #6B7280; margin-bottom: 4px; }
 .bill-sponsor a { color: #002868; font-weight: 700; text-decoration: none; border-bottom: 1px solid #BAFF5C; }
 .bill-sponsor a:hover { color: #D93B3B; border-bottom-color: #D93B3B; }
-.primary-nudge { font-size: 10px; color: #9CA3AF; margin-top: 6px; line-height: 1.4; }
+.primary-nudge { font-size: 10px; color: #002868; font-weight: 600; margin-top: 6px; line-height: 1.4; text-decoration: none; display: block; border-bottom: 1px solid #BAFF5C; padding-bottom: 2px; width: fit-content; }
+.primary-nudge:hover { color: #D93B3B; }
+.leg-finder { background: #EEF2FF; border-radius: 10px; padding: 12px 14px; margin-bottom: 4px; }
+.leg-finder-title { font-size: 11px; font-weight: 700; color: #002868; margin-bottom: 8px; }
+.leg-finder-row { display: flex; gap: 6px; }
+.leg-finder-input { flex: 1; border: 1.5px solid #C7D2FE; border-radius: 8px; padding: 8px 10px; font-size: 12px; font-family: 'Inter', sans-serif; outline: none; min-width: 0; }
+.leg-finder-input:focus { border-color: #002868; }
+.leg-finder-btn { background: #002868; color: #BAFF5C; border: none; border-radius: 8px; padding: 8px 12px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap; }
 .bills-empty { background: #fff; padding: 36px 24px; text-align: center; }
 .bills-empty-icon { font-size: 32px; margin-bottom: 10px; }
 .bills-empty-title { font-family: 'Playfair Display', Georgia, serif; font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 6px; }
@@ -167,6 +174,15 @@ body {
       <button class="filter-btn" id="filter-all" onclick="setFilter('all')">All</button>
     </div>
     <div class="bill-count-bar" id="bill-count-bar"></div>
+    <div style="padding:10px 12px 0;">
+      <div class="leg-finder">
+        <div class="leg-finder-title">🏛️ Find your state legislator by address</div>
+        <div class="leg-finder-row">
+          <input class="leg-finder-input" id="addr-input" type="text" placeholder="e.g. 123 Main St, Wilmington" />
+          <button class="leg-finder-btn" onclick="findLegislator()">Find →</button>
+        </div>
+      </div>
+    </div>
     <div class="bills-loading" id="bills-loading"><span class="loading-spin">⏳</span>Loading bills…</div>
     <div class="bills-list" id="bills-list"></div>
     <div class="bills-empty" id="bills-empty" style="display:none;">
@@ -322,16 +338,23 @@ function renderBills() {
     var bodyText  = bill.plain_english || bill.synopsis || bill.bill_text || '';
     var sponsorHtml = bill.primary_sponsor
       ? (bill.legislator_url
-          ? '<div class="bill-sponsor">Sponsored by <a href="' + esc(bill.legislator_url) + '" target="_blank" rel="noopener">' + esc(bill.primary_sponsor) + ' →</a></div>'
+          ? '<div class="bill-sponsor">Sponsored by <a href="' + esc(bill.legislator_url) + '" target="_blank" rel="noopener">' + esc(bill.primary_sponsor) + ' → Bio</a></div>'
           : '<div class="bill-sponsor">Sponsored by ' + esc(bill.primary_sponsor) + '</div>')
       : '';
-    var nudge = bill.legislator_url ? '<div class="primary-nudge">Check their full record before the primary →</div>' : '';
+    var nudge = bill.legislator_url ? '<a href="' + esc(bill.legislator_url) + '" target="_blank" rel="noopener" class="primary-nudge">Check their full record before the primary →</a>' : '';
     return '<div class="' + cardClass + '"><div class="bill-top"><span class="bill-num">' + esc(bill.full_code || bill.bill_number) + '</span>' + catChip + dirBadge + '</div><p class="bill-plain">' + esc(bodyText) + '</p>' + sponsorHtml + nudge + '</div>';
   }).join('');
   if (showExpand) {
     html += '<div style="padding:14px 16px;text-align:center;"><button onclick="expandFilter(\'' + currentFilter + '\')" style="background:none;border:1.5px solid #002868;border-radius:20px;padding:8px 20px;font-size:12px;font-weight:700;color:#002868;cursor:pointer;font-family:\'Inter\',sans-serif;">See all ' + bills.length + ' bills ↓</button></div>';
   }
   listEl.innerHTML = html;
+}
+
+function findLegislator() {
+  var addr = document.getElementById('addr-input').value.trim();
+  if (!addr) { document.getElementById('addr-input').style.outline = '2px solid #D93B3B'; return; }
+  document.getElementById('addr-input').style.outline = '';
+  window.open('https://www.google.com/search?q=' + encodeURIComponent(addr + ' Delaware state legislator'), '_blank');
 }
 
 function esc(str) {
