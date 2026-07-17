@@ -45,7 +45,7 @@ body {
 .brand { font-family: 'Playfair Display', Georgia, serif; font-size: 28px; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 12px; }
 .brand em { color: #BAFF5C; font-style: italic; }
 .brand-sub { font-size: 11px; font-weight: 600; color: #fff; letter-spacing: 1px; margin-bottom: 6px; }
-.session-badge { display: flex; align-items: flex-start; gap: 6px; justify-content: center; margin-top: 4px; }
+.session-badge { display: inline-flex; align-items: flex-start; gap: 6px; margin-top: 4px; }
 .s-dot { width: 7px; height: 7px; border-radius: 50%; background: #FFE600; flex-shrink: 0; margin-top: 3px; }
 .s-text { font-size: 11px; font-weight: 700; color: #FFE600; text-align: left; }
 .s-text span { display: block; }
@@ -120,7 +120,7 @@ body {
   <div class="header">
     <div class="eyebrow">Delaware's Legislative Bill Tracker</div>
     <div class="brand">Dover <em>Dash</em></div>
-    <div class="session-badge"><div class="s-dot"></div><div class="s-text"><span>153rd General Assembly · 2024–2026</span><span>Session Ended June 30</span></div></div>
+    <div style="text-align:center;"><div class="session-badge"><div class="s-dot"></div><div class="s-text"><span>153rd General Assembly · 2024–2026</span><span>Session Ended June 30</span></div></div></div>
   </div>
 
   <div class="archive-bar">
@@ -128,7 +128,7 @@ body {
   </div>
 
   <div id="screen-profiles">
-<p class="pick-sub">Pick your profile below to see what passed, who sponsored it, and how it hits your wallet — in plain English.</p>
+<p class="pick-sub">Pick your profile:</p>
 
     <button class="prof-btn" onclick="selectProfile('homeowner')">
       <span class="prof-em">🏠</span><div class="prof-info"><div class="prof-label">Home Owner</div><div class="prof-sub">own outright or with a mortgage</div></div><span class="prof-arrow">›</span>
