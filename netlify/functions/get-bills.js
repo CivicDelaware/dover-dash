@@ -41,7 +41,7 @@ exports.handler = async function (event) {
   try {
     // Use the bills_with_profiles view for a single joined query
     const params = new URLSearchParams({
-      select:         "session_number,bill_number,full_code,bill_text,origin_chamber,category,intro_date,amendments,legislation_id,status,stage,synopsis,plain_english,legislation_url,profile_key,direction,rationale",
+      select:         "session_number,bill_number,full_code,bill_text,origin_chamber,category,intro_date,amendments,legislation_id,status,stage,synopsis,plain_english,legislation_url,primary_sponsor,sponsor_person_id,legislator_url,profile_key,direction,rationale",
       session_number: `eq.${session}`,
     });
 
@@ -80,9 +80,11 @@ exports.handler = async function (event) {
           status:         r.status || "",
           stage:          r.stage || "",
           synopsis:       r.synopsis || "",
-          plain_english:  r.plain_english || "",
-          url:            r.legislation_url || "",
-          profiles:       {},
+          plain_english:    r.plain_english || "",
+          url:              r.legislation_url || "",
+          primary_sponsor:  r.primary_sponsor || "",
+          legislator_url:   r.legislator_url || "",
+          profiles:         {},
         };
       }
       if (r.profile_key) {
