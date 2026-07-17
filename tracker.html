@@ -216,16 +216,8 @@ body {
           <span class="resource-btn-icon">📼</span>
           <span class="resource-btn-text">Recordings<span class="resource-btn-sub">Past meeting archives</span></span>
         </a>
-        <a class="resource-btn" href="https://legis.delaware.gov/WatchAndListen/SenateChamber-YouTube" target="_blank" rel="noopener">
-          <span class="resource-btn-icon">▶️</span>
-          <span class="resource-btn-text">Senate on YouTube<span class="resource-btn-sub">Senate chamber channel</span></span>
-        </a>
-        <a class="resource-btn" href="https://legis.delaware.gov/WatchAndListen/HouseChamber-YouTube" target="_blank" rel="noopener">
-          <span class="resource-btn-icon">▶️</span>
-          <span class="resource-btn-text">House on YouTube<span class="resource-btn-sub">House chamber channel</span></span>
-        </a>
       </div>
-      <div class="resources-title" style="margin-top:4px;">🏛️ Find Your Legislator</div>
+      <div class="resources-title" style="margin-top:4px;">🔍 Find Your Legislator</div>
       <div class="leg-finder" style="margin-bottom:0;">
         <div class="leg-finder-row">
           <input class="leg-finder-input" id="addr-input" type="text" placeholder="Enter your DE address..." />
@@ -378,10 +370,7 @@ function renderBills() {
   } else {
     countEl.innerHTML = 'Showing <strong>' + bills.length + '</strong> of ' + allBills.length + ' bills';
   }
-  var showAll = currentFilter === 'all' || expanded[currentFilter];
-  var visibleBills = showAll ? bills : bills.slice(0, 3);
-  var showExpand = !showAll && bills.length > 3;
-  var html = visibleBills.map(function(bill) {
+  var html = bills.map(function(bill) {
     var prof      = bill.profiles[key];
     var direction = prof ? prof.direction : null;
     var isWO      = direction === 'Watch Out';
@@ -405,9 +394,6 @@ function renderBills() {
     var readMore = bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more ↓</button>' : '';
     return '<div class="' + cardClass + '"><div class="bill-nickname">' + esc(nickname) + dirBadge + '</div><div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + catChip + '</div>' + sponsorHtml + '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' + readMore + primaryNudge + '</div>';
   }).join('');
-  if (showExpand) {
-    html += '<div style="padding:14px 16px;text-align:center;"><button onclick="expandFilter(\'' + currentFilter + '\')" style="background:none;border:1.5px solid #002868;border-radius:20px;padding:8px 20px;font-size:12px;font-weight:700;color:#002868;cursor:pointer;font-family:\'Inter\',sans-serif;">See all ' + bills.length + ' bills ↓</button></div>';
-  }
   listEl.innerHTML = html;
 }
 
