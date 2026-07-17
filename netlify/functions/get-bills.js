@@ -30,10 +30,7 @@ exports.handler = async function (event) {
   const CURRENT_SESSION      = parseInt(process.env.CURRENT_SESSION || "153", 10);
 
   if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
-    return { statusCode: 500, headers: CORS, body: JSON.stringify({
-      error: "Not configured",
-      debug: { has_url: !!SUPABASE_URL, has_key: !!SUPABASE_SERVICE_KEY }
-    }) };
+    return { statusCode: 500, headers: CORS, body: JSON.stringify({ error: "Not configured" }) };
   }
 
   const q       = event.queryStringParameters || {};
