@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Dover Dash — Civic Delaware Tracker</title>
+<meta property="og:title" content="Dover Dash — Civic Delaware Tracker" />
+<meta property="og:description" content="Delaware's Legislative Bill Tracker. Back soon." />
+<meta property="og:image" content="https://i.postimg.cc/rsJjrbzN/Final-logo-(2).png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://i.postimg.cc/rsJjrbzN/Final-logo-(2).png" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: #F5F3EF;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+  .app {
+    width: 100%;
+    max-width: 390px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .eyebrow {
+    font-size: 9px;
+    color: #FFFFFF;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+  .title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .title span { color: #BAFF5C; font-style: italic; }
+  .subtitle {
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+  }
+  .session-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: center;
+    width: 100%;
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: #D93B3B; flex-shrink: 0; }
+  .session-text { font-size: 11px; font-weight: 800; color: #BAFF5C; }
+  .card {
+    background: #F5C842;
+    margin: 14px 14px 0;
+    border-radius: 16px;
+    padding: 18px 16px;
+    border: 1px solid rgba(200,160,0,0.4);
+  }
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .card-icon { font-size: 26px; line-height: 1; flex-shrink: 0; margin-top: 2px; }
+  .card-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 16px;
+    font-weight: 800;
+    color: #002868;
+    line-height: 1.2;
+  }
+  .card-body {
+    font-size: 12px;
+    color: #002868;
+    line-height: 1.55;
+    margin-bottom: 14px;
+    text-align: center;
+  }
+  .divider { border: none; border-top: 1px solid rgba(0,40,104,0.15); margin-bottom: 14px; }
+  .form-row { display: flex; gap: 8px; margin-bottom: 8px; }
+  .form-input {
+    flex: 1; border: none; border-radius: 8px;
+    padding: 10px 11px; font-size: 12px;
+    font-family: 'Source Sans 3', sans-serif;
+    outline: none; background: #fff; color: #111827; min-width: 0;
+  }
+  .form-input::placeholder { color: #9CA3AF; }
+  .btn-submit {
+    background: #002868; color: #fff; border: none;
+    border-radius: 8px; padding: 10px 18px;
+    font-size: 12px; font-weight: 800; cursor: pointer;
+    width: 100%; font-family: 'Source Sans 3', sans-serif;
+  }
+  .btn-submit:hover { background: #001848; }
+  .card-footer { font-size: 10px; color: rgba(0,40,104,0.55); margin-top: 12px; text-align: center; }
+  .card-footer a { color: #002868; font-weight: 700; text-decoration: underline; }
+  .error-msg { color: #8B0000; font-size: 11px; margin-top: 6px; display: none; }
+  .success { display: none; text-align: center; padding: 6px 0; }
+  .success-icon { font-size: 24px; margin-bottom: 6px; }
+  .success-title { font-size: 14px; font-weight: 700; color: #002868; margin-bottom: 3px; }
+  .success-sub { font-size: 11px; color: rgba(0,40,104,0.7); }
+  .app-footer {
+    padding: 14px 20px;
+    font-size: 10px;
+    color: #002868;
+    text-align: center;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+  <div class="app">
+    <div style="background:#002868; border-radius:10px 10px 0 0; margin:14px 14px 0; padding:18px 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); text-align:center;">
+      <div class="eyebrow">Delaware's Legislative Bill Tracker</div>
+      <div class="title">Dover <span>Dash</span></div>
+      <div class="subtitle">153rd General Assembly · 2024–2026</div>
+      <div class="session-badge">
+        <div class="dot"></div>
+        <div class="session-text">Session has ended</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">🔧</div>
+        <div>
+          <div class="card-title">We're doing some maintenance</div>
+        </div>
+      </div>
+      <div class="card-body">The 153rd General Assembly's session ended July 1, 2026 (they went until nearly 6AM!). Subscribe below to get notified when we're back.</div>
+      <hr class="divider">
+      <div id="subscribe-form">
+        <div class="form-row">
+          <input id="maint-first" class="form-input" type="text" placeholder="First name (optional)" />
+          <input id="maint-last" class="form-input" type="text" placeholder="Last name (optional)" />
+        </div>
+        <div class="form-row">
+          <input id="maint-email" class="form-input" type="email" placeholder="your@email.com" />
+        </div>
+        <button class="btn-submit" onclick="doSubscribe()">Subscribe</button>
+        <div id="error-msg" class="error-msg">Please enter a valid email address.</div>
+      </div>
+      <div id="subscribe-success" class="success">
+        <div class="success-icon">🎉</div>
+        <div class="success-title">You're on the list!</div>
+        <div class="success-sub">We'll notify you when Dover Dash is back.</div>
+      </div>
+      <div class="card-footer">Missed our end-of-session recap? Email <a href="mailto:info@civicdelaware.com">info@civicdelaware.com</a></div>
+    </div>
+    <div class="app-footer">
+      Dover Dash is an independent, nonpartisan project of Civic Delaware.<br>
+      © 2026 Civic Delaware. All rights reserved.
+    </div>
+  </div>
+  <form name="dover-dash-subscribers" netlify netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="dover-dash-subscribers" />
+    <input type="text" name="firstName" />
+    <input type="text" name="lastName" />
+    <input type="email" name="email" />
+  </form>
+  <script>
+  function doSubscribe() {
+    var email = document.getElementById('maint-email').value.trim();
+    var first = document.getElementById('maint-first').value.trim();
+    var last  = document.getElementById('maint-last').value.trim();
+    var err   = document.getElementById('error-msg');
+    if (!email || !email.includes('@')) { err.style.display = 'block'; return; }
+    err.style.display = 'none';
+    fetch('/.netlify/functions/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, firstName: first, lastName: last, profile: 'maintenance' })
+    }).finally(function() {
+      document.getElementById('subscribe-form').style.display = 'none';
+      document.getElementById('subscribe-success').style.display = 'block';
+    });
+  }
+  </script>
+</body>
+</html>
