@@ -16,6 +16,18 @@
  *   ?direction=Watch+Out  — filter by direction (optional)
  */
 
+// Some legislator_url values were stored as "https://legis.delaware.govhttps://..."
+// because LegislatorDetailLink was already a full URL. Fix them here at read time.
+function fixLegUrl(url) {
+  if (!url) return "";
+  const base = "https://legis.delaware.gov";
+  // Broken pattern: base URL prepended to an already-full URL
+  if (url.startsWith(base + "http")) {
+    return url.slice(base.length);
+  }
+  return url;
+}
+
 const CORS = {
   "Content-Type": "application/json",
   "Access-Control-Allow-Origin": "*",
@@ -83,7 +95,7 @@ exports.handler = async function (event) {
           plain_english:    r.plain_english || "",
           url:              r.legislation_url || "",
           primary_sponsor:  r.primary_sponsor || "",
-          legislator_url:   r.legislator_url || "",
+          legislator_url:   fixLegUrl(r.legislator_url),
           profiles:         {},
         };
       }

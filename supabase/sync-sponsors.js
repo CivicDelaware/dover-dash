@@ -143,7 +143,9 @@ async function main() {
           primary_sponsor:   match.Sponsor || null,
           sponsor_person_id: match.SponsorPersonId || null,
           legislator_url:    match.LegislatorDetailLink
-                               ? `${DE_GA_BASE}${match.LegislatorDetailLink}`
+                               ? (match.LegislatorDetailLink.startsWith("http")
+                                   ? match.LegislatorDetailLink
+                                   : `${DE_GA_BASE}${match.LegislatorDetailLink}`)
                                : null,
           legislation_id:    match.LegislationId
                                ? String(match.LegislationId)
