@@ -124,7 +124,7 @@ body {
 .bill-what-label { font-size: 10px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: #9CA3AF; margin-bottom: 4px; }
 .bill-synopsis-full { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #E5E7EB; }
 .bill-ga-link { font-size: 11px; font-weight: 700; color: #002868; text-decoration: underline; text-underline-offset: 2px; }
-.bill-read-more { font-size: 10px; font-weight: 700; color: #002868; background: none; border: none; padding: 4px 0 0; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: underline; text-underline-offset: 2px; }
+.bill-read-more { font-size: 10px; font-weight: 400; color: #002868; background: none; border: none; padding: 4px 0 0; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: underline; text-underline-offset: 2px; display: block; text-align: right; }
 .primary-nudge:hover { color: #D93B3B; }
 .bills-empty { background: #fff; padding: 36px 24px; text-align: center; }
 .bills-empty-icon { font-size: 32px; margin-bottom: 10px; }
@@ -384,7 +384,7 @@ function toggleBillText(id, btn) {
   var el = document.getElementById(id);
   if (!el) return;
   var isExpanded = el.classList.toggle('expanded');
-  btn.textContent = isExpanded ? 'Show less ↑' : 'Read more ↓';
+  btn.textContent = isExpanded ? 'Collapse ↑' : 'Expand ↓';
   var synEl = document.getElementById('bs-' + id.slice(3));
   if (synEl) synEl.style.display = isExpanded ? 'block' : 'none';
 }
@@ -502,7 +502,7 @@ function renderBills() {
     var synopsisHtml = bill.url
       ? '<div class="bill-synopsis-full" id="' + synId + '"><a href="' + esc(bill.url) + '" target="_blank" rel="noopener" class="bill-ga-link">Read the full Synopsis on Delaware General Assembly ↗</a></div>'
       : '';
-    var readMore = bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more ↓</button>' : '';
+    var readMore = bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Expand ↓</button>' : '';
     return '<div class="' + cardClass + '"><div class="bill-nickname">' + esc(nickname) + statusBadge + '</div><div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + catChip + '</div>' + sponsorHtml + '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' + synopsisHtml + readMore + '</div>';
   }).join('');
   if (showExpand) {
