@@ -108,7 +108,7 @@ body {
 .bill-card.hy { border-left-color: #1A7A4A; }
 .bill-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
 .bill-num { font-size: 11px; font-weight: 800; color: #002868; letter-spacing: 0.3px; }
-.bill-cat-chip { font-size: 9px; font-weight: 700; color: #6B7280; background: #F3F4F6; border-radius: 4px; padding: 2px 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+.bill-cat-chip { display: inline-block; font-size: 9px; font-weight: 700; color: #6B7280; background: #F3F4F6; border-radius: 4px; padding: 2px 6px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
 .dir-badge { display: none; }
 .bill-nickname { font-size: 15px; font-weight: 800; color: #111827; margin-bottom: 3px; line-height: 1.3; display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
 .bill-status-badge { font-size: 9px; font-weight: 800; border-radius: 4px; padding: 2px 7px; letter-spacing: 0.5px; margin-left: auto; flex-shrink: 0; white-space: nowrap; background: #D1FAE5; color: #1A7A4A; }
@@ -290,6 +290,37 @@ var PROFILES = {
   landlord:  { emoji: '🏢', label: 'Landlord',            stat: 'About 29% of Delaware households are renters · U.S. Census Bureau' },
 };
 
+var CATEGORY_LABELS = {
+  'Agriculture':                              'Food & Farming',
+  'Alcoholic Liquors':                        'Bars & Alcohol',
+  'Banking':                                  'Your Bank & Loans',
+  'Bond & Capital Budget':                    'State Debt & Construction',
+  'Commerce & Trade / Consumer Protection':   'Shopping & Consumer Rights',
+  'Conservation & Environment':               'Air, Water & Land',
+  'Constitutional Amendments':                'State Constitution',
+  'Counties':                                 'County Government',
+  'Courts & Judicial Procedure':              'Courts & Legal Process',
+  'Crimes & Criminal Procedure':              'Criminal Justice',
+  'Domestic Relations':                       'Family & Divorce Law',
+  'Education':                                'Schools & Education',
+  'Elections':                                'Voting & Elections',
+  'Estates & Fiduciary Relations':            'Wills & Inheritance',
+  'Health & Safety':                          'Your Health Care',
+  'Insurance':                                'Your Insurance Premium',
+  'Labor':                                    'Your Job & Wages',
+  'Military & Civil Defense':                 'Military & Veterans',
+  'Motor Vehicles':                           'Driving & Your Car',
+  'Municipal Charters':                       'Town & City Government',
+  'Navigation':                               'Waterways & Boating',
+  'Professions & Occupations':                'Professional Licensing',
+  'Property':                                 'Property & Real Estate',
+  'Public Utilities':                         'Your Electric & Gas Bill',
+  'State Budget & Appropriations':            'State Budget',
+  'State Government':                         'State Government',
+  'State Taxes':                              'Your Tax Bill',
+  'Welfare / Human Services':                 'Social Services & Benefits',
+};
+
 var currentProfileKey = null;
 var allBills = [];
 var currentFilter = 'Watch Out';
@@ -449,7 +480,8 @@ function renderBills() {
     }
     var statusBadge = statusLabel ? '<span class="bill-status-badge ' + statusBadgeClass + '">' + statusLabel + dateStr + '</span>' : '';
     var statusLine = '';
-    var catChip   = bill.category ? '<span class="bill-cat-chip">' + esc(bill.category) + '</span>' : '';
+    var catLabel  = bill.category ? (CATEGORY_LABELS[bill.category] || null) : null;
+    var catChip   = catLabel ? '<span class="bill-cat-chip">' + esc(catLabel) + '</span>' : '';
     var nickname  = (bill.nickname || bill.full_code || bill.bill_number) + ' Bill';
     var bodyText  = bill.plain_english || bill.synopsis || '';
     var billCode  = bill.full_code || bill.bill_number;
@@ -466,7 +498,7 @@ function renderBills() {
     var synId   = 'bs-' + bill.bill_number.replace(/\s+/g, '-');
     var synopsisHtml = '';
     var readMore = bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Expand ↓</button>' : '';
-    return '<div class="' + cardClass + '"><div class="bill-nickname">' + esc(nickname) + statusBadge + '</div><div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + catChip + '</div>' + sponsorHtml + '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' + synopsisHtml + readMore + '</div>';
+    return '<div class="' + cardClass + '">' + catChip + '<div class="bill-nickname">' + esc(nickname) + statusBadge + '</div><div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + '</div>' + sponsorHtml + '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' + synopsisHtml + readMore + '</div>';
   }).join('');
   if (showExpand) {
     html += '<div style="padding:14px 16px;text-align:center;"><button onclick="expandFilter(\'' + currentFilter + '\')" style="background:none;border:1.5px solid #002868;border-radius:20px;padding:8px 20px;font-size:12px;font-weight:700;color:#002868;cursor:pointer;font-family:\'Inter\',sans-serif;">See all ' + bills.length + ' bills ↓</button></div>';
