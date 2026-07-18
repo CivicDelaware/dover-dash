@@ -275,9 +275,6 @@ function selectProfile(key) {
   currentFilter = 'Watch Out';
   expanded = { 'Watch Out': false, 'Helps You': false };
   var p = PROFILES[key];
-  document.getElementById('profile-hero-emoji').textContent = p.emoji;
-  document.getElementById('profile-label').textContent = p.label;
-  document.getElementById('profile-stat-line').textContent = p.stat ? '(' + p.stat + ')' : '';
   document.getElementById('bills-nav-profile').textContent = p.emoji + ' ' + p.label;
   document.getElementById('screen-profiles').style.display = 'none';
   document.getElementById('home-header').style.display = 'none';
