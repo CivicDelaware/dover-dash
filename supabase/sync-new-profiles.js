@@ -69,7 +69,7 @@ async function main() {
 
   // 1. Upsert profile rows so FK constraint is satisfied
   if (!DRY_RUN) {
-    await sbFetch("/profiles", "POST", NEW_PROFILES);
+    await sbFetch("/profiles?on_conflict=key", "POST", NEW_PROFILES);
     console.log(`✅  Profiles table: ${NEW_PROFILES.map(p => p.key).join(", ")} upserted\n`);
   } else {
     console.log(`   Would upsert profiles: ${NEW_PROFILES.map(p => p.key).join(", ")}\n`);
