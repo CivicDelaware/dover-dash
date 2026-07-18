@@ -200,6 +200,10 @@ body {
     <span class="bills-nav-profile" id="bills-nav-profile"></span>
   </div>
 
+  <div class="archive-bar" id="bills-archive-bar" style="display:none">
+    <span>A total of 216 bills passed the last two years. Know where your legislators stand before you vote in the primaries on Sept. 15th! &nbsp;&nbsp; *** &nbsp;&nbsp; A total of 216 bills passed the last two years. Know where your legislators stand before you vote in the primaries on Sept. 15th! &nbsp;&nbsp; *** &nbsp;&nbsp;</span>
+  </div>
+
   <div id="screen-bills">
     <div class="bill-count-bar" id="bill-count-bar"></div>
     <div class="filter-row">
@@ -278,7 +282,9 @@ function selectProfile(key) {
   document.getElementById('bills-nav-profile').textContent = p.emoji + ' ' + p.label;
   document.getElementById('screen-profiles').style.display = 'none';
   document.getElementById('home-header').style.display = 'none';
+  document.getElementById('archive-bar').style.display = 'none';
   document.getElementById('bills-nav-header').style.display = 'flex';
+  document.getElementById('bills-archive-bar').style.display = 'block';
   document.getElementById('screen-bills').style.display = 'block';
   setFilterUI('Watch Out');
   loadBills(key);
@@ -288,8 +294,10 @@ function selectProfile(key) {
 
 function backToProfiles() {
   document.getElementById('screen-bills').style.display = 'none';
+  document.getElementById('bills-archive-bar').style.display = 'none';
   document.getElementById('bills-nav-header').style.display = 'none';
   document.getElementById('home-header').style.display = 'block';
+  document.getElementById('archive-bar').style.display = 'block';
   document.getElementById('screen-profiles').style.display = 'block';
   window.scrollTo(0, 0);
 }
