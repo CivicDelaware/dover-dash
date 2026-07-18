@@ -58,14 +58,13 @@ body {
 #screen-profiles { margin: 0 14px; background: #fff; border-radius: 0 0 16px 16px; padding: 12px 16px 14px; }
 .pick-title { font-family: 'Playfair Display', Georgia, serif; font-size: 15px; font-weight: 900; color: #111827; margin-bottom: 2px; }
 .pick-sub { font-size: 11px; color: #6B7280; margin-bottom: 10px; line-height: 1.4; }
-.prof-btn { width: 100%; border: 1.5px solid #E5E7EB; border-radius: 10px; padding: 8px 11px; cursor: pointer; display: flex; align-items: center; gap: 10px; text-align: left; margin-bottom: 5px; background: #fff; transition: border-color .12s, background .12s; font-family: 'Inter', sans-serif; }
-.prof-btn:hover { border-color: #9CA3AF; background: #FAFAF9; }
-.prof-em { font-size: 20px; flex-shrink: 0; width: 28px; text-align: center; }
+.prof-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.prof-btn { border: 1.5px solid #E5E7EB; border-radius: 10px; padding: 10px 10px; cursor: pointer; display: flex; align-items: center; gap: 8px; text-align: left; background: #fff; transition: border-color .12s, background .12s; font-family: 'Inter', sans-serif; }
+.prof-btn:hover { border-color: #002868; background: #F0F4FF; }
+.prof-em { font-size: 20px; flex-shrink: 0; }
 .prof-info { flex: 1; min-width: 0; }
-.prof-label { font-size: 13px; font-weight: 700; color: #111827; line-height: 1.2; }
+.prof-label { font-size: 12px; font-weight: 700; color: #111827; line-height: 1.2; }
 .prof-sub { font-size: 10px; color: #6B7280; margin-top: 2px; }
-.prof-arrow { font-size: 16px; color: #D1D5DB; flex-shrink: 0; transition: color .15s; }
-.prof-btn:hover .prof-arrow { color: #002868; }
 .prof-submit-btn { width: 100%; background: #002868; color: #BAFF5C; border: none; border-radius: 10px; padding: 13px; font-size: 14px; font-weight: 800; font-family: 'Inter', sans-serif; cursor: pointer; margin-top: 10px; letter-spacing: 0.2px; }
 .pick-footer { font-size: 10px; color: #9CA3AF; text-align: center; margin-top: 8px; }
 
@@ -204,33 +203,35 @@ body {
   <div id="screen-profiles">
 <p class="pick-sub">Pick your profile:</p>
 
+    <div class="prof-grid">
     <button class="prof-btn" onclick="selectProfile('homeowner',this)">
-      <span class="prof-em">🏠</span><div class="prof-info"><div class="prof-label">Homeowner</div></div><span class="prof-arrow">→</span>
+      <span class="prof-em">🏠</span><div class="prof-info"><div class="prof-label">Homeowner</div></div>
     </button>
     <button class="prof-btn" onclick="selectProfile('renter',this)">
-      <span class="prof-em">🔑</span><div class="prof-info"><div class="prof-label">Renter</div></div><span class="prof-arrow">→</span>
+      <span class="prof-em">🔑</span><div class="prof-info"><div class="prof-label">Renter</div></div>
     </button>
     <button class="prof-btn" onclick="selectProfile('senior',this)">
-      <span class="prof-em">🌅</span><div class="prof-info"><div class="prof-label">Retiree</div></div><span class="prof-arrow">→</span>
+      <span class="prof-em">🌅</span><div class="prof-info"><div class="prof-label">Retiree</div></div>
     </button>
     <button class="prof-btn" onclick="selectProfile('smallbiz',this)">
-      <span class="prof-em">💼</span><div class="prof-info"><div class="prof-label">Business Owner</div></div><span class="prof-arrow">→</span>
+      <span class="prof-em">💼</span><div class="prof-info"><div class="prof-label">Business Owner</div></div>
     </button>
     <button class="prof-btn" onclick="selectProfile('pubsec',this)">
-      <span class="prof-em">🏛️</span><div class="prof-info"><div class="prof-label">Government</div></div><span class="prof-arrow">→</span>
+      <span class="prof-em">🏛️</span><div class="prof-info"><div class="prof-label">Government</div></div>
     </button>
     <button class="prof-btn" onclick="selectProfile('workpro',this)">
-      <span class="prof-em">👔</span><div class="prof-info"><div class="prof-label">Professional</div></div><span class="prof-arrow">→</span>
+      <span class="prof-em">👔</span><div class="prof-info"><div class="prof-label">Professional</div></div>
     </button>
     <button class="prof-btn" onclick="selectProfile('lowwage',this)">
-      <span class="prof-em">⏱️</span><div class="prof-info"><div class="prof-label">Hourly Worker</div></div><span class="prof-arrow">→</span>
+      <span class="prof-em">⏱️</span><div class="prof-info"><div class="prof-label">Hourly Worker</div></div>
     </button>
     <button class="prof-btn" onclick="selectProfile('veteran',this)">
-      <span class="prof-em">🎖️</span><div class="prof-info"><div class="prof-label">Veteran or Military</div></div><span class="prof-arrow">→</span>
+      <span class="prof-em">🎖️</span><div class="prof-info"><div class="prof-label">Veteran or Military</div></div>
     </button>
-    <button class="prof-btn" onclick="selectProfile('landlord',this)">
-      <span class="prof-em">🏢</span><div class="prof-info"><div class="prof-label">Landlord</div></div><span class="prof-arrow">→</span>
+    <button class="prof-btn" onclick="selectProfile('landlord',this)" style="grid-column: 1 / -1;">
+      <span class="prof-em">🏢</span><div class="prof-info"><div class="prof-label">Landlord</div></div>
     </button>
+    </div>
 
     <p class="pick-footer">Nonpartisan · Free · Updated daily during session</p>
   </div>
