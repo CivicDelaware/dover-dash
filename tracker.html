@@ -265,63 +265,6 @@ body {
       <div class="bills-empty-title" id="empty-title">No bills found</div>
       <div class="bills-empty-sub" id="empty-sub">Try a different filter.</div>
     </div>
-    <div class="gi-card">
-
-      <!-- Header -->
-      <div class="gi-header">
-        <div class="gi-title">Let's get you <em>voting!</em></div>
-        <div class="gi-subtitle">Easy as 1 · 2 · 3 — everything you need, right here</div>
-      </div>
-
-      <!-- Step 1: Register -->
-      <div class="gi-step">
-        <div class="gi-step-label"><span class="gi-step-num">1</span>Confirm you're registered</div>
-        <div class="gi-deadline-banner">⚠️ <strong>Primary registration deadline: Aug 22</strong> — You must be registered as a Democrat or Republican to vote in the Sept 15 primary. Unaffiliated/independent voters cannot vote in party primaries under current Delaware law.<br><br><strong>Already registered as unaffiliated?</strong> The deadline to change party affiliation was May 29 — it has passed. You cannot switch parties in time for the primary. New to the rolls? You can still register as D or R by Aug 22.</div>
-        <a href="https://ivote.de.gov" target="_blank" rel="noopener" class="gi-action-btn">Check or register at ivote.de.gov →</a>
-        <a href="https://elections.delaware.gov/voter/absentee/" target="_blank" rel="noopener" class="gi-action-btn" style="margin-top:8px;background:#F9FAFB;color:#002868;border:1.5px solid #D1D5DB;">Request an absentee ballot →</a>
-        <div class="gi-source">Source: <a href="https://elections.delaware.gov" target="_blank" rel="noopener">Delaware Dept. of Elections</a> · elections.delaware.gov · §2036, §2049(a)</div>
-      </div>
-
-      <!-- Step 2: Who's on my ballot -->
-      <div class="gi-step">
-        <div class="gi-step-label"><span class="gi-step-num">2</span>Who's on my ballot?</div>
-        <div class="gi-addr-row">
-          <input class="gi-addr-input" id="gi-addr" type="text" placeholder="Your Delaware address..." />
-          <button class="gi-addr-btn" onclick="findCandidates()">Find →</button>
-        </div>
-        <div id="gi-loading" class="gi-loading" style="display:none;">Looking up your district…</div>
-        <div id="gi-error" class="gi-error" style="display:none;"></div>
-        <div id="gi-results" class="gi-results" style="display:none;"></div>
-      </div>
-
-      <!-- Step 3: Key dates -->
-      <div class="gi-step">
-        <div class="gi-step-label"><span class="gi-step-num">3</span>Mark your calendar</div>
-        <div class="gi-dates">
-          <div class="gi-date-row"><span class="gi-date-badge">Aug 22</span><span class="gi-date-desc">Last day to register for the Primary (by 11:59 pm)</span></div>
-          <div class="gi-date-row"><span class="gi-date-badge">Sept 2–5</span><span class="gi-date-desc">Early voting begins (7 am – 7 pm)</span></div>
-          <div class="gi-date-row"><span class="gi-date-badge" style="background:#F3F4F6;color:#6B7280;text-decoration:line-through;">Sept 6–7</span><span class="gi-date-desc" style="color:#9CA3AF;">No early voting — Labor Day weekend</span></div>
-          <div class="gi-date-row"><span class="gi-date-badge">Sept 8–13</span><span class="gi-date-desc">Early voting continues (hours vary)</span></div>
-          <div class="gi-date-row"><span class="gi-date-badge primary">Sept 15</span><span class="gi-date-desc"><strong>Primary Election Day</strong> · 7 am – 8 pm</span></div>
-          <div class="gi-date-row"><span class="gi-date-badge">Oct 10</span><span class="gi-date-desc">Last day to register for the General Election</span></div>
-          <div class="gi-date-row"><span class="gi-date-badge">Oct 22–Nov 1</span><span class="gi-date-desc">General Election early voting</span></div>
-          <div class="gi-date-row"><span class="gi-date-badge general">Nov 3</span><span class="gi-date-desc"><strong>General Election Day</strong> · 7 am – 8 pm</span></div>
-        </div>
-        <div class="gi-source">Source: <a href="https://elections.delaware.gov/public/calendar/pdfs/2026ElectionCalendar.pdf" target="_blank" rel="noopener">2026 State of Delaware Election Calendar</a> · Delaware Dept. of Elections · elections.delaware.gov</div>
-      </div>
-
-      <!-- Step 4: Stay in the loop -->
-      <div class="gi-step gi-step-last">
-        <div class="gi-step-label"><span class="gi-step-num" style="background:#BAFF5C;color:#002868;">✉</span>Stay in the loop</div>
-        <div class="gi-email-sub">Get notified when the 154th General Assembly begins in January 2027 — track the bills that affect you from day one.</div>
-        <div class="gi-email-row" id="gi-email-row">
-          <input class="gi-email-input" id="gi-email" type="email" placeholder="your@email.com" />
-          <button class="gi-email-btn" onclick="doGiSubscribe()">Notify Me</button>
-        </div>
-        <div class="gi-email-success" id="gi-email-success" style="display:none;">🎉 You're on the list!</div>
-      </div>
-
-    </div>
   </div>
 
   <div class="app-footer">
