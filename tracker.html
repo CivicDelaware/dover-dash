@@ -233,10 +233,6 @@ body {
       <span class="prof-em">🏢</span><div class="prof-info"><div class="prof-label">Landlord</div></div><span class="prof-radio"></span>
     </button>
 
-    <div id="prof-submit-wrap" style="display:none;">
-      <button class="prof-submit-btn" onclick="goToBills()">Show me my results →</button>
-    </div>
-
     <p class="pick-footer">Nonpartisan · Free · Updated daily during session</p>
   </div>
 
@@ -331,7 +327,7 @@ function selectProfile(key, btn) {
   pendingProfileKey = key;
   document.querySelectorAll('.prof-btn').forEach(function(b) { b.classList.remove('selected'); });
   if (btn) btn.classList.add('selected');
-  document.getElementById('prof-submit-wrap').style.display = 'block';
+  goToBills();
 }
 function goToBills() {
   var key = pendingProfileKey;
@@ -361,7 +357,6 @@ function backToProfiles() {
   document.getElementById('archive-bar').style.display = 'block';
   document.getElementById('screen-profiles').style.display = 'block';
   document.querySelectorAll('.prof-btn').forEach(function(b) { b.classList.remove('selected'); });
-  document.getElementById('prof-submit-wrap').style.display = 'none';
   pendingProfileKey = null;
   window.scrollTo(0, 0);
 }
