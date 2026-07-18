@@ -502,9 +502,8 @@ function renderBills() {
     var synopsisHtml = bill.url
       ? '<div class="bill-synopsis-full" id="' + synId + '"><a href="' + esc(bill.url) + '" target="_blank" rel="noopener" class="bill-ga-link">Read the full Synopsis on Delaware General Assembly ↗</a></div>'
       : '';
-    var whatLabel = bodyText ? '<div class="bill-what-label">What this means to you</div>' : '';
     var readMore = bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more ↓</button>' : '';
-    return '<div class="' + cardClass + '"><div class="bill-nickname">' + esc(nickname) + statusBadge + '</div><div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + catChip + '</div>' + sponsorHtml + whatLabel + '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' + synopsisHtml + readMore + '</div>';
+    return '<div class="' + cardClass + '"><div class="bill-nickname">' + esc(nickname) + statusBadge + '</div><div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + catChip + '</div>' + sponsorHtml + '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' + synopsisHtml + readMore + '</div>';
   }).join('');
   if (showExpand) {
     html += '<div style="padding:14px 16px;text-align:center;"><button onclick="expandFilter(\'' + currentFilter + '\')" style="background:none;border:1.5px solid #002868;border-radius:20px;padding:8px 20px;font-size:12px;font-weight:700;color:#002868;cursor:pointer;font-family:\'Inter\',sans-serif;">See all ' + bills.length + ' bills ↓</button></div>';
