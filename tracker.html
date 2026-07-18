@@ -499,7 +499,7 @@ function renderBills() {
     var plainId = 'bp-' + bill.bill_number.replace(/\s+/g, '-');
     var synId   = 'bs-' + bill.bill_number.replace(/\s+/g, '-');
     var synopsisHtml = (bill.synopsis && bill.plain_english)
-      ? '<div class="bill-synopsis-full" id="' + synId + '"><strong>Official language</strong>' + esc(bill.synopsis) + '</div>'
+      ? '<div class="bill-synopsis-full" id="' + synId + '"><strong>Synopsis (Delaware General Assembly)</strong>' + esc(bill.synopsis) + '</div>'
       : '';
     var readMore = bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more ↓</button>' : '';
     return '<div class="' + cardClass + '"><div class="bill-nickname">' + esc(nickname) + statusBadge + '</div><div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + catChip + '</div>' + sponsorHtml + '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' + synopsisHtml + readMore + '</div>';
