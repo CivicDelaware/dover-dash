@@ -355,7 +355,6 @@ function toggleBillText(id, btn) {
 }
 
 function setFilterUI(dir) {
-  document.getElementById('filter-all').className = 'filter-btn' + (dir === 'all' ? ' active' : '');
   document.getElementById('filter-wo').className  = 'filter-btn wo' + (dir === 'Watch Out' ? ' active' : '');
   document.getElementById('filter-hy').className  = 'filter-btn hy' + (dir === 'Helps You' ? ' active' : '');
 }
@@ -383,7 +382,6 @@ function renderBills() {
   var key = currentProfileKey;
   var dir = currentFilter;
   var bills = allBills.filter(function(b) {
-    if (dir === 'all') return true;
     var p = b.profiles && b.profiles[key];
     return p && p.direction === dir;
   });
@@ -426,7 +424,7 @@ function renderBills() {
   } else {
     countEl.innerHTML = '<strong>' + bills.length + '</strong> of ' + allBills.length + ' bills';
   }
-  var showAll = currentFilter === 'all' || expanded[currentFilter];
+  var showAll = expanded[currentFilter];
   var visibleBills = showAll ? bills : bills.slice(0, 3);
   var showExpand = !showAll && bills.length > 3;
   var html = visibleBills.map(function(bill) {
