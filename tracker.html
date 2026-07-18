@@ -123,32 +123,55 @@ body {
 .bill-plain.expanded { -webkit-line-clamp: unset; }
 .bill-read-more { font-size: 10px; font-weight: 700; color: #002868; background: none; border: none; padding: 4px 0 0; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: underline; text-underline-offset: 2px; }
 .primary-nudge:hover { color: #D93B3B; }
-.leg-finder { background: #EEF2FF; border-radius: 10px; padding: 12px 14px; margin-bottom: 4px; }
-.leg-finder-title { font-size: 11px; font-weight: 700; color: #002868; margin-bottom: 8px; }
-.leg-finder-row { display: flex; gap: 6px; }
-.leg-finder-input { flex: 1; border: 1.5px solid #C7D2FE; border-radius: 8px; padding: 8px 10px; font-size: 12px; font-family: 'Inter', sans-serif; outline: none; min-width: 0; }
-.leg-finder-input:focus { border-color: #002868; }
-.leg-finder-btn { background: #002868; color: #BAFF5C; border: none; border-radius: 8px; padding: 8px 12px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap; }
 .bills-empty { background: #fff; padding: 36px 24px; text-align: center; }
 .bills-empty-icon { font-size: 32px; margin-bottom: 10px; }
 .bills-empty-title { font-family: 'Playfair Display', Georgia, serif; font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 6px; }
 .bills-empty-sub { font-size: 12px; color: #6B7280; line-height: 1.5; }
-.bills-cta { background: #002868; padding: 18px 16px; text-align: center; }
-.resources-section { background: #F9FAFB; border-top: 1px solid #F3F4F6; padding: 16px; }
-.resources-title { font-size: 11px; font-weight: 800; color: #002868; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
-.resource-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
-.resource-btn { display: flex; align-items: center; gap: 8px; background: #fff; border: 1.5px solid #E5E7EB; border-radius: 10px; padding: 10px 12px; text-decoration: none; color: #111827; font-size: 11px; font-weight: 600; transition: border-color .12s; }
-.resource-btn:hover { border-color: #002868; color: #002868; }
-.resource-btn-icon { font-size: 18px; flex-shrink: 0; }
-.resource-btn-text { line-height: 1.3; }
-.resource-btn-sub { font-size: 9px; color: #6B7280; font-weight: 400; display: block; }
-.cta-title { font-family: 'Playfair Display', Georgia, serif; font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-.cta-sub { font-size: 11px; color: rgba(255,255,255,0.7); margin-bottom: 12px; }
-.cta-form { display: flex; gap: 6px; }
-.cta-input { flex: 1; border: none; border-radius: 7px; padding: 9px 10px; font-size: 12px; font-family: 'Inter', sans-serif; outline: none; min-width: 0; }
-.cta-btn { background: #BAFF5C; color: #002868; border: none; border-radius: 7px; padding: 9px 14px; font-size: 12px; font-weight: 800; cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap; }
-.cta-btn:hover { background: #a8f040; }
-.cta-success { font-size: 12px; color: #BAFF5C; font-weight: 700; display: none; }
+/* --- Get Involved card --- */
+.gi-card { background: #F9FAFB; border-top: 1px solid #E5E7EB; }
+.gi-header { background: #002868; padding: 14px 16px 12px; text-align: center; }
+.gi-title { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 900; color: #fff; }
+.gi-title em { color: #BAFF5C; font-style: italic; }
+.gi-step { padding: 14px 16px; border-bottom: 1px solid #E5E7EB; }
+.gi-step-last { border-bottom: none; padding-bottom: 20px; }
+.gi-step-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: #6B7280; margin-bottom: 10px; }
+.gi-deadline-banner { background: #FEF2F2; border: 1.5px solid #FECACA; border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #991B1B; margin-bottom: 10px; line-height: 1.5; }
+.gi-action-btn { display: block; background: #002868; color: #BAFF5C; border: none; border-radius: 8px; padding: 10px 14px; font-size: 12px; font-weight: 800; text-decoration: none; text-align: center; cursor: pointer; font-family: 'Inter', sans-serif; }
+.gi-action-btn:hover { background: #001f52; }
+.gi-addr-row { display: flex; gap: 6px; margin-bottom: 6px; }
+.gi-addr-input { flex: 1; border: 1.5px solid #D1D5DB; border-radius: 8px; padding: 9px 10px; font-size: 12px; font-family: 'Inter', sans-serif; outline: none; min-width: 0; color: #111827; background: #fff; }
+.gi-addr-input:focus { border-color: #002868; }
+.gi-addr-btn { background: #002868; color: #BAFF5C; border: none; border-radius: 8px; padding: 9px 13px; font-size: 12px; font-weight: 800; cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap; }
+.gi-loading { font-size: 11px; color: #6B7280; text-align: center; padding: 8px 0; }
+.gi-error { font-size: 11px; color: #D93B3B; padding: 6px 0; line-height: 1.4; }
+.gi-results { margin-top: 6px; }
+.gi-matched-addr { font-size: 10px; color: #6B7280; margin-bottom: 8px; font-style: italic; line-height: 1.4; }
+.gi-district-info { font-size: 11px; color: #002868; font-weight: 700; margin-bottom: 10px; background: #EEF2FF; border-radius: 6px; padding: 7px 10px; }
+.gi-race { margin-bottom: 10px; }
+.gi-race-title { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: #6B7280; margin-bottom: 5px; }
+.gi-candidate { display: flex; justify-content: space-between; align-items: center; background: #fff; border: 1.5px solid #E5E7EB; border-radius: 8px; padding: 8px 10px; margin-bottom: 4px; gap: 8px; }
+.gi-cand-name { font-size: 12px; font-weight: 700; color: #111827; }
+.gi-cand-web { font-size: 10px; color: #002868; font-weight: 600; text-decoration: none; display: block; margin-top: 2px; }
+.gi-cand-party { font-size: 10px; font-weight: 700; border-radius: 4px; padding: 3px 7px; flex-shrink: 0; }
+.gi-cand-party.dem { background: #DBEAFE; color: #1E40AF; }
+.gi-cand-party.rep { background: #FEE2E2; color: #991B1B; }
+.gi-cand-party.other { background: #F3F4F6; color: #374151; }
+.gi-eligibility-note { font-size: 10px; color: #6B7280; margin-top: 8px; line-height: 1.5; padding: 8px 10px; background: #F9FAFB; border-radius: 6px; border: 1px solid #E5E7EB; }
+.gi-dates { display: flex; flex-direction: column; gap: 7px; }
+.gi-date-row { display: flex; align-items: center; gap: 10px; }
+.gi-date-badge { font-size: 10px; font-weight: 800; color: #002868; background: #EEF2FF; border-radius: 5px; padding: 3px 7px; min-width: 58px; text-align: center; flex-shrink: 0; white-space: nowrap; }
+.gi-date-badge.primary { background: #002868; color: #BAFF5C; }
+.gi-date-badge.general { background: #002868; color: #FFE600; }
+.gi-date-desc { font-size: 11px; color: #374151; line-height: 1.3; }
+.gi-email-sub { font-size: 11px; color: #6B7280; margin-bottom: 10px; line-height: 1.5; }
+.gi-email-row { display: flex; gap: 6px; }
+.gi-email-input { flex: 1; border: 1.5px solid #D1D5DB; border-radius: 8px; padding: 9px 10px; font-size: 12px; font-family: 'Inter', sans-serif; outline: none; min-width: 0; background: #fff; }
+.gi-email-input:focus { border-color: #002868; }
+.gi-email-btn { background: #BAFF5C; color: #002868; border: none; border-radius: 8px; padding: 9px 14px; font-size: 12px; font-weight: 800; cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap; }
+.gi-email-btn:hover { background: #a8f040; }
+.gi-email-success { font-size: 12px; color: #1A7A4A; font-weight: 700; }
+.gi-source { font-size: 10px; color: #9CA3AF; margin-top: 10px; line-height: 1.5; }
+.gi-source a { color: #6B7280; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
 .app-footer { padding: 14px 20px; font-size: 10px; color: #002868; text-align: center; line-height: 1.6; }
 </style>
 </head>
@@ -227,25 +250,61 @@ body {
       <div class="bills-empty-title" id="empty-title">No bills found</div>
       <div class="bills-empty-sub" id="empty-sub">Try a different filter.</div>
     </div>
-    <div class="resources-section">
-      <div class="resources-title">Get Involved!</div>
-      <div class="leg-finder" style="margin-bottom:12px;">
-        <div class="leg-finder-title">🔍 Find Your Legislator</div>
-        <div class="leg-finder-row">
-          <input class="leg-finder-input" id="addr-input" type="text" placeholder="Enter your DE address..." />
-          <button class="leg-finder-btn" onclick="findLegislator()">Find →</button>
-        </div>
-      </div>
-    </div>
+    <div class="gi-card">
 
-    <div class="bills-cta">
-      <div class="cta-title">Get alerts for the 154th General Assembly</div>
-      <div class="cta-sub">We'll notify you when the new session begins in January 2027 — so you can track the bills that matter to you from day one.</div>
-      <div class="cta-form" id="cta-form">
-        <input class="cta-input" id="cta-email" type="email" placeholder="your@email.com" />
-        <button class="cta-btn" onclick="doCtaSubscribe()">Notify Me</button>
+      <!-- Header -->
+      <div class="gi-header">
+        <span class="gi-title">Get <em>Involved!</em></span>
       </div>
-      <div class="cta-success" id="cta-success">🎉 You're on the list!</div>
+
+      <!-- Step 1: Register -->
+      <div class="gi-step">
+        <div class="gi-step-label">Step 1 — Confirm you're registered</div>
+        <div class="gi-deadline-banner">⚠️ <strong>Primary registration deadline: Aug 22</strong> — You must be registered as a Democrat or Republican to vote in the Sept 15 primary. Unaffiliated/independent voters cannot vote in party primaries under current Delaware law.<br><br><strong>Already registered as unaffiliated?</strong> The deadline to change party affiliation was May 29 — it has passed. You cannot switch parties in time for the primary. New to the rolls? You can still register as D or R by Aug 22.</div>
+        <a href="https://ivote.de.gov" target="_blank" rel="noopener" class="gi-action-btn">Check or register at ivote.de.gov →</a>
+        <a href="https://elections.delaware.gov/voter/absentee/" target="_blank" rel="noopener" class="gi-action-btn" style="margin-top:8px;background:#F9FAFB;color:#002868;border:1.5px solid #D1D5DB;">Request an absentee ballot →</a>
+        <div class="gi-source">Source: <a href="https://elections.delaware.gov" target="_blank" rel="noopener">Delaware Dept. of Elections</a> · elections.delaware.gov · §2036, §2049(a)</div>
+      </div>
+
+      <!-- Step 2: Who's on my ballot -->
+      <div class="gi-step">
+        <div class="gi-step-label">Step 2 — Who's on my ballot?</div>
+        <div class="gi-addr-row">
+          <input class="gi-addr-input" id="gi-addr" type="text" placeholder="Your Delaware address..." />
+          <button class="gi-addr-btn" onclick="findCandidates()">Find →</button>
+        </div>
+        <div id="gi-loading" class="gi-loading" style="display:none;">Looking up your district…</div>
+        <div id="gi-error" class="gi-error" style="display:none;"></div>
+        <div id="gi-results" class="gi-results" style="display:none;"></div>
+      </div>
+
+      <!-- Step 3: Key dates -->
+      <div class="gi-step">
+        <div class="gi-step-label">Step 3 — Mark your calendar</div>
+        <div class="gi-dates">
+          <div class="gi-date-row"><span class="gi-date-badge">Aug 22</span><span class="gi-date-desc">Last day to register for the Primary (by 11:59 pm)</span></div>
+          <div class="gi-date-row"><span class="gi-date-badge">Sept 2–5</span><span class="gi-date-desc">Early voting begins (7 am – 7 pm)</span></div>
+          <div class="gi-date-row"><span class="gi-date-badge" style="background:#F3F4F6;color:#6B7280;text-decoration:line-through;">Sept 6–7</span><span class="gi-date-desc" style="color:#9CA3AF;">No early voting — Labor Day weekend</span></div>
+          <div class="gi-date-row"><span class="gi-date-badge">Sept 8–13</span><span class="gi-date-desc">Early voting continues (hours vary)</span></div>
+          <div class="gi-date-row"><span class="gi-date-badge primary">Sept 15</span><span class="gi-date-desc"><strong>Primary Election Day</strong> · 7 am – 8 pm</span></div>
+          <div class="gi-date-row"><span class="gi-date-badge">Oct 10</span><span class="gi-date-desc">Last day to register for the General Election</span></div>
+          <div class="gi-date-row"><span class="gi-date-badge">Oct 22–Nov 1</span><span class="gi-date-desc">General Election early voting</span></div>
+          <div class="gi-date-row"><span class="gi-date-badge general">Nov 3</span><span class="gi-date-desc"><strong>General Election Day</strong> · 7 am – 8 pm</span></div>
+        </div>
+        <div class="gi-source">Source: <a href="https://elections.delaware.gov/public/calendar/pdfs/2026ElectionCalendar.pdf" target="_blank" rel="noopener">2026 State of Delaware Election Calendar</a> · Delaware Dept. of Elections · elections.delaware.gov</div>
+      </div>
+
+      <!-- Step 4: Stay in the loop -->
+      <div class="gi-step gi-step-last">
+        <div class="gi-step-label">Stay in the loop</div>
+        <div class="gi-email-sub">Get notified when the 154th General Assembly begins in January 2027 — track the bills that affect you from day one.</div>
+        <div class="gi-email-row" id="gi-email-row">
+          <input class="gi-email-input" id="gi-email" type="email" placeholder="your@email.com" />
+          <button class="gi-email-btn" onclick="doGiSubscribe()">Notify Me</button>
+        </div>
+        <div class="gi-email-success" id="gi-email-success" style="display:none;">🎉 You're on the list!</div>
+      </div>
+
     </div>
   </div>
 
@@ -440,28 +499,117 @@ function renderBills() {
   listEl.innerHTML = html;
 }
 
-function findLegislator() {
-  var addr = document.getElementById('addr-input').value.trim();
-  if (!addr) { document.getElementById('addr-input').style.outline = '2px solid #D93B3B'; return; }
-  document.getElementById('addr-input').style.outline = '';
-  window.open('https://legis.delaware.gov/FindMyLegislator?search=' + encodeURIComponent(addr), '_blank');
-}
-
 function esc(str) {
   if (!str) return '';
   return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-function doCtaSubscribe() {
-  var email = document.getElementById('cta-email').value.trim();
-  if (!email || !email.includes('@')) { document.getElementById('cta-email').style.outline = '2px solid #D93B3B'; return; }
+function findCandidates() {
+  var addr = document.getElementById('gi-addr').value.trim();
+  if (!addr) { document.getElementById('gi-addr').style.outline = '2px solid #D93B3B'; return; }
+  document.getElementById('gi-addr').style.outline = '';
+  document.getElementById('gi-results').style.display = 'none';
+  document.getElementById('gi-error').style.display = 'none';
+  document.getElementById('gi-loading').style.display = 'block';
+  fetch('/.netlify/functions/get-candidates?address=' + encodeURIComponent(addr))
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      document.getElementById('gi-loading').style.display = 'none';
+      if (data.error) {
+        document.getElementById('gi-error').textContent = data.error;
+        document.getElementById('gi-error').style.display = 'block';
+        return;
+      }
+      renderCandidates(data);
+    })
+    .catch(function() {
+      document.getElementById('gi-loading').style.display = 'none';
+      document.getElementById('gi-error').textContent = 'Something went wrong. Check your address and try again.';
+      document.getElementById('gi-error').style.display = 'block';
+    });
+}
+
+function partyClass(party) {
+  var p = (party || '').toLowerCase();
+  if (p.includes('democrat')) return 'dem';
+  if (p.includes('republican')) return 'rep';
+  return 'other';
+}
+
+function partyShort(party) {
+  return (party || '').replace('Democratic', 'Dem.').replace('Republican', 'Rep.');
+}
+
+function renderRace(title, cands) {
+  if (!cands || !cands.length) return '';
+  var html = '<div class="gi-race"><div class="gi-race-title">' + esc(title) + '</div>';
+  cands.forEach(function(c) {
+    html += '<div class="gi-candidate">';
+    html += '<div><div class="gi-cand-name">' + esc(c.name) + '</div>';
+    if (c.website) html += '<a href="' + esc(c.website) + '" target="_blank" rel="noopener" class="gi-cand-web">Website →</a>';
+    html += '</div>';
+    html += '<span class="gi-cand-party ' + partyClass(c.party) + '">' + esc(partyShort(c.party)) + '</span>';
+    html += '</div>';
+  });
+  html += '</div>';
+  return html;
+}
+
+function renderCandidates(data) {
+  var html = '';
+  html += '<div class="gi-matched-addr">📍 ' + esc(data.matchedAddress) + '</div>';
+  var parts = [];
+  if (data.senateDistrict) parts.push('Senate District ' + data.senateDistrict);
+  if (data.houseDistrict) parts.push('House District ' + data.houseDistrict);
+  if (parts.length) html += '<div class="gi-district-info">Your district: ' + parts.join(' · ') + '</div>';
+
+  // Local races first — Senate district
+  var senateKey = data.senateDistrict;
+  if (senateKey && data.senate && data.senate[senateKey]) {
+    html += renderRace('State Senate — District ' + senateKey + ' Primary', data.senate[senateKey]);
+  } else if (senateKey) {
+    html += '<div class="gi-race"><div class="gi-race-title">State Senate — District ' + esc(senateKey) + '</div><div style="font-size:11px;color:#6B7280;padding:4px 0;">No contested primary in your district.</div></div>';
+  }
+
+  // House district
+  var houseKey = data.houseDistrict;
+  if (houseKey && data.house && data.house[houseKey]) {
+    html += renderRace('State House — District ' + houseKey + ' Primary', data.house[houseKey]);
+  } else if (houseKey) {
+    html += '<div class="gi-race"><div class="gi-race-title">State House — District ' + esc(houseKey) + '</div><div style="font-size:11px;color:#6B7280;padding:4px 0;">No contested primary in your district.</div></div>';
+  }
+
+  // Statewide
+  if (data.statewide) {
+    Object.keys(data.statewide).forEach(function(race) {
+      html += renderRace(race, data.statewide[race]);
+    });
+  }
+
+  // County
+  if (data.county_races && Object.keys(data.county_races).length) {
+    Object.keys(data.county_races).forEach(function(race) {
+      html += renderRace(race, data.county_races[race]);
+    });
+  }
+
+  html += '<div class="gi-eligibility-note">⚠️ Primary voting requires Democrat or Republican registration. Unaffiliated/independent voters may <strong>not</strong> vote in party primaries under current Delaware law. New to the rolls? Register as D or R by <strong>Aug 22</strong>. Already registered as unaffiliated? The party change deadline was May 29 and has passed — you cannot vote in this primary.</div>';
+
+  document.getElementById('gi-results').innerHTML = html;
+  document.getElementById('gi-results').style.display = 'block';
+}
+
+function doGiSubscribe() {
+  var email = document.getElementById('gi-email').value.trim();
+  if (!email || !email.includes('@')) { document.getElementById('gi-email').style.outline = '2px solid #D93B3B'; return; }
+  document.getElementById('gi-email').style.outline = '';
   fetch('/.netlify/functions/subscribe', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email: email, profile: currentProfileKey || 'tracker' }),
   }).finally(function() {
-    document.getElementById('cta-form').style.display = 'none';
-    document.getElementById('cta-success').style.display = 'block';
+    document.getElementById('gi-email-row').style.display = 'none';
+    document.getElementById('gi-email-success').style.display = 'block';
   });
 }
 </script>
