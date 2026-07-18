@@ -67,8 +67,14 @@ body {
 .prof-arrow { font-size: 14px; color: #9CA3AF; flex-shrink: 0; }
 .pick-footer { font-size: 10px; color: #9CA3AF; text-align: center; margin-top: 8px; }
 
+/* ── BILLS NAV HEADER ── */
+.bills-nav-header { background: #002868; margin: 14px 14px 0; border-radius: 10px 10px 0 0; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
+.bills-nav-brand { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 900; color: #fff; }
+.bills-nav-brand em { color: #BAFF5C; font-style: italic; }
+.bills-nav-pill { font-size: 9px; font-weight: 700; color: #FFE600; letter-spacing: 0.5px; text-transform: uppercase; }
+
 /* ── BILL LIST ── */
-#screen-bills { display: none; margin: 0 14px; background: #fff; border-radius: 0 0 16px 16px; overflow: hidden; }
+#screen-bills { display: none; margin: 0 14px; background: #fff; border-radius: 0 0 16px 16px; overflow: visible; }
 .bills-header { background: #fff; padding: 10px 16px 16px; text-align: center; border-bottom: 1px solid #F3F4F6; }
 .back-btn { background: none; border: none; font-size: 12px; font-weight: 700; color: #002868; cursor: pointer; padding: 0; font-family: 'Inter', sans-serif; display: block; text-align: left; margin-bottom: 10px; }
 .back-btn:hover { color: #001848; }
@@ -192,6 +198,10 @@ body {
   </div>
 
   <div id="screen-bills">
+    <div class="bills-nav-header">
+      <span class="bills-nav-brand">Dover <em>Dash</em></span>
+      <span class="bills-nav-pill">153rd GA · Session Ended June 30</span>
+    </div>
     <div class="bills-header">
       <button class="back-btn" onclick="backToProfiles()">‹ Back</button>
       <div class="bill-count-bar" id="bill-count-bar"></div>
