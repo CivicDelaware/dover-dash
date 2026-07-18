@@ -64,10 +64,8 @@ body {
 .prof-info { flex: 1; min-width: 0; }
 .prof-label { font-size: 13px; font-weight: 700; color: #111827; line-height: 1.2; }
 .prof-sub { font-size: 10px; color: #6B7280; margin-top: 2px; }
-.prof-radio { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #D1D5DB; flex-shrink: 0; position: relative; transition: border-color .15s, background .15s; }
-.prof-btn.selected { border-color: #002868; background: #FFF0F3; }
-.prof-btn.selected .prof-radio { border-color: #002868; background: #002868; }
-.prof-btn.selected .prof-radio::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 6px; height: 6px; border-radius: 50%; background: #BAFF5C; }
+.prof-arrow { font-size: 16px; color: #D1D5DB; flex-shrink: 0; transition: color .15s; }
+.prof-btn:hover .prof-arrow { color: #002868; }
 .prof-submit-btn { width: 100%; background: #002868; color: #BAFF5C; border: none; border-radius: 10px; padding: 13px; font-size: 14px; font-weight: 800; font-family: 'Inter', sans-serif; cursor: pointer; margin-top: 10px; letter-spacing: 0.2px; }
 .pick-footer { font-size: 10px; color: #9CA3AF; text-align: center; margin-top: 8px; }
 
@@ -207,31 +205,31 @@ body {
 <p class="pick-sub">Pick your profile:</p>
 
     <button class="prof-btn" onclick="selectProfile('homeowner',this)">
-      <span class="prof-em">🏠</span><div class="prof-info"><div class="prof-label">Homeowner</div></div><span class="prof-radio"></span>
+      <span class="prof-em">🏠</span><div class="prof-info"><div class="prof-label">Homeowner</div></div><span class="prof-arrow">→</span>
     </button>
     <button class="prof-btn" onclick="selectProfile('renter',this)">
-      <span class="prof-em">🔑</span><div class="prof-info"><div class="prof-label">Renter</div></div><span class="prof-radio"></span>
+      <span class="prof-em">🔑</span><div class="prof-info"><div class="prof-label">Renter</div></div><span class="prof-arrow">→</span>
     </button>
     <button class="prof-btn" onclick="selectProfile('senior',this)">
-      <span class="prof-em">🌅</span><div class="prof-info"><div class="prof-label">Retiree</div></div><span class="prof-radio"></span>
+      <span class="prof-em">🌅</span><div class="prof-info"><div class="prof-label">Retiree</div></div><span class="prof-arrow">→</span>
     </button>
     <button class="prof-btn" onclick="selectProfile('smallbiz',this)">
-      <span class="prof-em">💼</span><div class="prof-info"><div class="prof-label">Business Owner</div></div><span class="prof-radio"></span>
+      <span class="prof-em">💼</span><div class="prof-info"><div class="prof-label">Business Owner</div></div><span class="prof-arrow">→</span>
     </button>
     <button class="prof-btn" onclick="selectProfile('pubsec',this)">
-      <span class="prof-em">🏛️</span><div class="prof-info"><div class="prof-label">Government</div></div><span class="prof-radio"></span>
+      <span class="prof-em">🏛️</span><div class="prof-info"><div class="prof-label">Government</div></div><span class="prof-arrow">→</span>
     </button>
     <button class="prof-btn" onclick="selectProfile('workpro',this)">
-      <span class="prof-em">👔</span><div class="prof-info"><div class="prof-label">Professional</div></div><span class="prof-radio"></span>
+      <span class="prof-em">👔</span><div class="prof-info"><div class="prof-label">Professional</div></div><span class="prof-arrow">→</span>
     </button>
     <button class="prof-btn" onclick="selectProfile('lowwage',this)">
-      <span class="prof-em">⏱️</span><div class="prof-info"><div class="prof-label">Hourly Worker</div></div><span class="prof-radio"></span>
+      <span class="prof-em">⏱️</span><div class="prof-info"><div class="prof-label">Hourly Worker</div></div><span class="prof-arrow">→</span>
     </button>
     <button class="prof-btn" onclick="selectProfile('veteran',this)">
-      <span class="prof-em">🎖️</span><div class="prof-info"><div class="prof-label">Veteran or Military</div></div><span class="prof-radio"></span>
+      <span class="prof-em">🎖️</span><div class="prof-info"><div class="prof-label">Veteran or Military</div></div><span class="prof-arrow">→</span>
     </button>
     <button class="prof-btn" onclick="selectProfile('landlord',this)">
-      <span class="prof-em">🏢</span><div class="prof-info"><div class="prof-label">Landlord</div></div><span class="prof-radio"></span>
+      <span class="prof-em">🏢</span><div class="prof-info"><div class="prof-label">Landlord</div></div><span class="prof-arrow">→</span>
     </button>
 
     <p class="pick-footer">Nonpartisan · Free · Updated daily during session</p>
