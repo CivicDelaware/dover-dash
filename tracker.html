@@ -204,32 +204,35 @@ body {
 <p class="pick-sub">Pick your profile:</p>
 
     <button class="prof-btn" onclick="selectProfile('homeowner',this)">
-      <div class="prof-info"><div class="prof-label">I own my home</div><div class="prof-sub">(own or paying a mortgage)</div></div><span class="prof-radio"></span>
+      <span class="prof-em">🏠</span><div class="prof-info"><div class="prof-label">Homeowner</div></div><span class="prof-radio"></span>
     </button>
     <button class="prof-btn" onclick="selectProfile('renter',this)">
-      <div class="prof-info"><div class="prof-label">I rent my home</div><div class="prof-sub">(renting an apartment or home)</div></div><span class="prof-radio"></span>
+      <span class="prof-em">🔑</span><div class="prof-info"><div class="prof-label">Renter</div></div><span class="prof-radio"></span>
     </button>
     <button class="prof-btn" onclick="selectProfile('senior',this)">
-      <div class="prof-info"><div class="prof-label">I'm retired or on fixed income</div><div class="prof-sub">(Social Security, pension, investment income)</div></div><span class="prof-radio"></span>
+      <span class="prof-em">🌅</span><div class="prof-info"><div class="prof-label">Retiree</div></div><span class="prof-radio"></span>
     </button>
     <button class="prof-btn" onclick="selectProfile('smallbiz',this)">
-      <div class="prof-info"><div class="prof-label">I own a small business</div><div class="prof-sub">(self-employed, sole proprietor, LLC)</div></div><span class="prof-radio"></span>
+      <span class="prof-em">💼</span><div class="prof-info"><div class="prof-label">Business Owner</div></div><span class="prof-radio"></span>
     </button>
     <button class="prof-btn" onclick="selectProfile('pubsec',this)">
-      <div class="prof-info"><div class="prof-label">I work for the government</div><div class="prof-sub">(state, county, or local — not federal)</div></div><span class="prof-radio"></span>
+      <span class="prof-em">🏛️</span><div class="prof-info"><div class="prof-label">Government</div></div><span class="prof-radio"></span>
     </button>
     <button class="prof-btn" onclick="selectProfile('workpro',this)">
-      <div class="prof-info"><div class="prof-label">I have a salaried job</div><div class="prof-sub">(full-time, private sector)</div></div><span class="prof-radio"></span>
+      <span class="prof-em">👔</span><div class="prof-info"><div class="prof-label">Professional</div></div><span class="prof-radio"></span>
     </button>
     <button class="prof-btn" onclick="selectProfile('lowwage',this)">
-      <div class="prof-info"><div class="prof-label">I work in retail, hospitality, or gig work</div><div class="prof-sub">(hourly, tips, or contract)</div></div><span class="prof-radio"></span>
+      <span class="prof-em">⏱️</span><div class="prof-info"><div class="prof-label">Hourly Worker</div></div><span class="prof-radio"></span>
+    </button>
+    <button class="prof-btn" onclick="selectProfile('veteran',this)">
+      <span class="prof-em">🎖️</span><div class="prof-info"><div class="prof-label">Veteran or Military</div></div><span class="prof-radio"></span>
     </button>
     <button class="prof-btn" onclick="selectProfile('landlord',this)">
-      <div class="prof-info"><div class="prof-label">I own rental property</div><div class="prof-sub">(rental units, investment property)</div></div><span class="prof-radio"></span>
+      <span class="prof-em">🏢</span><div class="prof-info"><div class="prof-label">Landlord</div></div><span class="prof-radio"></span>
     </button>
 
     <div id="prof-submit-wrap" style="display:none;">
-      <button class="prof-submit-btn" onclick="goToBills()">See My Bills →</button>
+      <button class="prof-submit-btn" onclick="goToBills()">Show me my results →</button>
     </div>
 
     <p class="pick-footer">Nonpartisan · Free · Updated daily during session</p>
@@ -332,14 +335,15 @@ body {
 
 <script>
 var PROFILES = {
-  homeowner: { emoji: '🏠', label: 'Home Owner',                  stat: 'About 71% of Delaware households own their home · U.S. Census Bureau' },
-  renter:    { emoji: '🔑', label: 'Renter',                      stat: 'About 29% of Delaware households rent · U.S. Census Bureau' },
-  senior:    { emoji: '🧓', label: 'Retiree / Fixed Income',      stat: 'About 1 in 5 Delawareans is age 65 or older · U.S. Census Bureau' },
-  smallbiz:  { emoji: '💼', label: 'Small Business Owner',        stat: '99% of Delaware businesses have under 500 employees · U.S. SBA' },
-  pubsec:    { emoji: '🏛️', label: 'Public Sector Employee',      stat: 'State & local govt is one of Delaware\'s largest employers · BLS' },
-  workpro:   { emoji: '🏙️', label: 'Private Sector Worker',       stat: 'Delaware\'s private sector spans finance, pharma & professional services' },
-  lowwage:   { emoji: '🛒', label: 'Low-Wage / Service Worker',   stat: 'Retail, hospitality & care employ tens of thousands across the state' },
-  landlord:  { emoji: '🏡', label: 'Landlord / Property Investor', stat: 'About 29% of Delaware households are renters · U.S. Census Bureau' },
+  homeowner: { emoji: '🏠', label: 'Homeowner',           stat: 'About 71% of Delaware households own their home · U.S. Census Bureau' },
+  renter:    { emoji: '🔑', label: 'Renter',              stat: 'About 29% of Delaware households rent · U.S. Census Bureau' },
+  senior:    { emoji: '🌅', label: 'Retiree',             stat: 'About 1 in 5 Delawareans is age 65 or older · U.S. Census Bureau' },
+  smallbiz:  { emoji: '💼', label: 'Business Owner',      stat: '99% of Delaware businesses have under 500 employees · U.S. SBA' },
+  pubsec:    { emoji: '🏛️', label: 'Government',          stat: 'State & local govt is one of Delaware\'s largest employers · BLS' },
+  workpro:   { emoji: '👔', label: 'Professional',        stat: 'Delaware\'s private sector spans finance, pharma & professional services' },
+  lowwage:   { emoji: '⏱️', label: 'Hourly Worker',       stat: 'Retail, hospitality & care employ tens of thousands across the state' },
+  veteran:   { emoji: '🎖️', label: 'Veteran or Military', stat: 'Delaware is home to Dover Air Force Base, one of the largest in the country' },
+  landlord:  { emoji: '🏢', label: 'Landlord',            stat: 'About 29% of Delaware households are renters · U.S. Census Bureau' },
 };
 
 var currentProfileKey = null;
