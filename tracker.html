@@ -129,12 +129,14 @@ body {
 .bills-empty-sub { font-size: 12px; color: #6B7280; line-height: 1.5; }
 /* --- Get Involved card --- */
 .gi-card { background: #F9FAFB; border-top: 1px solid #E5E7EB; }
-.gi-header { background: #002868; padding: 14px 16px 12px; text-align: center; }
-.gi-title { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 900; color: #fff; }
+.gi-header { background: #002868; padding: 16px 16px 14px; text-align: center; }
+.gi-title { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 900; color: #fff; }
 .gi-title em { color: #BAFF5C; font-style: italic; }
+.gi-subtitle { font-size: 11px; color: rgba(255,255,255,0.65); margin-top: 4px; font-family: 'Inter', sans-serif; font-weight: 600; letter-spacing: 0.3px; }
 .gi-step { padding: 14px 16px; border-bottom: 1px solid #E5E7EB; }
 .gi-step-last { border-bottom: none; padding-bottom: 20px; }
-.gi-step-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: #6B7280; margin-bottom: 10px; }
+.gi-step-label { font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.gi-step-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; min-width: 22px; background: #002868; color: #BAFF5C; border-radius: 50%; font-size: 11px; font-weight: 800; font-family: 'Inter', sans-serif; }
 .gi-deadline-banner { background: #FEF2F2; border: 1.5px solid #FECACA; border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #991B1B; margin-bottom: 10px; line-height: 1.5; }
 .gi-action-btn { display: block; background: #002868; color: #BAFF5C; border: none; border-radius: 8px; padding: 10px 14px; font-size: 12px; font-weight: 800; text-decoration: none; text-align: center; cursor: pointer; font-family: 'Inter', sans-serif; }
 .gi-action-btn:hover { background: #001f52; }
@@ -254,12 +256,13 @@ body {
 
       <!-- Header -->
       <div class="gi-header">
-        <span class="gi-title">Get <em>Involved!</em></span>
+        <div class="gi-title">Let's get you <em>voting!</em></div>
+        <div class="gi-subtitle">Easy as 1 · 2 · 3 — everything you need, right here</div>
       </div>
 
       <!-- Step 1: Register -->
       <div class="gi-step">
-        <div class="gi-step-label">Step 1 — Confirm you're registered</div>
+        <div class="gi-step-label"><span class="gi-step-num">1</span>Confirm you're registered</div>
         <div class="gi-deadline-banner">⚠️ <strong>Primary registration deadline: Aug 22</strong> — You must be registered as a Democrat or Republican to vote in the Sept 15 primary. Unaffiliated/independent voters cannot vote in party primaries under current Delaware law.<br><br><strong>Already registered as unaffiliated?</strong> The deadline to change party affiliation was May 29 — it has passed. You cannot switch parties in time for the primary. New to the rolls? You can still register as D or R by Aug 22.</div>
         <a href="https://ivote.de.gov" target="_blank" rel="noopener" class="gi-action-btn">Check or register at ivote.de.gov →</a>
         <a href="https://elections.delaware.gov/voter/absentee/" target="_blank" rel="noopener" class="gi-action-btn" style="margin-top:8px;background:#F9FAFB;color:#002868;border:1.5px solid #D1D5DB;">Request an absentee ballot →</a>
@@ -268,7 +271,7 @@ body {
 
       <!-- Step 2: Who's on my ballot -->
       <div class="gi-step">
-        <div class="gi-step-label">Step 2 — Who's on my ballot?</div>
+        <div class="gi-step-label"><span class="gi-step-num">2</span>Who's on my ballot?</div>
         <div class="gi-addr-row">
           <input class="gi-addr-input" id="gi-addr" type="text" placeholder="Your Delaware address..." />
           <button class="gi-addr-btn" onclick="findCandidates()">Find →</button>
@@ -280,7 +283,7 @@ body {
 
       <!-- Step 3: Key dates -->
       <div class="gi-step">
-        <div class="gi-step-label">Step 3 — Mark your calendar</div>
+        <div class="gi-step-label"><span class="gi-step-num">3</span>Mark your calendar</div>
         <div class="gi-dates">
           <div class="gi-date-row"><span class="gi-date-badge">Aug 22</span><span class="gi-date-desc">Last day to register for the Primary (by 11:59 pm)</span></div>
           <div class="gi-date-row"><span class="gi-date-badge">Sept 2–5</span><span class="gi-date-desc">Early voting begins (7 am – 7 pm)</span></div>
@@ -296,7 +299,7 @@ body {
 
       <!-- Step 4: Stay in the loop -->
       <div class="gi-step gi-step-last">
-        <div class="gi-step-label">Stay in the loop</div>
+        <div class="gi-step-label"><span class="gi-step-num" style="background:#BAFF5C;color:#002868;">✉</span>Stay in the loop</div>
         <div class="gi-email-sub">Get notified when the 154th General Assembly begins in January 2027 — track the bills that affect you from day one.</div>
         <div class="gi-email-row" id="gi-email-row">
           <input class="gi-email-input" id="gi-email" type="email" placeholder="your@email.com" />
