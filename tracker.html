@@ -68,27 +68,25 @@ body {
 .pick-footer { font-size: 10px; color: #9CA3AF; text-align: center; margin-top: 8px; }
 
 /* ── BILLS NAV HEADER ── */
-.bills-nav-header { background: #002868; margin: 14px 14px 0; border-radius: 10px 10px 0 0; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-.bills-nav-brand { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 900; color: #fff; line-height: 1; }
+.bills-nav-header { background: #002868; margin: 14px 14px 0; border-radius: 10px 10px 0 0; padding: 11px 16px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+.bills-back-btn { background: none; border: none; font-size: 12px; font-weight: 700; color: #BAFF5C; cursor: pointer; padding: 0; font-family: 'Inter', sans-serif; width: 52px; text-align: left; }
+.bills-nav-brand { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 900; color: #fff; line-height: 1; }
 .bills-nav-brand em { color: #BAFF5C; font-style: italic; }
-.bills-nav-session { background: rgba(255,255,255,0.1); border-radius: 20px; padding: 4px 10px; }
-.bills-nav-session-text { font-size: 9px; font-weight: 700; color: #FFE600; letter-spacing: 0.5px; text-transform: uppercase; }
+.bills-nav-spacer { width: 52px; }
 
 /* ── BILL LIST ── */
 #screen-bills { display: none; margin: 0 14px; background: #fff; border-radius: 0 0 16px 16px; overflow: hidden; }
-.bills-header { background: #fff; padding: 10px 16px 16px; text-align: center; border-bottom: 1px solid #F3F4F6; }
-.back-btn { background: none; border: none; font-size: 12px; font-weight: 700; color: #002868; cursor: pointer; padding: 0; font-family: 'Inter', sans-serif; display: block; text-align: left; margin-bottom: 10px; }
-.back-btn:hover { color: #001848; }
-.profile-hero-emoji { display: block; font-size: 40px; line-height: 1; margin-bottom: 8px; }
-.bills-profile-label { display: block; font-size: 18px; font-weight: 800; color: #111827; }
-.profile-stat-line { font-size: 10px; color: #9CA3AF; margin-top: 5px; line-height: 1.4; }
+.bills-hero { background: #fff; padding: 16px 16px 14px; text-align: center; }
+.profile-hero-emoji { display: block; font-size: 38px; line-height: 1; margin-bottom: 6px; }
+.bills-profile-label { display: block; font-size: 17px; font-weight: 800; color: #111827; }
+.profile-stat-line { font-size: 10px; color: #9CA3AF; margin-top: 4px; line-height: 1.4; }
 .profile-section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #9CA3AF; margin-bottom: 6px; }
 .filter-row { background: #F3F4F6; padding: 0 14px; display: flex; gap: 0; border-bottom: 2px solid #002868; }
 .filter-btn { border: none; border-radius: 8px 8px 0 0; padding: 8px 14px; font-size: 11px; font-weight: 700; cursor: pointer; background: #E5E7EB; color: #6B7280; font-family: 'Inter', sans-serif; margin: 6px 3px 0; transition: all .12s; white-space: nowrap; position: relative; top: 2px; }
 .filter-btn.active { background: #002868; color: #BAFF5C; }
 .filter-btn.wo.active { background: #D93B3B; color: #fff; }
 .filter-btn.hy.active { background: #1A7A4A; color: #fff; }
-.bill-count-bar { background: #fff; padding: 10px 16px 8px; font-size: 11px; color: #6B7280; font-weight: 700; border-bottom: 1px solid #F3F4F6; }
+.bill-count-bar { font-size: 10px; color: #9CA3AF; font-weight: 600; margin-top: 5px; }
 .bill-count-bar strong { color: #111827; }
 .bills-loading { background: #fff; padding: 32px 16px; text-align: center; font-size: 12px; color: #9CA3AF; }
 .loading-spin { font-size: 24px; display: block; margin-bottom: 8px; animation: spin 1s linear infinite; }
@@ -199,19 +197,17 @@ body {
   </div>
 
   <div class="bills-nav-header" id="bills-nav-header" style="display:none">
+    <button class="bills-back-btn" onclick="backToProfiles()">‹ Back</button>
     <span class="bills-nav-brand">Dover <em>Dash</em></span>
-    <div class="bills-nav-session">
-      <span class="bills-nav-session-text">153rd GA · Session Ended June 30</span>
-    </div>
+    <span class="bills-nav-spacer"></span>
   </div>
 
   <div id="screen-bills">
-    <div class="bills-header">
-      <button class="back-btn" onclick="backToProfiles()">‹ Back</button>
-      <div class="bill-count-bar" id="bill-count-bar"></div>
+    <div class="bills-hero">
       <span class="profile-hero-emoji" id="profile-hero-emoji"></span>
       <span class="bills-profile-label" id="profile-label"></span>
       <div class="profile-stat-line" id="profile-stat-line"></div>
+      <div class="bill-count-bar" id="bill-count-bar"></div>
     </div>
     <div class="filter-row">
       <button class="filter-btn wo" id="filter-wo" onclick="setFilter('Watch Out')">🔴 Watch Out</button>
