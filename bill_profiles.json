@@ -25,7 +25,11 @@
     "synopsis": "This Act requires a lease to set forth clear procedures for the surrender of rental unit keys at the end of the rental term in residential leases, and provides default procedures for key return when there is no lease provision or other agreement.",
     "plain_english": "Your lease must now spell out exactly how and when to return your keys at move-out \u2014 and if it doesn't, the law sets a clear default process so landlords can't hit you with disputed fees over unclear key-return rules.",
     "profiles": {
-      "renter": "Helps You"
+      "renter": "Helps You",
+      "landlord": {
+        "direction": "Watch Out",
+        "rationale": "Your residential leases must now include explicit key-return procedures at move-out — or state default rules apply — creating a compliance obligation to update all lease templates and reducing your ability to charge disputed fees over unclear key-return policies."
+      }
     },
     "wallet_rationale": "Amends Title 25 to allow tenants to keep pets in rental housing, removing lease restrictions that force renters to choose between housing and pet ownership, and reducing arbitrary pet deposit demands"
   },
@@ -246,7 +250,11 @@
     "synopsis": "This Act prohibits counties and municipalities from requiring the use of water backflow preventers in certain types of low hazard buildings. In doing so, this Act reduces costs for businesses and single-family residential homeowners by exempting them from backflow preventer installation and inspection requirements in buildings where backflow does not pose a risk to fresh water or drinking water. Buildings deemed low hazard will nonetheless be required to have backflow preventers if they have fresh water supplied by a public well. Under \u00a7 1 of Article IX of the Delaware Constitution, this Act requires a two-thirds majority vote because it involves indirect changes to municipal charters.",
     "plain_english": "If your single-family home is classified as a low-hazard building and uses municipal water (not a public well), counties and towns can no longer require you to install or pay for backflow preventer inspections \u2014 potentially saving you hundreds of dollars in mandated plumbing costs.",
     "profiles": {
-      "homeowner": "Watch Out"
+      "homeowner": "Watch Out",
+      "landlord": {
+        "direction": "Helps You",
+        "rationale": "Single-family rental properties classified as low-hazard buildings are now exempt from mandatory backflow preventer installation and inspection requirements — directly eliminating a recurring per-unit compliance cost that counties and municipalities could previously mandate."
+      }
     },
     "wallet_rationale": "Changes backflow prevention requirements for plumbing systems; homeowners with backflow devices face new testing, inspection, or certification costs under revised standards"
   },
@@ -286,7 +294,11 @@
     "plain_english": "If a contractor leaves your home repair job unfinished or does poor work, you now have a state-backed dispute resolution process to get your money back \u2014 and if the contractor still refuses, you can sue for up to triple your actual damages plus attorney fees.",
     "profiles": {
       "homeowner": "Helps You",
-      "smallbiz": "Watch Out"
+      "smallbiz": "Watch Out",
+      "landlord": {
+        "direction": "Helps You",
+        "rationale": "If a contractor leaves your rental property renovation unfinished or does substandard work, you now have a state-backed dispute resolution process and can sue for up to triple your actual damages plus attorney fees — giving landlords real financial leverage against bad contractors on any rental unit."
+      }
     },
     "wallet_rationale": "Creates a mandatory dispute resolution process for home improvement contracts, giving homeowners a formal mechanism to recover money paid for unfinished or substandard work while adding compliance obligations for contractors"
   },
@@ -389,7 +401,11 @@
     "plain_english": "If you live in a manufactured home community, the formula that limits how much your lot rent can increase is now permanent \u2014 replacing the old rules that gave landlords broader leeway to raise your rent.",
     "profiles": {
       "renter": "Helps You",
-      "smallbiz": "Watch Out"
+      "smallbiz": "Watch Out",
+      "landlord": {
+        "direction": "Watch Out",
+        "rationale": "The formula capping annual lot rent increases in manufactured home communities is now permanent — replacing the prior pilot rules that were set to expire — directly and permanently constraining rental income growth on any manufactured home lots you own."
+      }
     },
     "wallet_rationale": "Amends Title 25 to limit rent increases in residential leases, directly capping how much landlords may raise rent and providing renters with predictable, lower housing costs; constrains rental income for landlord-businesses"
   },
@@ -484,7 +500,11 @@
     "synopsis": "This Act requires that when all or part of the tenant's rent is paid from a state fund for reentry services, a landlord must assist the tenant in completing a discharge plan to attempt to provide a warm handoff before terminating the tenant's lease. This Act also closes a loophole in existing law that allows unlicensed or uncertified operators of residential housing to claim exemption from the Residential Landlord-Tenant Code, including the procedural requirements for an eviction. Existing laws prohibit someone from losing their housing without notice because \u2022 A landlord must comply with the notice and judicial procedure under the Residential Landlord-Tenant Code, Part III, Title 25. \u2022 Licensed health care providers must provide discharge planning before an individual is required to leave a residential treatment program under \u00a7 1127, \u00a7 5161, and \u00a7 3004J of Title 16. \u2022 Certified recovery homes must make a reasonable effort to connect a resident with appropriate services when terminating the resident's admission agreement under \u00a7 2206A of Title 16. Section 1 of this Act closes a loophole in current law that allows some landlords to claim their tenants are excluded under \u00a7 5102(1) of Title 25 from the protections required before eviction under the Residential Landlord-Tenant Code without being required to provide discharge planning or connecting the resident with appropriate services. This Act revises 3 of the exclusions by using the modern terms and where possible, the applicable licensing law for this State, to prevent housing providers from claiming exclusion from the Residential Landlord-Tenant Code even if the provider is not licensed or certified to provide services. This Act does not apply to or revise the exclusions to the Residential Landlord-Tenant Code under paragraphs (4) through (6) of \u00a7 5102 of Title 25, including the existing exclusion for certified recovery houses. Section 2 of this Act creates new requirements under \u00a7 5512A of Title 25 if all or part of a tenant's rent is paid using money from a State reentry fund. Before or with the first payment, the person responsible for payments from the fund must provide the landlord with an explanation of these requirements, contact information, and the model discharge plan. The Department of Health and Social Services (DHSS), in consultation with the Department of Justice (DOJ), must create a model discharge plan. Then, before terminating the tenant's lease, the landlord must assist the individual in creating a discharge plan that includes shelter or housing and provide notice that the tenant's lease is being terminated as follows: \u2022 To the person making rent payments from the fund. \u2022 If the landlord knows that the tenant is under the supervision of the Department of Correction, to the Department of Correction and the local law enforcement agency. If a landlord fails to comply with the discharge planning and notice requirements, the landlord is debarred from receiving payments from any State reentry fund for 1 year. If the landlord is receiving payments from a State reentry fund for any other tenants, those tenants are not responsible for the share of the rent that was paid by the fund and have the option to do any of the following: \u2022 Continue the tenancy without payments from the fund. \u2022 Terminate the lease immediately. \u2022 Terminate the lease with 30 to 60 days notice. These requirements are enforceable by the Department of Justice and also by the Justice of the Peace Court, because the contents of an eviction complaint must include a brief statement of compliance with the requirements under \u00a7 5512A(c) and copies of all required notices. Section 3 of this Act is a technical clarification to clarify that \"this Code\" and \"Landlord-Tenant Code\" both refer to the Residential Landlord-Tenant Code under Part III of this title. Both \"this Code\" and \"Landlord-Tenant Code\" are used throughout Chapter 51 through Chapter 59 of Title 25 as abbreviations of the Residential Landlord-Tenant Code and under \u00a7 101 of Title 1, \"this Code\" could also refer to the entire Delaware Code. Section 4 of this Act makes the new requirements for reentry funds under \u00a7 5512A of Title 25 applicable to the rental of single rooms in owner-occupied buildings under \u00a7 5512 of Title 25. Section 4 also reorganizes the existing language in \u00a7 5512 because as 1 sentence, the current language is difficult to understand. This Act takes effect 6 months after enactment to provide time for DHSS and DOJ to develop the model discharge plan and for agencies, including the Department of Correction and local law enforcement agencies, to develop policies and procedures necessary to implement and respond to notification under these requirements. The new requirements under \u00a7 5512A of Title 25 apply to rental agreements entered into on or after the effective date of this Act. This Act also makes technical corrections to conform existing law to the standards of the Delaware Legislative Drafting Manual. This Act is known as \"The Grace Peterson Act\".",
     "plain_english": "Unlicensed housing operators can no longer use a legal loophole to sidestep the eviction notice requirements that licensed landlords must follow, and if your rent is paid partly through a state reentry fund, your landlord must help you create a housing plan before they can end your lease.",
     "profiles": {
-      "renter": "Helps You"
+      "renter": "Helps You",
+      "landlord": {
+        "direction": "Watch Out",
+        "rationale": "If your tenant's rent is paid through a state reentry fund, you must now help them create a housing discharge plan before terminating their lease — and if you skip this step, you're barred from receiving any state reentry housing payments for 1 year across all your units."
+      }
     },
     "wallet_rationale": "Amends the Delaware Landlord-Tenant Code; substantive changes to notice periods, deposit limits, habitability standards, or eviction grounds have direct financial and legal consequences for renters' housing costs and security"
   },
@@ -512,7 +532,11 @@
     "profiles": {
       "smallbiz": "Watch Out",
       "workpro": "Helps You",
-      "lowwage": "Helps You"
+      "lowwage": "Helps You",
+      "landlord": {
+        "direction": "Watch Out",
+        "rationale": "Delaware's consumer fraud law now explicitly covers post-lease landlord conduct — including collection letters and threats after a tenancy ends — exposing you to Attorney General enforcement and potential civil liability for communications you previously sent without legal risk."
+      }
     },
     "wallet_rationale": "Amends consumer protection law under Title 6; expanded consumer protection provisions create new compliance obligations for businesses while giving workers and consumers stronger protections against deceptive practices"
   },
@@ -593,7 +617,11 @@
     "synopsis": "Currently, if a licensed Delaware attorney pays off a mortgage in conjunction with a real-estate settlement and the lender fails to file a satisfaction piece within 60 days, the attorney may administratively satisfy that mortgage to clear the title record. Unfortunately, often other types of liens that are paid off remain unsatisfied and cloud title for the homeowner. This Act clarifies that a licensed Delaware attorney may also file an administrative satisfaction or partial release for any other type of lien that the Delaware attorney paid off.",
     "plain_english": "If you paid off a lien on your property \u2014 not just a mortgage, but any lien \u2014 your real estate attorney can now file a legal release on your behalf if the creditor fails to do so, preventing a lingering cloud on your title that could delay or block a future home sale.",
     "profiles": {
-      "homeowner": "Watch Out"
+      "homeowner": "Watch Out",
+      "landlord": {
+        "direction": "Helps You",
+        "rationale": "Your attorney can now file an administrative lien release on any lien paid off on your rental property — not just mortgages — when a creditor fails to do so, preventing title clouds that block or delay the sale of a property in your portfolio."
+      }
     },
     "wallet_rationale": "Amends Title 25 attorney satisfaction-of-mortgage rules; changes to lien release procedures and attorney authority may alter closing costs and legal fees for homeowners paying off mortgages"
   },
@@ -620,7 +648,11 @@
     "synopsis": "This Act repeals the ability of school districts to increase tax rates by up to 10% when recalculating the district's rate of taxation after a general reassessment, replacing the 10% maximum with a formula tied to actual prior operating revenue plus average taxable-property growth. This Act also allows school districts to increase a referendum-approved tax by up to 2% annually without a new referendum if the district's operational reserve balance is not more than 10% of annual revenue and it is not the same fiscal year as a general reassessment recalculation. The new recalculation equation applies beginning the fiscal year following the next general reassessment, and districts cannot use the 2% no-referendum increase until after the next general reassessment or FY2031, whichever is earlier. Vocational-technical districts' tax authority under Chapter 26 is unaffected. Includes technical corrections to conform to the Delaware Legislative Drafting Manual.",
     "plain_english": "After a property reassessment, your school district can no longer automatically raise its tax rate by up to 10% \u2014 instead, increases are capped by a formula tied to actual revenue and property growth, directly limiting the property tax jump you'll see on your next bill.",
     "profiles": {
-      "homeowner": "Helps You"
+      "homeowner": "Helps You",
+      "landlord": {
+        "direction": "Helps You",
+        "rationale": "After a county reassessment, school districts can no longer automatically spike tax rates by up to 10% — the increase is now capped by a formula tied to actual revenue growth — directly limiting property tax jumps across your entire rental portfolio at once."
+      }
     },
     "wallet_rationale": "Caps post-reassessment school tax rate increases by replacing the blanket 10% allowance with a formula tied to actual prior revenue and taxable-property growth, directly limiting property tax hikes on homeowners after county-wide reassessments"
   },
