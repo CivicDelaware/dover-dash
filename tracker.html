@@ -484,9 +484,10 @@ function renderBills() {
     var synId   = 'bs-' + bill.bill_number.replace(/\s+/g, '-');
     var rationaleText = (prof && prof.rationale) ? prof.rationale : '';
     var synopsisHtml = rationaleText ? '<div class="bill-rationale"><span class="bill-rationale-label">Why it matters to you</span>' + esc(rationaleText) + '</div>' : '';
-    var readMore = bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Expand ↓</button>' : '';
+    var bodyHtml = !rationaleText && bodyText ? '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' : '';
+    var readMore = !rationaleText && bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Expand ↓</button>' : '';
     var rightMeta = (catChip || statusBadge) ? '<div class="bill-card-meta">' + catChip + statusBadge + '</div>' : '';
-    return '<div class="' + cardClass + '">' + '<div class="bill-nickname">' + esc(nickname) + rightMeta + '</div>' + '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + '</div>' + sponsorHtml + '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' + synopsisHtml + readMore + '</div>';
+    return '<div class="' + cardClass + '">' + '<div class="bill-nickname">' + esc(nickname) + rightMeta + '</div>' + '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + '</div>' + sponsorHtml + bodyHtml + synopsisHtml + readMore + '</div>';
   }).join('');
   if (showExpand) {
     html += '<div style="padding:14px 16px;text-align:center;"><button onclick="expandFilter(\'' + currentFilter + '\')" style="background:none;border:1.5px solid #002868;border-radius:20px;padding:8px 20px;font-size:12px;font-weight:700;color:#002868;cursor:pointer;font-family:\'Inter\',sans-serif;">See all ' + bills.length + ' bills ↓</button></div>';
