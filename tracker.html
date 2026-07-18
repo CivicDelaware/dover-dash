@@ -97,9 +97,11 @@ body {
 .filter-btn.hy.active { background: #1A7A4A; color: #fff; }
 .bill-count-bar { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.65); }
 .bill-count-bar strong { color: #fff; }
-.bills-loading { background: #fff; padding: 32px 16px; text-align: center; font-size: 12px; color: #9CA3AF; }
-.loading-spin { font-size: 24px; display: block; margin-bottom: 8px; animation: spin 1s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
+.bills-loading { background: #fff; padding: 40px 16px; text-align: center; }
+.loading-name { font-family: 'Playfair Display', Georgia, serif; font-size: 28px; font-weight: 900; color: #002868; animation: namepulse 1.6s ease-in-out infinite; }
+.loading-name em { color: #BAFF5C; font-style: italic; -webkit-text-stroke: 0.5px #002868; }
+.loading-sub { font-size: 11px; color: #9CA3AF; margin-top: 6px; font-family: 'Inter', sans-serif; }
+@keyframes namepulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
 .bills-list { background: #fff; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; }
 .bill-card { padding: 14px 16px; background: #fff; border-radius: 12px; border-left: 4px solid transparent; border: 1.5px solid #E5E7EB; border-left-width: 4px; }
 .bill-card.wo { border-left-color: #D93B3B; }
@@ -258,7 +260,7 @@ body {
       <button class="filter-btn wo" id="filter-wo" onclick="setFilter('Watch Out')">Watch Out</button>
       <button class="filter-btn hy" id="filter-hy" onclick="setFilter('Helps You')">Helps You</button>
     </div>
-    <div class="bills-loading" id="bills-loading"><span class="loading-spin">⏳</span>Loading bills…</div>
+    <div class="bills-loading" id="bills-loading"><div class="loading-name">Dover <em>Dash</em></div><div class="loading-sub">Loading your bills…</div></div>
     <div class="bills-list" id="bills-list"></div>
     <div class="bills-empty" id="bills-empty" style="display:none;">
       <div class="bills-empty-icon">📋</div>
