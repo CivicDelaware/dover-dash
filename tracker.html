@@ -375,7 +375,8 @@ function toggleBillText(id, btn) {
   var el = document.getElementById(id);
   if (!el) return;
   var isExpanded = el.classList.toggle('expanded');
-  btn.textContent = isExpanded ? 'Collapse ↑' : 'Expand ↓';
+  var wasDetail = btn.textContent.indexOf('More detail') !== -1 || btn.textContent.indexOf('Less detail') !== -1;
+  btn.textContent = isExpanded ? (wasDetail ? 'Less detail ↑' : 'Collapse ↑') : (wasDetail ? 'More detail ↓' : 'Expand ↓');
   var synEl = document.getElementById('bs-' + id.slice(3));
   if (synEl) synEl.style.display = isExpanded ? 'block' : 'none';
 }
@@ -487,7 +488,7 @@ function renderBills() {
     var bodyHtml = !rationaleText && bodyText ? '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' : '';
     var readMore = !rationaleText && bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Expand ↓</button>' : '';
     var rightMeta = (catChip || statusBadge) ? '<div class="bill-card-meta">' + catChip + statusBadge + '</div>' : '';
-    return '<div class="' + cardClass + '">' + '<div class="bill-nickname">' + esc(nickname) + rightMeta + '</div>' + '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + '</div>' + sponsorHtml + bodyHtml + synopsisHtml + readMore + '</div>';
+    return '<div class="' + cardClass + '">' + '<div class="bill-nickname">' + esc(nickname) + rightMeta + '</div>' + '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + '</div>' + sponsorHtml + synopsisHtml + bodyHtml + readMore + '</div>';
   }).join('');
   if (showExpand) {
     html += '<div style="padding:14px 16px;text-align:center;"><button onclick="expandFilter(\'' + currentFilter + '\')" style="background:none;border:1.5px solid #002868;border-radius:20px;padding:8px 20px;font-size:12px;font-weight:700;color:#002868;cursor:pointer;font-family:\'Inter\',sans-serif;">See all ' + bills.length + ' bills ↓</button></div>';
