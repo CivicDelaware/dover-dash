@@ -8,7 +8,11 @@
     "synopsis": "Currently, even when a defendant or individual obviously does not have the means to pay a financial penalty or fee, Delaware Courts are unable to waive certain mandatory minimum fines or fees at sentencing. This can create a constitutional crossroads, as our justice system has long recognized that the Fourteen Amendment prohibits \"punishing a person for his poverty.\" Bearden v. Georgia, 461 U.S. 660, 671 (1983). This Act gives courts the discretion to waive fines and fees, in whole or in part, in appropriate circumstances. It also creates a presumption that fines and fees will not be imposed when a defendant shows evidence of certain conditions, including receiving a public assistance benefit (like Medicaid, SNAP, or veterans' benefits) or being represented by the Office of Defense Services. It also creates a hearing process for anyone already sentenced to pay a fine or fee. The changes in this Act are based on recommendations of the Criminal Legal System Imposed Debt Study Group created by House Bill 244, as amended by House Amendment No 2, of the 151st General Assembly, in its December 7, 2023, report.\nThis Act takes effect 180 days after its enactment.",
     "plain_english": "Courts can now waive fines and fees entirely if you're on Medicaid, SNAP, veterans' benefits, or simply can't afford to pay \u2014 so a court case won't spiral into a debt you can never climb out of. If you've already been ordered to pay, you can request a hearing to have those amounts reduced.",
     "profiles": {
-      "lowwage": "Helps You"
+      "lowwage": "Helps You",
+      "veteran": {
+        "direction": "Helps You",
+        "rationale": "Allows courts to waive mandatory fines and fees for those receiving veterans' benefits \u2014 the bill explicitly names VA benefits as a qualifying condition, directly protecting veterans from compounding court debt."
+      }
     },
     "wallet_rationale": "Allows courts to waive mandatory minimum fines and fees for defendants who demonstrably cannot pay, directly reducing compounding court debt burdens on low-income individuals caught in the justice system"
   },
@@ -196,7 +200,11 @@
     "plain_english": "If your doctor prescribes a biologic medication, your insurer can no longer make you try a cheaper alternative first if an interchangeable biosimilar is available \u2014 getting you to the right treatment faster without the delays and extra out-of-pocket costs of insurer-mandated detours.",
     "profiles": {
       "workpro": "Helps You",
-      "senior": "Helps You"
+      "senior": "Helps You",
+      "veteran": {
+        "direction": "Helps You",
+        "rationale": "Strengthens step therapy exception process for biologics; veterans with service-connected chronic conditions (arthritis, TBI, autoimmune) are heavy users of biologic medications and directly benefit from faster insurer overrides."
+      }
     },
     "wallet_rationale": "Strengthens the step therapy exception process, requiring faster insurer overrides when prescribed first-line drugs are contraindicated; prevents delays in access to medically necessary medications and reduces costs from forced use of ineffective treatments"
   },
@@ -332,7 +340,11 @@
     "plain_english": "Your Delaware state income tax exemption on military retirement pay will rise from $12,500 to $25,000 \u2014 phased in over three years starting in 2027, regardless of your age \u2014 putting more of your pension back in your pocket.",
     "profiles": {
       "senior": "Helps You",
-      "pubsec": "Helps You"
+      "pubsec": "Helps You",
+      "veteran": {
+        "direction": "Helps You",
+        "rationale": "Phases in a full state income tax exemption for military pensions over 3 years, directly increasing net retirement income for Delaware military retirees \u2014 the only bill in the 153rd GA specifically targeting veterans' financial wellbeing."
+      }
     },
     "wallet_rationale": "Phases in a full state income tax exemption for military pensions over 3 years, directly increasing net retirement income for military retirees; veterans in public service retirement also benefit"
   },
@@ -346,7 +358,11 @@
     "plain_english": "Your health insurer must now cover mental health and substance use disorder treatment on the same terms as physical health care \u2014 including emergency mental health services, all appropriate levels of care, and out-of-network coverage when in-network providers aren't available nearby \u2014 so you pay no more for mental health than you would for a physical illness.",
     "profiles": {
       "workpro": "Helps You",
-      "senior": "Helps You"
+      "senior": "Helps You",
+      "veteran": {
+        "direction": "Helps You",
+        "rationale": "Expands mental health parity in health insurance; veterans disproportionately experience PTSD, depression, and service-connected mental health conditions, making mandated no-cost behavioral health coverage directly material to this group."
+      }
     },
     "wallet_rationale": "Amends health insurance coverage requirements under Title 18; mandated coverage expansions directly reduce out-of-pocket healthcare costs for workers with employer-sponsored plans and seniors with supplemental insurance"
   },
@@ -686,7 +702,11 @@
     "profiles": {
       "senior": "Helps You",
       "workpro": "Helps You",
-      "lowwage": "Helps You"
+      "lowwage": "Helps You",
+      "veteran": {
+        "direction": "Helps You",
+        "rationale": "Prohibits hospitals from placing liens on primary residences or garnishing income for medical debt; veterans with gaps in VA coverage who receive civilian care face the highest risk of unpaid medical bills that this law directly shields against."
+      }
     },
     "wallet_rationale": "Medical Debt Protection Act restricts the collection and credit reporting of medical debt, directly shielding individuals from debt-driven financial ruin; seniors \u2014 who face higher medical costs \u2014 and low-wage workers with high out-of-pocket expenses benefit most"
   },
