@@ -83,7 +83,7 @@ body {
 .bills-profile-label { display: block; font-size: 17px; font-weight: 800; color: #111827; }
 .profile-stat-line { font-size: 10px; color: #9CA3AF; margin-top: 4px; line-height: 1.4; }
 .profile-section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #9CA3AF; margin-bottom: 6px; }
-.filter-row { background: #fff; padding: 10px 14px; display: flex; gap: 6px; border-bottom: 1px solid #E5E7EB; }
+.filter-row { background: #fff; padding: 10px 14px; display: flex; gap: 6px; border-bottom: 1px solid #E5E7EB; justify-content: center; }
 .filter-btn { border: none; border-radius: 20px; padding: 7px 14px; font-size: 11px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; transition: all .12s; white-space: nowrap; background: #F3F4F6; color: #374151; }
 .filter-btn.wo { background: #FEE2E2; color: #D93B3B; }
 .filter-btn.hy { background: #D1FAE5; color: #1A7A4A; }
@@ -92,6 +92,7 @@ body {
 .filter-btn.hy.active { background: #1A7A4A; color: #fff; }
 .bill-count-bar { font-size: 10px; font-weight: 600; color: #fff; }
 .bill-count-bar strong { color: #fff; }
+#bill-count-bar { color: #fff; }
 .bills-loading { background: #fff; padding: 40px 16px; text-align: center; }
 .loading-name { font-family: 'Playfair Display', Georgia, serif; font-size: 28px; font-weight: 900; color: #002868; animation: namepulse 1.6s ease-in-out infinite; }
 .loading-name em { color: #BAFF5C; font-style: italic; -webkit-text-stroke: 0.5px #002868; }
@@ -116,7 +117,7 @@ body {
 .bill-synopsis-text { font-size: 11.5px; color: #374151; line-height: 1.55; margin-bottom: 8px; padding-top: 8px; border-top: 1px solid #F3F4F6; }
 .bill-rationale { font-size: 11px; color: #002868; background: #EFF6FF; border-radius: 6px; padding: 7px 10px; margin-bottom: 8px; line-height: 1.5; font-weight: 500; }
 .bill-rationale-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #6B7280; display: block; margin-bottom: 3px; }
-.bill-sponsor { font-size: 11px; color: #6B7280; margin-bottom: 4px; }
+.bill-sponsor { font-size: 11px; color: #6B7280; margin-bottom: 14px; }
 .bill-sponsor a { color: #6B7280; font-weight: 700; text-decoration: none; border-bottom: 1px solid #BAFF5C; }
 .bill-sponsor a:hover { color: #D93B3B; border-bottom-color: #D93B3B; }
 .primary-cta { font-size: 10px; font-weight: 700; color: #D93B3B; margin-top: 8px; }
@@ -240,7 +241,7 @@ body {
     </div>
     <div style="text-align:center;">
       <span class="bills-nav-profile" id="bills-nav-profile"></span>
-      <div style="margin-top:8px;"><span id="bills-nav-sep" style="display:none"></span><span id="bill-count-bar"></span></div>
+      <div style="margin-top:8px;"><span id="bills-nav-sep" style="display:none"></span><span id="bill-count-bar" style="color:#fff"></span></div>
     </div>
   </div>
 
@@ -250,8 +251,8 @@ body {
 
   <div id="screen-bills">
     <div class="filter-row">
-      <button class="filter-btn wo" id="filter-wo" onclick="setFilter('Watch Out')">Watch Out</button>
       <button class="filter-btn hy" id="filter-hy" onclick="setFilter('Helps You')">Helps You</button>
+      <button class="filter-btn wo" id="filter-wo" onclick="setFilter('Watch Out')">Watch Out</button>
     </div>
     <div class="bills-loading" id="bills-loading"><div class="loading-name">Dover <em>Dash</em></div><div class="loading-sub">Loading your bills…</div></div>
     <div class="bills-list" id="bills-list"></div>
