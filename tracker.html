@@ -187,6 +187,34 @@ body {
 .gi-email-success { font-size: 12px; color: #1A7A4A; font-weight: 700; }
 .gi-source { font-size: 10px; color: #9CA3AF; margin-top: 10px; line-height: 1.5; }
 .gi-source a { color: #6B7280; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+/* ── LEGISLATOR SCORECARD ── */
+.rep-section { background: #F9FAFB; border-top: 1px solid #E5E7EB; padding: 20px 16px 24px; }
+.rep-section-title { font-family: 'Playfair Display', Georgia, serif; font-size: 16px; font-weight: 900; color: #002868; margin-bottom: 4px; }
+.rep-section-sub { font-size: 11px; color: #9CA3AF; margin-bottom: 14px; line-height: 1.4; }
+.rep-addr-row { display: flex; gap: 8px; }
+.rep-addr-input { flex: 1; border: 1.5px solid #E5E7EB; border-radius: 8px; padding: 9px 12px; font-size: 12px; font-family: 'Inter', sans-serif; color: #002868; outline: none; }
+.rep-addr-input:focus { border-color: #002868; }
+.rep-addr-btn { background: #002868; color: #BAFF5C; border: none; border-radius: 8px; padding: 9px 14px; font-size: 11px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap; }
+.rep-addr-btn:hover { background: #001a4d; }
+.rep-loading { text-align: center; padding: 20px 0; font-size: 11px; color: #9CA3AF; display: none; }
+.rep-error { font-size: 11px; color: #D93B3B; margin-top: 10px; display: none; }
+.rep-cards { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+.rep-card { background: #fff; border-radius: 12px; border: 1.5px solid #E5E7EB; padding: 14px 16px; }
+.rep-card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
+.rep-card-name { font-family: 'Playfair Display', Georgia, serif; font-size: 15px; font-weight: 900; color: #002868; }
+.rep-card-role { font-size: 10px; color: #9CA3AF; margin-top: 2px; }
+.rep-party-badge { font-size: 9px; font-weight: 800; border-radius: 4px; padding: 2px 7px; letter-spacing: 0.5px; flex-shrink: 0; }
+.rep-party-badge.D { background: #DBEAFE; color: #1E40AF; }
+.rep-party-badge.R { background: #FEE2E2; color: #D93B3B; }
+.rep-scorecard { display: flex; gap: 8px; margin-bottom: 10px; }
+.rep-score-box { flex: 1; text-align: center; background: #F9FAFB; border-radius: 8px; padding: 8px 4px; }
+.rep-score-num { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 900; line-height: 1; }
+.rep-score-num.yes { color: #1A7A4A; }
+.rep-score-num.no { color: #D93B3B; }
+.rep-score-num.abs { color: #9CA3AF; }
+.rep-score-label { font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #9CA3AF; margin-top: 2px; }
+.rep-bio-link { font-size: 10px; color: #9CA3AF; text-decoration: underline; text-underline-offset: 2px; }
+.rep-bio-link:hover { color: #002868; }
 .app-footer { background: #002868; padding: 10px 16px 12px; text-align: center; margin: 0 14px 14px; border-radius: 0 0 10px 10px; border-top: 2px solid #BAFF5C; }
 .app-footer-brand { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 900; color: #fff; margin-bottom: 4px; }
 .app-footer-brand em { color: #BAFF5C; font-style: italic; }
@@ -264,6 +292,19 @@ body {
       <div class="bills-empty-icon">📋</div>
       <div class="bills-empty-title" id="empty-title">No bills found</div>
       <div class="bills-empty-sub" id="empty-sub">Try a different filter.</div>
+    </div>
+
+    <!-- ── LEGISLATOR SCORECARD ── -->
+    <div class="rep-section" id="rep-section">
+      <div class="rep-section-title">How did your legislators vote?</div>
+      <div class="rep-section-sub">Enter your Delaware address to see how your Rep. and Senator voted on bills that affect your profile.</div>
+      <div class="rep-addr-row">
+        <input type="text" class="rep-addr-input" id="rep-addr-input" placeholder="123 Main St, Wilmington, DE 19801" autocomplete="off" onkeydown="if(event.key==='Enter')lookUpRep()" />
+        <button class="rep-addr-btn" id="rep-addr-btn" onclick="lookUpRep()">Look up</button>
+      </div>
+      <div class="rep-error" id="rep-error"></div>
+      <div class="rep-loading" id="rep-loading">Looking up your legislators…</div>
+      <div class="rep-cards" id="rep-cards" style="display:none;"></div>
     </div>
   </div>
 
@@ -447,6 +488,13 @@ function goToBills() {
 }
 
 function backToProfiles() {
+  // Reset scorecard
+  document.getElementById('rep-addr-input').value = '';
+  document.getElementById('rep-error').style.display = 'none';
+  document.getElementById('rep-error').textContent = '';
+  document.getElementById('rep-loading').style.display = 'none';
+  document.getElementById('rep-cards').style.display = 'none';
+  document.getElementById('rep-cards').innerHTML = '';
   document.getElementById('screen-bills').style.display = 'none';
   document.getElementById('bills-archive-bar').style.display = 'none';
   document.getElementById('bills-nav-header').style.display = 'none';
@@ -627,6 +675,98 @@ function renderBills() {
 function esc(str) {
   if (!str) return '';
   return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── LEGISLATOR SCORECARD ─────────────────────────────────────────────────────
+function lookUpRep() {
+  var addr = (document.getElementById('rep-addr-input').value || '').trim();
+  if (!addr) return;
+  var profile = currentProfileKey;
+  if (!profile) return;
+
+  var errorEl   = document.getElementById('rep-error');
+  var loadingEl = document.getElementById('rep-loading');
+  var cardsEl   = document.getElementById('rep-cards');
+
+  errorEl.style.display   = 'none';
+  errorEl.textContent     = '';
+  loadingEl.style.display = 'block';
+  cardsEl.style.display   = 'none';
+  cardsEl.innerHTML       = '';
+  document.getElementById('rep-addr-btn').disabled = true;
+
+  var url = '/.netlify/functions/get-my-rep?address=' + encodeURIComponent(addr) + '&profile=' + encodeURIComponent(profile) + '&session=153';
+
+  fetch(url)
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      loadingEl.style.display = 'none';
+      document.getElementById('rep-addr-btn').disabled = false;
+      if (data.error) {
+        errorEl.textContent     = data.error;
+        errorEl.style.display   = 'block';
+        return;
+      }
+      var profileLabel = (currentProfileKey || 'your profile').replace(/-/g, ' ');
+      var html = '';
+      if (data.rep)     html += buildRepCard(data.rep,     'House Rep.',  data.total_profile_bills, profileLabel);
+      if (data.senator) html += buildRepCard(data.senator, 'State Senator', data.total_profile_bills, profileLabel);
+      cardsEl.innerHTML     = html || '<p style="font-size:12px;color:#9CA3AF;text-align:center;">No legislator data found for that address.</p>';
+      cardsEl.style.display = 'flex';
+    })
+    .catch(function() {
+      loadingEl.style.display = 'none';
+      document.getElementById('rep-addr-btn').disabled = false;
+      errorEl.textContent   = 'Something went wrong. Please try again.';
+      errorEl.style.display = 'block';
+    });
+}
+
+function buildRepCard(leg, roleLabel, totalBills, profileLabel) {
+  var party      = (leg.party || '').toUpperCase();
+  var badgeClass = party === 'D' ? 'D' : party === 'R' ? 'R' : '';
+  var partyFull  = party === 'D' ? 'Democrat' : party === 'R' ? 'Republican' : party;
+  var yes        = leg.yes_votes    || 0;
+  var no         = leg.no_votes     || 0;
+  var abs        = leg.absent_votes || 0;
+  var total      = totalBills       || 0;
+
+  var nameHtml = leg.url
+    ? '<a href="' + esc(leg.url) + '" target="_blank" rel="noopener" class="rep-card-name" style="text-decoration:none;">' + esc(leg.name) + '</a>'
+    : '<span class="rep-card-name">' + esc(leg.name) + '</span>';
+
+  var bioLink = leg.url
+    ? '<a href="' + esc(leg.url) + '" target="_blank" rel="noopener" class="rep-bio-link">View bio ↗</a>'
+    : '';
+
+  return '<div class="rep-card">' +
+    '<div class="rep-card-top">' +
+      '<div>' +
+        nameHtml +
+        '<div class="rep-card-role">' + esc(roleLabel) + ' · District ' + esc(String(leg.district)) + (partyFull ? ' · ' + partyFull : '') + '</div>' +
+      '</div>' +
+      (badgeClass ? '<span class="rep-party-badge ' + badgeClass + '">' + party + '</span>' : '') +
+    '</div>' +
+    '<div class="rep-scorecard">' +
+      '<div class="rep-score-box">' +
+        '<div class="rep-score-num yes">' + yes + '</div>' +
+        '<div class="rep-score-label">Voted Yes</div>' +
+      '</div>' +
+      '<div class="rep-score-box">' +
+        '<div class="rep-score-num no">' + no + '</div>' +
+        '<div class="rep-score-label">Voted No</div>' +
+      '</div>' +
+      '<div class="rep-score-box">' +
+        '<div class="rep-score-num abs">' + abs + '</div>' +
+        '<div class="rep-score-label">Absent/NV</div>' +
+      '</div>' +
+      '<div class="rep-score-box">' +
+        '<div class="rep-score-num" style="color:#002868;">' + total + '</div>' +
+        '<div class="rep-score-label">Total Bills</div>' +
+      '</div>' +
+    '</div>' +
+    (bioLink ? '<div>' + bioLink + '</div>' : '') +
+  '</div>';
 }
 
 function findCandidates() {
