@@ -223,6 +223,9 @@ body {
 .rep-vote-badge.A { background: #F3F4F6; color: #9CA3AF; }
 .rep-bill-text { font-size: 11px; color: #002868; line-height: 1.4; }
 .rep-bill-code { font-weight: 700; color: #9CA3AF; font-size: 10px; margin-right: 4px; }
+.rep-election-nudge { margin-top: 12px; padding-top: 10px; border-top: 1px solid #F3F4F6; display: flex; align-items: center; gap: 6px; font-size: 10px; color: #9CA3AF; }
+.rep-election-link { color: #002868; font-weight: 700; text-decoration: none; margin-left: auto; white-space: nowrap; font-size: 10px; flex-shrink: 0; }
+.rep-election-link:hover { text-decoration: underline; }
 .app-footer { background: #002868; padding: 10px 16px 12px; text-align: center; margin: 0 14px 14px; border-radius: 0 0 10px 10px; border-top: 2px solid #BAFF5C; }
 .app-footer-brand { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 900; color: #fff; margin-bottom: 4px; }
 .app-footer-brand em { color: #BAFF5C; font-style: italic; }
@@ -313,6 +316,44 @@ body {
       <div class="rep-error" id="rep-error"></div>
       <div class="rep-loading" id="rep-loading">Looking up your legislators…</div>
       <div class="rep-cards" id="rep-cards" style="display:none;"></div>
+    </div>
+
+    <!-- ── GET INVOLVED ── -->
+    <div class="gi-card" id="gi-card">
+      <div class="gi-header">
+        <div class="gi-title">Get <em>Involved</em></div>
+        <div class="gi-subtitle">November 4, 2026 · Delaware General Election</div>
+      </div>
+      <div class="gi-step">
+        <div class="gi-step-label"><span class="gi-step-num">1</span> See who's on your ballot</div>
+        <div class="gi-addr-row">
+          <input type="text" class="gi-addr-input" id="gi-addr" placeholder="123 Main St, Wilmington, DE 19801" autocomplete="off" onkeydown="if(event.key==='Enter')findCandidates()" />
+          <button class="gi-addr-btn" onclick="findCandidates()">Look up</button>
+        </div>
+        <div class="gi-loading" id="gi-loading" style="display:none;">Looking up candidates…</div>
+        <div class="gi-error" id="gi-error" style="display:none;"></div>
+        <div class="gi-results" id="gi-results" style="display:none;"></div>
+      </div>
+      <div class="gi-step">
+        <div class="gi-step-label"><span class="gi-step-num">2</span> Key dates</div>
+        <div class="gi-dates">
+          <div class="gi-date-row"><span class="gi-date-badge primary">Sep 9</span><div class="gi-date-desc">Delaware Primary Election</div></div>
+          <div class="gi-date-row"><span class="gi-date-badge general">Nov 4</span><div class="gi-date-desc">Delaware General Election</div></div>
+        </div>
+      </div>
+      <div class="gi-step gi-step-last">
+        <div class="gi-step-label"><span class="gi-step-num">3</span> Register or update your registration</div>
+        <a href="https://ivote.de.gov" target="_blank" rel="noopener" class="gi-action-btn">Register at ivote.de.gov →</a>
+        <div id="gi-email-row" style="margin-top:12px;">
+          <div class="gi-email-sub">Get election reminders from Dover Dash:</div>
+          <div class="gi-email-row">
+            <input type="email" class="gi-email-input" id="gi-email" placeholder="your@email.com" />
+            <button class="gi-email-btn" onclick="doGiSubscribe()">Remind me</button>
+          </div>
+        </div>
+        <div id="gi-email-success" style="display:none;margin-top:10px;" class="gi-email-success">You're on the list!</div>
+        <div class="gi-source">Candidate data sourced from <a href="https://elections.delaware.gov" target="_blank" rel="noopener">elections.delaware.gov</a> and <a href="https://ballotpedia.org" target="_blank" rel="noopener">Ballotpedia</a>.</div>
+      </div>
     </div>
   </div>
 
@@ -717,8 +758,8 @@ function lookUpRep() {
       }
       var profileLabel = (currentProfileKey || 'your profile').replace(/-/g, ' ');
       var html = '';
-      if (data.rep)     html += buildRepCard(data.rep,     'House Rep.',  data.total_profile_bills, profileLabel);
-      if (data.senator) html += buildRepCard(data.senator, 'State Senator', data.total_profile_bills, profileLabel);
+      if (data.rep)     html += buildRepCard(data.rep,     'House Rep.',    data.total_profile_bills, profileLabel, addr);
+      if (data.senator) html += buildRepCard(data.senator, 'State Senator', data.total_profile_bills, profileLabel, addr);
       cardsEl.innerHTML     = html || '<p style="font-size:12px;color:#9CA3AF;text-align:center;">No legislator data found for that address.</p>';
       cardsEl.style.display = 'flex';
     })
@@ -730,7 +771,7 @@ function lookUpRep() {
     });
 }
 
-function buildRepCard(leg, roleLabel, totalBills, profileLabel) {
+function buildRepCard(leg, roleLabel, totalBills, profileLabel, addr) {
   var party      = (leg.party || '').toUpperCase();
   var badgeClass = party === 'D' ? 'D' : party === 'R' ? 'R' : '';
   var partyFull  = party === 'D' ? 'Democrat' : party === 'R' ? 'Republican' : party;
@@ -775,6 +816,9 @@ function buildRepCard(leg, roleLabel, totalBills, profileLabel) {
     '</div>' +
     buildBillList(leg.voted_bills || []) +
     (bioLink ? '<div style="margin-top:10px;">' + bioLink + '</div>' : '') +
+    '<div class="rep-election-nudge">🗳 Up for re-election · Nov. 4, 2026' +
+      (addr ? '<a class="rep-election-link" href="#" onclick="event.preventDefault();jumpToCandidates(decodeURIComponent(\'' + encodeURIComponent(addr) + '\'))">See who\'s running →</a>' : '') +
+    '</div>' +
   '</div>';
 }
 
@@ -795,6 +839,14 @@ function buildBillList(votedBills) {
     '</div>';
   }).join('');
   return '<div class="rep-bill-list">' + rows + '</div>';
+}
+
+function jumpToCandidates(addr) {
+  var giAddr = document.getElementById('gi-addr');
+  var giCard = document.getElementById('gi-card');
+  if (giAddr && addr) { giAddr.value = addr; giAddr.style.outline = ''; }
+  if (giCard) giCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (addr) setTimeout(function() { findCandidates(); }, 350);
 }
 
 function findCandidates() {
