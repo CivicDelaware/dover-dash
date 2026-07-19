@@ -44,11 +44,42 @@ exports.handler = async function (event) {
   const session   = parseInt(q.session || CURRENT_SESSION, 10);
   const profile   = q.profile   || null;
   const direction = q.direction || null;
+  const metaOnly  = q.meta === 'true';
 
   const SB_HEADERS = {
     apikey:        SUPABASE_SERVICE_KEY,
     Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
   };
+
+  // ── Meta-only endpoint: returns profiles + ticker, no bills ──────────────
+  if (metaOnly) {
+    let profiles = [];
+    try {
+      const profRes = await fetch(
+        `${SUPABASE_URL}/rest/v1/profiles?select=key,label,emoji,stat,sort_order&order=sort_order.asc`,
+        { headers: SB_HEADERS }
+      );
+      if (profRes.ok) profiles = await profRes.json();
+    } catch (e) { /* skip if table doesn't exist */ }
+
+    let tickerMessage = '';
+    try {
+      const configRes = await fetch(
+        `${SUPABASE_URL}/rest/v1/config?key=eq.ticker_message&select=value`,
+        { headers: SB_HEADERS }
+      );
+      if (configRes.ok) {
+        const configData = await configRes.json();
+        if (configData.length > 0) tickerMessage = configData[0].value;
+      }
+    } catch (e) { /* skip */ }
+
+    return {
+      statusCode: 200,
+      headers:    CORS,
+      body:       JSON.stringify({ profiles, tickerMessage }),
+    };
+  }
 
   try {
     // 1. Fetch all bills for this session directly from the bills table
@@ -64,7 +95,17 @@ exports.handler = async function (event) {
     }
     const billsData = await billsRes.json();
 
-    // 2. Fetch all classifications for this session
+    // 2. Fetch ticker message from config table
+    let tickerMessage = '';
+    try {
+      const configRes = await fetch(`${SUPABASE_URL}/rest/v1/config?key=eq.ticker_message&select=value`, { headers: SB_HEADERS });
+      if (configRes.ok) {
+        const configData = await configRes.json();
+        if (configData.length > 0) tickerMessage = configData[0].value;
+      }
+    } catch (e) { /* silently skip if config table doesn't exist yet */ }
+
+    // 3. Fetch all classifications for this session
     const classParams = new URLSearchParams({
       select:         "bill_id,profile_key,direction,rationale",
       session_number: `eq.${session}`,
@@ -118,7 +159,7 @@ exports.handler = async function (event) {
     return {
       statusCode: 200,
       headers:    CORS,
-      body:       JSON.stringify({ bills, count: bills.length, session }),
+      body:       JSON.stringify({ bills, count: bills.length, session, tickerMessage }),
     };
 
   } catch (err) {

@@ -196,43 +196,17 @@ body {
   </div>
 
   <div class="archive-bar" id="archive-bar">
-    <span>A total of 216 bills passed the last two years. Know where your legislators stand before you vote in the primaries on Sept. 15th! &nbsp;&nbsp; *** &nbsp;&nbsp; A total of 216 bills passed the last two years. Know where your legislators stand before you vote in the primaries on Sept. 15th! &nbsp;&nbsp; *** &nbsp;&nbsp;</span>
+    <span id="home-ticker-text"></span>
   </div>
 
   <div id="screen-profiles">
 <p class="pick-sub">Pick your profile:</p>
 
-    <div class="prof-grid">
-    <button class="prof-btn" onclick="selectProfile('homeowner',this)">
-      <span class="prof-em">🏠</span><div class="prof-info"><div class="prof-label">Homeowner</div></div>
-    </button>
-    <button class="prof-btn" onclick="selectProfile('renter',this)">
-      <span class="prof-em">🔑</span><div class="prof-info"><div class="prof-label">Renter</div></div>
-    </button>
-    <button class="prof-btn" onclick="selectProfile('senior',this)">
-      <span class="prof-em">🌅</span><div class="prof-info"><div class="prof-label">Retiree</div></div>
-    </button>
-    <button class="prof-btn" onclick="selectProfile('smallbiz',this)">
-      <span class="prof-em">💼</span><div class="prof-info"><div class="prof-label">Business Owner</div></div>
-    </button>
-    <button class="prof-btn" onclick="selectProfile('pubsec',this)">
-      <span class="prof-em">🏛️</span><div class="prof-info"><div class="prof-label">Government</div></div>
-    </button>
-    <button class="prof-btn" onclick="selectProfile('workpro',this)">
-      <span class="prof-em">👔</span><div class="prof-info"><div class="prof-label">Professional</div></div>
-    </button>
-    <button class="prof-btn" onclick="selectProfile('lowwage',this)">
-      <span class="prof-em">⏱️</span><div class="prof-info"><div class="prof-label">Hourly Worker</div></div>
-    </button>
-    <button class="prof-btn" onclick="selectProfile('veteran',this)">
-      <span class="prof-em">🎖️</span><div class="prof-info"><div class="prof-label">Veteran or Military</div></div>
-    </button>
-    <button class="prof-btn" onclick="selectProfile('landlord',this)">
-      <span class="prof-em">🏢</span><div class="prof-info"><div class="prof-label">Landlord</div></div>
-    </button>
+    <div class="prof-grid" id="prof-grid">
+      <!-- populated by initApp() from Supabase profiles table -->
     </div>
 
-    <p class="pick-footer">Nonpartisan · Free · Updated daily during session</p>
+    <p class="pick-footer">Nonpartisan · Free · Session ended June 30, 2026</p>
   </div>
 
   <div class="bills-nav-header" id="bills-nav-header" style="display:none">
@@ -246,7 +220,7 @@ body {
   </div>
 
   <div class="archive-bar" id="bills-archive-bar" style="display:none">
-    <span>A total of 216 bills passed the last two years. Know where your legislators stand before you vote in the primaries on Sept. 15th! &nbsp;&nbsp; *** &nbsp;&nbsp; A total of 216 bills passed the last two years. Know where your legislators stand before you vote in the primaries on Sept. 15th! &nbsp;&nbsp; *** &nbsp;&nbsp;</span>
+    <span id="ticker-text"></span>
   </div>
 
   <div id="screen-bills">
@@ -254,7 +228,7 @@ body {
       <button class="filter-btn hy" id="filter-hy" onclick="setFilter('Helps You')">Helps You</button>
       <button class="filter-btn wo" id="filter-wo" onclick="setFilter('Watch Out')">Watch Out</button>
     </div>
-    <div class="bills-loading" id="bills-loading"><div class="loading-name">Dover <em>Dash</em></div><div class="loading-sub">Loading your bills…</div></div>
+    <div class="bills-loading" id="bills-loading"><div class="loading-name">DD</div><div class="loading-sub">Loading your bill…</div></div>
     <div class="bills-list" id="bills-list"></div>
     <div class="bills-empty" id="bills-empty" style="display:none;">
       <div class="bills-empty-icon">📋</div>
@@ -272,6 +246,8 @@ body {
 </div>
 
 <script>
+// PROFILES — fallback values used if Supabase is unreachable.
+// Edit labels, emojis, and stats in Supabase → Table Editor → profiles table.
 var PROFILES = {
   homeowner: { emoji: '🏠', label: 'Homeowner',           stat: 'About 71% of Delaware households own their home · U.S. Census Bureau' },
   renter:    { emoji: '🔑', label: 'Renter',              stat: 'About 29% of Delaware households rent · U.S. Census Bureau' },
@@ -283,6 +259,57 @@ var PROFILES = {
   veteran:   { emoji: '🎖️', label: 'Veteran or Military', stat: 'Delaware is home to Dover Air Force Base, one of the largest in the country' },
   landlord:  { emoji: '🏢', label: 'Landlord',            stat: 'About 29% of Delaware households are renters · U.S. Census Bureau' },
 };
+
+// Ordered profile keys — used by renderProfileGrid() when Supabase doesn't return an order
+var PROFILE_KEYS_DEFAULT = ['homeowner','renter','senior','smallbiz','pubsec','workpro','lowwage','veteran','landlord'];
+
+function renderProfileGrid(orderedKeys) {
+  var grid = document.getElementById('prof-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  var keys = orderedKeys || PROFILE_KEYS_DEFAULT;
+  keys.forEach(function(key) {
+    var p = PROFILES[key];
+    if (!p) return;
+    var btn = document.createElement('button');
+    btn.className = 'prof-btn';
+    (function(k, b) { b.onclick = function() { selectProfile(k, b); }; })(key, btn);
+    btn.innerHTML = '<span class="prof-em">' + p.emoji + '</span><div class="prof-info"><div class="prof-label">' + p.label + '</div></div>';
+    grid.appendChild(btn);
+  });
+}
+
+function initApp() {
+  fetch('/.netlify/functions/get-bills?meta=true')
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      var orderedKeys = null;
+      // Update PROFILES from Supabase
+      if (data.profiles && data.profiles.length > 0) {
+        orderedKeys = [];
+        data.profiles.forEach(function(p) {
+          PROFILES[p.key] = { emoji: p.emoji, label: p.label, stat: p.stat };
+          orderedKeys.push(p.key);
+        });
+      }
+      renderProfileGrid(orderedKeys);
+      // Populate both ticker bars from the same value
+      if (data.tickerMessage) {
+        var t = data.tickerMessage;
+        var doubled = t + ' ··· ' + t;
+        var homeEl  = document.getElementById('home-ticker-text');
+        var billsEl = document.getElementById('ticker-text');
+        if (homeEl)  homeEl.textContent  = doubled;
+        if (billsEl) billsEl.textContent = doubled;
+      }
+    })
+    .catch(function() {
+      // Supabase unreachable — fall back to hardcoded values
+      renderProfileGrid(null);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initApp);
 
 var CATEGORY_LABELS = {
   'Agriculture':                              'Food & Farming',
@@ -396,6 +423,10 @@ function loadBills(profile) {
     .then(function(res) { if (!res.ok) throw new Error('API error ' + res.status); return res.json(); })
     .then(function(data) {
       allBills = data.bills || [];
+      if (data.tickerMessage) {
+        var t = data.tickerMessage;
+        document.getElementById('ticker-text').textContent = t + ' ··· ' + t;
+      }
       document.getElementById('bills-loading').style.display = 'none';
       renderBills();
     })
