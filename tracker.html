@@ -255,8 +255,8 @@ body {
 
   <div id="screen-bills">
     <div class="filter-row">
-      <button class="filter-btn wo active" id="filter-wo" onclick="setFilter('Watch Out')">Watch Out</button>
-      <button class="filter-btn hy" id="filter-hy" onclick="setFilter('Helps You')">Helps You</button>
+      <button class="filter-btn hy active" id="filter-hy" onclick="setFilter('Helps You')">Helps You</button>
+      <button class="filter-btn wo" id="filter-wo" onclick="setFilter('Watch Out')">Watch Out</button>
     </div>
     <div class="bills-loading" id="bills-loading">
       <div class="loading-spinner"></div>
@@ -418,7 +418,7 @@ var CATEGORY_LABELS = {
 
 var currentProfileKey = null;
 var allBills = [];
-var currentFilter = 'Watch Out';
+var currentFilter = 'Helps You';
 var expanded = { 'Watch Out': false, 'Helps You': false };
 
 var pendingProfileKey = null;
@@ -432,7 +432,7 @@ function goToBills() {
   var key = pendingProfileKey;
   if (!key) return;
   currentProfileKey = key;
-  currentFilter = 'Watch Out';
+  currentFilter = 'Helps You';
   expanded = { 'Watch Out': false, 'Helps You': false };
   var p = PROFILES[key];
   document.getElementById('bills-nav-emoji').textContent = p.emoji;
@@ -443,7 +443,7 @@ function goToBills() {
   document.getElementById('bills-nav-header').style.display = 'flex';
   document.getElementById('bills-archive-bar').style.display = 'block';
   document.getElementById('screen-bills').style.display = 'block';
-  setFilterUI('Watch Out');
+  setFilterUI('Helps You');
   loadBills(key);
   if (typeof gtag !== 'undefined') gtag('event', 'select_profile', { profile: key });
   window.scrollTo(0, 0);
