@@ -223,9 +223,13 @@ body {
 .rep-vote-badge.A { background: #F3F4F6; color: #9CA3AF; }
 .rep-bill-text { font-size: 11px; color: #002868; line-height: 1.4; }
 .rep-bill-code { font-weight: 700; color: #9CA3AF; font-size: 10px; margin-right: 4px; }
-.rep-election-nudge { margin-top: 12px; padding-top: 10px; border-top: 1px solid #F3F4F6; display: flex; align-items: center; gap: 6px; font-size: 10px; color: #9CA3AF; }
-.rep-election-link { color: #002868; font-weight: 700; text-decoration: none; margin-left: auto; white-space: nowrap; font-size: 10px; flex-shrink: 0; }
-.rep-election-link:hover { text-decoration: underline; }
+.rep-challengers { border-top: 1px solid #F3F4F6; margin-top: 12px; padding-top: 10px; }
+.rep-challengers-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: #9CA3AF; margin-bottom: 8px; }
+.rep-challenger-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+.rep-challenger-name { font-size: 12px; font-weight: 700; color: #111827; }
+.rep-challenger-web { font-size: 10px; color: #002868; font-weight: 600; text-decoration: none; flex-shrink: 0; }
+.rep-challenger-web:hover { text-decoration: underline; }
+.rep-no-challengers { font-size: 11px; color: #9CA3AF; }
 .app-footer { background: #002868; padding: 10px 16px 12px; text-align: center; margin: 0 14px 14px; border-radius: 0 0 10px 10px; border-top: 2px solid #BAFF5C; }
 .app-footer-brand { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 900; color: #fff; margin-bottom: 4px; }
 .app-footer-brand em { color: #BAFF5C; font-style: italic; }
@@ -308,7 +312,7 @@ body {
     <!-- ── LEGISLATOR SCORECARD ── -->
     <div class="rep-section" id="rep-section">
       <div class="rep-section-title">How did your legislators vote?</div>
-      <div class="rep-section-sub">Enter your Delaware address to see how your Rep. and Senator voted on bills that affect your profile.</div>
+      <div class="rep-section-sub">Enter your Delaware address to see how your legislators voted — and who's running against them in November.</div>
       <div class="rep-addr-row">
         <input type="text" class="rep-addr-input" id="rep-addr-input" placeholder="123 Main St, Wilmington, DE 19801" autocomplete="off" onkeydown="if(event.key==='Enter')lookUpRep()" />
         <button class="rep-addr-btn" id="rep-addr-btn" onclick="lookUpRep()">Look up</button>
@@ -318,36 +322,18 @@ body {
       <div class="rep-cards" id="rep-cards" style="display:none;"></div>
     </div>
 
-    <!-- ── GET INVOLVED ── -->
-    <div class="gi-card" id="gi-card">
-      <div class="gi-header">
-        <div class="gi-title">Get <em>Involved</em></div>
-        <div class="gi-subtitle">You've seen the record. Now see who's on your ballot.</div>
-      </div>
-      <div style="padding:16px;">
-        <div style="font-size:12px;font-weight:700;color:#111827;margin-bottom:10px;">Who's running in your district?</div>
-        <div class="gi-addr-row">
-          <input type="text" class="gi-addr-input" id="gi-addr" placeholder="123 Main St, Wilmington, DE 19801" autocomplete="off" onkeydown="if(event.key==='Enter')findCandidates()" />
-          <button class="gi-addr-btn" onclick="findCandidates()">Look up</button>
-        </div>
-        <div class="gi-loading" id="gi-loading" style="display:none;">Looking up candidates…</div>
-        <div class="gi-error" id="gi-error" style="display:none;"></div>
-        <div class="gi-results" id="gi-results" style="display:none;"></div>
+    <!-- hidden stubs so legacy JS refs don't throw -->
+    <input type="text" id="gi-addr" style="display:none;" />
+    <div id="gi-loading" style="display:none;"></div>
+    <div id="gi-error"   style="display:none;"></div>
+    <div id="gi-results" style="display:none;"></div>
 
-        <div style="margin-top:16px;padding-top:14px;border-top:1px solid #E5E7EB;display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
-          <div style="display:flex;gap:8px;align-items:center;">
-            <span class="gi-date-badge primary" style="min-width:auto;">Sep 15</span>
-            <span style="font-size:10px;color:#6B7280;">Primary</span>
-          </div>
-          <div style="display:flex;gap:8px;align-items:center;">
-            <span class="gi-date-badge general" style="min-width:auto;">Nov 3</span>
-            <span style="font-size:10px;color:#6B7280;">General</span>
-          </div>
-          <a href="https://ivote.de.gov" target="_blank" rel="noopener" style="margin-left:auto;font-size:11px;font-weight:700;color:#002868;text-decoration:none;white-space:nowrap;">Register to vote →</a>
-        </div>
-
-        <div id="gi-email-row" style="margin-top:12px;display:flex;gap:6px;align-items:center;">
-          <input type="email" class="gi-email-input" id="gi-email" placeholder="Email me election reminders" style="flex:1;" />
+    <!-- ── ELECTION REMINDER STRIP ── -->
+    <div class="gi-card" id="gi-card" style="border-top:none;">
+      <div style="padding:14px 16px;">
+        <div style="font-size:11px;font-weight:700;color:#111827;margin-bottom:10px;">Get election reminders from Dover Dash</div>
+        <div id="gi-email-row" style="display:flex;gap:6px;align-items:center;">
+          <input type="email" class="gi-email-input" id="gi-email" placeholder="your@email.com" style="flex:1;" />
           <button class="gi-email-btn" onclick="doGiSubscribe()">Remind me</button>
         </div>
         <div id="gi-email-success" style="display:none;margin-top:8px;" class="gi-email-success">✓ You're on the list!</div>
@@ -743,22 +729,39 @@ function lookUpRep() {
   cardsEl.innerHTML       = '';
   document.getElementById('rep-addr-btn').disabled = true;
 
-  var url = '/.netlify/functions/get-my-rep?address=' + encodeURIComponent(addr) + '&profile=' + encodeURIComponent(profile) + '&session=153';
+  var repUrl  = '/.netlify/functions/get-my-rep?address=' + encodeURIComponent(addr) + '&profile=' + encodeURIComponent(profile) + '&session=153';
+  var candUrl = '/.netlify/functions/get-candidates?address=' + encodeURIComponent(addr);
 
-  fetch(url)
-    .then(function(res) { return res.json(); })
-    .then(function(data) {
+  Promise.all([
+    fetch(repUrl).then(function(r) { return r.json(); }),
+    fetch(candUrl).then(function(r) { return r.json(); }).catch(function() { return {}; }),
+  ])
+    .then(function(results) {
+      var data     = results[0];
+      var candData = results[1] || {};
       loadingEl.style.display = 'none';
       document.getElementById('rep-addr-btn').disabled = false;
       if (data.error) {
-        errorEl.textContent     = data.error;
-        errorEl.style.display   = 'block';
+        errorEl.textContent   = data.error;
+        errorEl.style.display = 'block';
         return;
       }
       var profileLabel = (currentProfileKey || 'your profile').replace(/-/g, ' ');
+      var houseCands   = (candData.house  && data.house_district  != null) ? (candData.house[String(data.house_district)]   || []) : [];
+      var senateCands  = (candData.senate && data.senate_district != null) ? (candData.senate[String(data.senate_district)] || []) : [];
       var html = '';
-      if (data.rep)     html += buildRepCard(data.rep,     'House Rep.',    data.total_profile_bills, profileLabel, addr);
-      if (data.senator) html += buildRepCard(data.senator, 'State Senator', data.total_profile_bills, profileLabel, addr);
+      if (data.rep)     html += buildRepCard(data.rep,     'House Rep.',    data.total_profile_bills, profileLabel, houseCands);
+      if (data.senator) html += buildRepCard(data.senator, 'State Senator', data.total_profile_bills, profileLabel, senateCands);
+      if (candData.statewide && Object.keys(candData.statewide).length) {
+        html += buildStatewideCard(candData.statewide);
+      }
+      html += '<div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px;padding:4px 0 8px;">' +
+        '<span style="background:#002868;color:#BAFF5C;border-radius:4px;padding:2px 7px;font-size:9px;font-weight:800;">Sep 15</span>' +
+        '<span style="font-size:10px;color:#9CA3AF;">Primary</span>' +
+        '<span style="background:#002868;color:#FFE600;border-radius:4px;padding:2px 7px;font-size:9px;font-weight:800;margin-left:4px;">Nov 3</span>' +
+        '<span style="font-size:10px;color:#9CA3AF;">General Election</span>' +
+        '<a href="https://ivote.de.gov" target="_blank" rel="noopener" style="margin-left:auto;font-size:10px;font-weight:700;color:#002868;text-decoration:none;white-space:nowrap;">Register to vote →</a>' +
+      '</div>';
       cardsEl.innerHTML     = html || '<p style="font-size:12px;color:#9CA3AF;text-align:center;">No legislator data found for that address.</p>';
       cardsEl.style.display = 'flex';
     })
@@ -770,7 +773,7 @@ function lookUpRep() {
     });
 }
 
-function buildRepCard(leg, roleLabel, totalBills, profileLabel, addr) {
+function buildRepCard(leg, roleLabel, totalBills, profileLabel, candidates) {
   var party      = (leg.party || '').toUpperCase();
   var badgeClass = party === 'D' ? 'D' : party === 'R' ? 'R' : '';
   var partyFull  = party === 'D' ? 'Democrat' : party === 'R' ? 'Republican' : party;
@@ -815,9 +818,7 @@ function buildRepCard(leg, roleLabel, totalBills, profileLabel, addr) {
     '</div>' +
     buildBillList(leg.voted_bills || []) +
     (bioLink ? '<div style="margin-top:10px;">' + bioLink + '</div>' : '') +
-    '<div class="rep-election-nudge">🗳 Up for re-election · Nov. 3, 2026' +
-      (addr ? '<a class="rep-election-link" href="#" onclick="event.preventDefault();jumpToCandidates(decodeURIComponent(\'' + encodeURIComponent(addr) + '\'))">See who\'s running →</a>' : '') +
-    '</div>' +
+    buildChallengers(candidates || [], leg.chamber) +
   '</div>';
 }
 
@@ -838,6 +839,51 @@ function buildBillList(votedBills) {
     '</div>';
   }).join('');
   return '<div class="rep-bill-list">' + rows + '</div>';
+}
+
+function buildChallengers(candidates, chamber) {
+  var isSenate = (chamber === 'Senate');
+  var label    = isSenate ? 'Nov 3 general election' : 'Sep 15 primary / Nov 3 general';
+  var html     = '<div class="rep-challengers"><div class="rep-challengers-label">On your ' + label + ' ballot</div>';
+  if (!candidates || !candidates.length) {
+    html += '<div class="rep-no-challengers">No contested primary listed · Check back closer to Nov 3</div>';
+  } else {
+    candidates.forEach(function(c) {
+      var p          = (c.party || '').toLowerCase();
+      var badgeClass = p.includes('democrat') ? 'D' : p.includes('republican') ? 'R' : '';
+      html += '<div class="rep-challenger-row">' +
+        '<div style="display:flex;align-items:center;gap:6px;">' +
+          (badgeClass ? '<span class="rep-party-badge ' + badgeClass + '" style="font-size:8px;">' + badgeClass + '</span>' : '') +
+          '<span class="rep-challenger-name">' + esc(c.name) + '</span>' +
+        '</div>' +
+        (c.website ? '<a href="' + esc(c.website) + '" target="_blank" rel="noopener" class="rep-challenger-web">Website →</a>' : '') +
+      '</div>';
+    });
+  }
+  return html + '</div>';
+}
+
+function buildStatewideCard(statewide) {
+  if (!statewide || !Object.keys(statewide).length) return '';
+  var html = '<div class="rep-card"><div style="font-family:\'Playfair Display\',Georgia,serif;font-size:13px;font-weight:900;color:#002868;margin-bottom:10px;">Also on your November ballot</div>';
+  Object.keys(statewide).forEach(function(race) {
+    var cands = statewide[race];
+    if (!cands || !cands.length) return;
+    html += '<div style="margin-bottom:10px;"><div class="rep-challengers-label">' + esc(race) + '</div>';
+    cands.forEach(function(c) {
+      var p          = (c.party || '').toLowerCase();
+      var badgeClass = p.includes('democrat') ? 'D' : p.includes('republican') ? 'R' : '';
+      html += '<div class="rep-challenger-row">' +
+        '<div style="display:flex;align-items:center;gap:6px;">' +
+          (badgeClass ? '<span class="rep-party-badge ' + badgeClass + '" style="font-size:8px;">' + badgeClass + '</span>' : '') +
+          '<span class="rep-challenger-name">' + esc(c.name) + '</span>' +
+        '</div>' +
+        (c.website ? '<a href="' + esc(c.website) + '" target="_blank" rel="noopener" class="rep-challenger-web">Website →</a>' : '') +
+      '</div>';
+    });
+    html += '</div>';
+  });
+  return html + '</div>';
 }
 
 function jumpToCandidates(addr) {
