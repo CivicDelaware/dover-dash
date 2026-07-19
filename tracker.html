@@ -95,8 +95,8 @@ body {
 .bill-count-bar strong { color: #fff; }
 #bill-count-bar { color: #fff; }
 .bills-loading { background: #002868; padding: 40px 16px; text-align: center; border-radius: 0 0 10px 10px; }
-.loading-rider { display:inline-block; animation: rideloop 0.6s ease-in-out infinite alternate; }
-@keyframes rideloop { from { transform: translateY(0px); } to { transform: translateY(-4px); } }
+.loading-spinner { width: 36px; height: 36px; border: 3px solid rgba(186,255,92,0.2); border-top-color: #BAFF5C; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto; }
+@keyframes spin { to { transform: rotate(360deg); } }
 .loading-sub { font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 6px; font-family: 'Inter', sans-serif; }
 @keyframes namepulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
 .bills-list { background: #fff; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; }
@@ -181,7 +181,7 @@ body {
 .gi-email-success { font-size: 12px; color: #1A7A4A; font-weight: 700; }
 .gi-source { font-size: 10px; color: #9CA3AF; margin-top: 10px; line-height: 1.5; }
 .gi-source a { color: #6B7280; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
-.app-footer { background: #002868; padding: 24px 20px 20px; text-align: center; }
+.app-footer { background: #002868; padding: 24px 20px 20px; text-align: center; margin: 0 14px 14px; border-radius: 0 0 10px 10px; }
 .app-footer-brand { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 900; color: #fff; margin-bottom: 4px; }
 .app-footer-brand em { color: #BAFF5C; font-style: italic; }
 .app-footer-tagline { font-size: 10px; color: rgba(255,255,255,0.55); letter-spacing: 0.5px; margin-bottom: 14px; font-family: 'Inter', sans-serif; }
@@ -246,32 +246,7 @@ body {
       <button class="filter-btn wo" id="filter-wo" onclick="setFilter('Watch Out')">Watch Out</button>
     </div>
     <div class="bills-loading" id="bills-loading">
-      <svg class="loading-rider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 76" width="110" height="76" aria-label="Caesar Rodney riding">
-        <!-- Horse body -->
-        <path d="M20 52 C18 40 24 34 36 32 L66 31 C78 31 84 37 84 46 C84 55 76 58 64 58 L26 58 C20 58 20 56 20 52Z" fill="#BAFF5C"/>
-        <!-- Horse neck -->
-        <path d="M66 31 C70 22 76 16 82 18 C88 20 88 28 84 34 L76 36 C72 36 68 34 66 31Z" fill="#BAFF5C"/>
-        <!-- Horse head -->
-        <path d="M82 18 C86 13 94 13 96 19 C98 24 94 30 88 30 C84 30 80 26 82 22Z" fill="#BAFF5C"/>
-        <!-- Horse ear -->
-        <path d="M84 15 L86 7 L90 15Z" fill="#BAFF5C"/>
-        <!-- Horse nostril -->
-        <ellipse cx="93" cy="24" rx="2" ry="1.5" fill="#002868"/>
-        <!-- Horse tail -->
-        <path d="M20 46 C12 42 8 32 10 22" stroke="#BAFF5C" stroke-width="4" fill="none" stroke-linecap="round"/>
-        <!-- Horse legs -->
-        <line x1="28" y1="57" x2="24" y2="74" stroke="#BAFF5C" stroke-width="5" stroke-linecap="round"/>
-        <line x1="38" y1="58" x2="36" y2="74" stroke="#BAFF5C" stroke-width="5" stroke-linecap="round"/>
-        <line x1="60" y1="58" x2="62" y2="74" stroke="#BAFF5C" stroke-width="5" stroke-linecap="round"/>
-        <line x1="70" y1="57" x2="74" y2="74" stroke="#BAFF5C" stroke-width="5" stroke-linecap="round"/>
-        <!-- Rider body -->
-        <ellipse cx="52" cy="24" rx="8" ry="10" fill="#BAFF5C"/>
-        <!-- Rider head -->
-        <circle cx="50" cy="12" r="7" fill="#BAFF5C"/>
-        <!-- Tricorn hat -->
-        <path d="M43 10 L50 2 L57 10Z" fill="#BAFF5C"/>
-        <line x1="42" y1="10" x2="58" y2="10" stroke="#BAFF5C" stroke-width="2.5" stroke-linecap="round"/>
-      </svg>
+      <div class="loading-spinner"></div>
       <div class="loading-sub" id="txt-loading-sub">Loading your bill…</div>
     </div>
     <div class="bills-list" id="bills-list"></div>
