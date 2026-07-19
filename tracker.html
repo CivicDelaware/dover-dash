@@ -552,7 +552,7 @@ function renderBills() {
   var hyCount = allBills.filter(function(b) { var p = b.profiles[key]; return p && p.direction === 'Helps You'; }).length;
   document.getElementById('filter-wo').textContent = 'Watch Out · ' + woCount;
   document.getElementById('filter-hy').textContent = 'Helps You · ' + hyCount;
-  countEl.textContent = allBills.length + ' bills affect this profile';
+  countEl.textContent = allBills.length + ' passed bills affected this profile';
   if (allBills.length === 0) {
     listEl.innerHTML = '';
     emptyEl.style.display = 'block';
