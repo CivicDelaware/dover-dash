@@ -92,9 +92,15 @@ body {
 .filter-btn { border: none; border-radius: 20px; padding: 7px 14px; font-size: 11px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; transition: all .12s; white-space: nowrap; background: #F3F4F6; color: #374151; }
 .filter-btn.wo { background: #FEE2E2; color: #D93B3B; }
 .filter-btn.hy { background: #D1FAE5; color: #1A7A4A; }
+.filter-btn.np { background: #F3F4F6; color: #6B7280; }
 .filter-btn.active { background: #002868; color: #BAFF5C; }
 .filter-btn.wo.active { background: #D93B3B; color: #fff; }
 .filter-btn.hy.active { background: #1A7A4A; color: #fff; }
+.filter-btn.np.active { background: #6B7280; color: #fff; }
+.bill-share-btn { font-size: 10px; font-weight: 600; color: #9CA3AF; background: none; border: 1px solid #E5E7EB; border-radius: 12px; padding: 3px 8px; cursor: pointer; font-family: 'Inter', sans-serif; }
+.bill-share-btn:hover { color: #002868; border-color: #BAFF5C; }
+.bill-share-row { display: flex; justify-content: flex-end; margin-top: 8px; }
+.bill-status-badge.np { background: #F3F4F6; color: #6B7280; }
 .bill-count-bar { font-size: 10px; font-weight: 600; color: #fff; }
 .bill-count-bar strong { color: #fff; }
 #bill-count-bar { color: #fff; }
@@ -252,8 +258,9 @@ body {
 
   <div id="screen-bills">
     <div class="filter-row">
+      <button class="filter-btn wo active" id="filter-wo" onclick="setFilter('Watch Out')">Watch Out</button>
       <button class="filter-btn hy" id="filter-hy" onclick="setFilter('Helps You')">Helps You</button>
-      <button class="filter-btn wo" id="filter-wo" onclick="setFilter('Watch Out')">Watch Out</button>
+      <button class="filter-btn np" id="filter-np" onclick="setFilter('Not Passed')">Didn't Pass</button>
     </div>
     <div class="bills-loading" id="bills-loading">
       <div class="loading-spinner"></div>
@@ -416,7 +423,7 @@ var CATEGORY_LABELS = {
 var currentProfileKey = null;
 var allBills = [];
 var currentFilter = 'Watch Out';
-var expanded = { 'Watch Out': false, 'Helps You': false };
+var expanded = { 'Watch Out': false, 'Helps You': false, 'Not Passed': false };
 
 var pendingProfileKey = null;
 function selectProfile(key, btn) {
@@ -430,7 +437,7 @@ function goToBills() {
   if (!key) return;
   currentProfileKey = key;
   currentFilter = 'Watch Out';
-  expanded = { 'Watch Out': false, 'Helps You': false };
+  expanded = { 'Watch Out': false, 'Helps You': false, 'Not Passed': false };
   var p = PROFILES[key];
   document.getElementById('bills-nav-emoji').textContent = p.emoji;
   document.getElementById('bills-nav-profile').textContent = p.label;
@@ -481,8 +488,25 @@ function toggleBillText(id, btn) {
 }
 
 function setFilterUI(dir) {
-  document.getElementById('filter-wo').className  = 'filter-btn wo' + (dir === 'Watch Out' ? ' active' : '');
-  document.getElementById('filter-hy').className  = 'filter-btn hy' + (dir === 'Helps You' ? ' active' : '');
+  document.getElementById('filter-wo').className  = 'filter-btn wo' + (dir === 'Watch Out'  ? ' active' : '');
+  document.getElementById('filter-hy').className  = 'filter-btn hy' + (dir === 'Helps You'  ? ' active' : '');
+  document.getElementById('filter-np').className  = 'filter-btn np' + (dir === 'Not Passed' ? ' active' : '');
+}
+
+function shareBillCard(btn) {
+  var card = btn;
+  while (card && !card.getAttribute('data-share-url')) card = card.parentElement;
+  var url  = (card && card.getAttribute('data-share-url'))  || window.location.href;
+  var text = (card && card.getAttribute('data-share-text')) || 'Check out this Delaware bill on Dover Dash';
+  if (navigator.share) {
+    navigator.share({ title: 'Dover Dash', text: text, url: url }).catch(function(){});
+  } else {
+    navigator.clipboard.writeText(url).then(function() {
+      var orig = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(function() { btn.textContent = orig; }, 2000);
+    }).catch(function() { window.open(url, '_blank'); });
+  }
 }
 
 function loadBills(profile) {
@@ -516,7 +540,12 @@ function renderBills() {
   var dir = currentFilter;
   var bills = allBills.filter(function(b) {
     var p = b.profiles && b.profiles[key];
-    return p && p.direction === dir;
+    if (!p) return false;
+    if (dir === 'Not Passed') {
+      var st = (b.status || '').toLowerCase();
+      return !st.includes('sign') && !st.includes('approv') && !st.includes('pass') && !st.includes('veto');
+    }
+    return p.direction === dir;
   });
   bills.sort(function(a, b) {
     var da = (a.profiles[key] || {}).direction || '';
@@ -532,8 +561,10 @@ function renderBills() {
   var emptyEl = document.getElementById('bills-empty');
   var woCount = allBills.filter(function(b) { var p = b.profiles[key]; return p && p.direction === 'Watch Out'; }).length;
   var hyCount = allBills.filter(function(b) { var p = b.profiles[key]; return p && p.direction === 'Helps You'; }).length;
+  var npCount = allBills.filter(function(b) { var p = b.profiles[key]; if (!p) return false; var st = (b.status || '').toLowerCase(); return !st.includes('sign') && !st.includes('approv') && !st.includes('pass') && !st.includes('veto'); }).length;
   document.getElementById('filter-wo').textContent = 'Watch Out · ' + woCount;
   document.getElementById('filter-hy').textContent = 'Helps You · ' + hyCount;
+  document.getElementById('filter-np').textContent = "Didn't Pass · " + npCount;
   countEl.textContent = allBills.length + ' bills affect this profile';
   if (allBills.length === 0) {
     listEl.innerHTML = '';
@@ -561,11 +592,13 @@ function renderBills() {
     var cardClass = 'bill-card' + (isWO ? ' wo' : isHY ? ' hy' : '');
     var dirBadge  = '';
     var rawStatus = (bill.status || '').toLowerCase();
+    var isPassing = rawStatus.includes('sign') || rawStatus.includes('approv') || rawStatus.includes('pass') || rawStatus.includes('veto');
     var statusLabel = rawStatus.includes('sign') ? '✓ Signed by Governor'
                     : rawStatus.includes('approv') ? '✓ Signed by Governor'
                     : rawStatus.includes('veto override') ? '✓ Veto Overridden'
-                    : rawStatus.includes('pass') ? '✓ Passed' : (bill.status ? '✓ ' + bill.status : '');
-    var statusBadgeClass = rawStatus.includes('veto') ? 'veto' : rawStatus.includes('sign') || rawStatus.includes('approv') ? '' : 'passed';
+                    : rawStatus.includes('pass') ? '✓ Passed'
+                    : (bill.status ? bill.status : '');
+    var statusBadgeClass = rawStatus.includes('veto') ? 'veto' : (rawStatus.includes('sign') || rawStatus.includes('approv')) ? '' : isPassing ? 'passed' : 'np';
     var dateStr = '';
     if (bill.passed_date) {
       var d = new Date(bill.passed_date + 'T00:00:00');
@@ -595,8 +628,11 @@ function renderBills() {
     var synopsisHtml = rationaleText ? '<div class="bill-rationale"><span class="bill-rationale-label">How this affects you</span><span id="' + rationaleId + '" class="bill-rationale-body">' + esc(rationaleText) + '</span></div><button class="bill-read-more" onclick="toggleBillText(\'' + rationaleId + '\',this)">Expand ↓</button>' : '';
     var bodyHtml = !rationaleText && bodyText ? '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' : '';
     var readMore = !rationaleText && bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Expand ↓</button>' : '';
-    var rightMeta = (catChip || statusBadge) ? '<div class="bill-card-meta">' + catChip + statusBadge + '</div>' : '';
-    return '<div class="' + cardClass + '">' + '<div class="bill-nickname">' + esc(nickname) + rightMeta + '</div>' + '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + '</div>' + sponsorHtml + synopsisHtml + bodyHtml + readMore + '</div>';
+    var rightMeta  = (catChip || statusBadge) ? '<div class="bill-card-meta">' + catChip + statusBadge + '</div>' : '';
+    var shareUrl   = bill.url || window.location.href;
+    var shareText  = nickname + ' — ' + billCode + '. Check this Delaware bill on Dover Dash.';
+    var shareBtn   = '<div class="bill-share-row"><button class="bill-share-btn" onclick="shareBillCard(this)">Share ↗</button></div>';
+    return '<div class="' + cardClass + '" data-share-url="' + esc(shareUrl) + '" data-share-text="' + esc(shareText) + '">' + '<div class="bill-nickname">' + esc(nickname) + rightMeta + '</div>' + '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + '</div>' + sponsorHtml + synopsisHtml + bodyHtml + readMore + shareBtn + '</div>';
   }).join('');
   if (showExpand) {
     html += '<div style="padding:14px 16px;text-align:center;"><button onclick="expandFilter(\'' + currentFilter + '\')" style="background:none;border:1.5px solid #002868;border-radius:20px;padding:8px 20px;font-size:12px;font-weight:700;color:#002868;cursor:pointer;font-family:\'Inter\',sans-serif;">See all ' + bills.length + ' bills ↓</button></div>';
