@@ -322,10 +322,10 @@ body {
     <div class="gi-card" id="gi-card">
       <div class="gi-header">
         <div class="gi-title">Get <em>Involved</em></div>
-        <div class="gi-subtitle">November 4, 2026 · Delaware General Election</div>
+        <div class="gi-subtitle">You've seen the record. Now see who's on your ballot.</div>
       </div>
-      <div class="gi-step">
-        <div class="gi-step-label"><span class="gi-step-num">1</span> See who's on your ballot</div>
+      <div style="padding:16px;">
+        <div style="font-size:12px;font-weight:700;color:#111827;margin-bottom:10px;">Who's running in your district?</div>
         <div class="gi-addr-row">
           <input type="text" class="gi-addr-input" id="gi-addr" placeholder="123 Main St, Wilmington, DE 19801" autocomplete="off" onkeydown="if(event.key==='Enter')findCandidates()" />
           <button class="gi-addr-btn" onclick="findCandidates()">Look up</button>
@@ -333,26 +333,25 @@ body {
         <div class="gi-loading" id="gi-loading" style="display:none;">Looking up candidates…</div>
         <div class="gi-error" id="gi-error" style="display:none;"></div>
         <div class="gi-results" id="gi-results" style="display:none;"></div>
-      </div>
-      <div class="gi-step">
-        <div class="gi-step-label"><span class="gi-step-num">2</span> Key dates</div>
-        <div class="gi-dates">
-          <div class="gi-date-row"><span class="gi-date-badge primary">Sep 15</span><div class="gi-date-desc">Delaware Primary Election</div></div>
-          <div class="gi-date-row"><span class="gi-date-badge general">Nov 4</span><div class="gi-date-desc">Delaware General Election</div></div>
-        </div>
-      </div>
-      <div class="gi-step gi-step-last">
-        <div class="gi-step-label"><span class="gi-step-num">3</span> Register or update your registration</div>
-        <a href="https://ivote.de.gov" target="_blank" rel="noopener" class="gi-action-btn">Register at ivote.de.gov →</a>
-        <div id="gi-email-row" style="margin-top:12px;">
-          <div class="gi-email-sub">Get election reminders from Dover Dash:</div>
-          <div class="gi-email-row">
-            <input type="email" class="gi-email-input" id="gi-email" placeholder="your@email.com" />
-            <button class="gi-email-btn" onclick="doGiSubscribe()">Remind me</button>
+
+        <div style="margin-top:16px;padding-top:14px;border-top:1px solid #E5E7EB;display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
+          <div style="display:flex;gap:8px;align-items:center;">
+            <span class="gi-date-badge primary" style="min-width:auto;">Sep 15</span>
+            <span style="font-size:10px;color:#6B7280;">Primary</span>
           </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <span class="gi-date-badge general" style="min-width:auto;">Nov 4</span>
+            <span style="font-size:10px;color:#6B7280;">General</span>
+          </div>
+          <a href="https://ivote.de.gov" target="_blank" rel="noopener" style="margin-left:auto;font-size:11px;font-weight:700;color:#002868;text-decoration:none;white-space:nowrap;">Register to vote →</a>
         </div>
-        <div id="gi-email-success" style="display:none;margin-top:10px;" class="gi-email-success">You're on the list!</div>
-        <div class="gi-source">Candidate data sourced from <a href="https://elections.delaware.gov" target="_blank" rel="noopener">elections.delaware.gov</a> and <a href="https://ballotpedia.org" target="_blank" rel="noopener">Ballotpedia</a>.</div>
+
+        <div id="gi-email-row" style="margin-top:12px;display:flex;gap:6px;align-items:center;">
+          <input type="email" class="gi-email-input" id="gi-email" placeholder="Email me election reminders" style="flex:1;" />
+          <button class="gi-email-btn" onclick="doGiSubscribe()">Remind me</button>
+        </div>
+        <div id="gi-email-success" style="display:none;margin-top:8px;" class="gi-email-success">✓ You're on the list!</div>
+        <div class="gi-source" style="margin-top:10px;">Candidate data: <a href="https://elections.delaware.gov" target="_blank" rel="noopener">elections.delaware.gov</a> · <a href="https://ballotpedia.org" target="_blank" rel="noopener">Ballotpedia</a></div>
       </div>
     </div>
   </div>
