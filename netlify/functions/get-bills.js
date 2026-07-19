@@ -62,22 +62,36 @@ exports.handler = async function (event) {
       if (profRes.ok) profiles = await profRes.json();
     } catch (e) { /* skip if table doesn't exist */ }
 
+    // Fetch ticker_message the same targeted way the bills endpoint does — most reliable
     let tickerMessage = '';
     try {
-      const configRes = await fetch(
+      const tmRes = await fetch(
         `${SUPABASE_URL}/rest/v1/config?key=eq.ticker_message&select=value`,
+        { headers: SB_HEADERS }
+      );
+      if (tmRes.ok) {
+        const tmData = await tmRes.json();
+        if (tmData.length > 0) tickerMessage = tmData[0].value;
+      }
+    } catch (e) { /* skip */ }
+
+    // Fetch remaining config keys for UI text
+    let config = { ticker_message: tickerMessage };
+    try {
+      const configRes = await fetch(
+        `${SUPABASE_URL}/rest/v1/config?select=key,value`,
         { headers: SB_HEADERS }
       );
       if (configRes.ok) {
         const configData = await configRes.json();
-        if (configData.length > 0) tickerMessage = configData[0].value;
+        configData.forEach(row => { config[row.key] = row.value; });
       }
-    } catch (e) { /* skip */ }
+    } catch (e) { /* skip — ticker_message already set above */ }
 
     return {
       statusCode: 200,
       headers:    CORS,
-      body:       JSON.stringify({ profiles, tickerMessage }),
+      body:       JSON.stringify({ profiles, config, tickerMessage }),
     };
   }
 
