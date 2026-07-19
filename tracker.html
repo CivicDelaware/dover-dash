@@ -51,7 +51,7 @@ body {
 
 /* ── ARCHIVE BANNER ── */
 .archive-bar { margin: 0 14px; background: #FFE600; padding: 4px 0; overflow: hidden; white-space: nowrap; }
-.archive-bar span { display: inline-block; font-size: 10px; font-weight: 400; color: #002868; line-height: 1.2; }
+.archive-bar span { display: inline-block; font-size: 10px; font-weight: 400; color: #002868; line-height: 1.2; -webkit-animation: ticker 22s linear infinite; animation: ticker 22s linear infinite; }
 @-webkit-keyframes ticker { 0% { -webkit-transform: translateX(0); transform: translateX(0); } 100% { -webkit-transform: translateX(-50%); transform: translateX(-50%); } }
 @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
@@ -181,7 +181,7 @@ body {
 .gi-email-success { font-size: 12px; color: #1A7A4A; font-weight: 700; }
 .gi-source { font-size: 10px; color: #9CA3AF; margin-top: 10px; line-height: 1.5; }
 .gi-source a { color: #6B7280; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
-.app-footer { background: #002868; padding: 24px 20px 20px; text-align: center; margin: 0 14px 14px; border-radius: 0 0 10px 10px; }
+.app-footer { background: #002868; padding: 14px 16px; text-align: center; margin: 0 14px 14px; border-radius: 0 0 10px 10px; }
 .app-footer-brand { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 900; color: #fff; margin-bottom: 4px; }
 .app-footer-brand em { color: #BAFF5C; font-style: italic; }
 .app-footer-tagline { font-size: 10px; color: rgba(255,255,255,0.55); letter-spacing: 0.5px; margin-bottom: 14px; font-family: 'Inter', sans-serif; }
@@ -205,7 +205,7 @@ body {
   </div>
 
   <div class="archive-bar" id="archive-bar">
-    <span id="home-ticker-text"></span>
+    <span id="home-ticker-text">*** Dover Dash identified 53 bills that hit your wallet *** Select your profile to see your bills ··· *** Dover Dash identified 53 bills that hit your wallet *** Select your profile to see your bills</span>
   </div>
 
   <div id="screen-profiles">
@@ -223,7 +223,6 @@ body {
       <button class="prof-btn" data-profile-key="landlord"  onclick="selectProfile('landlord',this)"><span class="prof-em">🏢</span><div class="prof-info"><div class="prof-label">Landlord</div></div></button>
     </div>
 
-    <p class="pick-footer" id="txt-pick-footer">Nonpartisan · Free · Session ended June 30, 2026</p>
   </div>
 
   <div class="bills-nav-header" id="bills-nav-header" style="display:none">
