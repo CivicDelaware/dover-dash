@@ -119,14 +119,14 @@ body {
 .bill-status-badge { font-size: 9px; font-weight: 800; border-radius: 4px; padding: 2px 7px; letter-spacing: 0.5px; white-space: nowrap; background: #D1FAE5; color: #1A7A4A; }
 .bill-status-badge.veto { background: #FEF3C7; color: #B45309; }
 .bill-status-badge.passed { background: #DBEAFE; color: #1E40AF; }
-.bill-num-link { font-size: 11px; font-weight: 800; color: #002868; text-decoration: none; border-bottom: 1px solid #BAFF5C; }
+.bill-num-link { font-size: 11px; font-weight: 800; color: #002868; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: #9CA3AF; }
 .bill-num-link:hover { color: #D93B3B; }
 .bill-official { font-size: 9px; color: #9CA3AF; line-height: 1.4; margin-bottom: 8px; font-style: italic; }
 .bill-synopsis-text { font-size: 11.5px; color: #9CA3AF; line-height: 1.55; margin-bottom: 8px; padding-top: 8px; border-top: 1px solid #F3F4F6; }
 .bill-rationale { font-size: 11px; color: #002868; background: #EFF6FF; border-radius: 6px; padding: 7px 10px; margin-bottom: 8px; line-height: 1.5; font-weight: 500; }
 .bill-rationale-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #9CA3AF; display: block; margin-bottom: 3px; }
 .bill-sponsor { font-size: 11px; color: #9CA3AF; margin-bottom: 14px; }
-.bill-sponsor a { color: #9CA3AF; font-weight: 400; text-decoration: none; border-bottom: 1px solid #BAFF5C; }
+.bill-sponsor a { color: #9CA3AF; font-weight: 400; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: #9CA3AF; }
 .bill-sponsor a:hover { color: #D93B3B; border-bottom-color: #D93B3B; }
 .primary-cta { font-size: 10px; font-weight: 700; color: #D93B3B; margin-top: 8px; }
 .primary-nudge { font-size: 10px; color: #002868; font-weight: 600; margin-top: 6px; line-height: 1.4; text-decoration: none; display: block; border-bottom: 1px solid #BAFF5C; padding-bottom: 2px; width: fit-content; }
@@ -477,8 +477,7 @@ function toggleBillText(id, btn) {
   var el = document.getElementById(id);
   if (!el) return;
   var isExpanded = el.classList.toggle('expanded');
-  var wasDetail = btn.textContent.indexOf('More detail') !== -1 || btn.textContent.indexOf('Less detail') !== -1;
-  btn.textContent = isExpanded ? (wasDetail ? 'Less detail ↑' : 'Collapse ↑') : (wasDetail ? 'More detail ↓' : 'Expand ↓');
+  btn.textContent = isExpanded ? 'Read less' : 'Read more';
   var synEl = document.getElementById('bs-' + id.slice(3));
   if (synEl) synEl.style.display = isExpanded ? 'block' : 'none';
 }
@@ -600,12 +599,12 @@ function renderBills() {
     var bodyText  = bill.plain_english || bill.synopsis || '';
     var billCode  = bill.full_code || bill.bill_number;
     var billNumHtml = bill.url
-      ? '<a href="' + esc(bill.url) + '" target="_blank" rel="noopener" class="bill-num-link">' + esc(billCode) + ' ↗</a>'
+      ? '<a href="' + esc(bill.url) + '" target="_blank" rel="noopener" class="bill-num-link">' + esc(billCode) + '</a>'
       : '<span class="bill-num">' + esc(billCode) + '</span>';
     var sponsorTitle = bill.primary_sponsor ? (/^[Ss]/.test(billCode) ? 'Sen. ' : 'Rep. ') : '';
     var sponsorHtml = bill.primary_sponsor
       ? (bill.legislator_url
-          ? '<div class="bill-sponsor">Sponsored by <a href="' + esc(bill.legislator_url) + '" target="_blank" rel="noopener">' + sponsorTitle + esc(bill.primary_sponsor) + ' ↗ Bio</a></div>'
+          ? '<div class="bill-sponsor">Sponsored by <a href="' + esc(bill.legislator_url) + '" target="_blank" rel="noopener">' + sponsorTitle + esc(bill.primary_sponsor) + '</a></div>'
           : '<div class="bill-sponsor">Sponsored by ' + sponsorTitle + esc(bill.primary_sponsor) + '</div>')
       : '';
 
@@ -613,9 +612,9 @@ function renderBills() {
     var rationaleId = 'br-' + bill.bill_number.replace(/\s+/g, '-');
     var synId       = 'bs-' + bill.bill_number.replace(/\s+/g, '-');
     var rationaleText = (prof && prof.rationale) ? prof.rationale : '';
-    var synopsisHtml = rationaleText ? '<div class="bill-rationale"><span class="bill-rationale-label">How this affects you</span><span id="' + rationaleId + '" class="bill-rationale-body">' + esc(rationaleText) + '</span></div><button class="bill-read-more" onclick="toggleBillText(\'' + rationaleId + '\',this)">Expand ↓</button>' : '';
+    var synopsisHtml = rationaleText ? '<div class="bill-rationale"><span class="bill-rationale-label">How this affects you</span><span id="' + rationaleId + '" class="bill-rationale-body">' + esc(rationaleText) + '</span></div><button class="bill-read-more" onclick="toggleBillText(\'' + rationaleId + '\',this)">Read more</button>' : '';
     var bodyHtml = !rationaleText && bodyText ? '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' : '';
-    var readMore = !rationaleText && bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Expand ↓</button>' : '';
+    var readMore = !rationaleText && bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more</button>' : '';
     var rightMeta  = (catChip || statusBadge) ? '<div class="bill-card-meta">' + catChip + statusBadge + '</div>' : '';
     var shareUrl   = bill.url || window.location.href;
     var shareText  = nickname + ' — ' + billCode + '. Check this Delaware bill on Dover Dash.';
