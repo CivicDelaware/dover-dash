@@ -298,6 +298,7 @@ body {
       <button class="filter-btn hy active" id="filter-hy" onclick="setFilter('Helps You')">Helps You</button>
       <button class="filter-btn wo" id="filter-wo" onclick="setFilter('Watch Out')">Watch Out</button>
     </div>
+    <div style="font-size:10px;color:#9CA3AF;padding:0 16px 10px;line-height:1.5;">Classifications reflect each bill's direct fiscal or legal impact on this profile, based on official bill text and fiscal notes. Dover Dash is independent and nonpartisan — we do not evaluate legislators' motivations or party positions.</div>
     <div class="bills-loading" id="bills-loading">
       <div class="loading-spinner"></div>
       <div class="loading-sub" id="txt-loading-sub">Loading your bill…</div>
@@ -312,7 +313,7 @@ body {
     <!-- ── LEGISLATOR SCORECARD ── -->
     <div class="rep-section" id="rep-section">
       <div class="rep-section-title">How did your legislators vote?</div>
-      <div class="rep-section-sub">Enter your Delaware address to see how your legislators voted — and who's running against them in November.</div>
+      <div class="rep-section-sub">Enter your Delaware address to see your legislators' official roll call votes and who's running for their seats in 2026. Vote records are from official General Assembly roll call records.</div>
       <div class="rep-addr-row">
         <input type="text" class="rep-addr-input" id="rep-addr-input" placeholder="123 Main St, Wilmington, DE 19801" autocomplete="off" onkeydown="if(event.key==='Enter')lookUpRep()" />
         <button class="rep-addr-btn" id="rep-addr-btn" onclick="lookUpRep()">Look up</button>
@@ -343,7 +344,7 @@ body {
   </div>
 
   <div class="app-footer">
-    <div class="app-footer-disclaimer">Bill data is sourced from Delaware's 153rd General Assembly (2024–2026) via <a href="https://legis.delaware.gov" target="_blank" rel="noopener">legis.delaware.gov</a>. Dover Dash's analysis and plain-language summaries are independent and do not represent any legislator, party, or government body — we report what passed and what it means for your wallet. Always refer to the official bill text before citing or quoting any legislation.</div>
+    <div class="app-footer-disclaimer">Bill data is sourced from Delaware's 153rd General Assembly (2024–2026) via <a href="https://legis.delaware.gov" target="_blank" rel="noopener">legis.delaware.gov</a>. Bill classifications reflect the direct fiscal and legal impact on each profile based on official bill text and fiscal notes — not legislators' party positions or motivations. Vote records are sourced from official General Assembly roll call records. Candidate data is sourced from <a href="https://elections.delaware.gov" target="_blank" rel="noopener">elections.delaware.gov</a>. Dover Dash is independent and nonpartisan and does not represent any legislator, party, or government body. Always refer to official bill text before citing or quoting any legislation.</div>
     <div class="app-footer-copy">© 2026 Civic Delaware · <a href="mailto:info@civicdelaware.com">info@civicdelaware.com</a></div>
   </div>
 
@@ -842,9 +843,7 @@ function buildBillList(votedBills) {
 }
 
 function buildChallengers(candidates, chamber) {
-  var isSenate = (chamber === 'Senate');
-  var label    = isSenate ? 'Nov 3 general election' : 'Sep 15 primary / Nov 3 general';
-  var html     = '<div class="rep-challengers"><div class="rep-challengers-label">On your ' + label + ' ballot</div>';
+  var html = '<div class="rep-challengers"><div class="rep-challengers-label">Running for this seat — 2026</div>';
   if (!candidates || !candidates.length) {
     html += '<div class="rep-no-challengers">No contested primary listed · Check back closer to Nov 3</div>';
   } else {
