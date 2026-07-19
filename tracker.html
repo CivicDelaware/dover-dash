@@ -215,6 +215,14 @@ body {
 .rep-score-label { font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #9CA3AF; margin-top: 2px; }
 .rep-bio-link { font-size: 10px; color: #9CA3AF; text-decoration: underline; text-underline-offset: 2px; }
 .rep-bio-link:hover { color: #002868; }
+.rep-bill-list { border-top: 1px solid #F3F4F6; margin-top: 12px; padding-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.rep-bill-row { display: flex; align-items: flex-start; gap: 8px; }
+.rep-vote-badge { font-size: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.4px; border-radius: 4px; padding: 2px 5px; flex-shrink: 0; margin-top: 1px; }
+.rep-vote-badge.Y { background: #D1FAE5; color: #1A7A4A; }
+.rep-vote-badge.N { background: #FEE2E2; color: #D93B3B; }
+.rep-vote-badge.A { background: #F3F4F6; color: #9CA3AF; }
+.rep-bill-text { font-size: 11px; color: #002868; line-height: 1.4; }
+.rep-bill-code { font-weight: 700; color: #9CA3AF; font-size: 10px; margin-right: 4px; }
 .app-footer { background: #002868; padding: 10px 16px 12px; text-align: center; margin: 0 14px 14px; border-radius: 0 0 10px 10px; border-top: 2px solid #BAFF5C; }
 .app-footer-brand { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 900; color: #fff; margin-bottom: 4px; }
 .app-footer-brand em { color: #BAFF5C; font-style: italic; }
@@ -765,8 +773,28 @@ function buildRepCard(leg, roleLabel, totalBills, profileLabel) {
         '<div class="rep-score-label">Total Bills</div>' +
       '</div>' +
     '</div>' +
-    (bioLink ? '<div>' + bioLink + '</div>' : '') +
+    buildBillList(leg.voted_bills || []) +
+    (bioLink ? '<div style="margin-top:10px;">' + bioLink + '</div>' : '') +
   '</div>';
+}
+
+function buildBillList(votedBills) {
+  if (!votedBills || !votedBills.length) return '';
+  var ORDER = ['N', 'A', 'Y'];  // NO and Absent first so they stand out
+  var sorted = votedBills.slice().sort(function(a, b) {
+    return ORDER.indexOf(a.vote) - ORDER.indexOf(b.vote);
+  });
+  var rows = sorted.map(function(b) {
+    var badgeClass = b.vote === 'Y' ? 'Y' : b.vote === 'N' ? 'N' : 'A';
+    var badgeLabel = b.vote === 'Y' ? 'Yes' : b.vote === 'N' ? 'No' : 'Absent';
+    var nickname   = b.nickname ? esc(b.nickname) : '(no title)';
+    var code       = b.code ? '<span class="rep-bill-code">' + esc(b.code) + '</span>' : '';
+    return '<div class="rep-bill-row">' +
+      '<span class="rep-vote-badge ' + badgeClass + '">' + badgeLabel + '</span>' +
+      '<span class="rep-bill-text">' + code + nickname + '</span>' +
+    '</div>';
+  }).join('');
+  return '<div class="rep-bill-list">' + rows + '</div>';
 }
 
 function findCandidates() {
