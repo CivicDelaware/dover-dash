@@ -83,33 +83,21 @@ exports.handler = async function (event) {
   }
 
   // ── 2. Look up legislators from Supabase ──────────────────────────────────
+  // Fetch all legislators for this session and filter in JS (avoids complex PostgREST OR syntax)
   let legislators = [];
   try {
-    const legParams = new URLSearchParams({
-      select: 'assembly_member_id,name,party,chamber,district,url',
-      session_number: `eq.${session}`,
-      or: `(chamber.eq.House,and(district.eq.${houseDistrict})),(chamber.eq.Senate,and(district.eq.${senateDistrict}))`,
-    });
-    const legRes = await fetch(`${SUPABASE_URL}/rest/v1/legislators?${legParams}`, { headers: SB });
-    if (legRes.ok) legislators = await legRes.json();
-  } catch (e) {}
-
-  // Fallback: fetch all and filter
-  if (!legislators.length) {
-    try {
-      const legRes = await fetch(
-        `${SUPABASE_URL}/rest/v1/legislators?select=assembly_member_id,name,party,chamber,district,url&session_number=eq.${session}`,
-        { headers: SB }
+    const legRes = await fetch(
+      `${SUPABASE_URL}/rest/v1/legislators?select=assembly_member_id,name,party,chamber,district,url&session_number=eq.${session}`,
+      { headers: SB }
+    );
+    if (legRes.ok) {
+      const all = await legRes.json();
+      legislators = all.filter(l =>
+        (l.chamber === 'House'  && l.district === houseDistrict) ||
+        (l.chamber === 'Senate' && l.district === senateDistrict)
       );
-      if (legRes.ok) {
-        const all = await legRes.json();
-        legislators = all.filter(l =>
-          (l.chamber === 'House'  && l.district === houseDistrict) ||
-          (l.chamber === 'Senate' && l.district === senateDistrict)
-        );
-      }
-    } catch (e) {}
-  }
+    }
+  } catch (e) {}
 
   const rep     = legislators.find(l => l.chamber === 'House');
   const senator = legislators.find(l => l.chamber === 'Senate');
