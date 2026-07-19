@@ -92,15 +92,12 @@ body {
 .filter-btn { border: none; border-radius: 20px; padding: 7px 14px; font-size: 11px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; transition: all .12s; white-space: nowrap; background: #F3F4F6; color: #374151; }
 .filter-btn.wo { background: #FEE2E2; color: #D93B3B; }
 .filter-btn.hy { background: #D1FAE5; color: #1A7A4A; }
-.filter-btn.np { background: #F3F4F6; color: #6B7280; }
 .filter-btn.active { background: #002868; color: #BAFF5C; }
 .filter-btn.wo.active { background: #D93B3B; color: #fff; }
 .filter-btn.hy.active { background: #1A7A4A; color: #fff; }
-.filter-btn.np.active { background: #6B7280; color: #fff; }
-.bill-share-btn { font-size: 10px; font-weight: 600; color: #9CA3AF; background: none; border: 1px solid #E5E7EB; border-radius: 12px; padding: 3px 8px; cursor: pointer; font-family: 'Inter', sans-serif; }
-.bill-share-btn:hover { color: #002868; border-color: #BAFF5C; }
+.bill-share-btn { font-size: 10px; font-weight: 400; color: #9CA3AF; background: none; border: none; padding: 0; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: underline; text-underline-offset: 2px; }
+.bill-share-btn:hover { color: #002868; }
 .bill-share-row { display: flex; justify-content: flex-end; margin-top: 8px; }
-.bill-status-badge.np { background: #F3F4F6; color: #6B7280; }
 .bill-count-bar { font-size: 10px; font-weight: 600; color: #fff; }
 .bill-count-bar strong { color: #fff; }
 #bill-count-bar { color: #fff; }
@@ -117,7 +114,7 @@ body {
 .bill-num { font-size: 11px; font-weight: 800; color: #002868; letter-spacing: 0.3px; }
 .bill-cat-chip { display: inline-block; font-size: 9px; font-weight: 700; color: #6B7280; background: #F3F4F6; border-radius: 4px; padding: 2px 6px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
 .dir-badge { display: none; }
-.bill-nickname { font-size: 15px; font-weight: 800; color: #111827; margin-bottom: 3px; line-height: 1.3; display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.bill-nickname { font-size: 15px; font-weight: 800; color: #002868; margin-bottom: 3px; line-height: 1.3; display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
 .bill-card-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; flex-shrink: 0; }
 .bill-status-badge { font-size: 9px; font-weight: 800; border-radius: 4px; padding: 2px 7px; letter-spacing: 0.5px; white-space: nowrap; background: #D1FAE5; color: #1A7A4A; }
 .bill-status-badge.veto { background: #FEF3C7; color: #B45309; }
@@ -125,22 +122,22 @@ body {
 .bill-num-link { font-size: 11px; font-weight: 800; color: #002868; text-decoration: none; border-bottom: 1px solid #BAFF5C; }
 .bill-num-link:hover { color: #D93B3B; }
 .bill-official { font-size: 9px; color: #9CA3AF; line-height: 1.4; margin-bottom: 8px; font-style: italic; }
-.bill-synopsis-text { font-size: 11.5px; color: #374151; line-height: 1.55; margin-bottom: 8px; padding-top: 8px; border-top: 1px solid #F3F4F6; }
+.bill-synopsis-text { font-size: 11.5px; color: #9CA3AF; line-height: 1.55; margin-bottom: 8px; padding-top: 8px; border-top: 1px solid #F3F4F6; }
 .bill-rationale { font-size: 11px; color: #002868; background: #EFF6FF; border-radius: 6px; padding: 7px 10px; margin-bottom: 8px; line-height: 1.5; font-weight: 500; }
-.bill-rationale-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #6B7280; display: block; margin-bottom: 3px; }
-.bill-sponsor { font-size: 11px; color: #6B7280; margin-bottom: 14px; }
-.bill-sponsor a { color: #6B7280; font-weight: 400; text-decoration: none; border-bottom: 1px solid #BAFF5C; }
+.bill-rationale-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #9CA3AF; display: block; margin-bottom: 3px; }
+.bill-sponsor { font-size: 11px; color: #9CA3AF; margin-bottom: 14px; }
+.bill-sponsor a { color: #9CA3AF; font-weight: 400; text-decoration: none; border-bottom: 1px solid #BAFF5C; }
 .bill-sponsor a:hover { color: #D93B3B; border-bottom-color: #D93B3B; }
 .primary-cta { font-size: 10px; font-weight: 700; color: #D93B3B; margin-top: 8px; }
 .primary-nudge { font-size: 10px; color: #002868; font-weight: 600; margin-top: 6px; line-height: 1.4; text-decoration: none; display: block; border-bottom: 1px solid #BAFF5C; padding-bottom: 2px; width: fit-content; }
-.bill-plain { font-size: 12px; color: #374151; line-height: 1.55; margin-bottom: 0; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+.bill-plain { font-size: 12px; color: #9CA3AF; line-height: 1.55; margin-bottom: 0; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
 .bill-plain.expanded { -webkit-line-clamp: unset; }
 .bill-rationale-body { display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
 .bill-rationale-body.expanded { -webkit-line-clamp: unset; }
 .bill-what-label { font-size: 10px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: #9CA3AF; margin-bottom: 4px; }
 .bill-synopsis-full { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #E5E7EB; }
 .bill-ga-link { font-size: 11px; font-weight: 700; color: #002868; text-decoration: underline; text-underline-offset: 2px; }
-.bill-read-more { font-size: 10px; font-weight: 400; color: #002868; background: none; border: none; padding: 4px 0 0; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: underline; text-underline-offset: 2px; display: block; text-align: right; }
+.bill-read-more { font-size: 10px; font-weight: 400; color: #002868; background: none; border: none; padding: 4px 0 0; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: underline; text-underline-offset: 2px; display: block; text-align: left; }
 .primary-nudge:hover { color: #D93B3B; }
 .bills-empty { background: #fff; padding: 36px 24px; text-align: center; }
 .bills-empty-icon { font-size: 32px; margin-bottom: 10px; }
@@ -260,7 +257,6 @@ body {
     <div class="filter-row">
       <button class="filter-btn wo active" id="filter-wo" onclick="setFilter('Watch Out')">Watch Out</button>
       <button class="filter-btn hy" id="filter-hy" onclick="setFilter('Helps You')">Helps You</button>
-      <button class="filter-btn np" id="filter-np" onclick="setFilter('Not Passed')">Didn't Pass</button>
     </div>
     <div class="bills-loading" id="bills-loading">
       <div class="loading-spinner"></div>
@@ -423,7 +419,7 @@ var CATEGORY_LABELS = {
 var currentProfileKey = null;
 var allBills = [];
 var currentFilter = 'Watch Out';
-var expanded = { 'Watch Out': false, 'Helps You': false, 'Not Passed': false };
+var expanded = { 'Watch Out': false, 'Helps You': false };
 
 var pendingProfileKey = null;
 function selectProfile(key, btn) {
@@ -437,7 +433,7 @@ function goToBills() {
   if (!key) return;
   currentProfileKey = key;
   currentFilter = 'Watch Out';
-  expanded = { 'Watch Out': false, 'Helps You': false, 'Not Passed': false };
+  expanded = { 'Watch Out': false, 'Helps You': false };
   var p = PROFILES[key];
   document.getElementById('bills-nav-emoji').textContent = p.emoji;
   document.getElementById('bills-nav-profile').textContent = p.label;
@@ -488,9 +484,8 @@ function toggleBillText(id, btn) {
 }
 
 function setFilterUI(dir) {
-  document.getElementById('filter-wo').className  = 'filter-btn wo' + (dir === 'Watch Out'  ? ' active' : '');
-  document.getElementById('filter-hy').className  = 'filter-btn hy' + (dir === 'Helps You'  ? ' active' : '');
-  document.getElementById('filter-np').className  = 'filter-btn np' + (dir === 'Not Passed' ? ' active' : '');
+  document.getElementById('filter-wo').className  = 'filter-btn wo' + (dir === 'Watch Out' ? ' active' : '');
+  document.getElementById('filter-hy').className  = 'filter-btn hy' + (dir === 'Helps You' ? ' active' : '');
 }
 
 function shareBillCard(btn) {
@@ -540,12 +535,7 @@ function renderBills() {
   var dir = currentFilter;
   var bills = allBills.filter(function(b) {
     var p = b.profiles && b.profiles[key];
-    if (!p) return false;
-    if (dir === 'Not Passed') {
-      var st = (b.status || '').toLowerCase();
-      return !st.includes('sign') && !st.includes('approv') && !st.includes('pass') && !st.includes('veto');
-    }
-    return p.direction === dir;
+    return p && p.direction === dir;
   });
   bills.sort(function(a, b) {
     var da = (a.profiles[key] || {}).direction || '';
@@ -561,10 +551,8 @@ function renderBills() {
   var emptyEl = document.getElementById('bills-empty');
   var woCount = allBills.filter(function(b) { var p = b.profiles[key]; return p && p.direction === 'Watch Out'; }).length;
   var hyCount = allBills.filter(function(b) { var p = b.profiles[key]; return p && p.direction === 'Helps You'; }).length;
-  var npCount = allBills.filter(function(b) { var p = b.profiles[key]; if (!p) return false; var st = (b.status || '').toLowerCase(); return !st.includes('sign') && !st.includes('approv') && !st.includes('pass') && !st.includes('veto'); }).length;
   document.getElementById('filter-wo').textContent = 'Watch Out · ' + woCount;
   document.getElementById('filter-hy').textContent = 'Helps You · ' + hyCount;
-  document.getElementById('filter-np').textContent = "Didn't Pass · " + npCount;
   countEl.textContent = allBills.length + ' bills affect this profile';
   if (allBills.length === 0) {
     listEl.innerHTML = '';
@@ -631,7 +619,7 @@ function renderBills() {
     var rightMeta  = (catChip || statusBadge) ? '<div class="bill-card-meta">' + catChip + statusBadge + '</div>' : '';
     var shareUrl   = bill.url || window.location.href;
     var shareText  = nickname + ' — ' + billCode + '. Check this Delaware bill on Dover Dash.';
-    var shareBtn   = '<div class="bill-share-row"><button class="bill-share-btn" onclick="shareBillCard(this)">Share ↗</button></div>';
+    var shareBtn   = '<div class="bill-share-row"><button class="bill-share-btn" onclick="shareBillCard(this)">Share</button></div>';
     return '<div class="' + cardClass + '" data-share-url="' + esc(shareUrl) + '" data-share-text="' + esc(shareText) + '">' + '<div class="bill-nickname">' + esc(nickname) + rightMeta + '</div>' + '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + '</div>' + sponsorHtml + synopsisHtml + bodyHtml + readMore + shareBtn + '</div>';
   }).join('');
   if (showExpand) {
