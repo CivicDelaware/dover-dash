@@ -37,7 +37,6 @@ exports.handler = async function (event) {
   const session = parseInt(q.session || CURRENT_SESSION, 10);
 
   if (!address) return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'address required' }) };
-  if (!profile) return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'profile required' }) };
 
   // ── 1. Geocode address ────────────────────────────────────────────────────
   const addrStr = /\bDE\b|\bDelaware\b/i.test(address) ? address : address + ' DE';
@@ -108,83 +107,90 @@ exports.handler = async function (event) {
     })};
   }
 
-  // ── 3. Get bills for this profile ─────────────────────────────────────────
-  // Fetch classifications for profile → bill ids
-  let profileBillIds = [];
-  try {
-    const clParams = new URLSearchParams({
-      select: 'bill_id',
-      profile_key: `eq.${profile}`,
-      session_number: `eq.${session}`,
-    });
-    const clRes = await fetch(`${SUPABASE_URL}/rest/v1/classifications?${clParams}`, { headers: SB });
-    if (clRes.ok) {
-      const clData = await clRes.json();
-      profileBillIds = clData.map(c => c.bill_id);
-    }
-  } catch (e) {}
+  // ── 3 & 4. Bill/vote lookup — only when a profile is requested ───────────
+  let repOut     = rep     || null;
+  let senatorOut = senator || null;
+  let totalProfileBills = 0;
 
-  // Fetch legislation_ids for those bill ids
-  let profileLegIds = [];
-  let billMeta = {};
-  if (profileBillIds.length) {
+  if (profile) {
+    // Step 3: Get bills for this profile
+    let profileBillIds = [];
     try {
-      const bParams = new URLSearchParams({
-        select: 'id,legislation_id,full_code,nickname',
-        id: `in.(${profileBillIds.join(',')})`,
+      const clParams = new URLSearchParams({
+        select: 'bill_id',
+        profile_key: `eq.${profile}`,
+        session_number: `eq.${session}`,
       });
-      const bRes = await fetch(`${SUPABASE_URL}/rest/v1/bills?${bParams}`, { headers: SB });
-      if (bRes.ok) {
-        const bData = await bRes.json();
-        profileLegIds = bData.map(b => b.legislation_id).filter(Boolean);
-        bData.forEach(b => { if (b.legislation_id) billMeta[b.legislation_id] = { code: b.full_code, nickname: b.nickname }; });
+      const clRes = await fetch(`${SUPABASE_URL}/rest/v1/classifications?${clParams}`, { headers: SB });
+      if (clRes.ok) {
+        const clData = await clRes.json();
+        profileBillIds = clData.map(c => c.bill_id);
       }
     } catch (e) {}
-  }
 
-  // ── 4. Get votes for both legislators on profile bills ────────────────────
-  async function getVotes(assemblyMemberId) {
-    if (!assemblyMemberId || !profileLegIds.length) return [];
-    try {
-      const vParams = new URLSearchParams({
-        select: 'legislation_id,vote,chamber',
-        assembly_member_id: `eq.${assemblyMemberId}`,
-        legislation_id: `in.(${profileLegIds.join(',')})`,
+    let profileLegIds = [];
+    let billMeta = {};
+    if (profileBillIds.length) {
+      try {
+        const bParams = new URLSearchParams({
+          select: 'id,legislation_id,full_code,nickname',
+          id: `in.(${profileBillIds.join(',')})`,
+        });
+        const bRes = await fetch(`${SUPABASE_URL}/rest/v1/bills?${bParams}`, { headers: SB });
+        if (bRes.ok) {
+          const bData = await bRes.json();
+          profileLegIds = bData.map(b => b.legislation_id).filter(Boolean);
+          bData.forEach(b => { if (b.legislation_id) billMeta[b.legislation_id] = { code: b.full_code, nickname: b.nickname }; });
+        }
+      } catch (e) {}
+    }
+
+    totalProfileBills = profileLegIds.length;
+
+    // Step 4: Get votes
+    async function getVotes(assemblyMemberId) {
+      if (!assemblyMemberId || !profileLegIds.length) return [];
+      try {
+        const vParams = new URLSearchParams({
+          select: 'legislation_id,vote,chamber',
+          assembly_member_id: `eq.${assemblyMemberId}`,
+          legislation_id: `in.(${profileLegIds.join(',')})`,
+        });
+        const vRes = await fetch(`${SUPABASE_URL}/rest/v1/votes?${vParams}`, { headers: SB });
+        if (vRes.ok) return await vRes.json();
+      } catch (e) {}
+      return [];
+    }
+
+    function buildScorecard(legInfo, voteRows) {
+      if (!legInfo) return null;
+      let yes = 0, no = 0, absent = 0, notVoting = 0;
+      const votedBills = [];
+      voteRows.forEach(v => {
+        const meta = billMeta[v.legislation_id] || {};
+        if (v.vote === 'Y')  { yes++;       votedBills.push({ ...meta, legislation_id: v.legislation_id, vote: 'Y' }); }
+        if (v.vote === 'N')  { no++;        votedBills.push({ ...meta, legislation_id: v.legislation_id, vote: 'N' }); }
+        if (v.vote === 'A')  { absent++;    votedBills.push({ ...meta, legislation_id: v.legislation_id, vote: 'A' }); }
+        if (v.vote === 'NV') { notVoting++; votedBills.push({ ...meta, legislation_id: v.legislation_id, vote: 'NV' }); }
       });
-      const vRes = await fetch(`${SUPABASE_URL}/rest/v1/votes?${vParams}`, { headers: SB });
-      if (vRes.ok) return await vRes.json();
-    } catch (e) {}
-    return [];
+      return {
+        ...legInfo,
+        total_bills:  totalProfileBills,
+        yes_votes:    yes,
+        no_votes:     no,
+        absent_votes: absent + notVoting,
+        voted_bills:  votedBills,
+      };
+    }
+
+    const [repVotes, senVotes] = await Promise.all([
+      getVotes(rep?.assembly_member_id),
+      getVotes(senator?.assembly_member_id),
+    ]);
+
+    repOut     = buildScorecard(rep,     repVotes);
+    senatorOut = buildScorecard(senator, senVotes);
   }
-
-  function buildScorecard(legInfo, voteRows) {
-    if (!legInfo) return null;
-    const totalBills = profileLegIds.length;
-    let yes = 0, no = 0, absent = 0, notVoting = 0;
-    const votedBills = [];
-
-    voteRows.forEach(v => {
-      const meta = billMeta[v.legislation_id] || {};
-      if (v.vote === 'Y')  { yes++;       votedBills.push({ ...meta, legislation_id: v.legislation_id, vote: 'Y' }); }
-      if (v.vote === 'N')  { no++;        votedBills.push({ ...meta, legislation_id: v.legislation_id, vote: 'N' }); }
-      if (v.vote === 'A')  { absent++;    votedBills.push({ ...meta, legislation_id: v.legislation_id, vote: 'A' }); }
-      if (v.vote === 'NV') { notVoting++; votedBills.push({ ...meta, legislation_id: v.legislation_id, vote: 'NV' }); }
-    });
-
-    return {
-      ...legInfo,
-      total_bills:  totalBills,
-      yes_votes:    yes,
-      no_votes:     no,
-      absent_votes: absent + notVoting,
-      voted_bills:  votedBills,
-    };
-  }
-
-  const [repVotes, senVotes] = await Promise.all([
-    getVotes(rep?.assembly_member_id),
-    getVotes(senator?.assembly_member_id),
-  ]);
 
   return {
     statusCode: 200,
@@ -192,9 +198,9 @@ exports.handler = async function (event) {
     body:       JSON.stringify({
       house_district:  houseDistrict,
       senate_district: senateDistrict,
-      rep:     buildScorecard(rep,     repVotes),
-      senator: buildScorecard(senator, senVotes),
-      total_profile_bills: profileLegIds.length,
+      rep:     repOut,
+      senator: senatorOut,
+      total_profile_bills: totalProfileBills,
     }),
   };
 };

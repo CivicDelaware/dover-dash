@@ -206,23 +206,10 @@ body {
 .rep-party-badge { font-size: 9px; font-weight: 800; border-radius: 4px; padding: 2px 7px; letter-spacing: 0.5px; flex-shrink: 0; }
 .rep-party-badge.D { background: #DBEAFE; color: #1E40AF; }
 .rep-party-badge.R { background: #FEE2E2; color: #D93B3B; }
-.rep-scorecard { display: flex; gap: 8px; margin-bottom: 10px; }
-.rep-score-box { flex: 1; text-align: center; background: #F9FAFB; border-radius: 8px; padding: 8px 4px; }
-.rep-score-num { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 900; line-height: 1; }
-.rep-score-num.yes { color: #1A7A4A; }
-.rep-score-num.no { color: #D93B3B; }
-.rep-score-num.abs { color: #9CA3AF; }
-.rep-score-label { font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #9CA3AF; margin-top: 2px; }
 .rep-bio-link { font-size: 10px; color: #9CA3AF; text-decoration: underline; text-underline-offset: 2px; }
 .rep-bio-link:hover { color: #002868; }
-.rep-bill-list { border-top: 1px solid #F3F4F6; margin-top: 12px; padding-top: 10px; display: flex; flex-direction: column; gap: 6px; }
-.rep-bill-row { display: flex; align-items: flex-start; gap: 8px; }
-.rep-vote-badge { font-size: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.4px; border-radius: 4px; padding: 2px 5px; flex-shrink: 0; margin-top: 1px; }
-.rep-vote-badge.Y { background: #D1FAE5; color: #1A7A4A; }
-.rep-vote-badge.N { background: #FEE2E2; color: #D93B3B; }
-.rep-vote-badge.A { background: #F3F4F6; color: #9CA3AF; }
-.rep-bill-text { font-size: 11px; color: #002868; line-height: 1.4; }
-.rep-bill-code { font-weight: 700; color: #9CA3AF; font-size: 10px; margin-right: 4px; }
+.rep-ga-btn { display: inline-block; background: #F0FFF0; border: 1.5px solid #BAFF5C; color: #002868; border-radius: 8px; padding: 9px 14px; font-size: 11px; font-weight: 700; text-decoration: none; font-family: 'Inter', sans-serif; margin-top: 4px; }
+.rep-ga-btn:hover { background: #BAFF5C; }
 .rep-challengers { border-top: 1px solid #F3F4F6; margin-top: 12px; padding-top: 10px; }
 .rep-challengers-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: #9CA3AF; margin-bottom: 8px; }
 .rep-challenger-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
@@ -298,7 +285,7 @@ body {
       <button class="filter-btn hy active" id="filter-hy" onclick="setFilter('Helps You')">Helps You</button>
       <button class="filter-btn wo" id="filter-wo" onclick="setFilter('Watch Out')">Watch Out</button>
     </div>
-    <div style="font-size:10px;color:#9CA3AF;padding:0 16px 10px;line-height:1.5;">Classifications reflect each bill's direct fiscal or legal impact on this profile, based on official bill text and fiscal notes. Vote records reflect final floor passage votes only — committee votes, co-sponsorships, and bills that did not reach a floor vote are not included. Dover Dash is independent and nonpartisan and does not evaluate legislators' motivations or party positions.</div>
+    <div style="font-size:10px;color:#9CA3AF;padding:0 16px 10px;line-height:1.5;">Classifications reflect each bill's direct fiscal or legal impact on this profile, based on official bill text and fiscal notes. Dover Dash is independent and nonpartisan and does not evaluate legislators' motivations or party positions.</div>
     <div class="bills-loading" id="bills-loading">
       <div class="loading-spinner"></div>
       <div class="loading-sub" id="txt-loading-sub">Loading your bill…</div>
@@ -310,10 +297,10 @@ body {
       <div class="bills-empty-sub" id="empty-sub">Try a different filter.</div>
     </div>
 
-    <!-- ── LEGISLATOR SCORECARD ── -->
+    <!-- ── FIND MY LEGISLATOR ── -->
     <div class="rep-section" id="rep-section">
-      <div class="rep-section-title">How did your legislators vote?</div>
-      <div class="rep-section-sub">Enter your Delaware address to see your legislators' final floor passage votes and who's running for their seats in 2026. Committee votes, co-sponsorships, and bills that did not reach a floor vote are not reflected.</div>
+      <div class="rep-section-title">Who represents you?</div>
+      <div class="rep-section-sub">Enter your Delaware address to find your State Rep and Senator — and see who's running for their seats in 2026.</div>
       <div class="rep-addr-row">
         <input type="text" class="rep-addr-input" id="rep-addr-input" placeholder="123 Main St, Wilmington, DE 19801" autocomplete="off" onkeydown="if(event.key==='Enter')lookUpRep()" />
         <button class="rep-addr-btn" id="rep-addr-btn" onclick="lookUpRep()">Look up</button>
@@ -321,6 +308,10 @@ body {
       <div class="rep-error" id="rep-error"></div>
       <div class="rep-loading" id="rep-loading">Looking up your legislators…</div>
       <div class="rep-cards" id="rep-cards" style="display:none;"></div>
+      <div style="margin-top:16px;padding-top:14px;border-top:1px solid #E5E7EB;">
+        <div class="rep-section-sub" style="margin-bottom:8px;">Track committee hearings and upcoming legislation as Delaware prepares for the 154th General Assembly in January 2027.</div>
+        <a href="https://legis.delaware.gov" target="_blank" rel="noopener" class="rep-ga-btn">Delaware General Assembly →</a>
+      </div>
     </div>
 
     <!-- hidden stubs so legacy JS refs don't throw -->
@@ -344,7 +335,7 @@ body {
   </div>
 
   <div class="app-footer">
-    <div class="app-footer-disclaimer">Bill data is sourced from Delaware's 153rd General Assembly (2024–2026) via <a href="https://legis.delaware.gov" target="_blank" rel="noopener">legis.delaware.gov</a>. Bill classifications reflect the direct fiscal and legal impact on each profile based on official bill text and fiscal notes — not legislators' party positions or motivations. Vote records reflect final floor passage votes sourced from official General Assembly roll call records. Committee votes, co-sponsorships, and bills that did not reach a floor vote are not included. Candidate data is sourced from <a href="https://elections.delaware.gov" target="_blank" rel="noopener">elections.delaware.gov</a>. Dover Dash is independent and nonpartisan and does not represent any legislator, party, or government body. Always refer to official bill text before citing or quoting any legislation.</div>
+    <div class="app-footer-disclaimer">Bill data is sourced from Delaware's 153rd General Assembly (2024–2026) via <a href="https://legis.delaware.gov" target="_blank" rel="noopener">legis.delaware.gov</a>. Bill classifications reflect the direct fiscal and legal impact on each profile based on official bill text and fiscal notes — not legislators' party positions or motivations. Candidate data is sourced from <a href="https://elections.delaware.gov" target="_blank" rel="noopener">elections.delaware.gov</a>. Dover Dash is independent and nonpartisan and does not represent any legislator, party, or government body. Always refer to official bill text before citing or quoting any legislation.</div>
     <div class="app-footer-copy">© 2026 Civic Delaware · <a href="mailto:info@civicdelaware.com">info@civicdelaware.com</a></div>
   </div>
 
@@ -730,7 +721,7 @@ function lookUpRep() {
   cardsEl.innerHTML       = '';
   document.getElementById('rep-addr-btn').disabled = true;
 
-  var repUrl  = '/.netlify/functions/get-my-rep?address=' + encodeURIComponent(addr) + '&profile=' + encodeURIComponent(profile) + '&session=153';
+  var repUrl  = '/.netlify/functions/get-my-rep?address=' + encodeURIComponent(addr) + '&session=153';
   var candUrl = '/.netlify/functions/get-candidates?address=' + encodeURIComponent(addr);
 
   Promise.all([
@@ -747,12 +738,11 @@ function lookUpRep() {
         errorEl.style.display = 'block';
         return;
       }
-      var profileLabel = (currentProfileKey || 'your profile').replace(/-/g, ' ');
-      var houseCands   = (candData.house  && data.house_district  != null) ? (candData.house[String(data.house_district)]   || []) : [];
-      var senateCands  = (candData.senate && data.senate_district != null) ? (candData.senate[String(data.senate_district)] || []) : [];
+      var houseCands  = (candData.house  && data.house_district  != null) ? (candData.house[String(data.house_district)]   || []) : [];
+      var senateCands = (candData.senate && data.senate_district != null) ? (candData.senate[String(data.senate_district)] || []) : [];
       var html = '';
-      if (data.rep)     html += buildRepCard(data.rep,     'House Rep.',    data.total_profile_bills, profileLabel, houseCands);
-      if (data.senator) html += buildRepCard(data.senator, 'State Senator', data.total_profile_bills, profileLabel, senateCands);
+      if (data.rep)     html += buildRepCard(data.rep,     'House Rep.',    houseCands);
+      if (data.senator) html += buildRepCard(data.senator, 'State Senator', senateCands);
       if (candData.statewide && Object.keys(candData.statewide).length) {
         html += buildStatewideCard(candData.statewide);
       }
@@ -774,14 +764,10 @@ function lookUpRep() {
     });
 }
 
-function buildRepCard(leg, roleLabel, totalBills, profileLabel, candidates) {
+function buildRepCard(leg, roleLabel, candidates) {
   var party      = (leg.party || '').toUpperCase();
   var badgeClass = party === 'D' ? 'D' : party === 'R' ? 'R' : '';
   var partyFull  = party === 'D' ? 'Democrat' : party === 'R' ? 'Republican' : party;
-  var yes        = leg.yes_votes    || 0;
-  var no         = leg.no_votes     || 0;
-  var abs        = leg.absent_votes || 0;
-  var total      = totalBills       || 0;
 
   var nameHtml = leg.url
     ? '<a href="' + esc(leg.url) + '" target="_blank" rel="noopener" class="rep-card-name" style="text-decoration:none;">' + esc(leg.name) + '</a>'
@@ -799,47 +785,9 @@ function buildRepCard(leg, roleLabel, totalBills, profileLabel, candidates) {
       '</div>' +
       (badgeClass ? '<span class="rep-party-badge ' + badgeClass + '">' + party + '</span>' : '') +
     '</div>' +
-    '<div class="rep-scorecard">' +
-      '<div class="rep-score-box">' +
-        '<div class="rep-score-num yes">' + yes + '</div>' +
-        '<div class="rep-score-label">Voted Yes</div>' +
-      '</div>' +
-      '<div class="rep-score-box">' +
-        '<div class="rep-score-num no">' + no + '</div>' +
-        '<div class="rep-score-label">Voted No</div>' +
-      '</div>' +
-      '<div class="rep-score-box">' +
-        '<div class="rep-score-num abs">' + abs + '</div>' +
-        '<div class="rep-score-label">Absent/NV</div>' +
-      '</div>' +
-      '<div class="rep-score-box">' +
-        '<div class="rep-score-num" style="color:#002868;">' + total + '</div>' +
-        '<div class="rep-score-label">Total Bills</div>' +
-      '</div>' +
-    '</div>' +
-    buildBillList(leg.voted_bills || []) +
-    (bioLink ? '<div style="margin-top:10px;">' + bioLink + '</div>' : '') +
+    (bioLink ? '<div style="margin-bottom:10px;">' + bioLink + '</div>' : '') +
     buildChallengers(candidates || [], leg.chamber) +
   '</div>';
-}
-
-function buildBillList(votedBills) {
-  if (!votedBills || !votedBills.length) return '';
-  var ORDER = ['N', 'A', 'Y'];  // NO and Absent first so they stand out
-  var sorted = votedBills.slice().sort(function(a, b) {
-    return ORDER.indexOf(a.vote) - ORDER.indexOf(b.vote);
-  });
-  var rows = sorted.map(function(b) {
-    var badgeClass = b.vote === 'Y' ? 'Y' : b.vote === 'N' ? 'N' : 'A';
-    var badgeLabel = b.vote === 'Y' ? 'Yes' : b.vote === 'N' ? 'No' : 'Absent';
-    var nickname   = b.nickname ? esc(b.nickname) : '(no title)';
-    var code       = b.code ? '<span class="rep-bill-code">' + esc(b.code) + '</span>' : '';
-    return '<div class="rep-bill-row">' +
-      '<span class="rep-vote-badge ' + badgeClass + '">' + badgeLabel + '</span>' +
-      '<span class="rep-bill-text">' + code + nickname + '</span>' +
-    '</div>';
-  }).join('');
-  return '<div class="rep-bill-list">' + rows + '</div>';
 }
 
 function buildChallengers(candidates, chamber) {
