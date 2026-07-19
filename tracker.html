@@ -70,13 +70,14 @@ body {
 .pick-footer { font-size: 10px; color: #9CA3AF; text-align: center; margin-top: 8px; }
 
 /* ── BILLS NAV HEADER ── */
-.bills-nav-header { background: #002868; margin: 14px 14px 0; border-radius: 10px 10px 0 0; padding: 12px 16px 20px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+.bills-nav-header { background: #002868; margin: 14px 14px 0; border-radius: 10px 10px 0 0; padding: 12px 16px 20px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); border-bottom: 2px solid #BAFF5C; }
 .bills-nav-top { display: flex; align-items: center; justify-content: space-between; }
 .bills-nav-brand-name { font-family: 'Playfair Display', Georgia, serif; font-size: 16px; font-weight: 900; color: #fff; line-height: 1.2; }
 .bills-nav-brand-name em { color: #BAFF5C; font-style: italic; }
 .bills-nav-brand-sub { font-size: 8px; color: rgba(255,255,255,0.6); letter-spacing: 0.5px; text-transform: uppercase; font-family: 'Inter', sans-serif; margin-top: 2px; }
 .bills-back-btn { background: none; border: none; font-size: 13px; font-weight: 700; color: #BAFF5C; cursor: pointer; padding: 0; font-family: 'Inter', sans-serif; }
-.bills-nav-profile { font-family: 'Playfair Display', Georgia, serif; font-size: 24px; font-weight: 900; color: #fff; text-align: center; display: block; line-height: 1.2; }
+.bills-nav-profile-emoji { font-size: 28px; display: block; text-align: center; line-height: 1; margin-bottom: 4px; }
+.bills-nav-profile { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 900; color: #fff; text-align: center; display: block; line-height: 1.2; }
 .bill-count-bar { font-size: 10px; font-weight: 800; color: #fff; background: #BAFF5C; border-radius: 20px; padding: 3px 12px; display: inline-block; font-family: 'Inter', sans-serif; letter-spacing: 0.2px; }
 .bill-count-bar strong { color: #fff; }
 
@@ -234,9 +235,10 @@ body {
         <div class="bills-nav-brand-name">Dover <em>Dash</em></div>
         <div class="bills-nav-brand-sub">Delaware Legislative Bill Tracker</div>
       </div>
+      <button class="bills-back-btn" onclick="backToProfiles()">‹ Back</button>
     </div>
     <div style="text-align:center;">
-      <button class="bills-back-btn" onclick="backToProfiles()">‹ Back</button>
+      <span class="bills-nav-profile-emoji" id="bills-nav-emoji"></span>
       <span class="bills-nav-profile" id="bills-nav-profile"></span>
       <div style="margin-top:8px;"><span id="bills-nav-sep" style="display:none"></span><span id="bill-count-bar" style="color:#fff"></span></div>
     </div>
@@ -428,7 +430,8 @@ function goToBills() {
   currentFilter = 'Watch Out';
   expanded = { 'Watch Out': false, 'Helps You': false };
   var p = PROFILES[key];
-  document.getElementById('bills-nav-profile').textContent = p.emoji + ' ' + p.label;
+  document.getElementById('bills-nav-emoji').textContent = p.emoji;
+  document.getElementById('bills-nav-profile').textContent = p.label;
   document.getElementById('screen-profiles').style.display = 'none';
   document.getElementById('home-header').style.display = 'none';
   document.getElementById('archive-bar').style.display = 'none';
