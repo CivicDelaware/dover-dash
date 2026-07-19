@@ -123,12 +123,14 @@ body {
 .bill-rationale { font-size: 11px; color: #002868; background: #EFF6FF; border-radius: 6px; padding: 7px 10px; margin-bottom: 8px; line-height: 1.5; font-weight: 500; }
 .bill-rationale-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #6B7280; display: block; margin-bottom: 3px; }
 .bill-sponsor { font-size: 11px; color: #6B7280; margin-bottom: 14px; }
-.bill-sponsor a { color: #6B7280; font-weight: 700; text-decoration: none; border-bottom: 1px solid #BAFF5C; }
+.bill-sponsor a { color: #6B7280; font-weight: 400; text-decoration: none; border-bottom: 1px solid #BAFF5C; }
 .bill-sponsor a:hover { color: #D93B3B; border-bottom-color: #D93B3B; }
 .primary-cta { font-size: 10px; font-weight: 700; color: #D93B3B; margin-top: 8px; }
 .primary-nudge { font-size: 10px; color: #002868; font-weight: 600; margin-top: 6px; line-height: 1.4; text-decoration: none; display: block; border-bottom: 1px solid #BAFF5C; padding-bottom: 2px; width: fit-content; }
 .bill-plain { font-size: 12px; color: #374151; line-height: 1.55; margin-bottom: 0; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
 .bill-plain.expanded { -webkit-line-clamp: unset; }
+.bill-rationale-body { display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+.bill-rationale-body.expanded { -webkit-line-clamp: unset; }
 .bill-what-label { font-size: 10px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: #9CA3AF; margin-bottom: 4px; }
 .bill-synopsis-full { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #E5E7EB; }
 .bill-ga-link { font-size: 11px; font-weight: 700; color: #002868; text-decoration: underline; text-underline-offset: 2px; }
@@ -579,16 +581,18 @@ function renderBills() {
     var billNumHtml = bill.url
       ? '<a href="' + esc(bill.url) + '" target="_blank" rel="noopener" class="bill-num-link">' + esc(billCode) + ' ↗</a>'
       : '<span class="bill-num">' + esc(billCode) + '</span>';
+    var sponsorTitle = bill.primary_sponsor ? (/^[Ss]/.test(billCode) ? 'Sen. ' : 'Rep. ') : '';
     var sponsorHtml = bill.primary_sponsor
       ? (bill.legislator_url
-          ? '<div class="bill-sponsor">Sponsored by <a href="' + esc(bill.legislator_url) + '" target="_blank" rel="noopener">' + esc(bill.primary_sponsor) + ' ↗ Bio</a></div>'
-          : '<div class="bill-sponsor">Sponsored by ' + esc(bill.primary_sponsor) + '</div>')
+          ? '<div class="bill-sponsor">Sponsored by <a href="' + esc(bill.legislator_url) + '" target="_blank" rel="noopener">' + sponsorTitle + esc(bill.primary_sponsor) + ' ↗ Bio</a></div>'
+          : '<div class="bill-sponsor">Sponsored by ' + sponsorTitle + esc(bill.primary_sponsor) + '</div>')
       : '';
 
-    var plainId = 'bp-' + bill.bill_number.replace(/\s+/g, '-');
-    var synId   = 'bs-' + bill.bill_number.replace(/\s+/g, '-');
+    var plainId     = 'bp-' + bill.bill_number.replace(/\s+/g, '-');
+    var rationaleId = 'br-' + bill.bill_number.replace(/\s+/g, '-');
+    var synId       = 'bs-' + bill.bill_number.replace(/\s+/g, '-');
     var rationaleText = (prof && prof.rationale) ? prof.rationale : '';
-    var synopsisHtml = rationaleText ? '<div class="bill-rationale"><span class="bill-rationale-label">Why it matters to you</span>' + esc(rationaleText) + '</div>' : '';
+    var synopsisHtml = rationaleText ? '<div class="bill-rationale"><span class="bill-rationale-label">How this affects you</span><span id="' + rationaleId + '" class="bill-rationale-body">' + esc(rationaleText) + '</span></div><button class="bill-read-more" onclick="toggleBillText(\'' + rationaleId + '\',this)">Expand ↓</button>' : '';
     var bodyHtml = !rationaleText && bodyText ? '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' : '';
     var readMore = !rationaleText && bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Expand ↓</button>' : '';
     var rightMeta = (catChip || statusBadge) ? '<div class="bill-card-meta">' + catChip + statusBadge + '</div>' : '';
