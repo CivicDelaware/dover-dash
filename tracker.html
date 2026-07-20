@@ -358,8 +358,16 @@ body {
 </div>
 
 <script>
-// PROFILES — fallback values used if Supabase is unreachable.
-// Edit labels, emojis, and stats in Supabase → Table Editor → profiles table.
+// PROFILES — EMERGENCY FALLBACK ONLY.
+// This object is used ONLY when the Supabase API call in initApp() fails.
+// On every successful load, patchProfileGrid() overwrites these values with
+// live data from Supabase. DO NOT edit this object to change what users see —
+// edit the Supabase profiles table instead.
+//
+// Known discrepancies vs. Supabase (intentionally preserved as fallback):
+//   - renter emoji: 🔑 here vs. 🏢 in the original schema seed
+//   - veteran and landlord profiles may not exist in Supabase profiles table
+//   - stat fields are unused in the current UI
 var PROFILES = {
   homeowner: { emoji: '🏠', label: 'Homeowner',           stat: 'About 71% of Delaware households own their home',           statSource: 'U.S. Census Bureau, ACS 2023', statUrl: 'https://www.census.gov/quickfacts/fact/table/DE' },
   renter:    { emoji: '🔑', label: 'Renter',              stat: 'About 29% of Delaware households rent',                     statSource: 'U.S. Census Bureau, ACS 2023', statUrl: 'https://www.census.gov/quickfacts/fact/table/DE' },
