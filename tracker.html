@@ -187,6 +187,11 @@ body {
 .gi-email-success { font-size: 12px; color: #1A7A4A; font-weight: 700; }
 .gi-source { font-size: 10px; color: #9CA3AF; margin-top: 10px; line-height: 1.5; }
 .gi-source a { color: #6B7280; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.gi-action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 16px 16px 8px; }
+.gi-action-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; background: #fff; border: 1.5px solid #E5E7EB; border-radius: 10px; padding: 16px 10px; text-align: center; text-decoration: none; cursor: pointer; font-family: 'Inter', sans-serif; transition: border-color 0.15s, background 0.15s; }
+.gi-action-btn:hover { border-color: #002868; background: #F0F4FF; }
+.gi-action-icon { font-size: 22px; line-height: 1; }
+.gi-action-label { font-size: 11px; font-weight: 700; color: #002868; line-height: 1.35; }
 /* ── LEGISLATOR FINDER ── */
 .rep-section { background: #F9FAFB; border-top: 1px solid #E5E7EB; padding: 0; overflow: hidden; }
 .rep-election-band { background: #002868; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; }
@@ -308,61 +313,45 @@ body {
       <div class="bills-empty-sub" id="empty-sub">Try a different filter.</div>
     </div>
 
-    <!-- ── FIND MY LEGISLATOR ── -->
-    <div class="rep-section" id="rep-section">
-      <!-- Election urgency band -->
-      <div class="rep-election-band">
-        <div class="rep-election-eyebrow">2026 Delaware Elections</div>
-        <div class="rep-election-dates">
-          <div class="rep-election-date-item">
-            <div class="rep-election-date-label">Primary</div>
-            <div class="rep-election-date-val">Sep 15</div>
-          </div>
-          <div style="color:rgba(255,255,255,0.25);font-size:14px;line-height:1;">·</div>
-          <div class="rep-election-date-item">
-            <div class="rep-election-date-label">General</div>
-            <div class="rep-election-date-val">Nov 3</div>
-          </div>
-        </div>
+    <!-- ── GET INVOLVED ── -->
+    <div class="gi-card" style="border-top:1px solid #E5E7EB;">
+      <div class="gi-action-grid">
+        <a href="https://legis.delaware.gov/LegislatorsAndSenators" target="_blank" rel="noopener" class="gi-action-btn">
+          <div class="gi-action-icon">🏛️</div>
+          <div class="gi-action-label">Look up your legislator</div>
+        </a>
+        <a href="https://legis.delaware.gov/LegislatureVideos" target="_blank" rel="noopener" class="gi-action-btn">
+          <div class="gi-action-icon">📺</div>
+          <div class="gi-action-label">Watch live hearings</div>
+        </a>
+        <a href="https://legis.delaware.gov" target="_blank" rel="noopener" class="gi-action-btn">
+          <div class="gi-action-icon">📋</div>
+          <div class="gi-action-label">See the current agenda</div>
+        </a>
+        <button class="gi-action-btn" onclick="document.getElementById('gi-subscribe-row').style.display='block';this.closest('.gi-action-grid').style.display='none';">
+          <div class="gi-action-icon">✉️</div>
+          <div class="gi-action-label">Subscribe for session alerts</div>
+        </button>
       </div>
-      <!-- Padded content -->
-      <div class="rep-inner">
-        <div class="rep-section-title">Who represents you?</div>
-        <div class="rep-section-sub">Enter your Delaware address to find your State Rep and Senator — and see who's challenging them this November.</div>
-        <div class="rep-addr-row">
-          <input type="text" class="rep-addr-input" id="rep-addr-input" placeholder="123 Main St, Wilmington, DE 19801" autocomplete="off" onkeydown="if(event.key==='Enter')lookUpRep()" />
-          <button class="rep-addr-btn" id="rep-addr-btn" onclick="lookUpRep()">Look up</button>
+      <div id="gi-subscribe-row" style="display:none;padding:0 16px 16px;">
+        <div style="font-size:11px;font-weight:700;color:#111827;margin-bottom:8px;">Get notified when the 154th General Assembly begins</div>
+        <div style="display:flex;gap:6px;" id="gi-email-row">
+          <input type="email" class="gi-email-input" id="gi-email" placeholder="your@email.com" style="flex:1;" />
+          <button class="gi-email-btn" onclick="doGiSubscribe()">Subscribe</button>
         </div>
-        <div class="rep-error" id="rep-error"></div>
-        <div class="rep-loading" id="rep-loading">Looking up your legislators…</div>
-        <div class="rep-cards" id="rep-cards" style="display:none;"></div>
-
-        <!-- Email capture -->
-        <div class="rep-email-section">
-          <div class="rep-email-title">Get reminders before each election</div>
-          <div class="rep-email-sub-text">We'll email you before the Sep 15 primary and Nov 3 general.</div>
-          <div style="display:flex;gap:6px;" id="gi-email-row">
-            <input type="email" class="gi-email-input" id="gi-email" placeholder="your@email.com" style="flex:1;" />
-            <button class="gi-email-btn" onclick="doGiSubscribe()">Remind me</button>
-          </div>
-          <div id="gi-email-success" style="display:none;margin-top:8px;" class="gi-email-success">✓ You're on the list!</div>
-        </div>
-
-        <!-- GA link -->
-        <div class="rep-ga-section">
-          <div class="rep-ga-context">Track committee hearings and new bills as Delaware prepares for the 154th General Assembly in January 2027.</div>
-          <a href="https://legis.delaware.gov" target="_blank" rel="noopener" class="rep-ga-btn">Delaware General Assembly →</a>
-        </div>
-
-        <div class="gi-source" style="margin-top:12px;">Candidate data: <a href="https://elections.delaware.gov" target="_blank" rel="noopener">elections.delaware.gov</a></div>
+        <div id="gi-email-success" style="display:none;margin-top:8px;" class="gi-email-success">✓ You're on the list!</div>
       </div>
     </div>
 
     <!-- hidden stubs so legacy JS refs don't throw -->
     <input type="text" id="gi-addr" style="display:none;" />
+    <input type="text" id="rep-addr-input" style="display:none;" />
     <div id="gi-loading" style="display:none;"></div>
     <div id="gi-error"   style="display:none;"></div>
     <div id="gi-results" style="display:none;"></div>
+    <div id="rep-error"  style="display:none;"></div>
+    <div id="rep-loading" style="display:none;"></div>
+    <div id="rep-cards"  style="display:none;"></div>
   </div>
 
   <div class="app-footer">
