@@ -324,17 +324,14 @@ body {
           <div class="gi-action-icon">📺</div>
           <div class="gi-action-label">Watch live hearings</div>
         </a>
-        <a href="https://legis.delaware.gov" target="_blank" rel="noopener" class="gi-action-btn">
+        <a href="https://legis.delaware.gov" target="_blank" rel="noopener" class="gi-action-btn" style="grid-column:span 2;">
           <div class="gi-action-icon">📋</div>
           <div class="gi-action-label">See the current agenda</div>
         </a>
-        <button class="gi-action-btn" onclick="document.getElementById('gi-subscribe-row').style.display='block';this.closest('.gi-action-grid').style.display='none';">
-          <div class="gi-action-icon">✉️</div>
-          <div class="gi-action-label">Subscribe for session alerts</div>
-        </button>
       </div>
-      <div id="gi-subscribe-row" style="display:none;padding:0 16px 16px;">
-        <div style="font-size:11px;font-weight:700;color:#111827;margin-bottom:8px;">Get notified when the 154th General Assembly begins</div>
+      <div style="padding:0 16px 16px;" id="gi-subscribe-row">
+        <div style="font-size:11px;font-weight:700;color:#111827;margin-bottom:4px;">Get notified when the 154th General Assembly begins</div>
+        <div style="font-size:10px;color:#9CA3AF;margin-bottom:8px;">The next session starts January 2027.</div>
         <div style="display:flex;gap:6px;" id="gi-email-row">
           <input type="email" class="gi-email-input" id="gi-email" placeholder="your@email.com" style="flex:1;" />
           <button class="gi-email-btn" onclick="doGiSubscribe()">Subscribe</button>
