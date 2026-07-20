@@ -50,8 +50,9 @@ body {
 .session-dot { color: #D93B3B; font-size: 6px; vertical-align: middle; }
 
 /* ── ARCHIVE BANNER ── */
-.archive-bar { margin: 0 14px; background: #FFF8E1; border-left: 3px solid #BAFF5C; padding: 8px 14px; display: flex; align-items: center; gap: 8px; }
-.archive-bar span { font-size: 10px; font-weight: 600; color: #002868; line-height: 1.4; white-space: normal; animation: none; -webkit-animation: none; }
+.archive-bar { margin: 0 14px; background: #F0F4FF; padding: 8px 14px; display: flex; align-items: center; gap: 8px; }
+.archive-bar span { font-size: 10px; color: #374151; line-height: 1.4; white-space: normal; animation: none; -webkit-animation: none; }
+.archive-note { font-weight: 800; color: #002868; font-family: 'Playfair Display', Georgia, serif; font-style: italic; }
 
 /* ── PROFILE PICKER ── */
 #screen-profiles { margin: 0 14px; background: #fff; border-radius: 0 0 16px 16px; padding: 12px 16px 14px; }
@@ -94,7 +95,7 @@ body {
 .bill-share-btn { font-size: 10px; font-weight: 400; color: #9CA3AF; background: none; border: none; padding: 0; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: underline; text-underline-offset: 2px; }
 .bill-share-btn:hover { color: #002868; }
 .bill-share-row { display: flex; justify-content: flex-end; margin-top: 8px; }
-#bill-count-bar { font-family: 'Playfair Display', Georgia, serif; font-size: 11px; font-weight: 400; color: #BAFF5C; }
+#bill-count-bar { font-family: 'Playfair Display', Georgia, serif; font-size: 11px; font-weight: 400; color: #fff; }
 
 .bills-loading { background: #fff; padding: 40px 16px; text-align: center; }
 .loading-spinner { width: 36px; height: 36px; border: 3px solid rgba(0,40,104,0.15); border-top-color: #002868; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto; }
@@ -256,7 +257,7 @@ body {
   </div>
 
   <div class="archive-bar" id="archive-bar">
-    <span id="home-ticker-text">Session Ended June 30, 2026 · 153rd General Assembly · 53 bills reviewed across 9 profiles</span>
+    <span id="home-ticker-text"><span class="archive-note">Note:</span> Session Ended June 30, 2026 · 153rd General Assembly · 53 bills reviewed across 9 profiles</span>
   </div>
 
   <div id="screen-profiles">
@@ -264,15 +265,15 @@ body {
     <p class="pick-sub" id="txt-pick-sub">53 bills from Delaware's 153rd General Assembly — explained in plain English. Pick your profile to see what passed for you.</p>
 
     <div class="prof-grid" id="prof-grid">
-      <button class="prof-btn" data-profile-key="homeowner" onclick="selectProfile('homeowner',this)"><span class="prof-em">🏠</span><div class="prof-info"><div class="prof-label">Homeowner</div></div></button>
-      <button class="prof-btn" data-profile-key="renter"    onclick="selectProfile('renter',this)"><span class="prof-em">🔑</span><div class="prof-info"><div class="prof-label">Renter</div></div></button>
-      <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🌅</span><div class="prof-info"><div class="prof-label">Retiree</div></div></button>
-      <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">💼</span><div class="prof-info"><div class="prof-label">Business Owner</div></div></button>
-      <button class="prof-btn" data-profile-key="pubsec"    onclick="selectProfile('pubsec',this)"><span class="prof-em">🏛️</span><div class="prof-info"><div class="prof-label">Government</div></div></button>
-      <button class="prof-btn" data-profile-key="workpro"   onclick="selectProfile('workpro',this)"><span class="prof-em">👔</span><div class="prof-info"><div class="prof-label">Professional</div></div></button>
-      <button class="prof-btn" data-profile-key="lowwage"   onclick="selectProfile('lowwage',this)"><span class="prof-em">⏱️</span><div class="prof-info"><div class="prof-label">Hourly Worker</div></div></button>
-      <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-info"><div class="prof-label">Veteran or Military</div></div></button>
-      <button class="prof-btn" data-profile-key="landlord"  onclick="selectProfile('landlord',this)" style="grid-column:span 2;max-width:50%;margin:0 auto;width:100%;"><span class="prof-em">🏢</span><div class="prof-info"><div class="prof-label">Landlord</div></div></button>
+      <button class="prof-btn" data-profile-key="homeowner" onclick="selectProfile('homeowner',this)"><span class="prof-em">🏠</span><div class="prof-info"><div class="prof-label">Homeowner</div><div class="prof-sub">(71% of DE households own their home)</div></div></button>
+      <button class="prof-btn" data-profile-key="renter"    onclick="selectProfile('renter',this)"><span class="prof-em">🔑</span><div class="prof-info"><div class="prof-label">Renter</div><div class="prof-sub">(29% of DE households rent)</div></div></button>
+      <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🌅</span><div class="prof-info"><div class="prof-label">Retiree</div><div class="prof-sub">(1 in 5 Delawareans is 65 or older)</div></div></button>
+      <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">💼</span><div class="prof-info"><div class="prof-label">Business Owner</div><div class="prof-sub">(99% of DE businesses have under 500 employees)</div></div></button>
+      <button class="prof-btn" data-profile-key="pubsec"    onclick="selectProfile('pubsec',this)"><span class="prof-em">🏛️</span><div class="prof-info"><div class="prof-label">Government</div><div class="prof-sub">(State &amp; local govt is one of DE's largest employers)</div></div></button>
+      <button class="prof-btn" data-profile-key="workpro"   onclick="selectProfile('workpro',this)"><span class="prof-em">👔</span><div class="prof-info"><div class="prof-label">Professional</div><div class="prof-sub">(Finance, pharma &amp; professional services)</div></div></button>
+      <button class="prof-btn" data-profile-key="lowwage"   onclick="selectProfile('lowwage',this)"><span class="prof-em">⏱️</span><div class="prof-info"><div class="prof-label">Hourly Worker</div><div class="prof-sub">(Retail, hospitality &amp; care workers statewide)</div></div></button>
+      <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-info"><div class="prof-label">Veteran or Military</div><div class="prof-sub">(Home to Dover Air Force Base)</div></div></button>
+      <button class="prof-btn" data-profile-key="landlord"  onclick="selectProfile('landlord',this)" style="grid-column:span 2;max-width:50%;margin:0 auto;width:100%;"><span class="prof-em">🏢</span><div class="prof-info"><div class="prof-label">Landlord</div><div class="prof-sub">(29% of DE households are renters)</div></div></button>
     </div>
 
   </div>
@@ -293,7 +294,7 @@ body {
   </div>
 
   <div class="archive-bar" id="bills-archive-bar" style="display:none">
-    <span id="ticker-text">Session Ended June 30, 2026 · 153rd General Assembly · 53 bills reviewed across 9 profiles</span>
+    <span id="ticker-text"><span class="archive-note">Note:</span> Session Ended June 30, 2026 · 153rd General Assembly · 53 bills reviewed across 9 profiles</span>
   </div>
 
   <div id="screen-bills">
@@ -392,7 +393,7 @@ function renderProfileGrid(orderedKeys) {
     btn.className = 'prof-btn';
     btn.setAttribute('data-profile-key', key);
     (function(k, b) { b.onclick = function() { selectProfile(k, b); }; })(key, btn);
-    btn.innerHTML = '<span class="prof-em">' + p.emoji + '</span><div class="prof-info"><div class="prof-label">' + p.label + '</div>' + (p.stat ? '<div class="prof-sub">' + p.stat + '</div>' : '') + '</div>';
+    btn.innerHTML = '<span class="prof-em">' + p.emoji + '</span><div class="prof-info"><div class="prof-label">' + p.label + '</div>' + (p.stat ? '<div class="prof-sub">(' + p.stat + ')</div>' : '') + '</div>';
     grid.appendChild(btn);
   });
 }
