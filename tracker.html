@@ -264,15 +264,15 @@ body {
     <p class="pick-sub" id="txt-pick-sub">53 bills from Delaware's 153rd General Assembly — explained in plain English. Pick your profile to see what passed for you.</p>
 
     <div class="prof-grid" id="prof-grid">
-      <button class="prof-btn" data-profile-key="homeowner" onclick="selectProfile('homeowner',this)"><span class="prof-em">🏠</span><div class="prof-info"><div class="prof-label">Homeowner</div><div class="prof-sub">71% of Delaware households own their home</div></div></button>
-      <button class="prof-btn" data-profile-key="renter"    onclick="selectProfile('renter',this)"><span class="prof-em">🔑</span><div class="prof-info"><div class="prof-label">Renter</div><div class="prof-sub">29% of Delaware households rent</div></div></button>
-      <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🌅</span><div class="prof-info"><div class="prof-label">Retiree</div><div class="prof-sub">1 in 5 Delawareans is age 65 or older</div></div></button>
-      <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">💼</span><div class="prof-info"><div class="prof-label">Business Owner</div><div class="prof-sub">99% of DE businesses have under 500 employees</div></div></button>
-      <button class="prof-btn" data-profile-key="pubsec"    onclick="selectProfile('pubsec',this)"><span class="prof-em">🏛️</span><div class="prof-info"><div class="prof-label">Government</div><div class="prof-sub">State & local govt is one of Delaware's largest employers</div></div></button>
-      <button class="prof-btn" data-profile-key="workpro"   onclick="selectProfile('workpro',this)"><span class="prof-em">👔</span><div class="prof-info"><div class="prof-label">Professional</div><div class="prof-sub">Finance, pharma & professional services</div></div></button>
-      <button class="prof-btn" data-profile-key="lowwage"   onclick="selectProfile('lowwage',this)"><span class="prof-em">⏱️</span><div class="prof-info"><div class="prof-label">Hourly Worker</div><div class="prof-sub">Retail, hospitality & care workers statewide</div></div></button>
-      <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-info"><div class="prof-label">Veteran or Military</div><div class="prof-sub">Home to Dover Air Force Base</div></div></button>
-      <button class="prof-btn" data-profile-key="landlord"  onclick="selectProfile('landlord',this)"><span class="prof-em">🏢</span><div class="prof-info"><div class="prof-label">Landlord</div><div class="prof-sub">29% of Delaware households are renters</div></div></button>
+      <button class="prof-btn" data-profile-key="homeowner" onclick="selectProfile('homeowner',this)"><span class="prof-em">🏠</span><div class="prof-info"><div class="prof-label">Homeowner</div></div></button>
+      <button class="prof-btn" data-profile-key="renter"    onclick="selectProfile('renter',this)"><span class="prof-em">🔑</span><div class="prof-info"><div class="prof-label">Renter</div></div></button>
+      <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🌅</span><div class="prof-info"><div class="prof-label">Retiree</div></div></button>
+      <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">💼</span><div class="prof-info"><div class="prof-label">Business Owner</div></div></button>
+      <button class="prof-btn" data-profile-key="pubsec"    onclick="selectProfile('pubsec',this)"><span class="prof-em">🏛️</span><div class="prof-info"><div class="prof-label">Government</div></div></button>
+      <button class="prof-btn" data-profile-key="workpro"   onclick="selectProfile('workpro',this)"><span class="prof-em">👔</span><div class="prof-info"><div class="prof-label">Professional</div></div></button>
+      <button class="prof-btn" data-profile-key="lowwage"   onclick="selectProfile('lowwage',this)"><span class="prof-em">⏱️</span><div class="prof-info"><div class="prof-label">Hourly Worker</div></div></button>
+      <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-info"><div class="prof-label">Veteran or Military</div></div></button>
+      <button class="prof-btn" data-profile-key="landlord"  onclick="selectProfile('landlord',this)" style="grid-column:span 2;max-width:50%;margin:0 auto;width:100%;"><span class="prof-em">🏢</span><div class="prof-info"><div class="prof-label">Landlord</div></div></button>
     </div>
 
   </div>
@@ -293,7 +293,7 @@ body {
   </div>
 
   <div class="archive-bar" id="bills-archive-bar" style="display:none">
-    <span id="ticker-text"></span>
+    <span id="ticker-text">Session Ended June 30, 2026 · 153rd General Assembly · 53 bills reviewed across 9 profiles</span>
   </div>
 
   <div id="screen-bills">
@@ -448,16 +448,7 @@ function initApp() {
         }
       });
 
-      // Ticker bars — animation applied after content is set so iOS Safari doesn't freeze it
-      var ticker = c.ticker_message || data.tickerMessage || '';
-      if (ticker) {
-        var doubled = ticker + ' ··· ' + ticker;
-        var tickerAnim = 'ticker 22s linear infinite';
-        var homeEl  = document.getElementById('home-ticker-text');
-        var billsEl = document.getElementById('ticker-text');
-        if (homeEl)  { homeEl.textContent  = doubled; homeEl.style.webkitAnimation  = tickerAnim; homeEl.style.animation  = tickerAnim; }
-        if (billsEl) { billsEl.textContent = doubled; billsEl.style.webkitAnimation = tickerAnim; billsEl.style.animation = tickerAnim; }
-      }
+      // Archive bars are static — no ticker animation
 
       // Patch profiles in-place — no DOM rebuild, no blink
       if (data.profiles && data.profiles.length > 0) {
@@ -604,13 +595,7 @@ function loadBills(profile) {
     .then(function(res) { if (!res.ok) throw new Error('API error ' + res.status); return res.json(); })
     .then(function(data) {
       allBills = data.bills || [];
-      if (data.tickerMessage) {
-        var t = data.tickerMessage;
-        var billsTicker = document.getElementById('ticker-text');
-        billsTicker.textContent = t + ' ··· ' + t;
-        billsTicker.style.webkitAnimation = 'ticker 22s linear infinite';
-        billsTicker.style.animation = 'ticker 22s linear infinite';
-      }
+      // Bills archive bar is static — text already set in HTML
       document.getElementById('bills-loading').style.display = 'none';
       renderBills();
     })
