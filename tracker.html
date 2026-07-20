@@ -49,10 +49,6 @@ body {
 .session-line { font-size: 9px; font-weight: 700; color: #BAFF5C; letter-spacing: 0.5px; text-transform: uppercase; line-height: 1; }
 .session-dot { color: #D93B3B; font-size: 6px; vertical-align: middle; }
 
-/* ── ARCHIVE BANNER ── */
-.archive-bar { margin: 0 14px; background: #FFFDE7; padding: 8px 14px; display: flex; align-items: center; gap: 8px; }
-.archive-bar span { font-size: 10px; color: #374151; line-height: 1.4; white-space: normal; animation: none; -webkit-animation: none; }
-.archive-note { font-weight: 800; color: #002868; }
 
 /* ── PROFILE PICKER ── */
 #screen-profiles { margin: 0 14px; background: #fff; border-radius: 0 0 16px 16px; padding: 12px 16px 14px; }
@@ -95,7 +91,8 @@ body {
 .bill-share-btn { font-size: 10px; font-weight: 400; color: #9CA3AF; background: none; border: none; padding: 0; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: underline; text-underline-offset: 2px; }
 .bill-share-btn:hover { color: #002868; }
 .bill-share-row { display: flex; justify-content: flex-end; margin-top: 8px; }
-#bill-count-bar { font-family: 'Playfair Display', Georgia, serif; font-size: 11px; font-weight: 400; color: #fff; }
+#bill-count-bar { font-family: 'Playfair Display', Georgia, serif; font-size: 13px; font-weight: 700; color: #fff; }
+#bills-nav-stat { font-size: 10px; color: rgba(255,255,255,0.7); font-family: 'Inter', sans-serif; margin-bottom: 3px; }
 
 .bills-loading { background: #fff; padding: 40px 16px; text-align: center; }
 .loading-spinner { width: 36px; height: 36px; border: 3px solid rgba(0,40,104,0.15); border-top-color: #002868; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto; }
@@ -142,7 +139,7 @@ body {
 /* --- Get Involved card --- */
 .gi-card { background: #F9FAFB; border-top: 1px solid #E5E7EB; }
 .gi-header { background: #002868; padding: 16px 16px 14px; text-align: center; }
-.gi-title { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 900; color: #fff; }
+.gi-title { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 900; color: #BAFF5C; }
 .gi-title em { color: #BAFF5C; font-style: italic; }
 .gi-subtitle { font-size: 11px; color: rgba(255,255,255,0.65); margin-top: 4px; font-family: 'Inter', sans-serif; font-weight: 600; letter-spacing: 0.3px; }
 .gi-step { padding: 14px 16px; border-bottom: 1px solid #E5E7EB; }
@@ -256,9 +253,6 @@ body {
     </div>
   </div>
 
-  <div class="archive-bar" id="archive-bar">
-    <span id="home-ticker-text"><span class="archive-note">Note:</span> Session Ended June 30, 2026 · 153rd General Assembly · 53 bills reviewed across 9 profiles</span>
-  </div>
 
   <div id="screen-profiles">
     <div class="pick-title">Which bills affect your wallet?</div>
@@ -289,13 +283,10 @@ body {
     <div style="text-align:center;">
       <span class="bills-nav-profile-emoji" id="bills-nav-emoji"></span>
       <span class="bills-nav-profile" id="bills-nav-profile"></span>
-      <div style="margin-top:2px;"><span id="bills-nav-sep" style="display:none"></span><span id="bill-count-bar"></span></div>
+      <div style="margin-top:4px;"><div id="bills-nav-stat"></div><span id="bills-nav-sep" style="display:none"></span><span id="bill-count-bar"></span></div>
     </div>
   </div>
 
-  <div class="archive-bar" id="bills-archive-bar" style="display:none">
-    <span id="ticker-text"><span class="archive-note">Note:</span> Session Ended June 30, 2026 · 153rd General Assembly · 53 bills reviewed across 9 profiles</span>
-  </div>
 
   <div id="screen-bills">
     <div class="filter-row">
@@ -317,7 +308,7 @@ body {
     <div class="gi-card" style="border-top:1px solid #E5E7EB;">
       <div class="gi-header">
         <div class="gi-title">Get Involved</div>
-        <div style="font-size:11px;color:rgba(255,255,255,0.65);margin-top:4px;font-family:'Inter',sans-serif;">You read the bills. Here's your next move.</div>
+        <div style="font-size:11px;color:#BAFF5C;margin-top:4px;font-family:'Inter',sans-serif;">You read the bills. Here's your next move.</div>
       </div>
       <div class="gi-action-grid">
         <a href="https://legis.delaware.gov/FindMyLegislator?search=" target="_blank" rel="noopener" class="gi-action-btn">
@@ -334,11 +325,16 @@ body {
         </a>
       </div>
       <div style="padding:0 16px 16px;" id="gi-subscribe-row">
-        <div style="font-size:11px;font-weight:700;color:#111827;margin-bottom:4px;">Get notified when the 154th General Assembly begins</div>
-        <div style="font-size:10px;color:#9CA3AF;margin-bottom:8px;">The next session starts January 2027.</div>
-        <div style="display:flex;gap:6px;" id="gi-email-row">
-          <input type="email" class="gi-email-input" id="gi-email" placeholder="your@email.com" style="flex:1;" />
-          <button class="gi-email-btn" onclick="doGiSubscribe()">Subscribe</button>
+        <div style="font-size:11px;font-weight:700;color:#111827;margin-bottom:8px;">Subscribe now for our latest updates and to be notified when the next session starts in Jan. 2027!</div>
+        <div style="display:flex;flex-direction:column;gap:6px;" id="gi-email-row">
+          <div style="display:flex;gap:6px;">
+            <input type="text" class="gi-email-input" id="gi-first-name" placeholder="First name" style="flex:1;" />
+            <input type="text" class="gi-email-input" id="gi-last-name" placeholder="Last name" style="flex:1;" />
+          </div>
+          <div style="display:flex;gap:6px;">
+            <input type="email" class="gi-email-input" id="gi-email" placeholder="your@email.com" style="flex:1;" />
+            <button class="gi-email-btn" onclick="doGiSubscribe()">Subscribe</button>
+          </div>
         </div>
         <div id="gi-email-success" style="display:none;margin-top:8px;" class="gi-email-success">✓ You're on the list!</div>
       </div>
@@ -513,11 +509,10 @@ function goToBills() {
   var p = PROFILES[key];
   document.getElementById('bills-nav-emoji').textContent = p.emoji;
   document.getElementById('bills-nav-profile').textContent = p.label;
+  document.getElementById('bills-nav-stat').textContent = p.stat ? '(' + p.stat + ')' : '';
   document.getElementById('screen-profiles').style.display = 'none';
   document.getElementById('home-header').style.display = 'none';
-  document.getElementById('archive-bar').style.display = 'none';
   document.getElementById('bills-nav-header').style.display = 'flex';
-  document.getElementById('bills-archive-bar').style.display = 'block';
   document.getElementById('screen-bills').style.display = 'block';
   setFilterUI('Helps You');
   loadBills(key);
@@ -534,10 +529,8 @@ function backToProfiles() {
   document.getElementById('rep-cards').style.display = 'none';
   document.getElementById('rep-cards').innerHTML = '';
   document.getElementById('screen-bills').style.display = 'none';
-  document.getElementById('bills-archive-bar').style.display = 'none';
   document.getElementById('bills-nav-header').style.display = 'none';
   document.getElementById('home-header').style.display = 'block';
-  document.getElementById('archive-bar').style.display = 'block';
   document.getElementById('screen-profiles').style.display = 'block';
   document.querySelectorAll('.prof-btn').forEach(function(b) { b.classList.remove('selected'); });
   pendingProfileKey = null;
@@ -943,13 +936,18 @@ function renderCandidates(data) {
 }
 
 function doGiSubscribe() {
-  var email = document.getElementById('gi-email').value.trim();
-  if (!email || !email.includes('@')) { document.getElementById('gi-email').style.outline = '2px solid #D93B3B'; return; }
+  var email     = document.getElementById('gi-email').value.trim();
+  var firstName = (document.getElementById('gi-first-name').value || '').trim();
+  var lastName  = (document.getElementById('gi-last-name').value || '').trim();
+  if (!email || !email.includes('@')) {
+    document.getElementById('gi-email').style.outline = '2px solid #D93B3B';
+    return;
+  }
   document.getElementById('gi-email').style.outline = '';
   fetch('/.netlify/functions/subscribe', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: email, profile: currentProfileKey || 'tracker' }),
+    body: JSON.stringify({ email: email, firstName: firstName, lastName: lastName, profile: currentProfileKey || 'general' }),
   }).finally(function() {
     document.getElementById('gi-email-row').style.display = 'none';
     document.getElementById('gi-email-success').style.display = 'block';
