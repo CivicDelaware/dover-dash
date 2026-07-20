@@ -260,14 +260,14 @@ body {
 
     <div class="prof-grid" id="prof-grid">
       <button class="prof-btn" data-profile-key="homeowner" onclick="selectProfile('homeowner',this)"><span class="prof-em">🏠</span><div class="prof-info"><div class="prof-label">Homeowner</div></div></button>
-      <button class="prof-btn" data-profile-key="renter"    onclick="selectProfile('renter',this)"><span class="prof-em">🔑</span><div class="prof-info"><div class="prof-label">Renter</div><div class="prof-sub">(29% of DE households rent · U.S. Census Bureau, 2023)</div></div></button>
-      <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🌅</span><div class="prof-info"><div class="prof-label">Retiree</div><div class="prof-sub">(1 in 5 Delawareans is 65 or older · U.S. Census Bureau, 2023)</div></div></button>
-      <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">💼</span><div class="prof-info"><div class="prof-label">Business Owner</div><div class="prof-sub">(99% of DE businesses have under 500 employees · U.S. SBA, 2023)</div></div></button>
-      <button class="prof-btn" data-profile-key="pubsec"    onclick="selectProfile('pubsec',this)"><span class="prof-em">🏛️</span><div class="prof-info"><div class="prof-label">Government</div><div class="prof-sub">(State &amp; local govt is one of DE's largest employers · U.S. BLS, 2024)</div></div></button>
-      <button class="prof-btn" data-profile-key="workpro"   onclick="selectProfile('workpro',this)"><span class="prof-em">👔</span><div class="prof-info"><div class="prof-label">Professional</div><div class="prof-sub">(Finance, pharma &amp; professional services)</div></div></button>
-      <button class="prof-btn" data-profile-key="lowwage"   onclick="selectProfile('lowwage',this)"><span class="prof-em">⏱️</span><div class="prof-info"><div class="prof-label">Hourly Worker</div><div class="prof-sub">(Retail, hospitality &amp; care workers statewide)</div></div></button>
-      <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-info"><div class="prof-label">Veteran or Military</div><div class="prof-sub">(Home to Dover Air Force Base · U.S. Dept. of Defense)</div></div></button>
-      <button class="prof-btn" data-profile-key="landlord"  onclick="selectProfile('landlord',this)" style="grid-column:span 2;max-width:50%;margin:0 auto;width:100%;"><span class="prof-em">🏢</span><div class="prof-info"><div class="prof-label">Landlord</div><div class="prof-sub">(29% of DE households are renters · U.S. Census Bureau, 2023)</div></div></button>
+      <button class="prof-btn" data-profile-key="renter"    onclick="selectProfile('renter',this)"><span class="prof-em">🔑</span><div class="prof-info"><div class="prof-label">Renter</div></div></button>
+      <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🌅</span><div class="prof-info"><div class="prof-label">Retiree</div></div></button>
+      <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">💼</span><div class="prof-info"><div class="prof-label">Business Owner</div></div></button>
+      <button class="prof-btn" data-profile-key="pubsec"    onclick="selectProfile('pubsec',this)"><span class="prof-em">🏛️</span><div class="prof-info"><div class="prof-label">Government</div></div></button>
+      <button class="prof-btn" data-profile-key="workpro"   onclick="selectProfile('workpro',this)"><span class="prof-em">👔</span><div class="prof-info"><div class="prof-label">Professional</div></div></button>
+      <button class="prof-btn" data-profile-key="lowwage"   onclick="selectProfile('lowwage',this)"><span class="prof-em">⏱️</span><div class="prof-info"><div class="prof-label">Hourly Worker</div></div></button>
+      <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-info"><div class="prof-label">Veteran or Military</div></div></button>
+      <button class="prof-btn" data-profile-key="landlord"  onclick="selectProfile('landlord',this)" style="grid-column:span 2;max-width:50%;margin:0 auto;width:100%;"><span class="prof-em">🏢</span><div class="prof-info"><div class="prof-label">Landlord</div></div></button>
     </div>
 
   </div>
@@ -389,7 +389,7 @@ function renderProfileGrid(orderedKeys) {
     btn.className = 'prof-btn';
     btn.setAttribute('data-profile-key', key);
     (function(k, b) { b.onclick = function() { selectProfile(k, b); }; })(key, btn);
-    btn.innerHTML = '<span class="prof-em">' + p.emoji + '</span><div class="prof-info"><div class="prof-label">' + p.label + '</div>' + (p.stat ? '<div class="prof-sub">(' + p.stat + ')</div>' : '') + '</div>';
+    btn.innerHTML = '<span class="prof-em">' + p.emoji + '</span><div class="prof-info"><div class="prof-label">' + p.label + '</div></div>';
     grid.appendChild(btn);
   });
 }
@@ -509,15 +509,7 @@ function goToBills() {
   var p = PROFILES[key];
   document.getElementById('bills-nav-emoji').textContent = p.emoji;
   document.getElementById('bills-nav-profile').textContent = p.label;
-  var statEl = document.getElementById('bills-nav-stat');
-  if (p.stat) {
-    var srcHtml = p.statUrl
-      ? ' · <a href="' + p.statUrl + '" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.9);text-decoration:underline;text-underline-offset:2px;">' + p.statSource + '</a>'
-      : (p.statSource ? ' · ' + p.statSource : '');
-    statEl.innerHTML = '(' + p.stat + srcHtml + ')';
-  } else {
-    statEl.innerHTML = '';
-  }
+  document.getElementById('bills-nav-stat').innerHTML = '';
   document.getElementById('screen-profiles').style.display = 'none';
   document.getElementById('home-header').style.display = 'none';
   document.getElementById('bills-nav-header').style.display = 'flex';
