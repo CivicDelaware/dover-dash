@@ -39,13 +39,34 @@ exports.handler = async function (event) {
   const SUPABASE_URL         = process.env.SUPABASE_URL;
   const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
 
+  let alreadySubscribed = false;
+
   if (SUPABASE_URL && SUPABASE_SERVICE_KEY) {
+    const SB = {
+      apikey:        SUPABASE_SERVICE_KEY,
+      Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+    };
+
+    // Check if this email already exists before upserting
+    try {
+      const checkRes = await fetch(
+        `${SUPABASE_URL}/rest/v1/subscribers?email=eq.${encodeURIComponent(emailNorm)}&select=email`,
+        { headers: SB }
+      );
+      if (checkRes.ok) {
+        const existing = await checkRes.json();
+        alreadySubscribed = existing.length > 0;
+      }
+    } catch (err) {
+      console.error("Supabase check error:", err);
+    }
+
+    // Upsert regardless — keeps data current even for returning subscribers
     try {
       const res = await fetch(`${SUPABASE_URL}/rest/v1/subscribers`, {
         method: "POST",
         headers: {
-          apikey:         SUPABASE_SERVICE_KEY,
-          Authorization:  `Bearer ${SUPABASE_SERVICE_KEY}`,
+          ...SB,
           "Content-Type": "application/json",
           Prefer:         "resolution=merge-duplicates,return=minimal",
         },
@@ -109,5 +130,5 @@ exports.handler = async function (event) {
   }
 
   // Always return success — never expose internal errors to the browser
-  return { statusCode: 200, headers: CORS, body: JSON.stringify({ success: true }) };
+  return { statusCode: 200, headers: CORS, body: JSON.stringify({ success: true, alreadySubscribed }) };
 };

@@ -336,7 +336,7 @@ body {
             <button class="gi-email-btn" onclick="doGiSubscribe()">Subscribe</button>
           </div>
         </div>
-        <div id="gi-email-success" style="display:none;margin-top:8px;" class="gi-email-success">✓ You're on the list!</div>
+        <div id="gi-email-success" style="display:none;margin-top:8px;" class="gi-email-success">✓ You are on the list!</div>
       </div>
     </div>
 
@@ -961,6 +961,9 @@ function doGiSubscribe() {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email: email, firstName: firstName, lastName: lastName, profile: currentProfileKey || 'general' }),
+  }).then(function(res) { return res.json(); }).then(function(data) {
+    var msg = data.alreadySubscribed ? 'You are already on the list!' : '✓ You are on the list!';
+    document.getElementById('gi-email-success').textContent = msg;
   }).finally(function() {
     document.getElementById('gi-email-row').style.display = 'none';
     document.getElementById('gi-email-success').style.display = 'block';
