@@ -50,9 +50,9 @@ body {
 .session-dot { color: #D93B3B; font-size: 6px; vertical-align: middle; }
 
 /* ── ARCHIVE BANNER ── */
-.archive-bar { margin: 0 14px; background: #F0F4FF; padding: 8px 14px; display: flex; align-items: center; gap: 8px; }
+.archive-bar { margin: 0 14px; background: #FFFDE7; padding: 8px 14px; display: flex; align-items: center; gap: 8px; }
 .archive-bar span { font-size: 10px; color: #374151; line-height: 1.4; white-space: normal; animation: none; -webkit-animation: none; }
-.archive-note { font-weight: 800; color: #002868; font-family: 'Playfair Display', Georgia, serif; font-style: italic; }
+.archive-note { font-weight: 800; color: #002868; }
 
 /* ── PROFILE PICKER ── */
 #screen-profiles { margin: 0 14px; background: #fff; border-radius: 0 0 16px 16px; padding: 12px 16px 14px; }
@@ -265,7 +265,7 @@ body {
     <p class="pick-sub" id="txt-pick-sub">53 bills from Delaware's 153rd General Assembly — explained in plain English. Pick your profile to see what passed for you.</p>
 
     <div class="prof-grid" id="prof-grid">
-      <button class="prof-btn" data-profile-key="homeowner" onclick="selectProfile('homeowner',this)"><span class="prof-em">🏠</span><div class="prof-info"><div class="prof-label">Homeowner</div><div class="prof-sub">(71% of DE households own their home)</div></div></button>
+      <button class="prof-btn" data-profile-key="homeowner" onclick="selectProfile('homeowner',this)"><span class="prof-em">🏠</span><div class="prof-info"><div class="prof-label">Homeowner</div></div></button>
       <button class="prof-btn" data-profile-key="renter"    onclick="selectProfile('renter',this)"><span class="prof-em">🔑</span><div class="prof-info"><div class="prof-label">Renter</div><div class="prof-sub">(29% of DE households rent)</div></div></button>
       <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🌅</span><div class="prof-info"><div class="prof-label">Retiree</div><div class="prof-sub">(1 in 5 Delawareans is 65 or older)</div></div></button>
       <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">💼</span><div class="prof-info"><div class="prof-label">Business Owner</div><div class="prof-sub">(99% of DE businesses have under 500 employees)</div></div></button>
@@ -356,7 +356,7 @@ body {
   </div>
 
   <div class="app-footer">
-    <div class="app-footer-disclaimer">Dover Dash is an independent, nonpartisan project of Civic Delaware. Civic Delaware is a civic intelligence platform that helps Delawareans stay informed and get involved in how the state is governed. The project uses official bill data from Delaware's 153rd General Assembly (2024–2026), accessed via <a href="https://legis.delaware.gov" target="_blank" rel="noopener">legis.delaware.gov</a>, and presents it in plain English for general information. Our bill summaries and "profiles" are interpretive; they are not official legislative language. Classifications reflect our independent judgment about potential fiscal or legal impacts based on the bill text and any available fiscal notes. They are not legal or financial advice and do not signal support or opposition to any bill, legislator, or political party. For authoritative details, always review the original bill text on legis.delaware.gov.</div>
+    <div class="app-footer-disclaimer">Disclaimer: Dover Dash is an independent, nonpartisan project of Civic Delaware. Civic Delaware is a civic intelligence platform that helps Delawareans stay informed and get involved in how the state is governed.<br><br>The project uses official bill data from Delaware's 153rd General Assembly (2024–2026), accessed via <a href="https://legis.delaware.gov" target="_blank" rel="noopener">legis.delaware.gov</a>, and presents it in plain English for general information. Our bill summaries and "profiles" are interpretive; they are not official legislative language.<br><br>Classifications reflect our independent judgment about potential fiscal or legal impacts based on the bill text and any available fiscal notes. They are not legal or financial advice and do not signal support or opposition to any bill, legislator, or political party. For authoritative details, always review the original bill text on legis.delaware.gov.</div>
     <div class="app-footer-copy">© 2026 Civic Delaware · <a href="mailto:info@civicdelaware.com">info@civicdelaware.com</a></div>
   </div>
 
