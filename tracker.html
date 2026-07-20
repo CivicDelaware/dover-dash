@@ -84,10 +84,10 @@ body {
 .filter-row { background: #fff; padding: 10px 14px; display: flex; gap: 6px; border-bottom: 1px solid #E5E7EB; justify-content: center; }
 .filter-btn { border: none; border-radius: 20px; padding: 7px 14px; font-size: 11px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; transition: all .12s; white-space: nowrap; background: #F3F4F6; color: #374151; }
 .filter-btn.wo { background: #FEE2E2; color: #D93B3B; }
-.filter-btn.hy { background: #D1FAE5; color: #1A7A4A; }
+.filter-btn.hy { background: #ECFCCB; color: #365314; }
 .filter-btn.active { background: #002868; color: #BAFF5C; }
 .filter-btn.wo.active { background: #D93B3B; color: #fff; }
-.filter-btn.hy.active { background: #1A7A4A; color: #fff; }
+.filter-btn.hy.active { background: #65A30D; color: #fff; }
 .bill-share-btn { font-size: 10px; font-weight: 400; color: #9CA3AF; background: none; border: none; padding: 0; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: underline; text-underline-offset: 2px; }
 .bill-share-btn:hover { color: #002868; }
 .bill-share-row { display: flex; justify-content: flex-end; margin-top: 8px; }
@@ -102,23 +102,24 @@ body {
 .bills-list { background: #fff; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; }
 .bill-card { padding: 14px 16px; background: #fff; border-radius: 12px; border-left: 4px solid transparent; border: 1.5px solid #E5E7EB; border-left-width: 4px; }
 .bill-card.wo { border-left-color: #D93B3B; }
-.bill-card.hy { border-left-color: #1A7A4A; }
+.bill-card.hy { border-left-color: #65A30D; }
 .bill-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
 .bill-num { font-size: 11px; font-weight: 800; color: #9CA3AF; letter-spacing: 0.3px; }
 .bill-cat-chip { display: inline-block; font-size: 9px; font-weight: 700; color: #6B7280; background: #F3F4F6; border-radius: 4px; padding: 2px 6px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
 .dir-badge { display: none; }
 .bill-nickname { font-size: 15px; font-weight: 800; color: #002868; margin-bottom: 3px; line-height: 1.3; display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
 .bill-card-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; flex-shrink: 0; }
-.bill-status-badge { font-size: 9px; font-weight: 800; border-radius: 4px; padding: 2px 7px; letter-spacing: 0.5px; white-space: nowrap; background: #D1FAE5; color: #1A7A4A; }
+.bill-status-badge { font-size: 9px; font-weight: 800; border-radius: 4px; padding: 2px 7px; letter-spacing: 0.5px; white-space: nowrap; background: #ECFCCB; color: #365314; }
 .bill-status-badge.veto { background: #FEF3C7; color: #B45309; }
 .bill-status-badge.passed { background: #DBEAFE; color: #1E40AF; }
+.bill-card.wo .bill-status-badge:not(.veto):not(.passed) { background: #FEE2E2; color: #991B1B; }
 .bill-num-link { font-size: 11px; font-weight: 800; color: #9CA3AF; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: #9CA3AF; }
 .bill-num-link:hover { color: #D93B3B; }
 .bill-official { font-size: 9px; color: #9CA3AF; line-height: 1.4; margin-bottom: 8px; font-style: italic; }
 .bill-synopsis-text { font-size: 11.5px; color: #9CA3AF; line-height: 1.55; margin-bottom: 8px; padding-top: 8px; border-top: 1px solid #F3F4F6; }
 .bill-rationale { font-size: 11px; color: #002868; background: #EFF6FF; border-radius: 6px; padding: 7px 10px; margin-bottom: 8px; line-height: 1.5; font-weight: 500; }
 .bill-card.wo .bill-rationale { background: #FEE2E2; color: #7F1D1D; }
-.bill-card.hy .bill-rationale { background: #D1FAE5; color: #064E3B; }
+.bill-card.hy .bill-rationale { background: #ECFCCB; color: #365314; }
 .bill-rationale-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #9CA3AF; display: block; margin-bottom: 3px; }
 .bill-sponsor { font-size: 11px; color: #9CA3AF; margin-bottom: 14px; }
 .bill-sponsor a { color: #9CA3AF; font-weight: 400; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: #9CA3AF; }
