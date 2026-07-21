@@ -1,0 +1,12 @@
+*.docx
+
+# Environment variables — never commit secrets
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+*.env
+
+# Local dev overrides
+netlify.env
