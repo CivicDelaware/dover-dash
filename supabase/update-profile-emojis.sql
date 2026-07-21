@@ -8,9 +8,9 @@
 UPDATE profiles SET emoji = '🏠'  WHERE key = 'homeowner';
 UPDATE profiles SET emoji = '🔑'  WHERE key = 'renter';
 UPDATE profiles SET emoji = '🏘️'  WHERE key = 'landlord';
-UPDATE profiles SET emoji = '👴'  WHERE key = 'senior';
+UPDATE profiles SET emoji = '🪑'  WHERE key = 'senior';
 UPDATE profiles SET emoji = '🪖'  WHERE key = 'veteran';
-UPDATE profiles SET emoji = '👷'  WHERE key = 'lowwage';
+UPDATE profiles SET emoji = '🛠️'  WHERE key = 'lowwage';
 UPDATE profiles SET emoji = '💼'  WHERE key = 'workpro';
 UPDATE profiles SET emoji = '🏪'  WHERE key = 'smallbiz';
 UPDATE profiles SET emoji = '🏛️'  WHERE key = 'pubsec';
