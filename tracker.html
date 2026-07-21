@@ -432,14 +432,14 @@ function patchProfileGrid(profiles) {
   var grid = document.getElementById('prof-grid');
   if (!grid) return;
 
-  // 1. Update emoji + label on each existing button
+  // 1. Update label on each existing button — emoji intentionally excluded
+  // (Supabase emoji column is stale; HTML + PROFILES fallback are source of truth for emojis)
   profiles.forEach(function(p) {
-    PROFILES[p.key] = { emoji: p.emoji, label: p.label, stat: p.stat };
+    var existing = PROFILES[p.key] || {};
+    PROFILES[p.key] = { emoji: existing.emoji || p.emoji, label: p.label, stat: p.stat };
     var btn = grid.querySelector('[data-profile-key="' + p.key + '"]');
     if (!btn) return;
-    var emEl    = btn.querySelector('.prof-em');
     var labelEl = btn.querySelector('.prof-label');
-    if (emEl)    emEl.textContent    = p.emoji;
     if (labelEl) labelEl.textContent = p.label;
   });
 
