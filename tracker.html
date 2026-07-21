@@ -194,6 +194,8 @@ body {
 .gi-action-icon { font-size: 20px; flex-shrink: 0; width: 28px; text-align: center; }
 .gi-action-label { font-size: 12px; font-weight: 700; color: #111827; flex: 1; }
 .gi-action-arrow { font-size: 14px; color: #9CA3AF; flex-shrink: 0; }
+.gi-leg-chevron { width: 14px; height: 14px; flex-shrink: 0; display: block; transition: transform 0.2s ease; }
+.gi-leg-chevron.open { transform: rotate(180deg); }
 .gi-action-hint { font-weight: 400; color: #9CA3AF; font-size: 11px; }
 button.gi-action-row { width: 100%; cursor: pointer; font-family: 'Inter', sans-serif; }
 .gi-subscribe-section { padding: 12px 16px 16px; border-top: 1px solid #E5E7EB; margin-top: 4px; }
@@ -324,7 +326,7 @@ button.gi-action-row { width: 100%; cursor: pointer; font-family: 'Inter', sans-
         <button class="gi-action-row" id="gi-leg-toggle" onclick="toggleLegLookup()" aria-expanded="false">
           <span class="gi-action-icon">🏛️</span>
           <span class="gi-action-label">Look up your legislator</span>
-          <span class="gi-action-arrow" id="gi-leg-chevron">▼</span>
+          <svg class="gi-leg-chevron" id="gi-leg-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div id="gi-leg-panel" style="display:none;padding:8px 2px 2px;">
           <div style="display:flex;gap:6px;margin-bottom:6px;">
@@ -874,7 +876,7 @@ function toggleLegLookup() {
   var toggle  = document.getElementById('gi-leg-toggle');
   var isOpen  = panel.style.display !== 'none';
   panel.style.display = isOpen ? 'none' : 'block';
-  chevron.textContent = isOpen ? '▼' : '▲';
+  chevron.classList.toggle('open', !isOpen);
   toggle.setAttribute('aria-expanded', String(!isOpen));
   if (!isOpen) setTimeout(function() { document.getElementById('gi-leg-addr').focus(); }, 50);
 }
