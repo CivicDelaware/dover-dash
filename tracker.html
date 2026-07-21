@@ -46,7 +46,7 @@ body {
 .brand em { color: #BAFF5C; font-style: italic; }
 .tagline { font-size: 11px; color: rgba(255,255,255,0.75); margin-bottom: 10px; line-height: 1.5; }
 .session-pill { display: flex; flex-direction: column; align-items: center; gap: 5px; }
-.session-line { font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.55); letter-spacing: 0.5px; text-transform: uppercase; line-height: 1; }
+.session-line { font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.85); letter-spacing: 0.5px; text-transform: uppercase; line-height: 1; }
 .session-dot { color: #D93B3B; font-size: 7px; vertical-align: middle; }
 
 
@@ -275,8 +275,8 @@ button.gi-action-row { width: 100%; cursor: pointer; font-family: 'Inter', sans-
       <button class="prof-btn" data-profile-key="homeowner" onclick="selectProfile('homeowner',this)"><span class="prof-em">🏠</span><div class="prof-label">Homeowner</div></button>
       <button class="prof-btn" data-profile-key="renter"    onclick="selectProfile('renter',this)"><span class="prof-em">🔑</span><div class="prof-label">Renter</div></button>
       <button class="prof-btn" data-profile-key="landlord"  onclick="selectProfile('landlord',this)"><span class="prof-em">🏘️</span><div class="prof-label">Landlord</div></button>
-      <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🪑</span><div class="prof-label">Retiree</div></button>
-      <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🪖</span><div class="prof-label">Veteran or Military</div></button>
+      <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🌅</span><div class="prof-label">Retiree</div></button>
+      <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-label">Veteran or Military</div></button>
       <button class="prof-btn" data-profile-key="lowwage"   onclick="selectProfile('lowwage',this)"><span class="prof-em">🛠️</span><div class="prof-label">Hourly Worker</div></button>
       <button class="prof-btn" data-profile-key="workpro"   onclick="selectProfile('workpro',this)"><span class="prof-em">💼</span><div class="prof-label">Professional</div></button>
       <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">🏪</span><div class="prof-label">Small Business Owner</div></button>
@@ -397,12 +397,12 @@ button.gi-action-row { width: 100%; cursor: pointer; font-family: 'Inter', sans-
 var PROFILES = {
   homeowner: { emoji: '🏠', label: 'Homeowner',           stat: 'About 71% of Delaware households own their home',           statSource: 'U.S. Census Bureau, ACS 2023', statUrl: 'https://www.census.gov/quickfacts/fact/table/DE' },
   renter:    { emoji: '🔑', label: 'Renter',              stat: 'About 29% of Delaware households rent',                     statSource: 'U.S. Census Bureau, ACS 2023', statUrl: 'https://www.census.gov/quickfacts/fact/table/DE' },
-  senior:    { emoji: '🪑', label: 'Retiree',             stat: 'About 1 in 5 Delawareans is age 65 or older',              statSource: 'U.S. Census Bureau, ACS 2023', statUrl: 'https://www.census.gov/quickfacts/fact/table/DE' },
+  senior:    { emoji: '🌅', label: 'Retiree',             stat: 'About 1 in 5 Delawareans is age 65 or older',              statSource: 'U.S. Census Bureau, ACS 2023', statUrl: 'https://www.census.gov/quickfacts/fact/table/DE' },
   smallbiz:  { emoji: '🏪', label: 'Small Business Owner', stat: '99% of Delaware businesses have under 500 employees',       statSource: 'U.S. SBA, 2023',              statUrl: 'https://advocacy.sba.gov/2023/03/07/2023-small-business-economic-profile-de/' },
   pubsec:    { emoji: '🏛️', label: 'Government',          stat: 'State & local govt is one of Delaware\'s largest employers', statSource: 'U.S. BLS, 2024',              statUrl: 'https://www.bls.gov/regions/mid-atlantic/delaware.htm' },
   workpro:   { emoji: '💼', label: 'Professional',        stat: 'Delaware\'s private sector spans finance, pharma & professional services' },
   lowwage:   { emoji: '🛠️', label: 'Hourly Worker',       stat: 'Retail, hospitality & care employ tens of thousands across Delaware',   statSource: null, statUrl: null },
-  veteran:   { emoji: '🪖', label: 'Veteran or Military', stat: 'Delaware is home to Dover Air Force Base, one of the largest in the U.S.', statSource: 'U.S. Dept. of Defense',      statUrl: 'https://www.dover.af.mil/' },
+  veteran:   { emoji: '🎖️', label: 'Veteran or Military', stat: 'Delaware is home to Dover Air Force Base, one of the largest in the U.S.', statSource: 'U.S. Dept. of Defense',      statUrl: 'https://www.dover.af.mil/' },
   landlord:  { emoji: '🏘️', label: 'Landlord',            stat: 'About 29% of Delaware households are renters',                            statSource: 'U.S. Census Bureau, ACS 2023', statUrl: 'https://www.census.gov/quickfacts/fact/table/DE' },
 };
 
