@@ -52,8 +52,6 @@ body {
 
 /* ── PROFILE PICKER ── */
 #screen-profiles { margin: 0 14px; background: #fff; border-radius: 0 0 16px 16px; padding: 20px 16px 20px; }
-.app-loading #home-header,
-.app-loading #screen-profiles { visibility: hidden; }
 .pick-title { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 900; color: #002868; margin-bottom: 4px; }
 .pick-sub { font-size: 12px; font-weight: 700; color: #002868; margin-bottom: 4px; line-height: 1.4; }
 .pick-sub-hint { font-size: 11px; color: #6B7280; margin-bottom: 14px; line-height: 1.4; }
@@ -257,7 +255,7 @@ button.gi-action-row { width: 100%; cursor: pointer; font-family: 'Inter', sans-
 </style>
 </head>
 <body>
-<div id="app" class="app-loading">
+<div id="app">
 
   <div class="header" id="home-header">
     <div class="eyebrow" id="txt-eyebrow">Delaware's Legislative Bill Tracker</div>
@@ -270,7 +268,7 @@ button.gi-action-row { width: 100%; cursor: pointer; font-family: 'Inter', sans-
 
 
   <div id="screen-profiles">
-    <p class="pick-sub" id="txt-pick-sub">Choose your profile</p>
+    <p class="pick-sub" id="txt-pick-sub">Pick your profile:</p>
     <p class="pick-sub-hint">See which passed bills affect you.</p>
 
     <div class="prof-grid" id="prof-grid">
@@ -492,13 +490,8 @@ function initApp() {
         patchProfileGrid(data.profiles);
       }
 
-      // Reveal home screen now that text is final — eliminates stale-text flicker
-      document.getElementById('app').classList.remove('app-loading');
     })
-    .catch(function() {
-      // API failed — show home screen with HTML fallback text
-      document.getElementById('app').classList.remove('app-loading');
-    });
+    .catch(function() { /* already rendered from fallback */ });
 }
 
 document.addEventListener('DOMContentLoaded', initApp);
