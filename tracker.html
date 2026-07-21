@@ -597,6 +597,7 @@ function loadBills(profile) {
   document.getElementById('bills-loading').style.display = 'block';
   document.getElementById('bills-list').innerHTML = '';
   document.getElementById('bills-empty').style.display = 'none';
+  document.querySelector('.gi-card').style.visibility = 'hidden';
   document.getElementById('bill-count-bar').textContent = '';
   document.getElementById('bills-nav-sep').textContent = '';
   fetch('/.netlify/functions/get-bills?profile=' + encodeURIComponent(profile))
@@ -606,6 +607,7 @@ function loadBills(profile) {
       // Bills archive bar is static — text already set in HTML
       document.getElementById('bills-loading').style.display = 'none';
       renderBills();
+      document.querySelector('.gi-card').style.visibility = '';
     })
     .catch(function() {
       document.getElementById('bills-loading').innerHTML =
