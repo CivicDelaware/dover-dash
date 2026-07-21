@@ -47,16 +47,20 @@ exports.handler = async function (event) {
   const metaOnly  = q.meta === 'true';
 
   const SB_HEADERS = {
-    apikey:        SUPABASE_SERVICE_KEY,
-    Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+    apikey: SUPABASE_SERVICE_KEY,
+    // Legacy JWT keys start with "eyJ"; new sb_secret_... keys use apikey header only
+    ...(SUPABASE_SERVICE_KEY && SUPABASE_SERVICE_KEY.startsWith('eyJ')
+      ? { Authorization: `Bearer ${SUPABASE_SERVICE_KEY}` }
+      : {}),
   };
 
   // ── Meta-only endpoint: returns profiles + ticker, no bills ──────────────
   if (metaOnly) {
     let profiles = [];
     try {
+      // Note: do NOT add "stat" to this select — that column does not exist in the profiles table.
       const profRes = await fetch(
-        `${SUPABASE_URL}/rest/v1/profiles?select=key,label,emoji,stat,sort_order&order=sort_order.asc`,
+        `${SUPABASE_URL}/rest/v1/profiles?select=key,label,emoji,sort_order&order=sort_order.asc`,
         { headers: SB_HEADERS }
       );
       if (profRes.ok) profiles = await profRes.json();

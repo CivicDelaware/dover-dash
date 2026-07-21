@@ -43,8 +43,10 @@ exports.handler = async function (event) {
 
   if (SUPABASE_URL && SUPABASE_SERVICE_KEY) {
     const SB = {
-      apikey:        SUPABASE_SERVICE_KEY,
-      Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+      apikey: SUPABASE_SERVICE_KEY,
+      ...(SUPABASE_SERVICE_KEY && SUPABASE_SERVICE_KEY.startsWith('eyJ')
+        ? { Authorization: `Bearer ${SUPABASE_SERVICE_KEY}` }
+        : {}),
     };
 
     // Check if this email already exists before upserting

@@ -27,8 +27,10 @@ exports.handler = async function (event) {
   }
 
   const SB = {
-    apikey:        SUPABASE_SERVICE_KEY,
-    Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+    apikey: SUPABASE_SERVICE_KEY,
+    ...(SUPABASE_SERVICE_KEY && SUPABASE_SERVICE_KEY.startsWith('eyJ')
+      ? { Authorization: `Bearer ${SUPABASE_SERVICE_KEY}` }
+      : {}),
   };
 
   const q       = event.queryStringParameters || {};

@@ -39,8 +39,10 @@ exports.handler = async function (event) {
     await fetch(`${SUPABASE_URL}/rest/v1/rpc/increment_click_count`, {
       method: "POST",
       headers: {
-        apikey:         SUPABASE_SERVICE_KEY,
-        Authorization:  `Bearer ${SUPABASE_SERVICE_KEY}`,
+        apikey: SUPABASE_SERVICE_KEY,
+        ...(SUPABASE_SERVICE_KEY && SUPABASE_SERVICE_KEY.startsWith('eyJ')
+          ? { Authorization: `Bearer ${SUPABASE_SERVICE_KEY}` }
+          : {}),
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ profile_key_param: profile }),
