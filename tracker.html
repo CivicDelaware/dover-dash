@@ -14,11 +14,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Dover Dash — Delaware Bill Tracker</title>
 <meta name="description" content="Passed bills from the 153rd General Assembly, explained in plain English. Pick your profile — and look up your legislator before the primary.">
-<meta property="og:title" content="See Which Delaware Laws Affect You" />
+<meta property="og:title" content="What Delaware Lawmakers Passed This Session — And How It Affects You" />
 <meta property="og:description" content="Passed bills from the 153rd General Assembly, explained in plain English. Pick your profile — and look up your legislator before the primary." />
-<meta property="og:image" content="https://i.postimg.cc/rsJjrbzN/Final-logo-(2).png" />
+<meta property="og:image" content="https://civicdelaware.com/og-image.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://i.postimg.cc/rsJjrbzN/Final-logo-(2).png" />
+<meta name="twitter:image" content="https://civicdelaware.com/og-image.png" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
@@ -154,8 +154,8 @@ body {
 .gi-action-btn { display: block; background: #002868; color: #BAFF5C; border: none; border-radius: 8px; padding: 10px 14px; font-size: 12px; font-weight: 800; text-decoration: none; text-align: center; cursor: pointer; font-family: 'Inter', sans-serif; }
 .gi-action-btn:hover { background: #001f52; }
 .gi-addr-row { display: flex; gap: 6px; margin-bottom: 6px; }
-.gi-addr-input { flex: 1; border: 1.5px solid #D1D5DB; border-radius: 8px; padding: 9px 10px; font-size: 12px; font-family: 'Inter', sans-serif; outline: none; min-width: 0; color: #111827; background: #fff; }
-.gi-addr-input:focus { border-color: #002868; }
+.gi-addr-input { flex: 1; border: 1.5px solid #D1D5DB; border-radius: 8px; padding: 9px 10px; font-size: 12px; font-family: 'Inter', sans-serif; outline: none; min-width: 0; color: #111827; background: #fff; -webkit-box-shadow: 0 0 0 1000px #fff inset; }
+.gi-addr-input:focus { border-color: #D1D5DB; }
 .gi-addr-btn { background: #002868; color: #BAFF5C; border: none; border-radius: 8px; padding: 9px 13px; font-size: 12px; font-weight: 800; cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap; }
 .gi-loading { font-size: 11px; color: #6B7280; text-align: center; padding: 8px 0; }
 .gi-error { font-size: 11px; color: #D93B3B; padding: 6px 0; line-height: 1.4; }
@@ -198,6 +198,9 @@ body {
 .gi-leg-chevron.open { transform: rotate(180deg); }
 .gi-action-hint { font-weight: 400; color: #9CA3AF; font-size: 11px; }
 button.gi-action-row { width: 100%; cursor: pointer; font-family: 'Inter', sans-serif; text-align: left; }
+button.gi-action-row:focus { outline: none; }
+button.gi-action-row[aria-expanded="true"],
+button.gi-action-row[aria-expanded="true"]:hover { background: #fff; border-color: #D1D5DB; }
 .gi-subscribe-section { padding: 12px 16px 16px; border-top: 1px solid #E5E7EB; margin-top: 4px; }
 .gi-subscribe-label { font-size: 11px; font-weight: 600; color: #6B7280; margin-bottom: 10px; }
 /* ── LEGISLATOR FINDER ── */
@@ -243,12 +246,12 @@ button.gi-action-row { width: 100%; cursor: pointer; font-family: 'Inter', sans-
 .rep-challenger-web:hover { text-decoration: underline; }
 .rep-no-challengers { font-size: 11px; color: #9CA3AF; }
 .app-footer { background: #002868; padding: 14px 16px 16px; text-align: center; margin: 0 14px 14px; border-radius: 0 0 16px 16px; border-top: 3px solid #BAFF5C; }
-.app-footer-toggle { background: none; border: none; color: rgba(255,255,255,0.4); font-size: 9px; font-family: 'Inter', sans-serif; cursor: pointer; margin-top: 6px; letter-spacing: 0.5px; }
+.app-footer-toggle { background: none; border: none; color: rgba(255,255,255,0.80); font-size: 9px; font-family: 'Inter', sans-serif; cursor: pointer; margin-top: 6px; letter-spacing: 0.5px; }
 .app-footer-brand { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 900; color: #fff; margin-bottom: 4px; }
 .app-footer-brand em { color: #BAFF5C; font-style: italic; }
 .app-footer-tagline { font-size: 10px; color: rgba(255,255,255,0.55); letter-spacing: 0.5px; margin-bottom: 14px; font-family: 'Inter', sans-serif; }
 .app-footer-divider { border: none; border-top: 1px solid rgba(255,255,255,0.12); margin: 0 0 14px; }
-.app-footer-disclaimer { font-size: 8px; color: rgba(255,255,255,0.6); line-height: 1.6; margin-top: 8px; margin-bottom: 4px; font-family: 'Times New Roman', Times, Georgia, serif; font-style: italic; }
+.app-footer-disclaimer { font-size: 8px; color: rgba(255,255,255,0.85); line-height: 1.6; margin-top: 8px; margin-bottom: 4px; font-family: 'Times New Roman', Times, Georgia, serif; font-style: italic; }
 .app-footer-disclaimer a { color: rgba(255,255,255,0.85); text-decoration: underline; text-underline-offset: 2px; }
 .app-footer-copy { font-size: 8px; color: #BAFF5C; font-family: 'Inter', sans-serif; }
 .app-footer-copy a { color: #BAFF5C; text-decoration: none; }
@@ -269,7 +272,7 @@ button.gi-action-row { width: 100%; cursor: pointer; font-family: 'Inter', sans-
 
   <div id="screen-profiles">
     <p class="pick-sub" id="txt-pick-sub">Pick your profile:</p>
-    <p class="pick-sub-hint">See which passed bills affect you.</p>
+    <p class="pick-sub-hint">See what Delaware lawmakers passed — and how it affects you.</p>
 
     <div class="prof-grid" id="prof-grid">
       <button class="prof-btn" data-profile-key="homeowner" onclick="selectProfile('homeowner',this)"><span class="prof-em">🏠</span><div class="prof-label">Homeowner</div></button>
