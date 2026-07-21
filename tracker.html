@@ -54,12 +54,14 @@ body {
 #screen-profiles { margin: 0 14px; background: #fff; border-radius: 0 0 16px 16px; padding: 12px 16px 14px; }
 .pick-title { font-family: 'Playfair Display', Georgia, serif; font-size: 15px; font-weight: 900; color: #111827; margin-bottom: 2px; }
 .pick-sub { font-size: 11px; color: #6B7280; margin-bottom: 10px; line-height: 1.4; }
-.prof-grid { display: grid; grid-template-columns: 1fr; gap: 6px; }
-.prof-btn { border: 1.5px solid #E5E7EB; border-radius: 10px; padding: 10px 10px; cursor: pointer; display: flex; align-items: center; gap: 8px; text-align: left; background: #fff; transition: border-color .12s, background .12s; font-family: 'Inter', sans-serif; }
-.prof-btn:hover { border-color: #002868; background: #F0F4FF; }
-.prof-em { font-size: 20px; flex-shrink: 0; }
+.prof-grid { display: flex; flex-direction: column; gap: 0; }
+.prof-btn { border: none; border-bottom: 1px solid #F3F4F6; padding: 11px 4px; cursor: pointer; display: flex; align-items: center; gap: 10px; text-align: left; background: #fff; font-family: 'Inter', sans-serif; width: 100%; }
+.prof-btn:last-child { border-bottom: none; }
+.prof-btn:hover .prof-label { background: #FDE047; }
+.prof-em { font-size: 18px; flex-shrink: 0; width: 28px; text-align: center; }
 .prof-info { flex: 1; min-width: 0; }
-.prof-label { font-size: 12px; font-weight: 700; color: #111827; line-height: 1.2; }
+.prof-label { font-size: 12px; font-weight: 700; color: #002868; background: #FEF08A; padding: 3px 8px; border-radius: 6px; display: inline-block; }
+.prof-arrow { font-size: 14px; color: #9CA3AF; flex-shrink: 0; }
 .prof-sub { font-size: 10px; color: #6B7280; margin-top: 3px; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .prof-submit-btn { width: 100%; background: #002868; color: #BAFF5C; border: none; border-radius: 10px; padding: 13px; font-size: 14px; font-weight: 800; font-family: 'Inter', sans-serif; cursor: pointer; margin-top: 10px; letter-spacing: 0.2px; }
 .pick-footer { font-size: 10px; color: #9CA3AF; text-align: center; margin-top: 8px; }
@@ -265,15 +267,15 @@ body {
     <p class="pick-sub">(See which passed bills affect you.)</p>
 
     <div class="prof-grid" id="prof-grid">
-      <button class="prof-btn" data-profile-key="homeowner" onclick="selectProfile('homeowner',this)"><span class="prof-em">🏠</span><div class="prof-info"><div class="prof-label">Homeowner</div></div></button>
-      <button class="prof-btn" data-profile-key="renter"    onclick="selectProfile('renter',this)"><span class="prof-em">🔑</span><div class="prof-info"><div class="prof-label">Renter</div></div></button>
-      <button class="prof-btn" data-profile-key="landlord"  onclick="selectProfile('landlord',this)"><span class="prof-em">🏢</span><div class="prof-info"><div class="prof-label">Landlord</div></div></button>
-      <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🧓</span><div class="prof-info"><div class="prof-label">Retiree</div></div></button>
-      <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-info"><div class="prof-label">Veteran or Military</div></div></button>
-      <button class="prof-btn" data-profile-key="lowwage"   onclick="selectProfile('lowwage',this)"><span class="prof-em">⏱️</span><div class="prof-info"><div class="prof-label">Hourly Worker</div></div></button>
-      <button class="prof-btn" data-profile-key="workpro"   onclick="selectProfile('workpro',this)"><span class="prof-em">🏬</span><div class="prof-info"><div class="prof-label">Professional</div></div></button>
-      <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">💼</span><div class="prof-info"><div class="prof-label">Small Business Owner</div></div></button>
-      <button class="prof-btn" data-profile-key="pubsec"    onclick="selectProfile('pubsec',this)"><span class="prof-em">🏛️</span><div class="prof-info"><div class="prof-label">Government</div></div></button>
+      <button class="prof-btn" data-profile-key="homeowner" onclick="selectProfile('homeowner',this)"><span class="prof-em">🏠</span><div class="prof-info"><div class="prof-label">Homeowner</div></div><span class="prof-arrow">→</span></button>
+      <button class="prof-btn" data-profile-key="renter"    onclick="selectProfile('renter',this)"><span class="prof-em">🔑</span><div class="prof-info"><div class="prof-label">Renter</div></div><span class="prof-arrow">→</span></button>
+      <button class="prof-btn" data-profile-key="landlord"  onclick="selectProfile('landlord',this)"><span class="prof-em">🏢</span><div class="prof-info"><div class="prof-label">Landlord</div></div><span class="prof-arrow">→</span></button>
+      <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🧓</span><div class="prof-info"><div class="prof-label">Retiree</div></div><span class="prof-arrow">→</span></button>
+      <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-info"><div class="prof-label">Veteran or Military</div></div><span class="prof-arrow">→</span></button>
+      <button class="prof-btn" data-profile-key="lowwage"   onclick="selectProfile('lowwage',this)"><span class="prof-em">⏱️</span><div class="prof-info"><div class="prof-label">Hourly Worker</div></div><span class="prof-arrow">→</span></button>
+      <button class="prof-btn" data-profile-key="workpro"   onclick="selectProfile('workpro',this)"><span class="prof-em">🏬</span><div class="prof-info"><div class="prof-label">Professional</div></div><span class="prof-arrow">→</span></button>
+      <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">💼</span><div class="prof-info"><div class="prof-label">Small Business Owner</div></div><span class="prof-arrow">→</span></button>
+      <button class="prof-btn" data-profile-key="pubsec"    onclick="selectProfile('pubsec',this)"><span class="prof-em">🏛️</span><div class="prof-info"><div class="prof-label">Government</div></div><span class="prof-arrow">→</span></button>
     </div>
 
   </div>
@@ -405,7 +407,7 @@ function renderProfileGrid(orderedKeys) {
     btn.className = 'prof-btn';
     btn.setAttribute('data-profile-key', key);
     (function(k, b) { b.onclick = function() { selectProfile(k, b); }; })(key, btn);
-    btn.innerHTML = '<span class="prof-em">' + p.emoji + '</span><div class="prof-info"><div class="prof-label">' + p.label + '</div></div>';
+    btn.innerHTML = '<span class="prof-em">' + p.emoji + '</span><div class="prof-info"><div class="prof-label">' + p.label + '</div></div><span class="prof-arrow">→</span>';
     grid.appendChild(btn);
   });
 }
