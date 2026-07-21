@@ -118,9 +118,9 @@ body {
 .bill-num-link:hover { color: #D93B3B; }
 .bill-official { font-size: 9px; color: #9CA3AF; line-height: 1.4; margin-bottom: 8px; font-style: italic; }
 .bill-synopsis-text { font-size: 11.5px; color: #9CA3AF; line-height: 1.55; margin-bottom: 8px; padding-top: 8px; border-top: 1px solid #F3F4F6; }
-.bill-rationale { font-size: 11px; color: #002868; background: #EFF6FF; border-radius: 6px; padding: 7px 10px; margin-bottom: 8px; line-height: 1.5; font-weight: 500; }
-.bill-card.wo .bill-rationale { background: #FEE2E2; color: #7F1D1D; }
-.bill-card.hy .bill-rationale { background: #ECFCCB; color: #365314; }
+.bill-rationale { font-size: 11px; color: #002868; border-radius: 6px; padding: 7px 10px; margin-bottom: 8px; line-height: 1.5; font-weight: 500; }
+.bill-card.wo .bill-rationale { color: #7F1D1D; }
+.bill-card.hy .bill-rationale { color: #365314; }
 .bill-rationale-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #9CA3AF; display: block; margin-bottom: 3px; }
 .bill-sponsor { font-size: 11px; color: #9CA3AF; margin-bottom: 14px; }
 .bill-sponsor a { color: #9CA3AF; font-weight: 400; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: #9CA3AF; }
@@ -265,13 +265,13 @@ body {
     <div class="prof-grid" id="prof-grid">
       <button class="prof-btn" data-profile-key="homeowner" onclick="selectProfile('homeowner',this)"><span class="prof-em">🏠</span><div class="prof-info"><div class="prof-label">Homeowner</div></div></button>
       <button class="prof-btn" data-profile-key="renter"    onclick="selectProfile('renter',this)"><span class="prof-em">🔑</span><div class="prof-info"><div class="prof-label">Renter</div></div></button>
+      <button class="prof-btn" data-profile-key="landlord"  onclick="selectProfile('landlord',this)"><span class="prof-em">🏢</span><div class="prof-info"><div class="prof-label">Landlord</div></div></button>
       <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🧓</span><div class="prof-info"><div class="prof-label">Retiree</div></div></button>
+      <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-info"><div class="prof-label">Veteran or Military</div></div></button>
+      <button class="prof-btn" data-profile-key="lowwage"   onclick="selectProfile('lowwage',this)"><span class="prof-em">⏱️</span><div class="prof-info"><div class="prof-label">Hourly Worker</div></div></button>
+      <button class="prof-btn" data-profile-key="workpro"   onclick="selectProfile('workpro',this)"><span class="prof-em">🏬</span><div class="prof-info"><div class="prof-label">Professional</div></div></button>
       <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">💼</span><div class="prof-info"><div class="prof-label">Small Business Owner</div></div></button>
       <button class="prof-btn" data-profile-key="pubsec"    onclick="selectProfile('pubsec',this)"><span class="prof-em">🏛️</span><div class="prof-info"><div class="prof-label">Government</div></div></button>
-      <button class="prof-btn" data-profile-key="workpro"   onclick="selectProfile('workpro',this)"><span class="prof-em">🏬</span><div class="prof-info"><div class="prof-label">Professional</div></div></button>
-      <button class="prof-btn" data-profile-key="lowwage"   onclick="selectProfile('lowwage',this)"><span class="prof-em">⏱️</span><div class="prof-info"><div class="prof-label">Hourly Worker</div></div></button>
-      <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-info"><div class="prof-label">Veteran or Military</div></div></button>
-      <button class="prof-btn" data-profile-key="landlord"  onclick="selectProfile('landlord',this)"><span class="prof-em">🏢</span><div class="prof-info"><div class="prof-label">Landlord</div></div></button>
     </div>
 
   </div>
@@ -292,7 +292,7 @@ body {
   </div>
 
 
-  <div id="screen-bills">
+  <div id="screen-bills" style="display:none">
     <div class="filter-row">
       <button class="filter-btn hy active" id="filter-hy" onclick="setFilter('Helps You')">Helps You</button>
       <button class="filter-btn wo" id="filter-wo" onclick="setFilter('Watch Out')">Watch Out</button>
@@ -623,12 +623,9 @@ function renderBills() {
     return p && p.direction === dir;
   });
   bills.sort(function(a, b) {
-    var da = (a.profiles[key] || {}).direction || '';
-    var db = (b.profiles[key] || {}).direction || '';
-    if (da === db) return 0;
-    if (da === 'Watch Out') return -1;
-    if (db === 'Watch Out') return 1;
-    return 0;
+    var ta = (a.nickname || a.full_code || a.bill_number || '').toLowerCase();
+    var tb = (b.nickname || b.full_code || b.bill_number || '').toLowerCase();
+    return ta < tb ? -1 : ta > tb ? 1 : 0;
   });
   var countEl = document.getElementById('bill-count-bar');
   var sepEl   = document.getElementById('bills-nav-sep');
