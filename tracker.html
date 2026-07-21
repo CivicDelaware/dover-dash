@@ -194,6 +194,8 @@ body {
 .gi-action-icon { font-size: 20px; flex-shrink: 0; width: 28px; text-align: center; }
 .gi-action-label { font-size: 12px; font-weight: 700; color: #111827; flex: 1; }
 .gi-action-arrow { font-size: 14px; color: #9CA3AF; flex-shrink: 0; }
+.gi-action-hint { font-weight: 400; color: #9CA3AF; font-size: 11px; }
+button.gi-action-row { width: 100%; cursor: pointer; font-family: 'Inter', sans-serif; }
 .gi-subscribe-section { padding: 12px 16px 16px; border-top: 1px solid #E5E7EB; margin-top: 4px; }
 .gi-subscribe-label { font-size: 11px; font-weight: 600; color: #6B7280; margin-bottom: 10px; }
 /* ── LEGISLATOR FINDER ── */
@@ -319,19 +321,28 @@ body {
         <div class="gi-title">Get Involved!</div>
       </div>
       <div class="gi-action-list">
-        <a href="https://legis.delaware.gov/FindMyLegislator?search=" target="_blank" rel="noopener" class="gi-action-row">
+        <button class="gi-action-row" id="gi-leg-toggle" onclick="toggleLegLookup()" aria-expanded="false">
           <span class="gi-action-icon">🏛️</span>
           <span class="gi-action-label">Look up your legislator</span>
-          <span class="gi-action-arrow">→</span>
-        </a>
+          <span class="gi-action-arrow" id="gi-leg-chevron">▼</span>
+        </button>
+        <div id="gi-leg-panel" style="display:none;padding:8px 2px 2px;">
+          <div style="display:flex;gap:6px;margin-bottom:6px;">
+            <input type="text" id="gi-leg-addr" class="gi-addr-input" placeholder="123 Main St, Wilmington, DE" onkeydown="if(event.key==='Enter')lookUpLegislator();" />
+            <button class="gi-addr-btn" onclick="lookUpLegislator()">Find</button>
+          </div>
+          <div id="gi-leg-loading" style="display:none;" class="gi-loading">Looking up…</div>
+          <div id="gi-leg-error"   style="display:none;" class="gi-error"></div>
+          <div id="gi-leg-results" style="display:none;"></div>
+        </div>
         <a href="https://sg001-harmony.sliq.net/00329/Harmony/en/View/UpcomingEvents/20240109/-1" target="_blank" rel="noopener" class="gi-action-row">
           <span class="gi-action-icon">📺</span>
-          <span class="gi-action-label">Watch live hearings</span>
+          <span class="gi-action-label">Watch live hearings <span class="gi-action-hint">(legis.delaware.gov)</span></span>
           <span class="gi-action-arrow">→</span>
         </a>
         <a href="https://legis.delaware.gov" target="_blank" rel="noopener" class="gi-action-row">
           <span class="gi-action-icon">📋</span>
-          <span class="gi-action-label">See the current agenda</span>
+          <span class="gi-action-label">See the current agenda <span class="gi-action-hint">(legis.delaware.gov)</span></span>
           <span class="gi-action-arrow">→</span>
         </a>
       </div>
@@ -854,6 +865,68 @@ function buildStatewideCard(statewide) {
     html += '</div>';
   });
   return html + '</div>';
+}
+
+// ── INLINE LEGISLATOR LOOKUP (Get Involved card) ─────────────────────────────
+function toggleLegLookup() {
+  var panel   = document.getElementById('gi-leg-panel');
+  var chevron = document.getElementById('gi-leg-chevron');
+  var toggle  = document.getElementById('gi-leg-toggle');
+  var isOpen  = panel.style.display !== 'none';
+  panel.style.display = isOpen ? 'none' : 'block';
+  chevron.textContent = isOpen ? '▼' : '▲';
+  toggle.setAttribute('aria-expanded', String(!isOpen));
+  if (!isOpen) setTimeout(function() { document.getElementById('gi-leg-addr').focus(); }, 50);
+}
+
+function lookUpLegislator() {
+  var addr = (document.getElementById('gi-leg-addr').value || '').trim();
+  if (!addr) {
+    document.getElementById('gi-leg-addr').style.outline = '2px solid #D93B3B';
+    return;
+  }
+  document.getElementById('gi-leg-addr').style.outline = '';
+  document.getElementById('gi-leg-loading').style.display = 'block';
+  document.getElementById('gi-leg-error').style.display   = 'none';
+  document.getElementById('gi-leg-results').style.display = 'none';
+
+  fetch('/.netlify/functions/get-my-rep?address=' + encodeURIComponent(addr) + '&session=153')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      document.getElementById('gi-leg-loading').style.display = 'none';
+      if (data.error) {
+        document.getElementById('gi-leg-error').textContent   = data.error;
+        document.getElementById('gi-leg-error').style.display = 'block';
+        return;
+      }
+      function legCard(leg, label) {
+        if (!leg) return '';
+        var pc = leg.party === 'D' ? 'background:#DBEAFE;color:#1E40AF;'
+               : leg.party === 'R' ? 'background:#FEE2E2;color:#991B1B;'
+               :                     'background:#F3F4F6;color:#374151;';
+        var pLabel = leg.party === 'D' ? 'Dem.' : leg.party === 'R' ? 'Rep.' : leg.party;
+        return '<div style="background:#F9FAFB;border:1.5px solid #E5E7EB;border-radius:8px;padding:9px 11px;margin-bottom:6px;">' +
+          '<div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:#6B7280;margin-bottom:4px;">' + label + '</div>' +
+          '<div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">' +
+            '<span style="font-size:12px;font-weight:700;color:#111827;">' + leg.name + '</span>' +
+            '<span style="font-size:10px;font-weight:700;border-radius:4px;padding:2px 6px;' + pc + '">' + pLabel + '</span>' +
+          '</div>' +
+          (leg.url ? '<a href="' + leg.url + '" target="_blank" rel="noopener" style="font-size:10px;color:#002868;font-weight:600;text-decoration:none;display:inline-block;margin-top:4px;">GA profile →</a>' : '') +
+        '</div>';
+      }
+      var html = '';
+      if (data.rep)     html += legCard(data.rep,     'House District ' + data.house_district);
+      if (data.senator) html += legCard(data.senator, 'Senate District ' + data.senate_district);
+      if (!html) html = '<div style="font-size:11px;color:#6B7280;padding:6px 0;">No legislators found for this address.</div>';
+      var resEl = document.getElementById('gi-leg-results');
+      resEl.innerHTML = html;
+      resEl.style.display = 'block';
+    })
+    .catch(function() {
+      document.getElementById('gi-leg-loading').style.display = 'none';
+      document.getElementById('gi-leg-error').textContent   = 'Something went wrong. Please try again.';
+      document.getElementById('gi-leg-error').style.display = 'block';
+    });
 }
 
 function jumpToCandidates(addr) {
