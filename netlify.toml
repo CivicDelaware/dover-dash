@@ -32,5 +32,13 @@
 [context.tracker-preview]
   command = "echo 'Preview build'"
 
+# Serve tracker.html at the root on the preview branch so /tracker.html
+# doesn't need to be typed manually. Status 200 = transparent rewrite,
+# not a redirect — URL stays at / in the browser.
+[[context.tracker-preview.redirects]]
+  from   = "/"
+  to     = "/tracker.html"
+  status = 200
+
 [context.production]
   command = "echo 'Production build'"
