@@ -52,6 +52,8 @@ body {
 
 /* ── PROFILE PICKER ── */
 #screen-profiles { margin: 0 14px; background: #fff; border-radius: 0 0 16px 16px; padding: 20px 16px 20px; }
+.app-loading #home-header,
+.app-loading #screen-profiles { visibility: hidden; }
 .pick-title { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 900; color: #002868; margin-bottom: 4px; }
 .pick-sub { font-size: 12px; font-weight: 700; color: #002868; margin-bottom: 4px; line-height: 1.4; }
 .pick-sub-hint { font-size: 11px; color: #6B7280; margin-bottom: 14px; line-height: 1.4; }
@@ -188,7 +190,7 @@ body {
 .gi-source { font-size: 10px; color: #9CA3AF; margin-top: 10px; line-height: 1.5; }
 .gi-source a { color: #6B7280; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
 .gi-action-list { display: flex; flex-direction: column; padding: 0 16px 8px; gap: 6px; }
-.gi-action-row { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1.5px solid #E5E7EB; border-radius: 10px; text-decoration: none; background: #fff; transition: border-color .12s, background .12s; }
+.gi-action-row { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 2px solid #D1D5DB; border-radius: 10px; text-decoration: none; background: #fff; transition: border-color .12s, background .12s; }
 .gi-action-row:hover { border-color: #002868; background: #F0F4FF; }
 .gi-action-row:hover .gi-action-label { color: #002868; }
 .gi-action-icon { font-size: 20px; flex-shrink: 0; width: 28px; text-align: center; }
@@ -255,7 +257,7 @@ button.gi-action-row { width: 100%; cursor: pointer; font-family: 'Inter', sans-
 </style>
 </head>
 <body>
-<div id="app">
+<div id="app" class="app-loading">
 
   <div class="header" id="home-header">
     <div class="eyebrow" id="txt-eyebrow">Delaware's Legislative Bill Tracker</div>
@@ -489,8 +491,14 @@ function initApp() {
       if (data.profiles && data.profiles.length > 0) {
         patchProfileGrid(data.profiles);
       }
+
+      // Reveal home screen now that text is final — eliminates stale-text flicker
+      document.getElementById('app').classList.remove('app-loading');
     })
-    .catch(function() { /* already rendered from fallback */ });
+    .catch(function() {
+      // API failed — show home screen with HTML fallback text
+      document.getElementById('app').classList.remove('app-loading');
+    });
 }
 
 document.addEventListener('DOMContentLoaded', initApp);
