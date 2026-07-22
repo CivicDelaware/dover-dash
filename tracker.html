@@ -457,6 +457,10 @@ if (needsReorder) {
     });
     grid.appendChild(frag);
   }
+}
+
+function initApp() {
+  // Fetch Supabase data and patch the DOM in-place (no rebuild = no blink)
   fetch('/.netlify/functions/get-bills?meta=true')
     .then(function(res) { return res.json(); })
     .then(function(data) {
