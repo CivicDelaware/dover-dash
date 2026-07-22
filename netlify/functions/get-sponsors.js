@@ -39,9 +39,6 @@ exports.handler = async function (event) {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/sponsors?${params}`, {
       headers: {
         apikey: SUPABASE_SERVICE_KEY,
-        ...(SUPABASE_SERVICE_KEY && SUPABASE_SERVICE_KEY.startsWith('eyJ')
-          ? { Authorization: `Bearer ${SUPABASE_SERVICE_KEY}` }
-          : {}),
       },
     });
 

@@ -48,10 +48,6 @@ exports.handler = async function (event) {
 
   const SB_HEADERS = {
     apikey: SUPABASE_SERVICE_KEY,
-    // Legacy JWT keys start with "eyJ"; new sb_secret_... keys use apikey header only
-    ...(SUPABASE_SERVICE_KEY && SUPABASE_SERVICE_KEY.startsWith('eyJ')
-      ? { Authorization: `Bearer ${SUPABASE_SERVICE_KEY}` }
-      : {}),
   };
 
   // ── Meta-only endpoint: returns profiles + ticker, no bills ──────────────
