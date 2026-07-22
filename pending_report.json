@@ -1,0 +1,28 @@
+{
+  "generated_at": "2026-07-15",
+  "session_number": 153,
+  "note": "Newly introduced or amended items detected on legis.delaware.gov that have not yet passed the General Assembly and have not yet been scored by the Impact Dashboard risk engine. Manually refresh this file (or the monitor script) to update.",
+  "pending_items": [
+    {
+      "bill_number": "SA 2 to HB 75",
+      "type": "amendment",
+      "parent_bill": "HB 75",
+      "status": "Introduced",
+      "summary": "Senate Amendment 2 to House Bill 75 — introduced and awaiting committee review; not yet scored."
+    },
+    {
+      "bill_number": "SA 3 to HB 75",
+      "type": "amendment",
+      "parent_bill": "HB 75",
+      "status": "Introduced",
+      "summary": "Senate Amendment 3 to House Bill 75 — introduced and awaiting committee review; not yet scored."
+    },
+    {
+      "bill_number": "SB 360",
+      "type": "bill",
+      "parent_bill": null,
+      "status": "Introduced",
+      "summary": "Senate Bill 360 — newly introduced and awaiting committee action; not yet scored by the risk engine."
+    }
+  ]
+}

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97TWNW3TDT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-97TWNW3TDT');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Dover Dash — Impact Dashboard</title>
+<meta name="description" content="Fiscal risk scores, sector projections, and household-level impact for every bill in Delaware's 153rd General Assembly, modeled by Dover Dash.">
+<meta property="og:title" content="Dover Dash Impact Dashboard — Fiscal Risk & Household Impact" />
+<meta property="og:description" content="Fiscal risk scores, sector projections, and household-level impact for every bill in Delaware's 153rd General Assembly." />
+<meta property="og:image" content="https://civicdelaware.com/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://civicdelaware.com/og-image.png" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: #F5F3EF;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  padding-bottom: 40px;
+}
+#app { width: 100%; max-width: 390px; display: flex; flex-direction: column; }
+
+/* ── HEADER ── */
+.header { background: #002868; border-radius: 16px 16px 0 0; margin: 14px 14px 0; padding: 24px 20px 20px; text-align: center; border-bottom: 3px solid #BAFF5C; }
+.eyebrow { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.6); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+.brand { font-family: 'Playfair Display', Georgia, serif; font-size: 32px; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 6px; }
+.brand em { color: #BAFF5C; font-style: italic; }
+.subbrand { font-family: 'Playfair Display', Georgia, serif; font-size: 15px; font-weight: 700; font-style: italic; color: #BAFF5C; margin-bottom: 10px; }
+.tagline { font-size: 11px; color: rgba(255,255,255,0.75); margin-bottom: 10px; line-height: 1.5; }
+.session-pill { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.session-line { font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.85); letter-spacing: 0.5px; text-transform: uppercase; line-height: 1; }
+.session-dot { color: #D93B3B; font-size: 7px; vertical-align: middle; }
+.back-link { display: block; text-align: center; font-size: 10px; color: rgba(255,255,255,0.55); margin-top: 10px; text-decoration: underline; text-underline-offset: 2px; }
+.back-link:hover { color: #BAFF5C; }
+
+/* ── SECTIONS shared card wrapper ── */
+.section { margin: 0 14px; background: #fff; }
+.section + .section { border-top: 1px solid #EDEBE6; }
+.section-inner { padding: 16px 16px; }
+.section-title { font-family: 'Playfair Display', Georgia, serif; font-size: 15px; font-weight: 900; color: #002868; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+.section-sub { font-size: 11px; color: #6B7280; line-height: 1.5; margin-bottom: 12px; }
+
+/* ── ALERT BANNER ── */
+.alert-banner { background: #FEF2F2; border: 1.5px solid #FECACA; border-radius: 10px; padding: 12px 14px; margin-bottom: 4px; }
+.alert-banner-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.alert-dot { width: 8px; height: 8px; border-radius: 50%; background: #D93B3B; flex-shrink: 0; animation: pulse 1.6s infinite; }
+@keyframes pulse { 0%,100%{ opacity: 1; } 50%{ opacity: 0.35; } }
+.alert-banner-title { font-size: 12px; font-weight: 800; color: #991B1B; letter-spacing: 0.2px; }
+.alert-bill-row { font-size: 11px; color: #7F1D1D; padding: 4px 0; line-height: 1.4; }
+.alert-bill-row a { color: #7F1D1D; font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+.alert-empty { font-size: 11px; color: #6B7280; padding: 4px 0; }
+
+/* ── PENDING / NEWLY INTRODUCED ── */
+.pending-card { background: #FFFBEB; border: 1.5px solid #FDE68A; border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; }
+.pending-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 4px; }
+.pending-num { font-size: 12px; font-weight: 800; color: #92400E; }
+.pending-badge { font-size: 8.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.4px; color: #92400E; background: #FEF3C7; border-radius: 4px; padding: 2px 6px; white-space: nowrap; }
+.pending-desc { font-size: 11px; color: #78350F; line-height: 1.45; }
+.pending-note { font-size: 10px; color: #9CA3AF; line-height: 1.5; margin-top: 8px; }
+
+/* ── PROFILE CHIPS ── */
+.prof-chip-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.prof-chip { border: 1.5px solid #E5E7EB; border-radius: 20px; padding: 7px 12px; font-size: 11px; font-weight: 700; color: #374151; background: #fff; cursor: pointer; display: flex; align-items: center; gap: 5px; font-family: 'Inter', sans-serif; transition: all .12s; }
+.prof-chip .em { font-size: 13px; }
+.prof-chip.active { background: #002868; color: #BAFF5C; border-color: #002868; }
+.prof-chip:hover:not(.active) { border-color: #002868; }
+
+/* ── STAT STRIP ── */
+.stat-strip { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.stat-box { background: #F9FAFB; border-radius: 10px; padding: 10px 8px; text-align: center; }
+.stat-num { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 900; color: #002868; line-height: 1; }
+.stat-label { font-size: 9px; color: #6B7280; text-transform: uppercase; letter-spacing: 0.4px; margin-top: 3px; line-height: 1.3; }
+.stat-box.high .stat-num { color: #D93B3B; }
+.stat-box.medium .stat-num { color: #B45309; }
+
+/* ── CHARTS ── */
+.chart-wrap { background: #F9FAFB; border-radius: 10px; padding: 12px 10px 6px; margin-bottom: 10px; }
+.chart-wrap canvas { max-height: 220px; }
+.chart-caption { font-size: 9.5px; color: #9CA3AF; text-align: center; margin-top: 4px; line-height: 1.4; }
+
+/* ── FILTER ROW (alert level) ── */
+.filter-row { display: flex; gap: 6px; padding: 10px 16px; border-top: 1px solid #EDEBE6; flex-wrap: wrap; }
+.filter-btn { border: none; border-radius: 20px; padding: 6px 12px; font-size: 10.5px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; background: #F3F4F6; color: #374151; transition: all .12s; }
+.filter-btn.high { background: #FEE2E2; color: #D93B3B; }
+.filter-btn.medium { background: #FEF3C7; color: #B45309; }
+.filter-btn.low { background: #ECFCCB; color: #365314; }
+.filter-btn.active { background: #002868; color: #BAFF5C; }
+.filter-btn.high.active { background: #D93B3B; color: #fff; }
+.filter-btn.medium.active { background: #F5C842; color: #451a03; }
+.filter-btn.low.active { background: #65A30D; color: #fff; }
+
+/* ── BILL LIST ── */
+.bills-list { display: flex; flex-direction: column; gap: 8px; padding: 12px 12px 16px; }
+.bill-card { padding: 14px 16px; background: #fff; border-radius: 12px; border: 1.5px solid #E5E7EB; border-left-width: 5px; }
+.bill-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+.bill-num-link { font-size: 11px; font-weight: 800; color: #9CA3AF; text-decoration: underline; text-underline-offset: 2px; }
+.bill-num-link:hover { color: #002868; }
+.bill-cat-chip { display: inline-block; font-size: 8.5px; font-weight: 700; color: #6B7280; background: #F3F4F6; border-radius: 4px; padding: 2px 6px; text-transform: uppercase; letter-spacing: 0.4px; margin-top: 3px; }
+.grade-badge { font-size: 11px; font-weight: 900; border-radius: 6px; padding: 3px 9px; text-align: center; white-space: nowrap; flex-shrink: 0; }
+.grade-score { font-size: 9px; font-weight: 600; opacity: 0.85; margin-left: 3px; }
+.bill-nickname { font-size: 14px; font-weight: 800; color: #111827; margin-bottom: 4px; line-height: 1.35; }
+.bill-synopsis { font-size: 11px; color: #6B7280; line-height: 1.5; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.bill-tags-row { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 6px; }
+.sector-tag { font-size: 8.5px; font-weight: 700; color: #1E40AF; background: #DBEAFE; border-radius: 4px; padding: 2px 6px; }
+.alert-tag { font-size: 8.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.4px; border-radius: 4px; padding: 2px 6px; }
+.alert-tag.high { background: #FEE2E2; color: #D93B3B; }
+.alert-tag.medium { background: #FEF3C7; color: #B45309; }
+.alert-tag.low { background: #ECFCCB; color: #365314; }
+.impact-row { display: flex; align-items: center; gap: 6px; background: #F9FAFB; border-radius: 8px; padding: 7px 10px; margin-top: 6px; }
+.impact-row .em { font-size: 14px; }
+.impact-dir { font-size: 10.5px; font-weight: 800; padding: 2px 7px; border-radius: 4px; }
+.impact-dir.watchout { background: #FEE2E2; color: #D93B3B; }
+.impact-dir.helps { background: #ECFCCB; color: #365314; }
+.impact-dir.neutral { background: #F3F4F6; color: #6B7280; }
+.impact-conf { font-size: 8.5px; color: #9CA3AF; font-style: italic; margin-left: auto; white-space: nowrap; }
+.no-impact-row { font-size: 10.5px; color: #9CA3AF; margin-top: 6px; font-style: italic; }
+.bills-empty { text-align: center; padding: 30px 16px; }
+.bills-empty-icon { font-size: 28px; margin-bottom: 8px; }
+.bills-empty-title { font-family: 'Playfair Display', Georgia, serif; font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 4px; }
+.bills-empty-sub { font-size: 11px; color: #6B7280; }
+.load-more-btn { display: block; margin: 4px auto 6px; background: none; border: 1.5px solid #002868; border-radius: 20px; padding: 8px 20px; font-size: 11px; font-weight: 700; color: #002868; cursor: pointer; font-family: 'Inter', sans-serif; }
+
+.loading { text-align: center; padding: 40px 16px; }
+.loading-spinner { width: 32px; height: 32px; border: 3px solid rgba(0,40,104,0.15); border-top-color: #002868; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-sub { font-size: 11px; color: #9CA3AF; margin-top: 8px; }
+
+/* ── FOOTER ── */
+.app-footer { background: #002868; padding: 16px 16px 16px; text-align: center; margin: 0 14px 14px; border-radius: 0 0 16px 16px; border-top: 3px solid #BAFF5C; }
+.app-footer-brand { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 900; color: #fff; margin-bottom: 4px; }
+.app-footer-brand em { color: #BAFF5C; font-style: italic; }
+.app-footer-tagline { font-size: 10px; color: rgba(255,255,255,0.55); letter-spacing: 0.5px; margin-bottom: 12px; }
+.methodology-box { background: rgba(255,255,255,0.06); border-radius: 8px; padding: 10px 12px; margin-bottom: 12px; text-align: left; }
+.methodology-title { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #BAFF5C; margin-bottom: 6px; }
+.methodology-text { font-size: 10px; color: rgba(255,255,255,0.75); line-height: 1.6; }
+.methodology-text b { color: #fff; }
+.grade-key { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.grade-key-item { font-size: 8.5px; font-weight: 700; border-radius: 4px; padding: 2px 6px; }
+.app-footer-divider { border: none; border-top: 1px solid rgba(255,255,255,0.12); margin: 0 0 12px; }
+.app-footer-disclaimer { font-size: 8px; color: rgba(255,255,255,0.85); line-height: 1.6; margin-top: 4px; margin-bottom: 8px; font-family: 'Times New Roman', Times, Georgia, serif; font-style: italic; text-align: left; }
+.app-footer-disclaimer a { color: rgba(255,255,255,0.85); text-decoration: underline; text-underline-offset: 2px; }
+.app-footer-copy { font-size: 8px; color: #BAFF5C; }
+.app-footer-copy a { color: #BAFF5C; text-decoration: none; }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <div class="header">
+    <div class="eyebrow">Fiscal Risk &amp; Household Impact</div>
+    <div class="brand">Dover <em>Dash</em></div>
+    <div class="subbrand">Impact Dashboard</div>
+    <div class="tagline">Every bill this session, scored for fiscal risk, sector impact, and what it means for your household.</div>
+    <div class="session-pill">
+      <span class="session-line">153rd General Assembly · 2024–2026</span>
+      <span class="session-line"><span class="session-dot">● </span><span id="txt-updated">Loading…</span></span>
+    </div>
+    <a class="back-link" href="/tracker.html">← Back to the Bill Tracker</a>
+  </div>
+
+  <!-- HIGH-RISK ALERT BANNER -->
+  <div class="section">
+    <div class="section-inner" style="padding-bottom:12px;">
+      <div class="alert-banner">
+        <div class="alert-banner-top">
+          <span class="alert-dot"></span>
+          <span class="alert-banner-title">High-Risk Legislative Items</span>
+        </div>
+        <div id="alert-list"><div class="alert-empty">Loading…</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEWLY INTRODUCED -->
+  <div class="section" id="pending-section" style="display:none;">
+    <div class="section-inner">
+      <div class="section-title">🕐 Newly Introduced — Awaiting Review</div>
+      <div class="section-sub">Detected on legis.delaware.gov but not yet scored by the risk engine. Refresh manually to bring these into the model.</div>
+      <div id="pending-list"></div>
+      <div class="pending-note" id="pending-generated"></div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="section">
+    <div class="section-inner">
+      <div class="section-title">📊 Session at a Glance</div>
+      <div class="stat-strip" id="stat-strip">
+        <div class="stat-box"><div class="stat-num">–</div><div class="stat-label">Bills Scored</div></div>
+        <div class="stat-box medium"><div class="stat-num">–</div><div class="stat-label">Medium Alert</div></div>
+        <div class="stat-box high"><div class="stat-num">–</div><div class="stat-label">High Alert</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHARTS -->
+  <div class="section">
+    <div class="section-inner">
+      <div class="section-title">📈 Dover Dash Risk Grade Distribution</div>
+      <div class="section-sub">How many bills fall into each modeled risk grade this session.</div>
+      <div class="chart-wrap"><canvas id="gradeChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-inner">
+      <div class="section-title">🏗️ Projected Sector Shifts</div>
+      <div class="section-sub">Illustrative directional magnitude of legislative impact by sector, over the next 1–3 years.</div>
+      <div class="chart-wrap"><canvas id="sectorChart"></canvas></div>
+      <div class="chart-caption">Modeled projection based on bill volume, category risk, and fiscal score — not an official economic forecast.</div>
+    </div>
+  </div>
+
+  <!-- PROFILE FILTER -->
+  <div class="section">
+    <div class="section-inner">
+      <div class="section-title">👤 See Impact By Profile</div>
+      <div class="section-sub">Select a household profile to see how each bill affects you.</div>
+      <div class="prof-chip-row" id="prof-chip-row"></div>
+    </div>
+  </div>
+
+  <!-- ALERT FILTER -->
+  <div class="filter-row" id="alert-filter-row">
+    <button class="filter-btn active" data-alert="all">All Bills</button>
+    <button class="filter-btn high" data-alert="high">High Risk</button>
+    <button class="filter-btn medium" data-alert="medium">Medium Risk</button>
+    <button class="filter-btn low" data-alert="low">Low Risk</button>
+  </div>
+
+  <!-- BILL LIST -->
+  <div class="section">
+    <div id="bills-container">
+      <div class="loading"><div class="loading-spinner"></div><div class="loading-sub">Loading scored bills…</div></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="app-footer">
+    <div class="app-footer-brand">Dover <em>Dash</em></div>
+    <div class="app-footer-tagline">IMPACT DASHBOARD · METHODOLOGY</div>
+
+    <div class="methodology-box">
+      <div class="methodology-title">How Scoring Works</div>
+      <div class="methodology-text">
+        Each bill gets a <b>Fiscal Risk Score (0–100)</b> from its legal category's baseline weight, keyword signals in its text (e.g. "appropriation," "tax rate," "bond"), and its number of amendments. That score maps to a <b>Dover Dash Risk Grade</b>, a modeled scale using rating-style lettering (Aaa = minimal risk → Caa = severe risk).
+      </div>
+      <div class="grade-key">
+        <span class="grade-key-item" style="background:#ECFCCB;color:#365314;">Aaa/Aa · Minimal–Low</span>
+        <span class="grade-key-item" style="background:#DBEAFE;color:#1E40AF;">A · Low-Moderate</span>
+        <span class="grade-key-item" style="background:#FEF3C7;color:#92400E;">Baa · Moderate</span>
+        <span class="grade-key-item" style="background:#FFEDD5;color:#9A3412;">Ba · Elevated</span>
+        <span class="grade-key-item" style="background:#FEE2E2;color:#991B1B;">B/Caa · High–Severe</span>
+      </div>
+    </div>
+
+    <hr class="app-footer-divider">
+    <div class="app-footer-disclaimer">
+      (Disclaimer: The "Dover Dash Risk Grade" is an independent, nonpartisan scoring model built by Civic Delaware for the Dover Dash Impact Dashboard. It is <b>not produced, endorsed, sponsored, or affiliated with Moody's Investors Service, Moody's Corporation, or any credit rating agency</b>, and is not a credit rating, investment advice, or a substitute for official fiscal notes. Scores are generated from bill category, keyword pattern-matching, and amendment activity, and should be treated as a general-information heuristic only. Household-impact entries marked "preliminary" are heuristic estimates and have not been individually reviewed by our editorial team; entries marked "reviewed" reflect our independent judgment based on bill text and available fiscal notes. None of this constitutes legal, financial, or tax advice, and none of it signals support or opposition to any bill, legislator, or party. Bill data is sourced from Delaware's 153rd General Assembly via <a href="https://legis.delaware.gov" target="_blank" rel="noopener">legis.delaware.gov</a> — always review original bill text and official fiscal notes for authoritative details.)
+    </div>
+    <div class="app-footer-copy">© Civic Delaware · <a href="/tracker.html">Dover Dash Bill Tracker</a></div>
+  </div>
+
+</div>
+
+<script>
+var PROFILES = {
+  homeowner: { emoji: '🏠', label: 'Homeowner' },
+  renter:    { emoji: '🔑', label: 'Renter' },
+  senior:    { emoji: '🌅', label: 'Retiree' },
+  smallbiz:  { emoji: '🏪', label: 'Small Biz' },
+  pubsec:    { emoji: '🏛️', label: 'Gov\'t Worker' },
+  workpro:   { emoji: '💼', label: 'Professional' },
+  lowwage:   { emoji: '⏰', label: 'Hourly Worker' },
+  veteran:   { emoji: '🎖️', label: 'Veteran' },
+  landlord:  { emoji: '🏘️', label: 'Landlord' },
+};
+var PROFILE_KEYS_DEFAULT = ['homeowner','renter','landlord','senior','veteran','lowwage','workpro','smallbiz','pubsec'];
+
+var GRADE_ORDER = ['Aaa','Aa','A','Baa','Ba','B','Caa'];
+var GRADE_COLORS = {
+  Aaa: { bg: '#ECFCCB', text: '#365314', bar: '#65A30D' },
+  Aa:  { bg: '#ECFCCB', text: '#3F6212', bar: '#84CC16' },
+  A:   { bg: '#DBEAFE', text: '#1E40AF', bar: '#3B82F6' },
+  Baa: { bg: '#FEF3C7', text: '#92400E', bar: '#F5C842' },
+  Ba:  { bg: '#FFEDD5', text: '#9A3412', bar: '#F97316' },
+  B:   { bg: '#FEE2E2', text: '#991B1B', bar: '#EF4444' },
+  Caa: { bg: '#FEE2E2', text: '#7F1D1D', bar: '#D93B3B' },
+};
+
+var allBills = [];
+var sectorProjections = [];
+var alertDistribution = { low: 0, medium: 0, high: 0 };
+var gradeDistribution = {};
+var activeProfile = null;
+var activeAlertFilter = 'all';
+var renderLimit = 15;
+
+function esc(s) { var d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+function renderProfileChips() {
+  var row = document.getElementById('prof-chip-row');
+  var allBtn = document.createElement('button');
+  allBtn.className = 'prof-chip active';
+  allBtn.textContent = 'All Profiles';
+  allBtn.onclick = function() { setActiveProfile(null); };
+  row.appendChild(allBtn);
+  PROFILE_KEYS_DEFAULT.forEach(function(key) {
+    var p = PROFILES[key];
+    var btn = document.createElement('button');
+    btn.className = 'prof-chip';
+    btn.setAttribute('data-profile', key);
+    btn.innerHTML = '<span class="em">' + p.emoji + '</span>' + esc(p.label);
+    btn.onclick = function() { setActiveProfile(key); };
+    row.appendChild(btn);
+  });
+}
+
+function setActiveProfile(key) {
+  activeProfile = key;
+  document.querySelectorAll('.prof-chip').forEach(function(b) {
+    var isAll = !b.hasAttribute('data-profile');
+    var match = key === null ? isAll : b.getAttribute('data-profile') === key;
+    b.classList.toggle('active', match);
+  });
+  renderLimit = 15;
+  renderBills();
+}
+
+function setActiveAlertFilter(level) {
+  activeAlertFilter = level;
+  document.querySelectorAll('#alert-filter-row .filter-btn').forEach(function(b) {
+    b.classList.toggle('active', b.getAttribute('data-alert') === level);
+  });
+  renderLimit = 15;
+  renderBills();
+}
+
+document.getElementById('alert-filter-row').addEventListener('click', function(e) {
+  var btn = e.target.closest('.filter-btn');
+  if (btn) setActiveAlertFilter(btn.getAttribute('data-alert'));
+});
+
+function renderAlertBanner() {
+  var highBills = allBills.filter(function(b) { return b.alert_level === 'high'; });
+  var el = document.getElementById('alert-list');
+  if (highBills.length === 0) {
+    el.innerHTML = '<div class="alert-empty">No bills are currently flagged high-risk this session.</div>';
+    return;
+  }
+  el.innerHTML = highBills.map(function(b) {
+    return '<div class="alert-bill-row">' +
+      '<a href="#bill-' + b.id + '">' + esc(b.full_code) + '</a> — ' + esc(b.nickname || b.category) +
+      ' (score ' + b.fiscal_risk_score + ', ' + esc(b.risk_grade) + ')</div>';
+  }).join('');
+}
+
+function renderStats() {
+  var strip = document.getElementById('stat-strip');
+  strip.innerHTML =
+    '<div class="stat-box"><div class="stat-num">' + allBills.length + '</div><div class="stat-label">Bills Scored</div></div>' +
+    '<div class="stat-box medium"><div class="stat-num">' + (alertDistribution.medium || 0) + '</div><div class="stat-label">Medium Alert</div></div>' +
+    '<div class="stat-box high"><div class="stat-num">' + (alertDistribution.high || 0) + '</div><div class="stat-label">High Alert</div></div>';
+}
+
+function renderGradeChart() {
+  var ctx = document.getElementById('gradeChart');
+  var counts = GRADE_ORDER.map(function(g) { return gradeDistribution[g] || 0; });
+  var colors = GRADE_ORDER.map(function(g) { return GRADE_COLORS[g].bar; });
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: GRADE_ORDER,
+      datasets: [{ data: counts, backgroundColor: colors, borderRadius: 4, maxBarThickness: 34 }],
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c) { return c.parsed.y + ' bills'; } } } },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 10, weight: '700' }, color: '#374151' } },
+        y: { beginAtZero: true, ticks: { font: { family: 'Inter', size: 9 }, color: '#9CA3AF', precision: 0 }, grid: { color: '#F0EFEA' } },
+      },
+    },
+  });
+}
+
+function renderSectorChart() {
+  var ctx = document.getElementById('sectorChart');
+  var top = sectorProjections.slice(0, 6);
+  if (top.length === 0) {
+    ctx.parentElement.innerHTML = '<div class="chart-caption" style="padding:20px 0;">No sector projections available yet.</div>';
+    return;
+  }
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: top.map(function(s) { return s.sector; }),
+      datasets: [
+        { label: 'Year 1', data: top.map(function(s) { return s.y1; }), backgroundColor: '#BAE6FD' },
+        { label: 'Year 2', data: top.map(function(s) { return s.y2; }), backgroundColor: '#60A5FA' },
+        { label: 'Year 3', data: top.map(function(s) { return s.y3; }), backgroundColor: '#002868' },
+      ],
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      layout: { padding: { left: 4, right: 8 } },
+      plugins: {
+        legend: { position: 'top', labels: { font: { family: 'Inter', size: 9, weight: '700' }, boxWidth: 10, color: '#374151' } },
+      },
+      scales: {
+        x: { beginAtZero: true, ticks: { font: { family: 'Inter', size: 9 }, color: '#9CA3AF' }, grid: { color: '#F0EFEA' } },
+        y: { ticks: { font: { family: 'Inter', size: 9, weight: '600' }, color: '#374151', crossAlign: 'far' }, grid: { display: false } },
+      },
+    },
+  });
+}
+
+function directionClass(dir) {
+  if (dir === 'Watch Out') return 'watchout';
+  if (dir === 'Helps You') return 'helps';
+  return 'neutral';
+}
+
+function renderBillCard(b) {
+  var grade = GRADE_COLORS[b.risk_grade] || GRADE_COLORS.A;
+  var impactHtml = '';
+  if (activeProfile) {
+    var impact = (b.household_impact || []).find(function(h) { return h.profile_key === activeProfile; });
+    var p = PROFILES[activeProfile];
+    if (impact) {
+      impactHtml = '<div class="impact-row"><span class="em">' + p.emoji + '</span>' +
+        '<span class="impact-dir ' + directionClass(impact.direction) + '">' + esc(impact.direction) + '</span>' +
+        '<span class="impact-conf">' + (impact.confidence === 'reviewed' ? 'Reviewed' : 'Preliminary') + '</span></div>';
+    } else {
+      impactHtml = '<div class="no-impact-row">' + p.emoji + ' No specific ' + esc(p.label) + ' impact detected for this bill.</div>';
+    }
+  }
+  var sectorsHtml = (b.sectors || []).map(function(s) { return '<span class="sector-tag">' + esc(s.sector) + '</span>'; }).join('');
+  return '<div class="bill-card" id="bill-' + b.id + '" style="border-left-color:' + grade.bar + ';">' +
+    '<div class="bill-top">' +
+      '<div>' +
+        '<a class="bill-num-link" href="' + esc(b.url) + '" target="_blank" rel="noopener">' + esc(b.full_code) + '</a>' +
+        '<div class="bill-cat-chip">' + esc(b.category) + '</div>' +
+      '</div>' +
+      '<div class="grade-badge" style="background:' + grade.bg + ';color:' + grade.text + ';">' + esc(b.risk_grade) + '<span class="grade-score">' + b.fiscal_risk_score + '</span></div>' +
+    '</div>' +
+    '<div class="bill-nickname">' + esc(b.nickname || b.plain_english || b.synopsis).slice(0, 90) + '</div>' +
+    '<div class="bill-synopsis">' + esc(b.plain_english || b.synopsis) + '</div>' +
+    '<div class="bill-tags-row">' +
+      '<span class="alert-tag ' + b.alert_level + '">' + b.alert_level + ' alert</span>' + sectorsHtml +
+    '</div>' +
+    impactHtml +
+  '</div>';
+}
+
+function renderBills() {
+  var filtered = allBills.filter(function(b) {
+    if (activeAlertFilter !== 'all' && b.alert_level !== activeAlertFilter) return false;
+    if (activeProfile) {
+      return (b.household_impact || []).some(function(h) { return h.profile_key === activeProfile; });
+    }
+    return true;
+  });
+
+  var container = document.getElementById('bills-container');
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="bills-empty"><div class="bills-empty-icon">🔍</div>' +
+      '<div class="bills-empty-title">No bills match this view</div>' +
+      '<div class="bills-empty-sub">Try a different profile or alert filter.</div></div>';
+    return;
+  }
+
+  var visible = filtered.slice(0, renderLimit);
+  var html = '<div class="bills-list">' + visible.map(renderBillCard).join('') + '</div>';
+  if (filtered.length > renderLimit) {
+    html += '<button class="load-more-btn" id="load-more-btn">See ' + (filtered.length - renderLimit) + ' more bills ↓</button>';
+  }
+  container.innerHTML = html;
+  var loadMore = document.getElementById('load-more-btn');
+  if (loadMore) loadMore.onclick = function() { renderLimit += 25; renderBills(); };
+}
+
+function renderPending(data) {
+  var section = document.getElementById('pending-section');
+  var list = document.getElementById('pending-list');
+  var gen = document.getElementById('pending-generated');
+  if (!data || !data.pending_items || data.pending_items.length === 0) {
+    section.style.display = 'none';
+    return;
+  }
+  section.style.display = '';
+  list.innerHTML = data.pending_items.map(function(item) {
+    return '<div class="pending-card">' +
+      '<div class="pending-top"><span class="pending-num">' + esc(item.bill_number) + '</span>' +
+      '<span class="pending-badge">' + esc(item.status || 'Introduced') + '</span></div>' +
+      '<div class="pending-desc">' + esc(item.summary) + '</div></div>';
+  }).join('');
+  gen.textContent = data.note ? data.note : ('Last checked ' + (data.generated_at || ''));
+}
+
+function loadPending() {
+  fetch('/pending_report.json')
+    .then(function(r) { if (!r.ok) throw new Error('no pending file'); return r.json(); })
+    .then(renderPending)
+    .catch(function() { document.getElementById('pending-section').style.display = 'none'; });
+}
+
+function loadImpactData() {
+  fetch('/.netlify/functions/get-impact-data')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      allBills = data.bills || [];
+      sectorProjections = data.sector_projections || [];
+      alertDistribution = data.alert_distribution || { low: 0, medium: 0, high: 0 };
+      gradeDistribution = data.grade_distribution || {};
+      document.getElementById('txt-updated').textContent = 'Updated ' + new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      renderAlertBanner();
+      renderStats();
+      renderGradeChart();
+      renderSectorChart();
+      renderBills();
+    })
+    .catch(function(err) {
+      document.getElementById('bills-container').innerHTML =
+        '<div class="bills-empty"><div class="bills-empty-icon">⚠️</div>' +
+        '<div class="bills-empty-title">Couldn\'t load scored bills</div>' +
+        '<div class="bills-empty-sub">Please refresh, or check back shortly.</div></div>';
+      console.error(err);
+    });
+}
+
+renderProfileChips();
+loadPending();
+loadImpactData();
+</script>
+</body>
+</html>
