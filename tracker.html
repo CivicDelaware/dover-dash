@@ -53,13 +53,12 @@ body {
 /* ── PROFILE PICKER ── */
 #screen-profiles { margin: 0 14px; background: #fff; border-radius: 0 0 16px 16px; padding: 20px 16px 20px; }
 .pick-title { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 900; color: #002868; margin-bottom: 4px; }
-.pick-sub { font-size: 12px; font-weight: 700; color: #002868; margin-bottom: 4px; line-height: 1.4; }
+.pick-sub { font-size: 12px; font-weight: 700; color: #002868; margin-bottom: 4px; line-height: 1.4; min-height: 34px; }
 .pick-sub-hint { font-size: 11px; color: #6B7280; margin-bottom: 14px; line-height: 1.4; }
 .prof-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .prof-btn { border: 1.5px solid #E5E7EB; border-radius: 10px; padding: 14px 10px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; background: #fff; font-family: 'Inter', sans-serif; width: 100%; min-height: 92px; transition: border-color .12s, background .12s; }
 .prof-btn:hover { border-color: #002868; background: #F0F4FF; }
 .prof-btn:hover .prof-label { color: #002868; }
-.prof-btn:last-child { grid-column: 1 / -1; }
 .prof-em { font-size: 26px; line-height: 1; font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji", sans-serif; }
 .prof-label { font-size: 11px; font-weight: 700; color: #111827; line-height: 1.3; }
 .prof-sub { font-size: 10px; color: #6B7280; margin-top: 3px; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -279,7 +278,6 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #fff; border-colo
       <button class="prof-btn" data-profile-key="landlord"  onclick="selectProfile('landlord',this)"><span class="prof-em">🏘️</span><div class="prof-label">Landlord</div></button>
       <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🌅</span><div class="prof-label">Retiree / Senior</div></button>
       <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-label">Veteran / Military Family</div></button>
-      <button class="prof-btn" data-profile-key="lowwage"   onclick="selectProfile('lowwage',this)"><span class="prof-em">⏰</span><div class="prof-label">Hourly Worker</div></button>
       <button class="prof-btn" data-profile-key="workpro"   onclick="selectProfile('workpro',this)"><span class="prof-em">💼</span><div class="prof-label">Private Sector Employee</div></button>
       <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">🏪</span><div class="prof-label">Small Business Owner</div></button>
       <button class="prof-btn" data-profile-key="pubsec"    onclick="selectProfile('pubsec',this)"><span class="prof-em">🏛️</span><div class="prof-label">Public Sector Employee</div></button>
@@ -402,13 +400,12 @@ var PROFILES = {
   smallbiz:  { emoji: '🏪', label: 'Small Business Owner', stat: '99% of Delaware businesses have under 500 employees',       statSource: 'U.S. SBA, 2023',              statUrl: 'https://advocacy.sba.gov/2023/03/07/2023-small-business-economic-profile-de/' },
   pubsec:    { emoji: '🏛️', label: 'Public Sector Employee', stat: 'State & local govt is one of Delaware\'s largest employers', statSource: 'U.S. BLS, 2024',      statUrl: 'https://www.bls.gov/regions/mid-atlantic/delaware.htm' },
   workpro:   { emoji: '💼', label: 'Private Sector Employee', stat: 'Delaware\'s private sector spans finance, pharma & professional services' },
-  lowwage:   { emoji: '⏰', label: 'Hourly Worker',       stat: 'Retail, hospitality & care employ tens of thousands across Delaware',   statSource: null, statUrl: null },
   veteran:   { emoji: '🎖️', label: 'Veteran / Military Family', stat: 'Delaware is home to Dover Air Force Base, one of the largest in the U.S.', statSource: 'U.S. Dept. of Defense', statUrl: 'https://www.dover.af.mil/' },
   landlord:  { emoji: '🏘️', label: 'Landlord',            stat: 'About 29% of Delaware households are renters',                            statSource: 'U.S. Census Bureau, ACS 2023', statUrl: 'https://www.census.gov/quickfacts/fact/table/DE' },
 };
 
 // Ordered profile keys — used by renderProfileGrid() when Supabase doesn't return an order
-var PROFILE_KEYS_DEFAULT = ['homeowner','renter','landlord','senior','veteran','lowwage','workpro','smallbiz','pubsec'];
+var PROFILE_KEYS_DEFAULT = ['homeowner','renter','landlord','senior','veteran','workpro','smallbiz','pubsec'];
 
 function renderProfileGrid(orderedKeys) {
   // Build the grid once from scratch — only called on first render
