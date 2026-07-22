@@ -40,5 +40,16 @@
   to     = "/tracker.html"
   status = 200
 
+# impact-dashboard branch → preview URL only, not production
+[context.impact-dashboard]
+  command = "echo 'Preview build'"
+
+# Serve tracker.html at the root on this preview branch too — the new
+# Impact Dashboard is reachable at /impact-dashboard.html.
+[[context.impact-dashboard.redirects]]
+  from   = "/"
+  to     = "/tracker.html"
+  status = 200
+
 [context.production]
   command = "echo 'Production build'"
