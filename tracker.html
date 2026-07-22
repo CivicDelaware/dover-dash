@@ -449,21 +449,14 @@ function patchProfileGrid(profiles) {
   var newOrder = profiles.map(function(p) { return p.key; });
   var currentOrder = Array.from(grid.querySelectorAll('[data-profile-key]')).map(function(b) { return b.getAttribute('data-profile-key'); });
   var needsReorder = newOrder.some(function(k, i) { return currentOrder[i] !== k; });
-  if (needsReorder) {
-    // Hide the grid before moving nodes so the reorder is never visible.
-    // Each appendChild triggers a reflow; without this, users see a brief
-    // layout scramble while buttons move into their new positions.
-    grid.style.visibility = 'hidden';
+if (needsReorder) {
+    var frag = document.createDocumentFragment();
     newOrder.forEach(function(key) {
       var btn = grid.querySelector('[data-profile-key="' + key + '"]');
-      if (btn) grid.appendChild(btn);
+      if (btn) frag.appendChild(btn);
     });
-    requestAnimationFrame(function() { grid.style.visibility = ''; });
+    grid.appendChild(frag);
   }
-}
-
-function initApp() {
-  // Fetch Supabase data and patch the DOM in-place (no rebuild = no blink)
   fetch('/.netlify/functions/get-bills?meta=true')
     .then(function(res) { return res.json(); })
     .then(function(data) {
