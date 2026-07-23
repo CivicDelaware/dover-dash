@@ -98,7 +98,7 @@ exports.handler = async function (event) {
   try {
     // 1. Fetch all bills for this session directly from the bills table
     const billsParams = new URLSearchParams({
-      select:         "id,session_number,bill_number,full_code,bill_text,nickname,origin_chamber,category,intro_date,passed_date,amendments,legislation_id,status,stage,synopsis,plain_english,legislation_url,primary_sponsor,sponsor_person_id,legislator_url",
+      select:         "id,session_number,bill_number,full_code,long_title,nickname,origin_chamber,category,intro_date,passed_date,amendments,legislation_id,status,stage,synopsis,plain_english,legislation_url,primary_sponsor,sponsor_person_id,legislator_url",
       session_number: `eq.${session}`,
     });
 
@@ -144,7 +144,7 @@ exports.handler = async function (event) {
       session:        b.session_number,
       bill_number:    b.bill_number,
       full_code:      b.full_code || b.bill_number,
-      bill_text:      b.bill_text || "",
+      bill_text:      b.long_title || "",
       nickname:       b.nickname  || "",
       origin_chamber: b.origin_chamber || "",
       category:       b.category  || "",
