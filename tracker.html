@@ -621,6 +621,10 @@ function loadBills(profile) {
   document.querySelector('.gi-card').style.visibility = 'hidden';
   document.getElementById('bill-count-bar').textContent = '';
   document.getElementById('bills-nav-sep').textContent = '';
+  // Reset stat labels immediately so the PREVIOUS profile's counts never
+  // stay visible while this profile's data is still loading.
+  document.getElementById('filter-wo').textContent = 'Watch Out';
+  document.getElementById('filter-hy').textContent = 'Helps You';
   fetch('/.netlify/functions/get-bills?profile=' + encodeURIComponent(profile))
     .then(function(res) { if (!res.ok) throw new Error('API error ' + res.status); return res.json(); })
     .then(function(data) {
