@@ -57,6 +57,10 @@ body {
 .pick-sub-hint { font-size: 11px; color: #6B7280; margin-bottom: 14px; line-height: 1.4; }
 .prof-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .prof-btn { border: 1.5px solid #E5E7EB; border-radius: 10px; padding: 14px 10px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; background: #fff; font-family: 'Inter', sans-serif; width: 100%; min-height: 92px; transition: border-color .12s, background .12s; }
+.prof-btn.selected { border-color: #002868; background: #EFF3FB; box-shadow: 0 0 0 1.5px #002868 inset; }
+.see-results-btn { display: none; width: 100%; margin-top: 16px; padding: 13px; background: #002868; color: #fff; border: none; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; }
+.see-results-btn.ready { display: block; }
+.see-results-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .prof-btn:hover { border-color: #002868; background: #F0F4FF; }
 .prof-btn:hover .prof-label { color: #002868; }
 .prof-em { font-size: 26px; line-height: 1; font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji", sans-serif; }
@@ -281,6 +285,8 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #fff; border-colo
       <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">🏪</span><div class="prof-label">Small Business Owner</div></button>
       <button class="prof-btn" data-profile-key="landlord"  onclick="selectProfile('landlord',this)"><span class="prof-em">🏘️</span><div class="prof-label">Landlord</div></button>
     </div>
+
+    <button class="see-results-btn" id="see-results-btn" onclick="goToBills()">See my results</button>
 
   </div>
 
@@ -531,7 +537,7 @@ function selectProfile(key, btn) {
   pendingProfileKey = key;
   document.querySelectorAll('.prof-btn').forEach(function(b) { b.classList.remove('selected'); });
   if (btn) btn.classList.add('selected');
-  goToBills();
+  document.getElementById('see-results-btn').classList.add('ready');
 }
 function goToBills() {
   var key = pendingProfileKey;
@@ -566,6 +572,7 @@ function backToProfiles() {
   document.getElementById('home-header').style.display = 'block';
   document.getElementById('screen-profiles').style.display = 'block';
   document.querySelectorAll('.prof-btn').forEach(function(b) { b.classList.remove('selected'); });
+  document.getElementById('see-results-btn').classList.remove('ready');
   pendingProfileKey = null;
   window.scrollTo(0, 0);
 }
