@@ -88,19 +88,70 @@ exports.handler = async function (event) {
       }
     } catch (e) { /* skip — ticker_message already set above */ }
 
+    // Fetch category display labels — same reasoning as profiles: keep this
+    // as data in Supabase, not hardcoded in the frontend, so adding or
+    // renaming a category never requires a code deploy.
+    let categoryLabels = [];
+    try {
+      const catRes = await fetch(
+        `${SUPABASE_URL}/rest/v1/category_labels?select=category_key,display_label`,
+        { headers: SB_HEADERS }
+      );
+      if (catRes.ok) categoryLabels = await catRes.json();
+    } catch (e) { /* skip if table doesn't exist yet */ }
+
     return {
       statusCode: 200,
       headers:    CORS,
-      body:       JSON.stringify({ profiles, config, tickerMessage }),
+      body:       JSON.stringify({ profiles, config, tickerMessage, categoryLabels }),
     };
   }
 
   try {
-    // 1. Fetch all bills for this session directly from the bills table
-    const billsParams = new URLSearchParams({
-      select:         "id,session_number,bill_number,full_code,long_title,nickname,origin_chamber,category,intro_date,passed_date,amendments,legislation_id,status,stage,synopsis,plain_english,legislation_url,primary_sponsor,sponsor_person_id,legislator_url",
+    // 1. Fetch classifications for this session, filtered by profile at the query level
+    //    when a profile was requested — so we only pull the ~1/9th of rows that are
+    //    actually relevant, instead of every profile's classifications every time.
+    const classParams = new URLSearchParams({
+      select:         "bill_id,profile_key,direction,rationale",
       session_number: `eq.${session}`,
     });
+    if (profile) classParams.set("profile_key", `eq.${profile}`);
+
+    const classRes = await fetch(`${SUPABASE_URL}/rest/v1/classifications?${classParams}`, { headers: SB_HEADERS });
+    if (!classRes.ok) {
+      console.error("Classifications fetch error:", await classRes.text());
+      return { statusCode: 502, headers: CORS, body: JSON.stringify({ error: "Upstream error" }) };
+    }
+    const classData = await classRes.json();
+
+    // 2. Build classification map: bill_id → { profile_key: { direction, rationale } }
+    //    and collect the set of bill IDs actually relevant to this request.
+    const classMap = {};
+    const relevantBillIds = new Set();
+    classData.forEach((c) => {
+      if (!classMap[c.bill_id]) classMap[c.bill_id] = {};
+      classMap[c.bill_id][c.profile_key] = { direction: c.direction, rationale: c.rationale };
+      relevantBillIds.add(c.bill_id);
+    });
+
+    // 3. Fetch only the bills we actually need. When a profile was requested, filter by
+    //    the exact bill IDs from step 1 instead of pulling every bill in the session.
+    const billsParams = new URLSearchParams({
+      select:         "id,session_number,bill_number,full_code,bill_text,nickname,origin_chamber,category,intro_date,passed_date,amendments,legislation_id,status,stage,synopsis,plain_english,legislation_url,primary_sponsor,sponsor_person_id,legislator_url",
+      session_number: `eq.${session}`,
+    });
+    if (profile) {
+      const idList = Array.from(relevantBillIds);
+      if (idList.length === 0) {
+        // Nothing classified for this profile yet — skip the bills fetch entirely.
+        return {
+          statusCode: 200,
+          headers:    CORS,
+          body:       JSON.stringify({ bills: [], count: 0, session, tickerMessage: '' }),
+        };
+      }
+      billsParams.set("id", `in.(${idList.join(",")})`);
+    }
 
     const billsRes = await fetch(`${SUPABASE_URL}/rest/v1/bills?${billsParams}`, { headers: SB_HEADERS });
     if (!billsRes.ok) {
@@ -109,7 +160,7 @@ exports.handler = async function (event) {
     }
     const billsData = await billsRes.json();
 
-    // 2. Fetch ticker message from config table
+    // 4. Fetch ticker message from config table
     let tickerMessage = '';
     try {
       const configRes = await fetch(`${SUPABASE_URL}/rest/v1/config?key=eq.ticker_message&select=value`, { headers: SB_HEADERS });
@@ -119,32 +170,12 @@ exports.handler = async function (event) {
       }
     } catch (e) { /* silently skip if config table doesn't exist yet */ }
 
-    // 3. Fetch all classifications for this session
-    const classParams = new URLSearchParams({
-      select:         "bill_id,profile_key,direction,rationale",
-      session_number: `eq.${session}`,
-    });
-
-    const classRes = await fetch(`${SUPABASE_URL}/rest/v1/classifications?${classParams}`, { headers: SB_HEADERS });
-    if (!classRes.ok) {
-      console.error("Classifications fetch error:", await classRes.text());
-      return { statusCode: 502, headers: CORS, body: JSON.stringify({ error: "Upstream error" }) };
-    }
-    const classData = await classRes.json();
-
-    // 3. Build classification map: bill_id → { profile_key: { direction, rationale } }
-    const classMap = {};
-    classData.forEach((c) => {
-      if (!classMap[c.bill_id]) classMap[c.bill_id] = {};
-      classMap[c.bill_id][c.profile_key] = { direction: c.direction, rationale: c.rationale };
-    });
-
-    // 4. Build bill objects with profile data
+    // 5. Build bill objects with profile data
     let bills = billsData.map((b) => ({
       session:        b.session_number,
       bill_number:    b.bill_number,
       full_code:      b.full_code || b.bill_number,
-      bill_text:      b.long_title || "",
+      bill_text:      b.bill_text || "",
       nickname:       b.nickname  || "",
       origin_chamber: b.origin_chamber || "",
       category:       b.category  || "",
@@ -162,10 +193,8 @@ exports.handler = async function (event) {
       profiles:        classMap[b.id] || {},
     }));
 
-    // 5. Filter by profile and/or direction
-    if (profile) {
-      bills = bills.filter((b) => b.profiles[profile]);
-    }
+    // 6. Filter by direction — the profile filter is already applied at the query level above,
+    //    so there's no need to re-filter by profile here.
     if (direction && profile) {
       bills = bills.filter((b) => b.profiles[profile] && b.profiles[profile].direction === direction);
     }
