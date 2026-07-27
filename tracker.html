@@ -491,6 +491,15 @@ function initApp() {
         patchProfileGrid(data.profiles);
       }
 
+      // Patch category labels in-place — same reasoning as profiles: live
+      // Supabase data overwrites/extends the hardcoded fallback below, so a
+      // new or renamed category takes effect without a code deploy.
+      if (data.categoryLabels && data.categoryLabels.length > 0) {
+        data.categoryLabels.forEach(function(row) {
+          CATEGORY_LABELS[row.category_key] = row.display_label;
+        });
+      }
+
     })
     .catch(function() { /* already rendered from fallback */ });
 }
@@ -515,13 +524,17 @@ var CATEGORY_LABELS = {
   'Health & Safety':                          'Your Health Care',
   'Insurance':                                'Your Insurance & Coverage',
   'Labor':                                    'Your Job & Wages',
+  'Lifeline Program':                         'Low-Cost Phone & Internet',
   'Military & Civil Defense':                 'Military & Veterans',
   'Motor Vehicles':                           'Driving & Your Car',
   'Municipal Charters':                       'Town & City Government',
   'Navigation':                               'Waterways & Boating',
   'Professions & Occupations':                'Professional Licensing',
   'Property':                                 'Property & Real Estate',
+  'Property Taxes':                           'Your Property Tax',
   'Public Utilities':                         'Your Utility Bill',
+  'Utility Safety':                           'Digging & Excavation Safety',
+  'Retirement':                               'Your Retirement Savings',
   'State Budget & Appropriations':            'State Budget',
   'State Government':                         'State Government',
   'State Taxes':                              'Your Tax Bill',
