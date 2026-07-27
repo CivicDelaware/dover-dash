@@ -709,9 +709,9 @@ function renderBills() {
     var statusLine = '';
     var catLabel  = bill.category ? (CATEGORY_LABELS[bill.category] || null) : null;
     var catChip   = catLabel ? '<span class="bill-cat-chip">' + esc(catLabel) + '</span>' : '';
-    var nickname  = (bill.nickname || bill.full_code || bill.bill_number) + ' Bill';
+    var nickname  = (bill.nickname || bill.bill_number) + ' Bill';
     var bodyText  = bill.plain_english || bill.synopsis || '';
-    var billCode  = bill.full_code || bill.bill_number;
+    var billCode  = bill.bill_number;
     var billNumHtml = bill.url
       ? '<a href="' + esc(bill.url) + '" target="_blank" rel="noopener" class="bill-num-link">' + esc(billCode) + '</a>'
       : '<span class="bill-num">' + esc(billCode) + '</span>';
