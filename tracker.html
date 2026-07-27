@@ -39,7 +39,7 @@ body {
 .header {
   background: #002868; border-radius: 16px 16px 0 0;
   margin: 14px 14px 0; padding: 28px 20px 24px;
-  text-align: center; border-bottom: 3px solid #BAFF5C;
+  text-align: center;
 }
 .eyebrow { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.6); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
 .brand { font-family: 'Playfair Display', Georgia, serif; font-size: 40px; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 16px; }
@@ -55,22 +55,23 @@ body {
 .pick-title { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 900; color: #002868; margin-bottom: 4px; }
 .pick-sub { font-size: 12px; font-weight: 700; color: #002868; margin-bottom: 4px; line-height: 1.4; min-height: 34px; }
 .pick-sub-hint { font-size: 11px; color: #6B7280; margin-bottom: 14px; line-height: 1.4; }
-.prof-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.prof-btn { border: 1.5px solid #E5E7EB; border-radius: 10px; padding: 14px 10px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; background: #fff; font-family: 'Inter', sans-serif; width: 100%; min-height: 92px; transition: border-color .12s, background .12s; }
-.prof-btn.selected { border-color: #002868; background: #EFF3FB; box-shadow: 0 0 0 1.5px #002868 inset; }
-.see-results-btn { display: none; width: 100%; margin-top: 16px; padding: 13px; background: #002868; color: #fff; border: none; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; }
-.see-results-btn.ready { display: block; }
-.see-results-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.prof-grid { display: flex; flex-direction: column; gap: 8px; }
+.prof-btn { border: 1.5px solid #E5E7EB; border-radius: 10px; padding: 12px 16px; cursor: pointer; display: flex; flex-direction: row; align-items: center; gap: 12px; text-align: left; background: #fff; font-family: 'Inter', sans-serif; width: 100%; min-height: 56px; transition: border-color .12s, background .12s; }
+.prof-btn.selected { border-color: #002868; background: #EFF3FB; }
+.prof-circle { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #D1D5DB; background: #fff; margin-left: auto; flex-shrink: 0; transition: background .15s, border-color .15s; }
+.prof-btn.selected .prof-circle { background: #D93B3B; border-color: #D93B3B; }
+.see-results-btn { display: block; width: auto; min-width: 180px; margin: 16px auto 0; padding: 12px 28px; background: #D1D5DB; color: #6B7280; border: none; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; cursor: not-allowed; transition: background .15s, color .15s; }
+.see-results-btn.ready { background: #D93B3B; color: #fff; cursor: pointer; }
 .prof-btn:hover { border-color: #002868; background: #F0F4FF; }
 .prof-btn:hover .prof-label { color: #002868; }
-.prof-em { font-size: 26px; line-height: 1; font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji", sans-serif; }
-.prof-label { font-size: 11px; font-weight: 700; color: #111827; line-height: 1.3; }
+.prof-em { font-size: 22px; line-height: 1; font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji", sans-serif; }
+.prof-label { font-size: 14px; font-weight: 700; color: #111827; line-height: 1.3; }
 .prof-sub { font-size: 10px; color: #6B7280; margin-top: 3px; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .prof-submit-btn { width: 100%; background: #002868; color: #BAFF5C; border: none; border-radius: 10px; padding: 13px; font-size: 14px; font-weight: 800; font-family: 'Inter', sans-serif; cursor: pointer; margin-top: 10px; letter-spacing: 0.2px; }
 .pick-footer { font-size: 10px; color: #9CA3AF; text-align: center; margin-top: 8px; }
 
 /* ── BILLS NAV HEADER ── */
-.bills-nav-header { background: #002868; margin: 14px 14px 0; border-radius: 10px 10px 0 0; padding: 12px 16px 20px; display: flex; flex-direction: column; gap: 10px; border-bottom: 3px solid #BAFF5C; }
+.bills-nav-header { background: #002868; margin: 14px 14px 0; border-radius: 10px 10px 0 0; padding: 12px 16px 20px; display: flex; flex-direction: column; gap: 10px; }
 .bills-nav-top { display: flex; align-items: center; justify-content: space-between; }
 .bills-nav-brand-name { font-family: 'Playfair Display', Georgia, serif; font-size: 16px; font-weight: 900; color: #fff; line-height: 1.2; }
 .bills-nav-brand-name em { color: #BAFF5C; font-style: italic; }
@@ -248,15 +249,15 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #fff; border-colo
 .rep-challenger-web { font-size: 10px; color: #002868; font-weight: 600; text-decoration: none; flex-shrink: 0; }
 .rep-challenger-web:hover { text-decoration: underline; }
 .rep-no-challengers { font-size: 11px; color: #9CA3AF; }
-.app-footer { background: #002868; padding: 14px 16px 16px; text-align: center; margin: 0 14px 14px; border-radius: 0 0 16px 16px; border-top: 3px solid #BAFF5C; }
+.app-footer { background: #002868; padding: 14px 16px 16px; text-align: center; margin: 0 14px 14px; border-radius: 0 0 16px 16px; }
 .app-footer-brand { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 900; color: #fff; margin-bottom: 4px; }
 .app-footer-brand em { color: #BAFF5C; font-style: italic; }
 .app-footer-tagline { font-size: 10px; color: rgba(255,255,255,0.55); letter-spacing: 0.5px; margin-bottom: 14px; font-family: 'Inter', sans-serif; }
 .app-footer-divider { border: none; border-top: 1px solid rgba(255,255,255,0.12); margin: 0 0 14px; }
-.app-footer-disclaimer { font-size: 8px; color: rgba(255,255,255,0.85); line-height: 1.6; margin-top: 8px; margin-bottom: 4px; font-family: 'Times New Roman', Times, Georgia, serif; font-style: italic; }
+.app-footer-disclaimer { font-size: 8px; color: rgba(255,255,255,0.85); line-height: 1.6; margin-bottom: 10px; font-family: 'Times New Roman', Times, Georgia, serif; font-style: italic; }
 .app-footer-disclaimer a { color: rgba(255,255,255,0.85); text-decoration: underline; text-underline-offset: 2px; }
-.app-footer-copy { font-size: 8px; color: #BAFF5C; font-family: 'Inter', sans-serif; }
-.app-footer-copy a { color: #BAFF5C; text-decoration: none; }
+.app-footer-copy { font-size: 8px; color: #fff; font-family: 'Inter', sans-serif; }
+.app-footer-copy a { color: #fff; text-decoration: none; }
 </style>
 </head>
 <body>
@@ -276,14 +277,14 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #fff; border-colo
     <p class="pick-sub" id="txt-pick-sub"><span id="txt-pick-sub-main">Pick your profile:</span> <span class="pick-sub-hint" id="txt-pick-sub-hint">See which passed bills affect you.</span></p>
 
     <div class="prof-grid" id="prof-grid">
-      <button class="prof-btn" data-profile-key="homeowner" onclick="selectProfile('homeowner',this)"><span class="prof-em">🏠</span><div class="prof-label">Homeowner</div></button>
-      <button class="prof-btn" data-profile-key="renter"    onclick="selectProfile('renter',this)"><span class="prof-em">🔑</span><div class="prof-label">Renter</div></button>
-      <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🌅</span><div class="prof-label">Retiree / Senior</div></button>
-      <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-label">Veteran / Military Family</div></button>
-      <button class="prof-btn" data-profile-key="workpro"   onclick="selectProfile('workpro',this)"><span class="prof-em">💼</span><div class="prof-label">Private Sector Employee</div></button>
-      <button class="prof-btn" data-profile-key="pubsec"    onclick="selectProfile('pubsec',this)"><span class="prof-em">🏛️</span><div class="prof-label">Public Sector Employee</div></button>
-      <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">🏪</span><div class="prof-label">Small Business Owner</div></button>
-      <button class="prof-btn" data-profile-key="landlord"  onclick="selectProfile('landlord',this)"><span class="prof-em">🏘️</span><div class="prof-label">Landlord</div></button>
+      <button class="prof-btn" data-profile-key="homeowner" onclick="selectProfile('homeowner',this)"><span class="prof-em">🏠</span><div class="prof-label">Homeowner</div><span class="prof-circle"></span></button>
+      <button class="prof-btn" data-profile-key="renter"    onclick="selectProfile('renter',this)"><span class="prof-em">🔑</span><div class="prof-label">Renter</div><span class="prof-circle"></span></button>
+      <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🌅</span><div class="prof-label">Retiree / Senior</div><span class="prof-circle"></span></button>
+      <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-label">Veteran / Military Family</div><span class="prof-circle"></span></button>
+      <button class="prof-btn" data-profile-key="workpro"   onclick="selectProfile('workpro',this)"><span class="prof-em">💼</span><div class="prof-label">Private Sector Employee</div><span class="prof-circle"></span></button>
+      <button class="prof-btn" data-profile-key="pubsec"    onclick="selectProfile('pubsec',this)"><span class="prof-em">🏛️</span><div class="prof-label">Public Sector Employee</div><span class="prof-circle"></span></button>
+      <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">🏪</span><div class="prof-label">Small Business Owner</div><span class="prof-circle"></span></button>
+      <button class="prof-btn" data-profile-key="landlord"  onclick="selectProfile('landlord',this)"><span class="prof-em">🏘️</span><div class="prof-label">Landlord</div><span class="prof-circle"></span></button>
     </div>
 
     <button class="see-results-btn" id="see-results-btn" onclick="goToBills()">See my results</button>
@@ -381,8 +382,8 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #fff; border-colo
   </div>
 
   <div class="app-footer">
-    <div class="app-footer-copy">© 2026 Civic Delaware · <a href="mailto:info@civicdelaware.com">info@civicdelaware.com</a></div>
     <div class="app-footer-disclaimer" id="footer-disclaimer">(Disclaimer: Dover Dash is an independent, nonpartisan project of Civic Delaware. Bill summaries and "profiles" are interpretive, not official legislative language. They reflect our own judgment, not legal or financial advice, and do not signal support or opposition to any bill, legislator, or political party. For authoritative details, always review the original bill text on <a href="https://legis.delaware.gov" target="_blank" rel="noopener">legis.delaware.gov</a>.)</div>
+    <div class="app-footer-copy">© 2026 Civic Delaware · <a href="mailto:info@civicdelaware.com">info@civicdelaware.com</a></div>
   </div>
 
 </div>
