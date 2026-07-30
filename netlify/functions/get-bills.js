@@ -137,7 +137,7 @@ exports.handler = async function (event) {
     // 3. Fetch only the bills we actually need. When a profile was requested, filter by
     //    the exact bill IDs from step 1 instead of pulling every bill in the session.
     const billsParams = new URLSearchParams({
-      select:         "id,session_number,bill_number,full_code,bill_text,nickname,origin_chamber,category,intro_date,passed_date,amendments,legislation_id,status,stage,synopsis,plain_english,legislation_url,primary_sponsor,sponsor_person_id,legislator_url",
+      select:         "id,session_number,bill_number,full_code,long_title,nickname,origin_chamber,category,intro_date,passed_date,amendments,legislation_id,status,stage,synopsis,plain_english,legislation_url,primary_sponsor,sponsor_person_id,legislator_url",
       session_number: `eq.${session}`,
     });
     if (profile) {
@@ -175,7 +175,7 @@ exports.handler = async function (event) {
       session:        b.session_number,
       bill_number:    b.bill_number,
       full_code:      b.full_code || b.bill_number,
-      bill_text:      b.bill_text || "",
+      bill_text:      b.long_title || "",
       nickname:       b.nickname  || "",
       origin_chamber: b.origin_chamber || "",
       category:       b.category  || "",
