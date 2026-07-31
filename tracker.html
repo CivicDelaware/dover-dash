@@ -58,8 +58,9 @@ body {
 .prof-grid { display: flex; flex-direction: column; gap: 8px; }
 .prof-btn { border: 1.5px solid #E5E7EB; border-radius: 10px; padding: 12px 16px; cursor: pointer; display: flex; flex-direction: row; align-items: center; gap: 12px; text-align: left; background: #fff; font-family: 'Inter', sans-serif; width: 100%; min-height: 56px; transition: border-color .12s, background .12s; }
 .prof-btn.selected { border-color: #002868; background: #EFF3FB; }
-.prof-circle { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #D1D5DB; background: #fff; margin-left: auto; flex-shrink: 0; transition: background .15s, border-color .15s; }
+.prof-circle { width: 16px; height: 16px; border-radius: 4px; border: 2px solid #D1D5DB; background: #fff; margin-left: auto; flex-shrink: 0; transition: background .15s, border-color .15s; }
 .prof-btn.selected .prof-circle { background: #D93B3B; border-color: #D93B3B; }
+.prof-divider { text-align: center; font-size: 11px; color: #9CA3AF; padding: 2px 0; display: none; }
 .see-results-btn { display: block; width: auto; min-width: 180px; margin: 16px auto 0; padding: 12px 28px; background: #D1D5DB; color: #6B7280; border: none; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; cursor: not-allowed; transition: background .15s, color .15s; }
 .see-results-btn.ready { background: #D93B3B; color: #fff; cursor: pointer; }
 .prof-btn:hover { border-color: #002868; background: #F0F4FF; }
@@ -300,6 +301,7 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #fff; border-colo
       <button class="prof-btn" data-profile-key="renter"    onclick="selectProfile('renter',this)"><span class="prof-em">🔑</span><div class="prof-label">Renter</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🌅</span><div class="prof-label">Retiree / Senior</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-label">Veteran / Military Family</div><span class="prof-circle"></span></button>
+      <div class="prof-divider" id="prof-divider"></div>
       <button class="prof-btn" data-profile-key="workpro"   onclick="selectProfile('workpro',this)"><span class="prof-em">💼</span><div class="prof-label">Private Sector Employee</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="pubsec"    onclick="selectProfile('pubsec',this)"><span class="prof-em">🏛️</span><div class="prof-label">Public Sector Employee</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">🏪</span><div class="prof-label">Small Business Owner</div><span class="prof-circle"></span></button>
@@ -402,7 +404,7 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #fff; border-colo
   </div>
 
   <div class="app-footer">
-    <div class="app-footer-disclaimer" id="footer-disclaimer">(Disclaimer: Dover Dash is an independent, nonpartisan project of Civic Delaware. Bill summaries and "profiles" are interpretive, not official legislative language. They reflect our own judgment, not legal or financial advice, and do not signal support or opposition to any bill, legislator, or political party. For authoritative details, always review the original bill text on <a href="https://legis.delaware.gov" target="_blank" rel="noopener">legis.delaware.gov</a>.)</div>
+    <div class="app-footer-disclaimer" id="footer-disclaimer">(Disclaimer: Dover Dash is an independent, nonpartisan project of Civic Delaware. Bill summaries and "profiles" are interpretive, not official legislative language. They reflect our own judgment, not legal or financial advice, and do not signal support or opposition to any bill, legislator, or political party. For authoritative details, always review the original bill text on <a href="https://legis.delaware.gov" target="_blank" rel="noopener">legis.delaware.gov</a>. AI generated summaries, please refer to each bill's original synopsis for exact bill language.)</div>
     <div class="app-footer-copy">© 2026 Civic Delaware · <a href="mailto:info@civicdelaware.com">info@civicdelaware.com</a></div>
   </div>
 
@@ -448,7 +450,27 @@ function renderProfileGrid(orderedKeys) {
     btn.innerHTML = '<span class="prof-em">' + p.emoji + '</span><div class="prof-label">' + p.label + '</div>';
     grid.appendChild(btn);
   });
+  positionProfileDivider();
 }
+
+// Visually separates the top 4 profiles from the rest with a "N more
+// profiles below" divider. Re-run after any reorder so the divider always
+// sits after the 4th button regardless of which profiles are first.
+function positionProfileDivider() {
+  var grid = document.getElementById('prof-grid');
+  var divider = document.getElementById('prof-divider');
+  if (!grid || !divider) return;
+  var buttons = Array.from(grid.querySelectorAll('.prof-btn'));
+  if (buttons.length <= 4) {
+    divider.style.display = 'none';
+    return;
+  }
+  var remaining = buttons.length - 4;
+  divider.textContent = remaining + ' more profile' + (remaining === 1 ? '' : 's') + ' below';
+  divider.style.display = 'block';
+  grid.insertBefore(divider, buttons[4]);
+}
+positionProfileDivider();
 
 function patchProfileGrid(profiles) {
   // Update existing buttons in-place — no DOM wipe, no blink
@@ -478,6 +500,8 @@ if (needsReorder) {
     });
     grid.appendChild(frag);
   }
+
+  positionProfileDivider();
 }
 
 function initApp() {
@@ -762,7 +786,7 @@ function renderBills() {
     var synopsisBlock = bill.synopsis
       ? '<div id="' + synId + '" class="bill-synopsis-full"><span class="bill-rationale-label">Official bill synopsis</span><p class="bill-synopsis-text">' + esc(bill.synopsis) + '</p></div>'
       : '';
-    var synopsisHtml = rationaleText ? '<div class="bill-rationale"><span class="bill-rationale-label">How this affects you</span><span id="' + rationaleId + '" class="bill-rationale-body">' + esc(rationaleText) + '</span></div>' + synopsisBlock + '<button class="bill-read-more" onclick="toggleBillText(\'' + rationaleId + '\',this)">Read more</button>' : '';
+    var synopsisHtml = rationaleText ? '<div class="bill-rationale"><span class="bill-rationale-label">AI Summary</span><span id="' + rationaleId + '" class="bill-rationale-body">' + esc(rationaleText) + '</span></div>' + synopsisBlock + '<button class="bill-read-more" onclick="toggleBillText(\'' + rationaleId + '\',this)">Read more</button>' : '';
     var bodyHtml = !rationaleText && bodyText ? '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' : '';
     var readMore = !rationaleText && bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more</button>' : '';
     var rightMeta  = (catChip || statusBadge) ? '<div class="bill-card-meta">' + catChip + statusBadge + '</div>' : '';
