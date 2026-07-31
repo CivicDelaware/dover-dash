@@ -507,7 +507,7 @@ function applyProfileOverflowVisibility(buttons) {
     if (profileOverflowCollapsed) {
       var hiddenLabels = buttons.slice(4).map(function(b) {
         var l = b.querySelector('.prof-label');
-        return l ? l.textContent : '';
+        return l ? l.textContent.trim() : '';
       }).filter(Boolean);
       hintEl.textContent = hiddenLabels.join(', ');
       hintEl.style.display = hiddenLabels.length ? 'block' : 'none';
