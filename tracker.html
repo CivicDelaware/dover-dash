@@ -60,7 +60,8 @@ body {
 .prof-btn.selected { border-color: #002868; background: #EFF3FB; }
 .prof-circle { width: 16px; height: 16px; border-radius: 4px; border: 2px solid #D1D5DB; background: #fff; margin-left: auto; flex-shrink: 0; transition: background .15s, border-color .15s; }
 .prof-btn.selected .prof-circle { background: #D93B3B; border-color: #D93B3B; }
-.prof-divider { text-align: center; font-size: 11px; color: #9CA3AF; padding: 2px 0; display: none; }
+.prof-divider { display: none; width: 100%; text-align: center; font-size: 12px; font-weight: 700; color: #002868; padding: 8px 0; background: none; border: none; font-family: 'Inter', sans-serif; cursor: pointer; }
+.prof-divider:hover { text-decoration: underline; }
 .see-results-btn { display: block; width: auto; min-width: 180px; margin: 16px auto 0; padding: 12px 28px; background: #D1D5DB; color: #6B7280; border: none; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; cursor: not-allowed; transition: background .15s, color .15s; }
 .see-results-btn.ready { background: #D93B3B; color: #fff; cursor: pointer; }
 .prof-btn:hover { border-color: #002868; background: #F0F4FF; }
@@ -301,7 +302,7 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #fff; border-colo
       <button class="prof-btn" data-profile-key="renter"    onclick="selectProfile('renter',this)"><span class="prof-em">🔑</span><div class="prof-label">Renter</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🌅</span><div class="prof-label">Retiree / Senior</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-label">Veteran / Military Family</div><span class="prof-circle"></span></button>
-      <div class="prof-divider" id="prof-divider"></div>
+      <button type="button" class="prof-divider" id="prof-divider"></button>
       <button class="prof-btn" data-profile-key="workpro"   onclick="selectProfile('workpro',this)"><span class="prof-em">💼</span><div class="prof-label">Private Sector Employee</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="pubsec"    onclick="selectProfile('pubsec',this)"><span class="prof-em">🏛️</span><div class="prof-label">Public Sector Employee</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">🏪</span><div class="prof-label">Small Business Owner</div><span class="prof-circle"></span></button>
@@ -453,9 +454,12 @@ function renderProfileGrid(orderedKeys) {
   positionProfileDivider();
 }
 
-// Visually separates the top 4 profiles from the rest with a "N more
-// profiles below" divider. Re-run after any reorder so the divider always
-// sits after the 4th button regardless of which profiles are first.
+// Collapses profiles past the top 4 behind a "Show N more profiles"
+// divider. Re-run after any reorder so the divider always sits after the
+// 4th button, and the hide/show split stays correct, regardless of which
+// profiles are first.
+var profileOverflowCollapsed = true;
+
 function positionProfileDivider() {
   var grid = document.getElementById('prof-grid');
   var divider = document.getElementById('prof-divider');
@@ -463,12 +467,32 @@ function positionProfileDivider() {
   var buttons = Array.from(grid.querySelectorAll('.prof-btn'));
   if (buttons.length <= 4) {
     divider.style.display = 'none';
+    buttons.forEach(function(b) { b.style.display = ''; });
     return;
   }
-  var remaining = buttons.length - 4;
-  divider.textContent = remaining + ' more profile' + (remaining === 1 ? '' : 's') + ' below';
-  divider.style.display = 'block';
   grid.insertBefore(divider, buttons[4]);
+  divider.style.display = 'block';
+  divider.onclick = toggleProfileOverflow;
+  applyProfileOverflowVisibility(buttons);
+}
+
+function applyProfileOverflowVisibility(buttons) {
+  var grid = document.getElementById('prof-grid');
+  var divider = document.getElementById('prof-divider');
+  buttons = buttons || Array.from(grid.querySelectorAll('.prof-btn'));
+  var remaining = buttons.length - 4;
+  if (remaining <= 0) return;
+  buttons.forEach(function(b, i) {
+    b.style.display = (i >= 4 && profileOverflowCollapsed) ? 'none' : '';
+  });
+  divider.textContent = profileOverflowCollapsed
+    ? 'Show ' + remaining + ' more profile' + (remaining === 1 ? '' : 's') + ' ▾'
+    : 'Show fewer ▴';
+}
+
+function toggleProfileOverflow() {
+  profileOverflowCollapsed = !profileOverflowCollapsed;
+  applyProfileOverflowVisibility();
 }
 positionProfileDivider();
 
