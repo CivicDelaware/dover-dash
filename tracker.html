@@ -64,6 +64,25 @@ body {
 .see-results-btn.ready { background: #D93B3B; color: #fff; cursor: pointer; }
 .prof-btn:hover { border-color: #002868; background: #F0F4FF; }
 .prof-btn:hover .prof-label { color: #002868; }
+
+  /* Keep the primary CTA reachable without scrolling on phones, where the
+     browser chrome (address bar, bottom toolbar) eats into real visible
+     height beyond what the CSS viewport reports. */
+  @media (max-width: 480px) {
+      #screen-profiles { padding-bottom: 84px; }
+      .see-results-btn {
+            position: fixed;
+            left: 14px;
+            right: 14px;
+            bottom: 16px;
+            bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+            width: auto;
+            max-width: 362px;
+            margin: 0 auto;
+            z-index: 100;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      }
+  }
 .prof-em { font-size: 22px; line-height: 1; font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji", sans-serif; }
 .prof-label { font-size: 14px; font-weight: 700; color: #111827; line-height: 1.3; }
 .prof-sub { font-size: 10px; color: #6B7280; margin-top: 3px; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
