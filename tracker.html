@@ -53,17 +53,21 @@ body {
 /* ── PROFILE PICKER ── */
 #screen-profiles { margin: 0 14px; background: #fff; border-radius: 0 0 16px 16px; padding: 20px 16px 20px; }
 .pick-title { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 900; color: #002868; margin-bottom: 4px; }
-.pick-sub { font-size: 12px; font-weight: 700; color: #002868; margin-bottom: 4px; line-height: 1.4; min-height: 34px; }
-.pick-sub-hint { font-size: 11px; color: #6B7280; margin-bottom: 14px; line-height: 1.4; }
+.pick-sub { font-size: 11px; font-weight: 600; color: #6B7280; margin-bottom: 4px; line-height: 1.4; min-height: 34px; }
+.pick-sub-hint { font-size: 13px; font-weight: 800; color: #002868; margin-bottom: 14px; line-height: 1.4; }
 .prof-grid { display: flex; flex-direction: column; gap: 8px; }
+.prof-overflow-hint { text-align: center; font-size: 10px; color: #9CA3AF; padding: 0 12px 6px; line-height: 1.4; display: none; }
 .prof-btn { border: 1.5px solid #E5E7EB; border-radius: 10px; padding: 12px 16px; cursor: pointer; display: flex; flex-direction: row; align-items: center; gap: 12px; text-align: left; background: #fff; font-family: 'Inter', sans-serif; width: 100%; min-height: 56px; transition: border-color .12s, background .12s; }
 .prof-btn.selected { border-color: #002868; background: #EFF3FB; }
 .prof-circle { width: 16px; height: 16px; border-radius: 4px; border: 2px solid #D1D5DB; background: #fff; margin-left: auto; flex-shrink: 0; transition: background .15s, border-color .15s; }
 .prof-btn.selected .prof-circle { background: #D93B3B; border-color: #D93B3B; }
 .prof-divider { display: none; width: 100%; text-align: center; font-size: 12px; font-weight: 700; color: #002868; padding: 8px 0; background: none; border: none; font-family: 'Inter', sans-serif; cursor: pointer; }
 .prof-divider:hover { text-decoration: underline; }
-.see-results-btn { display: block; width: auto; min-width: 180px; margin: 16px auto 0; padding: 12px 28px; background: #D1D5DB; color: #6B7280; border: none; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; cursor: not-allowed; transition: background .15s, color .15s; }
+.see-results-wrap { position: relative; text-align: center; margin-top: 16px; }
+.see-results-btn { display: inline-block; width: auto; min-width: 180px; margin: 0; padding: 12px 28px; background: #D1D5DB; color: #6B7280; border: none; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; cursor: not-allowed; transition: background .15s, color .15s; }
 .see-results-btn.ready { background: #D93B3B; color: #fff; cursor: pointer; }
+.see-results-hint { position: absolute; left: 50%; bottom: 100%; transform: translateX(-50%); margin-bottom: 6px; background: #111827; color: #fff; font-size: 11px; font-weight: 600; padding: 6px 10px; border-radius: 6px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .15s; }
+.see-results-hint.show { opacity: 1; }
 .prof-btn:hover { border-color: #002868; background: #F0F4FF; }
 .prof-btn:hover .prof-label { color: #002868; }
 
@@ -72,16 +76,18 @@ body {
      height beyond what the CSS viewport reports. */
   @media (max-width: 480px) {
       #screen-profiles { padding-bottom: 84px; }
-      .see-results-btn {
+      .see-results-wrap {
             position: fixed;
             left: 14px;
             right: 14px;
             bottom: 16px;
             bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-            width: auto;
             max-width: 362px;
             margin: 0 auto;
             z-index: 100;
+      }
+      .see-results-btn {
+            width: 100%;
             box-shadow: 0 4px 16px rgba(0,0,0,0.15);
       }
   }
@@ -97,7 +103,7 @@ body {
 .bills-nav-brand-name { font-family: 'Playfair Display', Georgia, serif; font-size: 16px; font-weight: 900; color: #fff; line-height: 1.2; }
 .bills-nav-brand-name em { color: #BAFF5C; font-style: italic; }
 .bills-nav-brand-sub { font-size: 8px; color: #fff; letter-spacing: 0.5px; text-transform: uppercase; font-family: 'Inter', sans-serif; margin-top: 2px; }
-.bills-back-btn { background: none; border: none; font-size: 13px; font-weight: 700; color: #BAFF5C; cursor: pointer; padding: 0; font-family: 'Inter', sans-serif; }
+.bills-back-btn { background: none; border: none; font-size: 14px; font-weight: 700; color: #BAFF5C; cursor: pointer; padding: 6px 4px; margin: -6px -4px -6px 0; font-family: 'Inter', sans-serif; }
 .bills-nav-profile-emoji { font-size: 28px; display: block; text-align: center; line-height: 1; margin-bottom: 4px; }
 .bills-nav-profile { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 900; color: #fff; text-align: center; display: block; line-height: 1.2; }
 
@@ -135,6 +141,7 @@ body {
 .bill-cat-chip { display: inline-block; font-size: 9px; font-weight: 700; color: #6B7280; background: #F3F4F6; border-radius: 4px; padding: 2px 6px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
 .dir-badge { display: none; }
 .bill-nickname { font-size: 15px; font-weight: 800; color: #002868; margin-bottom: 3px; line-height: 1.3; display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.bill-title-text { flex: 1 1 auto; min-width: 0; }
 .bill-card-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; flex-shrink: 0; }
 .bill-status-badge { font-size: 9px; font-weight: 800; border-radius: 4px; padding: 2px 7px; letter-spacing: 0.5px; white-space: nowrap; background: #ECFCCB; color: #365314; }
 .bill-status-badge.veto { background: #FEF3C7; color: #B45309; }
@@ -303,6 +310,7 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #fff; border-colo
       <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🌅</span><div class="prof-label">Retiree / Senior</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-label">Veteran / Military Family</div><span class="prof-circle"></span></button>
       <button type="button" class="prof-divider" id="prof-divider"></button>
+      <div class="prof-overflow-hint" id="prof-overflow-hint"></div>
       <button class="prof-btn" data-profile-key="workpro"   onclick="selectProfile('workpro',this)"><span class="prof-em">💼</span><div class="prof-label">Private Sector Employee</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="pubsec"    onclick="selectProfile('pubsec',this)"><span class="prof-em">🏛️</span><div class="prof-label">Public Sector Employee</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">🏪</span><div class="prof-label">Small Business Owner</div><span class="prof-circle"></span></button>
@@ -310,7 +318,10 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #fff; border-colo
             <button class="prof-btn" data-profile-key="parent"    onclick="selectProfile('parent',this)"><span class="prof-em">👨‍👩‍👧</span><div class="prof-label">Parent</div><span class="prof-circle"></span></button>
     </div>
 
-    <button class="see-results-btn" id="see-results-btn" onclick="goToBills()">See my results</button>
+    <div class="see-results-wrap">
+      <div class="see-results-hint" id="see-results-hint">Pick a profile above to continue</div>
+      <button class="see-results-btn" id="see-results-btn" onclick="goToBills()">See my results</button>
+    </div>
 
   </div>
 
@@ -463,14 +474,17 @@ var profileOverflowCollapsed = true;
 function positionProfileDivider() {
   var grid = document.getElementById('prof-grid');
   var divider = document.getElementById('prof-divider');
+  var hintEl = document.getElementById('prof-overflow-hint');
   if (!grid || !divider) return;
   var buttons = Array.from(grid.querySelectorAll('.prof-btn'));
   if (buttons.length <= 4) {
     divider.style.display = 'none';
+    if (hintEl) hintEl.style.display = 'none';
     buttons.forEach(function(b) { b.style.display = ''; });
     return;
   }
   grid.insertBefore(divider, buttons[4]);
+  if (hintEl) grid.insertBefore(hintEl, buttons[4]);
   divider.style.display = 'block';
   divider.onclick = toggleProfileOverflow;
   applyProfileOverflowVisibility(buttons);
@@ -479,6 +493,7 @@ function positionProfileDivider() {
 function applyProfileOverflowVisibility(buttons) {
   var grid = document.getElementById('prof-grid');
   var divider = document.getElementById('prof-divider');
+  var hintEl = document.getElementById('prof-overflow-hint');
   buttons = buttons || Array.from(grid.querySelectorAll('.prof-btn'));
   var remaining = buttons.length - 4;
   if (remaining <= 0) return;
@@ -488,6 +503,18 @@ function applyProfileOverflowVisibility(buttons) {
   divider.textContent = profileOverflowCollapsed
     ? 'Show ' + remaining + ' more profile' + (remaining === 1 ? '' : 's') + ' ▾'
     : 'Show fewer ▴';
+  if (hintEl) {
+    if (profileOverflowCollapsed) {
+      var hiddenLabels = buttons.slice(4).map(function(b) {
+        var l = b.querySelector('.prof-label');
+        return l ? l.textContent : '';
+      }).filter(Boolean);
+      hintEl.textContent = hiddenLabels.join(', ');
+      hintEl.style.display = hiddenLabels.length ? 'block' : 'none';
+    } else {
+      hintEl.style.display = 'none';
+    }
+  }
 }
 
 function toggleProfileOverflow() {
@@ -621,9 +648,18 @@ function selectProfile(key, btn) {
   if (btn) btn.classList.add('selected');
   document.getElementById('see-results-btn').classList.add('ready');
 }
+var seeResultsHintTimer = null;
 function goToBills() {
   var key = pendingProfileKey;
-  if (!key) return;
+  if (!key) {
+    var hint = document.getElementById('see-results-hint');
+    if (hint) {
+      hint.classList.add('show');
+      clearTimeout(seeResultsHintTimer);
+      seeResultsHintTimer = setTimeout(function() { hint.classList.remove('show'); }, 2500);
+    }
+    return;
+  }
   currentProfileKey = key;
   currentFilter = 'Helps You';
   expanded = { 'Watch Out': false, 'Helps You': false };
@@ -748,11 +784,13 @@ function renderBills() {
   document.getElementById('filter-wo').textContent = 'Watch Out · ' + woCount;
   document.getElementById('filter-hy').textContent = 'Helps You · ' + hyCount;
   countEl.textContent = allBills.length + ' passed bills affected this profile';
+  var giCard = document.querySelector('.gi-card');
   if (allBills.length === 0) {
     listEl.innerHTML = '';
     emptyEl.style.display = 'block';
     document.getElementById('empty-title').textContent = 'No classified bills yet';
     document.getElementById('empty-sub').textContent = 'We haven\'t classified 153rd General Assembly bills for this profile yet. Check back when the 154th General Assembly begins in January 2027.';
+    if (giCard) giCard.style.display = '';
     return;
   }
   if (bills.length === 0) {
@@ -760,12 +798,17 @@ function renderBills() {
     emptyEl.style.display = 'block';
     document.getElementById('empty-title').textContent = 'No ' + dir + ' bills';
     document.getElementById('empty-sub').textContent = 'Try "All" to see everything.';
+    if (giCard) giCard.style.display = '';
     return;
   }
   emptyEl.style.display = 'none';
   var showAll = expanded[currentFilter];
   var visibleBills = showAll ? bills : bills.slice(0, 3);
   var showExpand = !showAll && bills.length > 3;
+  // Keep the "Get Involved" CTA below every bill for the current tab —
+  // it shouldn't appear while there are still unseen bills behind a
+  // "See all" toggle.
+  if (giCard) giCard.style.display = showExpand ? 'none' : '';
   var html = visibleBills.map(function(bill) {
     var prof      = bill.profiles[key];
     var direction = prof ? prof.direction : null;
@@ -817,7 +860,7 @@ function renderBills() {
     var shareUrl   = bill.url || window.location.href;
     var shareText  = nickname + ' — ' + billCode + '. Check this Delaware bill on Dover Dash.';
     var shareBtn   = '<div class="bill-share-row"><button class="bill-share-btn" onclick="shareBillCard(this)">Share</button></div>';
-    return '<div class="' + cardClass + '" data-share-url="' + esc(shareUrl) + '" data-share-text="' + esc(shareText) + '">' + '<div class="bill-nickname">' + esc(nickname) + rightMeta + '</div>' + '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + '</div>' + sponsorHtml + synopsisHtml + bodyHtml + readMore + shareBtn + '</div>';
+    return '<div class="' + cardClass + '" data-share-url="' + esc(shareUrl) + '" data-share-text="' + esc(shareText) + '">' + '<div class="bill-nickname"><span class="bill-title-text">' + esc(nickname) + '</span>' + rightMeta + '</div>' + '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + '</div>' + sponsorHtml + synopsisHtml + bodyHtml + readMore + shareBtn + '</div>';
   }).join('');
   if (showExpand) {
     html += '<div style="padding:14px 16px;text-align:center;"><button onclick="expandFilter(\'' + currentFilter + '\')" style="background:none;border:1.5px solid #002868;border-radius:20px;padding:8px 20px;font-size:12px;font-weight:700;color:#002868;cursor:pointer;font-family:\'Inter\',sans-serif;">See all ' + bills.length + ' bills ↓</button></div>';
