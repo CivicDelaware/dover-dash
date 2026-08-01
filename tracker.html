@@ -267,10 +267,35 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #fff; border-colo
 .app-footer-disclaimer a { color: rgba(255,255,255,0.85); text-decoration: underline; text-underline-offset: 2px; }
 .app-footer-copy { font-size: 8px; color: #fff; font-family: 'Inter', sans-serif; }
 .app-footer-copy a { color: #fff; text-decoration: none; }
+
+/* ── SESSION COUNTDOWN BANNER ── */
+.session-countdown { display: none; background: #BAFF5C; padding: 8px 12px 7px; font-family: 'Inter', sans-serif; text-align: center; }
+.session-countdown.show { display: block; }
+.countdown-label { font-size: 10px; font-weight: 800; color: #002868; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px; }
+.countdown-clock { display: flex; justify-content: center; align-items: center; gap: 6px; }
+.countdown-unit { display: flex; flex-direction: column; align-items: center; background: #002868; border-radius: 7px; padding: 3px 9px; min-width: 42px; }
+.countdown-num { font-size: 22px; font-weight: 800; color: #BAFF5C; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.countdown-word { font-size: 9px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.4px; margin-top: 1px; }
+.countdown-sep { font-size: 22px; font-weight: 800; color: #002868; }
+.countdown-link { display: block; margin-top: 4px; font-size: 11px; font-weight: 700; color: #002868; text-decoration: underline; text-underline-offset: 2px; }
 </style>
 </head>
 <body>
 <div id="app">
+
+  <div class="session-countdown" id="session-countdown">
+    <div class="countdown-label">Next Legislative Session Begins</div>
+    <div class="countdown-clock">
+      <div class="countdown-unit"><span class="countdown-num" id="cd-days">--</span><span class="countdown-word">Days</span></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><span class="countdown-num" id="cd-hours">--</span><span class="countdown-word">Hrs</span></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><span class="countdown-num" id="cd-mins">--</span><span class="countdown-word">Min</span></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><span class="countdown-num" id="cd-secs">--</span><span class="countdown-word">Sec</span></div>
+    </div>
+    <a class="countdown-link" href="https://legis.delaware.gov/docs/default-source/default-document-library/2027_Legislative_Calendar.pdf" target="_blank" rel="noopener">Jan. 12, 2027 · View Calendar</a>
+  </div>
 
   <div class="header" id="home-header">
     <div class="eyebrow" id="txt-eyebrow">Delaware's Legislative Bill Tracker</div>
@@ -534,6 +559,41 @@ if (needsReorder) {
 
   positionProfileDivider();
 }
+
+// ── SESSION COUNTDOWN ──
+// Pure client-side date math against a fixed target — no Supabase call,
+// no manual updates needed. Banner stays hidden (default CSS: display:none)
+// until this runs and finds time remaining; ticks live every second, and
+// auto-hides + stops itself once the target date has passed, so nothing
+// needs to be manually removed when the 2027 session actually starts.
+function renderSessionCountdown() {
+  var el = document.getElementById('session-countdown');
+  if (!el) return;
+  var target = new Date('2027-01-12T00:00:00');
+  var pad = function(n) { return n < 10 ? '0' + n : String(n); };
+  var timer;
+
+  function tick() {
+    var diff = target - new Date();
+    if (diff <= 0) {
+      clearInterval(timer);
+      el.classList.remove('show');
+      return;
+    }
+    var totalSeconds = Math.floor(diff / 1000);
+    document.getElementById('cd-days').textContent  = Math.floor(totalSeconds / 86400);
+    document.getElementById('cd-hours').textContent = pad(Math.floor((totalSeconds % 86400) / 3600));
+    document.getElementById('cd-mins').textContent  = pad(Math.floor((totalSeconds % 3600) / 60));
+    document.getElementById('cd-secs').textContent  = pad(totalSeconds % 60);
+  }
+
+  tick();
+  if (target - new Date() > 0) {
+    el.classList.add('show');
+    timer = setInterval(tick, 1000);
+  }
+}
+renderSessionCountdown();
 
 function initApp() {
   // Fetch Supabase data and patch the DOM in-place (no rebuild = no blink)
