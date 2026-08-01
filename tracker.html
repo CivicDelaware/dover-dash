@@ -785,10 +785,9 @@ function renderBills() {
   var showAll = expanded[currentFilter];
   var visibleBills = showAll ? bills : bills.slice(0, 3);
   var showExpand = !showAll && bills.length > 3;
-  // Keep the "Get Involved" CTA below every bill for the current tab —
-  // it shouldn't appear while there are still unseen bills behind a
-  // "See all" toggle.
-  if (giCard) giCard.style.display = showExpand ? 'none' : '';
+  // Get Involved is always visible now, independent of whether the bill
+  // list for the current tab is collapsed behind "See all" or not.
+  if (giCard) giCard.style.display = '';
   var html = visibleBills.map(function(bill) {
     var prof      = bill.profiles[key];
     var direction = prof ? prof.direction : null;
