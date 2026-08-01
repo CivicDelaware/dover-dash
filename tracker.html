@@ -41,6 +41,12 @@ body {
   margin: 14px 14px 0; padding: 28px 20px 24px;
   text-align: center;
 }
+/* When the countdown banner is showing above it, the header no longer needs
+   its own top rounding — the banner owns that edge instead, so the two read
+   as one continuous card. Once the countdown auto-hides (after Jan 12,
+   2027), this rule no longer applies and the header's default rounding above
+   takes over again correctly. */
+.session-countdown.show + .header { border-radius: 0; }
 .eyebrow { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.6); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
 .brand { font-family: 'Playfair Display', Georgia, serif; font-size: 40px; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 16px; }
 .brand em { color: #BAFF5C; font-style: italic; }
@@ -269,7 +275,7 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #fff; border-colo
 .app-footer-copy a { color: #fff; text-decoration: none; }
 
 /* ── SESSION COUNTDOWN BANNER ── */
-.session-countdown { display: none; background: #BAFF5C; padding: 8px 12px 7px; font-family: 'Inter', sans-serif; text-align: center; }
+.session-countdown { display: none; background: #BAFF5C; padding: 8px 12px 7px; font-family: 'Inter', sans-serif; text-align: center; margin: 14px 14px 0; border-radius: 16px 16px 0 0; }
 .session-countdown.show { display: block; }
 .countdown-label { font-size: 10px; font-weight: 800; color: #002868; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px; }
 .countdown-clock { display: flex; justify-content: center; align-items: center; gap: 6px; }
@@ -561,23 +567,64 @@ if (needsReorder) {
 }
 
 // ── SESSION COUNTDOWN ──
-// Pure client-side date math against a fixed target — no Supabase call,
-// no manual updates needed. Banner stays hidden (default CSS: display:none)
-// until this runs and finds time remaining; ticks live every second, and
-// auto-hides + stops itself once the target date has passed, so nothing
-// needs to be manually removed when the 2027 session actually starts.
+// Fully rule-based, evergreen — no hardcoded target date, ever. Delaware's
+// Constitution (Article II) fixes both dates every year: the General
+// Assembly convenes the 2nd Tuesday of January and cannot sit past June 30.
+// Verified consistently every year 2020-2026 (Ballotpedia + the
+// Constitution's own text) — this isn't a one-off, it's a permanent rule,
+// so computing it in code means this banner is accurate forever with zero
+// maintenance, rather than needing a new hardcoded date typed in every year.
+function secondTuesdayOfJanuary(year) {
+  var d = new Date(year, 0, 1); // Jan 1
+  var day = d.getDay(); // 0 = Sunday
+  var daysToFirstTuesday = (2 - day + 7) % 7; // 2 = Tuesday
+  var firstTuesday = 1 + daysToFirstTuesday;
+  return new Date(year, 0, firstTuesday + 7); // +7 days = second Tuesday
+}
+
 function renderSessionCountdown() {
   var el = document.getElementById('session-countdown');
   if (!el) return;
-  var target = new Date('2027-01-12T00:00:00');
+  var now = new Date();
+  var thisYear = now.getFullYear();
+
+  var sessionStart = secondTuesdayOfJanuary(thisYear);
+  var sessionEnd = new Date(thisYear, 5, 30, 23, 59, 59); // June 30, end of day
+
+  var target, label, calendarYear;
+  if (now < sessionStart) {
+    target = sessionStart; label = 'Next Legislative Session Begins'; calendarYear = thisYear;
+  } else if (now <= sessionEnd) {
+    target = sessionEnd; label = 'Legislative Session Ends'; calendarYear = thisYear;
+  } else {
+    // Past June 30 — roll over to next year's session start automatically.
+    target = secondTuesdayOfJanuary(thisYear + 1);
+    label = 'Next Legislative Session Begins';
+    calendarYear = thisYear + 1;
+  }
+
   var pad = function(n) { return n < 10 ? '0' + n : String(n); };
   var timer;
+  var labelEl = el.querySelector('.countdown-label');
+  if (labelEl) labelEl.textContent = label;
+
+  var linkEl = el.querySelector('.countdown-link');
+  if (linkEl) {
+    var mm = pad(target.getMonth() + 1), dd = pad(target.getDate());
+    var dow = target.toLocaleDateString('en-US', { weekday: 'short' });
+    linkEl.textContent = mm + '/' + dd + '/' + calendarYear + ' (' + dow + ') \u00b7 View Calendar';
+    // NOTE: the calendar PDF URL itself still needs a manual check once a
+    // year — Delaware doesn't publish next year's PDF far in advance, and
+    // the filename pattern isn't confirmed stable long-term. The date math
+    // above is fully automatic; this one link is the one thing worth a
+    // quick glance each January.
+  }
 
   function tick() {
     var diff = target - new Date();
     if (diff <= 0) {
       clearInterval(timer);
-      el.classList.remove('show');
+      renderSessionCountdown(); // phase just ended — recompute immediately
       return;
     }
     var totalSeconds = Math.floor(diff / 1000);
@@ -588,10 +635,8 @@ function renderSessionCountdown() {
   }
 
   tick();
-  if (target - new Date() > 0) {
-    el.classList.add('show');
-    timer = setInterval(tick, 1000);
-  }
+  el.classList.add('show');
+  timer = setInterval(tick, 1000);
 }
 renderSessionCountdown();
 
