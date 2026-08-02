@@ -14,13 +14,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Dover Dash — Delaware Bill Tracker</title>
 <meta name="description" content="Passed bills from the 153rd General Assembly, explained in plain English. Pick your profile to see which new laws affect you.">
-<meta property="og:title" content="Dover Dash — Delaware Bill Tracker" />
-<meta property="og:site_name" content="Dover Dash" />
-<meta property="og:description" content="An independent, nonpartisan breakdown of Delaware's newest laws — sourced from the official record, written in plain English." />
+<meta property="og:title" content="What Delaware Lawmakers Passed This Session — And How It Affects You" />
+<meta property="og:description" content="Passed bills from the 153rd General Assembly, explained in plain English. Pick your profile to see which new laws affect you." />
 <meta property="og:image" content="https://civicdelaware.com/og-image.png" />
-<meta property="og:url" content="https://civicdelaware.com/tracker.html" />
-<meta property="og:type" content="website" />
-<link rel="canonical" href="https://civicdelaware.com/tracker.html" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://civicdelaware.com/og-image.png" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -139,6 +135,22 @@ body {
 .bill-status-badge.passed { background: #DBEAFE; color: #1E40AF; }
 .bill-card.wo .bill-status-badge:not(.veto) { background: #FEE2E2; color: #991B1B; }
 .bill-card.hy .bill-status-badge:not(.veto) { background: #ECFCCB; color: #365314; }
+
+/* ── BILL LIFECYCLE TIMELINE ── */
+/* Sits at the very bottom of a bill card, left to right, ending at
+   Governor. Only renders when real stage data exists (see renderTimeline());
+   falls back to the badge above until the backend piece is wired up, so
+   nothing breaks for the 215 bills that won't have stage data on day one. */
+.bill-timeline { display: flex; align-items: center; margin-top: 10px; padding-top: 10px; border-top: 1px solid #F3F4F6; }
+.bt-step { display: flex; flex-direction: column; align-items: center; flex: 1; position: relative; }
+.bt-dot { width: 10px; height: 10px; border-radius: 50%; background: #E5E7EB; border: 2px solid #fff; box-shadow: 0 0 0 1px #E5E7EB; z-index: 1; }
+.bt-step.reached .bt-dot { background: #002868; box-shadow: 0 0 0 1px #002868; }
+.bt-step.current .bt-dot { background: #BAFF5C; box-shadow: 0 0 0 1px #002868; }
+.bt-label { font-size: 8px; color: #9CA3AF; text-transform: uppercase; letter-spacing: 0.3px; margin-top: 4px; text-align: center; line-height: 1.2; }
+.bt-step.reached .bt-label, .bt-step.current .bt-label { color: #002868; font-weight: 700; }
+.bt-line { position: absolute; top: 4px; left: 50%; width: 100%; height: 2px; background: #E5E7EB; z-index: 0; }
+.bt-step.reached .bt-line { background: #002868; }
+.bt-step:first-child .bt-line { display: none; }
 .bill-num-link { font-size: 11px; font-weight: 800; color: #9CA3AF; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: #9CA3AF; }
 .bill-num-link:hover { color: #D93B3B; }
 .bill-official { font-size: 9px; color: #9CA3AF; line-height: 1.4; margin-bottom: 8px; font-style: italic; }
@@ -163,11 +175,14 @@ body {
 .bills-empty-icon { font-size: 32px; margin-bottom: 10px; }
 .bills-empty-title { font-family: 'Playfair Display', Georgia, serif; font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 6px; }
 .bills-empty-sub { font-size: 12px; color: #6B7280; line-height: 1.5; }
-/* --- Get Involved card --- */
-.gi-card { background: #fff; border: 2px solid #002868; border-radius: 16px; overflow: hidden; margin: 12px 16px 16px; }
+/* --- Get Involved card — lime green matching the "Dash" brand accent,
+   following the same lime-card/navy-inset pattern already established by
+   .session-countdown elsewhere in this file, rather than inventing a new
+   color relationship. */
+.gi-card { background: #BAFF5C; border: 1.5px solid #A8E83D; border-radius: 0; overflow: hidden; margin: 12px 14px 0; }
 .gi-header { background: none; padding: 16px 16px 10px; text-align: center; }
 .gi-title { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 900; color: #002868; font-style: italic; display: inline-block; padding: 2px 8px; }
-.gi-title em { color: #BAFF5C; font-style: italic; }
+.gi-title em { color: #002868; font-style: italic; text-decoration: underline; text-decoration-color: #BAFF5C; text-decoration-thickness: 3px; text-underline-offset: 3px; }
 .gi-subtitle { font-size: 11px; color: rgba(255,255,255,0.65); margin-top: 4px; font-family: 'Inter', sans-serif; font-weight: 600; letter-spacing: 0.3px; }
 .gi-step { padding: 14px 16px; border-bottom: 1px solid #E5E7EB; }
 .gi-step-last { border-bottom: none; padding-bottom: 20px; }
@@ -205,27 +220,30 @@ body {
 .gi-email-row { display: flex; gap: 6px; }
 .gi-email-input { flex: 1; border: 1.5px solid #D1D5DB; border-radius: 8px; padding: 9px 10px; font-size: 12px; font-family: 'Inter', sans-serif; outline: none; min-width: 0; background: #fff; }
 .gi-email-input:focus { border-color: #002868; }
-.gi-email-btn { background: #BAFF5C; color: #002868; border: none; border-radius: 8px; padding: 9px 14px; font-size: 12px; font-weight: 800; cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap; }
-.gi-email-btn:hover { background: #A8E83D; }
-.gi-email-success { font-size: 12px; color: #1A7A4A; font-weight: 700; }
+.gi-email-btn { background: #002868; color: #BAFF5C; border: none; border-radius: 8px; padding: 9px 14px; font-size: 12px; font-weight: 800; cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap; }
+.gi-email-btn:hover { background: #001f52; }
+.gi-email-success { font-size: 12px; color: #002868; font-weight: 700; }
 .gi-source { font-size: 10px; color: #9CA3AF; margin-top: 10px; line-height: 1.5; }
 .gi-source a { color: #6B7280; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
 .gi-action-list { display: flex; flex-direction: column; padding: 0 16px 8px; gap: 6px; }
-.gi-action-row { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 2px solid #D1D5DB; border-radius: 10px; text-decoration: none; background: #fff; transition: border-color .12s, background .12s; }
-.gi-action-row:hover { border-color: #002868; background: #F0F4FF; }
-.gi-action-row:hover .gi-action-label { color: #002868; }
+.gi-action-row { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: none; border-radius: 8px; text-decoration: none; background: #002868; transition: background .12s; }
+.gi-action-row:hover { background: #001f52; }
+.gi-action-row:hover .gi-action-label { color: #BAFF5C; }
 .gi-action-icon { font-size: 20px; flex-shrink: 0; width: 28px; text-align: center; }
-.gi-action-label { font-size: 12px; font-weight: 700; color: #111827; flex: 1; }
-.gi-action-arrow { font-size: 14px; color: #9CA3AF; flex-shrink: 0; }
+.gi-action-label { font-size: 12px; font-weight: 700; color: #fff; flex: 1; }
+.gi-action-hint { font-weight: 400; color: rgba(255,255,255,0.55); font-size: 11px; }
+.gi-action-arrow { font-size: 14px; color: #BAFF5C; flex-shrink: 0; }
 .gi-leg-chevron { width: 14px; height: 14px; flex-shrink: 0; display: block; transition: transform 0.2s ease; }
 .gi-leg-chevron.open { transform: rotate(180deg); }
-.gi-action-hint { font-weight: 400; color: #9CA3AF; font-size: 11px; }
+.gi-leg-chevron path { stroke: #BAFF5C; }
+.gi-leg-loading { font-size: 11px; color: #375080; text-align: center; padding: 8px 0; }
+.gi-leg-error { font-size: 11px; color: #8B1A1A; padding: 6px 0; line-height: 1.4; }
 button.gi-action-row { width: 100%; cursor: pointer; font-family: 'Inter', sans-serif; text-align: left; }
 button.gi-action-row:focus { outline: none; }
 button.gi-action-row[aria-expanded="true"],
-button.gi-action-row[aria-expanded="true"]:hover { background: #fff; border-color: #D1D5DB; }
-.gi-subscribe-section { padding: 12px 16px 16px; border-top: 1px solid #E5E7EB; margin-top: 4px; }
-.gi-subscribe-label { font-size: 11px; font-weight: 600; color: #6B7280; margin-bottom: 10px; }
+button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
+.gi-subscribe-section { padding: 12px 16px 16px; border-top: 1.5px solid rgba(0,40,104,0.2); margin-top: 4px; }
+.gi-subscribe-label { font-size: 11px; font-weight: 600; color: #002868; margin-bottom: 10px; }
 /* ── LEGISLATOR FINDER ── */
 .rep-section { background: #F9FAFB; border-top: 1px solid #E5E7EB; padding: 0; overflow: hidden; }
 .rep-election-band { background: #002868; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; }
@@ -288,6 +306,8 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #fff; border-colo
 .countdown-word { font-size: 9px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.4px; margin-top: 1px; }
 .countdown-sep { font-size: 22px; font-weight: 800; color: #002868; }
 .countdown-link { display: block; margin-top: 4px; font-size: 11px; font-weight: 700; color: #002868; text-decoration: underline; text-underline-offset: 2px; }
+.countdown-source { display: block; text-align: center; margin-top: 3px; font-size: 9px; font-style: italic; color: rgba(0,40,104,0.55); text-decoration: none; }
+.countdown-source:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -305,6 +325,7 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #fff; border-colo
       <div class="countdown-unit"><span class="countdown-num" id="cd-secs">--</span><span class="countdown-word">Sec</span></div>
     </div>
     <a class="countdown-link" href="https://legis.delaware.gov/docs/default-source/default-document-library/2027_Legislative_Calendar.pdf" target="_blank" rel="noopener">Jan. 12, 2027 (Tues.) · View Calendar</a>
+    <a class="countdown-source" href="https://legis.delaware.gov" target="_blank" rel="noopener">(Source: Delaware General Assembly)</a>
   </div>
 
   <div class="header" id="home-header">
@@ -336,6 +357,35 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #fff; border-colo
     <div class="see-results-wrap">
       <div class="see-results-hint" id="see-results-hint">Pick a profile above to continue</div>
       <button class="see-results-btn" id="see-results-btn" onclick="goToBills()">See my results</button>
+    </div>
+
+    <!-- ── GET INVOLVED (home screen copy) ── -->
+    <div class="gi-card">
+      <div class="gi-header">
+        <div class="gi-title">Get Involved!</div>
+      </div>
+      <div class="gi-action-list">
+        <button class="gi-action-row" onclick="toggleLegLookup(this)" aria-expanded="false">
+          <span class="gi-action-icon">🏛️</span>
+          <span class="gi-action-label">Look up your legislator</span>
+          <svg class="gi-leg-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="gi-leg-panel" style="display:none;padding:8px 2px 2px;">
+          <div style="display:flex;gap:6px;margin-bottom:6px;">
+            <input type="text" class="gi-leg-addr gi-addr-input" placeholder="123 Main St, Wilmington, DE" onkeydown="if(event.key==='Enter')lookUpLegislator(this);" />
+            <button class="gi-addr-btn" onclick="lookUpLegislator(this)">Find</button>
+          </div>
+          <div class="gi-leg-loading" style="display:none;">Looking up…</div>
+          <div class="gi-leg-error"   style="display:none;"></div>
+          <div class="gi-leg-results" style="display:none;"></div>
+        </div>
+        <a href="https://sg001-harmony.sliq.net/00329/Harmony/en/View/UpcomingEvents/20240109/-1" target="_blank" rel="noopener" class="gi-action-row">
+          <span class="gi-action-icon">📺</span>
+          <span class="gi-action-label">Watch live hearings</span>
+          <span class="gi-action-arrow">→</span>
+        </a>
+        <a class="countdown-source" href="https://legis.delaware.gov" target="_blank" rel="noopener" style="padding:0 2px;">(Source: Delaware General Assembly)</a>
+      </div>
     </div>
 
   </div>
@@ -378,44 +428,40 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #fff; border-colo
         <div class="gi-title">Get Involved!</div>
       </div>
       <div class="gi-action-list">
-        <button class="gi-action-row" id="gi-leg-toggle" onclick="toggleLegLookup()" aria-expanded="false">
+        <button class="gi-action-row" onclick="toggleLegLookup(this)" aria-expanded="false">
           <span class="gi-action-icon">🏛️</span>
           <span class="gi-action-label">Look up your legislator</span>
-          <svg class="gi-leg-chevron" id="gi-leg-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="gi-leg-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <div id="gi-leg-panel" style="display:none;padding:8px 2px 2px;">
+        <div class="gi-leg-panel" style="display:none;padding:8px 2px 2px;">
           <div style="display:flex;gap:6px;margin-bottom:6px;">
-            <input type="text" id="gi-leg-addr" class="gi-addr-input" placeholder="123 Main St, Wilmington, DE" onkeydown="if(event.key==='Enter')lookUpLegislator();" />
-            <button class="gi-addr-btn" onclick="lookUpLegislator()">Find</button>
+            <input type="text" class="gi-leg-addr gi-addr-input" placeholder="123 Main St, Wilmington, DE" onkeydown="if(event.key==='Enter')lookUpLegislator(this);" />
+            <button class="gi-addr-btn" onclick="lookUpLegislator(this)">Find</button>
           </div>
-          <div id="gi-leg-loading" style="display:none;" class="gi-loading">Looking up…</div>
-          <div id="gi-leg-error"   style="display:none;" class="gi-error"></div>
-          <div id="gi-leg-results" style="display:none;"></div>
+          <div class="gi-leg-loading" style="display:none;">Looking up…</div>
+          <div class="gi-leg-error"   style="display:none;"></div>
+          <div class="gi-leg-results" style="display:none;"></div>
         </div>
         <a href="https://sg001-harmony.sliq.net/00329/Harmony/en/View/UpcomingEvents/20240109/-1" target="_blank" rel="noopener" class="gi-action-row">
           <span class="gi-action-icon">📺</span>
-          <span class="gi-action-label">Watch live hearings <span class="gi-action-hint">(legis.delaware.gov)</span></span>
+          <span class="gi-action-label">Watch live hearings</span>
           <span class="gi-action-arrow">→</span>
         </a>
-        <a href="https://legis.delaware.gov" target="_blank" rel="noopener" class="gi-action-row">
-          <span class="gi-action-icon">📋</span>
-          <span class="gi-action-label">See the current agenda <span class="gi-action-hint">(legis.delaware.gov)</span></span>
-          <span class="gi-action-arrow">→</span>
-        </a>
+        <a class="countdown-source" href="https://legis.delaware.gov" target="_blank" rel="noopener" style="padding:0 2px;">(Source: Delaware General Assembly)</a>
       </div>
-      <div class="gi-subscribe-section" id="gi-subscribe-row">
+      <div class="gi-subscribe-section">
         <div class="gi-subscribe-label">Get notified when the next session starts in Jan. 2027</div>
-        <div style="display:flex;flex-direction:column;gap:6px;" id="gi-email-row">
+        <div style="display:flex;flex-direction:column;gap:6px;" class="gi-email-row">
           <div style="display:flex;gap:6px;">
-            <input type="text" class="gi-email-input" id="gi-first-name" placeholder="First name (optional)" style="flex:1;" />
-            <input type="text" class="gi-email-input" id="gi-last-name" placeholder="Last name (optional)" style="flex:1;" />
+            <input type="text" class="gi-email-input gi-first-name" placeholder="First name" style="flex:1;" />
+            <input type="text" class="gi-email-input gi-last-name" placeholder="Last name" style="flex:1;" />
           </div>
           <div style="display:flex;gap:6px;">
-            <input type="email" class="gi-email-input" id="gi-email" placeholder="your@email.com" style="flex:1;" />
-            <button class="gi-email-btn" onclick="doGiSubscribe()">Subscribe</button>
+            <input type="email" class="gi-email-input gi-email" placeholder="your@email.com" style="flex:1;" />
+            <button class="gi-email-btn" onclick="doGiSubscribe(this)">Subscribe</button>
           </div>
         </div>
-        <div id="gi-email-success" style="display:none;margin-top:8px;" class="gi-email-success">✓ You are on the list!</div>
+        <div class="gi-email-success" style="display:none;margin-top:8px;">✓ You are on the list!</div>
       </div>
     </div>
 
@@ -830,7 +876,7 @@ function loadBills(profile) {
   document.getElementById('bills-loading').style.display = 'block';
   document.getElementById('bills-list').innerHTML = '';
   document.getElementById('bills-empty').style.display = 'none';
-  document.querySelector('.gi-card').style.visibility = 'hidden';
+  document.querySelector('#screen-bills .gi-card').style.visibility = 'hidden';
   document.getElementById('bill-count-bar').textContent = '';
   document.getElementById('bills-nav-sep').textContent = '';
   // Reset stat labels immediately so the PREVIOUS profile's counts never
@@ -844,7 +890,7 @@ function loadBills(profile) {
       // Bills archive bar is static — text already set in HTML
       document.getElementById('bills-loading').style.display = 'none';
       renderBills();
-      document.querySelector('.gi-card').style.visibility = '';
+      document.querySelector('#screen-bills .gi-card').style.visibility = '';
     })
     .catch(function() {
       document.getElementById('bills-loading').innerHTML =
@@ -873,7 +919,7 @@ function renderBills() {
   document.getElementById('filter-wo').textContent = 'Watch Out · ' + woCount;
   document.getElementById('filter-hy').textContent = 'Helps You · ' + hyCount;
   countEl.textContent = allBills.length + ' passed bills affected this profile';
-  var giCard = document.querySelector('.gi-card');
+  var giCard = document.querySelector('#screen-bills .gi-card');
   if (allBills.length === 0) {
     listEl.innerHTML = '';
     emptyEl.style.display = 'block';
@@ -944,11 +990,12 @@ function renderBills() {
     var synopsisHtml = rationaleText ? '<div class="bill-rationale"><span class="bill-rationale-label">AI Summary</span><span id="' + rationaleId + '" class="bill-rationale-body">' + esc(rationaleText) + '</span></div>' + synopsisBlock + '<button class="bill-read-more" onclick="toggleBillText(\'' + rationaleId + '\',this)">Read more</button>' : '';
     var bodyHtml = !rationaleText && bodyText ? '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' : '';
     var readMore = !rationaleText && bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more</button>' : '';
-    var rightMeta  = (catChip || statusBadge) ? '<div class="bill-card-meta">' + catChip + statusBadge + '</div>' : '';
+    var timelineHtml = renderTimeline(bill.stages);
+    var rightMeta  = (catChip || (statusBadge && !timelineHtml)) ? '<div class="bill-card-meta">' + catChip + (timelineHtml ? '' : statusBadge) + '</div>' : '';
     var shareUrl   = bill.url || window.location.href;
     var shareText  = nickname + ' — ' + billCode + '. Check this Delaware bill on Dover Dash.';
     var shareBtn   = '<div class="bill-share-row"><button class="bill-share-btn" onclick="shareBillCard(this)">Share</button></div>';
-    return '<div class="' + cardClass + '" data-share-url="' + esc(shareUrl) + '" data-share-text="' + esc(shareText) + '">' + '<div class="bill-nickname"><span class="bill-title-text">' + esc(nickname) + '</span>' + rightMeta + '</div>' + '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + '</div>' + sponsorHtml + synopsisHtml + bodyHtml + readMore + shareBtn + '</div>';
+    return '<div class="' + cardClass + '" data-share-url="' + esc(shareUrl) + '" data-share-text="' + esc(shareText) + '">' + '<div class="bill-nickname"><span class="bill-title-text">' + esc(nickname) + '</span>' + rightMeta + '</div>' + '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + '</div>' + sponsorHtml + synopsisHtml + bodyHtml + readMore + shareBtn + timelineHtml + '</div>';
   }).join('');
   if (showExpand) {
     html += '<div style="padding:14px 16px;text-align:center;"><button onclick="expandFilter(\'' + currentFilter + '\')" style="background:none;border:1.5px solid #002868;border-radius:20px;padding:8px 20px;font-size:12px;font-weight:700;color:#002868;cursor:pointer;font-family:\'Inter\',sans-serif;">See all ' + bills.length + ' bills ↓</button></div>';
@@ -959,6 +1006,53 @@ function renderBills() {
 function esc(str) {
   if (!str) return '';
   return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── BILL LIFECYCLE TIMELINE ──────────────────────────────────────────────────
+// Renders the horizontal strip at the bottom of a bill card. Returns '' (no
+// timeline, falls back to the status badge) when a bill has no stage data
+// yet — true for every bill until the backend piece is built, and expected
+// to stay true for the whole 153rd GA archive unless that gets backfilled
+// separately. Once `bill.stages` starts arriving from get-bills.js, cards
+// switch over automatically with no further frontend changes needed.
+//
+// Deliberately simplified to 5 checkpoints rather than modeling each
+// chamber's passage separately (a real bicameral bill passes each chamber
+// once) — "Passed" here means "passed at least one chamber" for reached/
+// current purposes. Revisit this simplification once real stage data shows
+// whether readers actually need to see both chambers distinguished.
+// Canonical stages, revised against real Delaware action-log data (see
+// bill_timeline_schema.sql for the source). "Ready List" was dropped —
+// it never appeared in a real bill's logged actions, so there's no
+// evidence it's a loggable historical event rather than a live listing.
+var CANONICAL_TIMELINE = [
+  { key: 'introduced',                label: 'Introduced' },
+  { key: 'assigned_to_committee',     label: 'Committee' },
+  { key: 'passed_chamber',            label: 'Passed' },
+  { key: 'signed_by_governor',        label: 'Governor' },
+];
+
+function renderTimeline(stages) {
+  if (!stages || !stages.length) return '';
+  var reachedKeys = {};
+  stages.forEach(function(s) { reachedKeys[s.stage_key] = true; });
+  var vetoed = reachedKeys['vetoed'] && !reachedKeys['veto_overridden'];
+
+  var lastReachedIndex = -1;
+  CANONICAL_TIMELINE.forEach(function(step, i) {
+    if (reachedKeys[step.key]) lastReachedIndex = i;
+  });
+
+  var html = '<div class="bill-timeline">';
+  CANONICAL_TIMELINE.forEach(function(step, i) {
+    var isReached = i <= lastReachedIndex && !(vetoed && i === CANONICAL_TIMELINE.length - 1);
+    var isCurrent = i === lastReachedIndex;
+    var label = (vetoed && step.key === 'signed_by_governor') ? 'Vetoed' : step.label;
+    var cls = 'bt-step' + (isReached ? ' reached' : '') + (isCurrent ? ' current' : '');
+    html += '<div class="' + cls + '"><div class="bt-line"></div><div class="bt-dot"></div><div class="bt-label">' + esc(label) + '</div></div>';
+  });
+  html += '</div>';
+  return html;
 }
 
 // ── LEGISLATOR SCORECARD ─────────────────────────────────────────────────────
@@ -1092,35 +1186,42 @@ function buildStatewideCard(statewide) {
 }
 
 // ── INLINE LEGISLATOR LOOKUP (Get Involved card) ─────────────────────────────
-function toggleLegLookup() {
-  var panel   = document.getElementById('gi-leg-panel');
-  var chevron = document.getElementById('gi-leg-chevron');
-  var toggle  = document.getElementById('gi-leg-toggle');
+// Scoped relative to whichever .gi-card the clicked element belongs to
+// (via closest()), rather than fixed global IDs — this lets the same
+// Get Involved card markup appear more than once on the page (home screen
+// and results screen) without one copy breaking the other.
+function toggleLegLookup(btn) {
+  var card    = btn.closest('.gi-card');
+  var panel   = card.querySelector('.gi-leg-panel');
+  var chevron = btn.querySelector('.gi-leg-chevron');
   var isOpen  = panel.style.display !== 'none';
   panel.style.display = isOpen ? 'none' : 'block';
   chevron.classList.toggle('open', !isOpen);
-  toggle.setAttribute('aria-expanded', String(!isOpen));
-  if (!isOpen) setTimeout(function() { document.getElementById('gi-leg-addr').focus(); }, 50);
+  btn.setAttribute('aria-expanded', String(!isOpen));
+  if (!isOpen) setTimeout(function() { card.querySelector('.gi-leg-addr').focus(); }, 50);
 }
 
-function lookUpLegislator() {
-  var addr = (document.getElementById('gi-leg-addr').value || '').trim();
+function lookUpLegislator(el) {
+  var card = el.closest('.gi-card');
+  var addrInput = card.querySelector('.gi-leg-addr');
+  var addr = (addrInput.value || '').trim();
   if (!addr) {
-    document.getElementById('gi-leg-addr').style.outline = '2px solid #D93B3B';
+    addrInput.style.outline = '2px solid #D93B3B';
     return;
   }
-  document.getElementById('gi-leg-addr').style.outline = '';
-  document.getElementById('gi-leg-loading').style.display = 'block';
-  document.getElementById('gi-leg-error').style.display   = 'none';
-  document.getElementById('gi-leg-results').style.display = 'none';
+  addrInput.style.outline = '';
+  card.querySelector('.gi-leg-loading').style.display = 'block';
+  card.querySelector('.gi-leg-error').style.display   = 'none';
+  card.querySelector('.gi-leg-results').style.display = 'none';
 
   fetch('/.netlify/functions/get-my-rep?address=' + encodeURIComponent(addr) + '&session=153')
     .then(function(r) { return r.json(); })
     .then(function(data) {
-      document.getElementById('gi-leg-loading').style.display = 'none';
+      card.querySelector('.gi-leg-loading').style.display = 'none';
       if (data.error) {
-        document.getElementById('gi-leg-error').textContent   = data.error;
-        document.getElementById('gi-leg-error').style.display = 'block';
+        var errEl = card.querySelector('.gi-leg-error');
+        errEl.textContent = data.error;
+        errEl.style.display = 'block';
         return;
       }
       function legCard(leg, label) {
@@ -1142,14 +1243,15 @@ function lookUpLegislator() {
       if (data.rep)     html += legCard(data.rep,     'House District ' + data.house_district);
       if (data.senator) html += legCard(data.senator, 'Senate District ' + data.senate_district);
       if (!html) html = '<div style="font-size:11px;color:#6B7280;padding:6px 0;">No legislators found for this address.</div>';
-      var resEl = document.getElementById('gi-leg-results');
+      var resEl = card.querySelector('.gi-leg-results');
       resEl.innerHTML = html;
       resEl.style.display = 'block';
     })
     .catch(function() {
-      document.getElementById('gi-leg-loading').style.display = 'none';
-      document.getElementById('gi-leg-error').textContent   = 'Something went wrong. Please try again.';
-      document.getElementById('gi-leg-error').style.display = 'block';
+      card.querySelector('.gi-leg-loading').style.display = 'none';
+      var errEl = card.querySelector('.gi-leg-error');
+      errEl.textContent = 'Something went wrong. Please try again.';
+      errEl.style.display = 'block';
     });
 }
 
@@ -1256,25 +1358,27 @@ function renderCandidates(data) {
   document.getElementById('gi-results').style.display = 'block';
 }
 
-function doGiSubscribe() {
-  var email     = document.getElementById('gi-email').value.trim();
-  var firstName = (document.getElementById('gi-first-name').value || '').trim();
-  var lastName  = (document.getElementById('gi-last-name').value || '').trim();
+function doGiSubscribe(btn) {
+  var card       = btn.closest('.gi-card');
+  var emailInput = card.querySelector('.gi-email');
+  var email      = emailInput.value.trim();
+  var firstName  = (card.querySelector('.gi-first-name').value || '').trim();
+  var lastName   = (card.querySelector('.gi-last-name').value || '').trim();
   if (!email || !email.includes('@')) {
-    document.getElementById('gi-email').style.outline = '2px solid #D93B3B';
+    emailInput.style.outline = '2px solid #D93B3B';
     return;
   }
-  document.getElementById('gi-email').style.outline = '';
+  emailInput.style.outline = '';
   fetch('/.netlify/functions/subscribe', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email: email, firstName: firstName, lastName: lastName, profile: currentProfileKey || 'general' }),
   }).then(function(res) { return res.json(); }).then(function(data) {
     var msg = data.alreadySubscribed ? 'You are already on the list!' : '✓ You are on the list!';
-    document.getElementById('gi-email-success').textContent = msg;
+    card.querySelector('.gi-email-success').textContent = msg;
   }).finally(function() {
-    document.getElementById('gi-email-row').style.display = 'none';
-    document.getElementById('gi-email-success').style.display = 'block';
+    card.querySelector('.gi-email-row').style.display = 'none';
+    card.querySelector('.gi-email-success').style.display = 'block';
   });
 }
 </script>
