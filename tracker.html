@@ -1117,13 +1117,11 @@ function lookUpRep() {
 }
 
 function buildRepCard(leg, roleLabel, candidates) {
-  var party      = (leg.party || '').toUpperCase();
-  var badgeClass = party === 'D' ? 'D' : party === 'R' ? 'R' : '';
-  var partyFull  = party === 'D' ? 'Democrat' : party === 'R' ? 'Republican' : party;
+  var titlePrefix = (roleLabel || '').toLowerCase().indexOf('senat') !== -1 ? 'Sen. ' : 'Rep. ';
 
   var nameHtml = leg.url
-    ? '<a href="' + esc(leg.url) + '" target="_blank" rel="noopener" class="rep-card-name" style="text-decoration:none;">' + esc(leg.name) + '</a>'
-    : '<span class="rep-card-name">' + esc(leg.name) + '</span>';
+    ? '<a href="' + esc(leg.url) + '" target="_blank" rel="noopener" class="rep-card-name" style="text-decoration:none;">' + titlePrefix + esc(leg.name) + '</a>'
+    : '<span class="rep-card-name">' + titlePrefix + esc(leg.name) + '</span>';
 
   var bioLink = leg.url
     ? '<a href="' + esc(leg.url) + '" target="_blank" rel="noopener" class="rep-bio-link">View bio ↗</a>'
@@ -1133,9 +1131,8 @@ function buildRepCard(leg, roleLabel, candidates) {
     '<div class="rep-card-top">' +
       '<div>' +
         nameHtml +
-        '<div class="rep-card-role">' + esc(roleLabel) + ' · District ' + esc(String(leg.district)) + (partyFull ? ' · ' + partyFull : '') + '</div>' +
+        '<div class="rep-card-role">' + esc(roleLabel) + ' · District ' + esc(String(leg.district)) + '</div>' +
       '</div>' +
-      (badgeClass ? '<span class="rep-party-badge ' + badgeClass + '">' + party + '</span>' : '') +
     '</div>' +
     (bioLink ? '<div style="margin-bottom:10px;">' + bioLink + '</div>' : '') +
     buildChallengers(candidates || [], leg.chamber) +
@@ -1226,15 +1223,11 @@ function lookUpLegislator(el) {
       }
       function legCard(leg, label) {
         if (!leg) return '';
-        var pc = leg.party === 'D' ? 'background:#DBEAFE;color:#1E40AF;'
-               : leg.party === 'R' ? 'background:#FEE2E2;color:#991B1B;'
-               :                     'background:#F3F4F6;color:#374151;';
-        var pLabel = leg.party === 'D' ? 'Dem.' : leg.party === 'R' ? 'Rep.' : leg.party;
+        var titlePrefix = (label || '').toLowerCase().indexOf('senat') !== -1 ? 'Sen. ' : 'Rep. ';
         return '<div style="background:#F9FAFB;border:1.5px solid #E5E7EB;border-radius:8px;padding:9px 11px;margin-bottom:6px;">' +
           '<div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:#6B7280;margin-bottom:4px;">' + label + '</div>' +
           '<div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">' +
-            '<span style="font-size:12px;font-weight:700;color:#111827;">' + leg.name + '</span>' +
-            '<span style="font-size:10px;font-weight:700;border-radius:4px;padding:2px 6px;' + pc + '">' + pLabel + '</span>' +
+            '<span style="font-size:12px;font-weight:700;color:#111827;">' + titlePrefix + leg.name + '</span>' +
           '</div>' +
           (leg.url ? '<a href="' + leg.url + '" target="_blank" rel="noopener" style="font-size:10px;color:#002868;font-weight:600;text-decoration:none;display:inline-block;margin-top:4px;">GA profile →</a>' : '') +
         '</div>';
