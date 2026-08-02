@@ -38,7 +38,7 @@ body {
 /* ── HOME HEADER ── */
 .header {
   background: #002868; border-radius: 16px 16px 0 0;
-  margin: 14px 14px 0; padding: 28px 20px 24px;
+  margin: 14px 14px 0; padding: 16px 20px 14px;
   text-align: center;
 }
 /* When the countdown banner is showing above it, the header no longer needs
@@ -47,12 +47,12 @@ body {
    2027), this rule no longer applies and the header's default rounding above
    takes over again correctly. */
 .session-countdown.show + .header { border-radius: 0; }
-.eyebrow { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.6); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
-.brand { font-family: 'Playfair Display', Georgia, serif; font-size: 40px; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 16px; }
+.eyebrow { font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.6); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
+.brand { font-family: 'Playfair Display', Georgia, serif; font-size: 28px; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 8px; }
 .brand em { color: #BAFF5C; font-style: italic; }
 .tagline { font-size: 11px; color: rgba(255,255,255,0.75); margin-bottom: 10px; line-height: 1.5; }
-.session-pill { display: flex; flex-direction: column; align-items: center; gap: 5px; }
-.session-line { font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.85); letter-spacing: 0.5px; text-transform: uppercase; line-height: 1; }
+.session-pill { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.session-line { font-size: 9px; font-weight: 400; color: rgba(255,255,255,0.85); letter-spacing: 0.5px; text-transform: uppercase; line-height: 1; }
 .session-dot { color: #D93B3B; font-size: 7px; vertical-align: middle; }
 
 
@@ -299,16 +299,16 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
 .app-footer-copy a { color: #fff; text-decoration: none; }
 
 /* ── SESSION COUNTDOWN BANNER ── */
-.session-countdown { display: none; background: #BAFF5C; padding: 8px 12px 7px; font-family: 'Inter', sans-serif; text-align: center; margin: 14px 14px 0; border-radius: 16px 16px 0 0; }
+.session-countdown { display: none; background: #BAFF5C; padding: 5px 12px 4px; font-family: 'Inter', sans-serif; text-align: center; margin: 14px 14px 0; border-radius: 16px 16px 0 0; }
 .session-countdown.show { display: block; }
-.countdown-label { font-size: 10px; font-weight: 800; color: #002868; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px; }
-.countdown-clock { display: flex; justify-content: center; align-items: center; gap: 6px; }
-.countdown-unit { display: flex; flex-direction: column; align-items: center; background: #002868; border-radius: 7px; padding: 3px 9px; min-width: 42px; }
-.countdown-num { font-size: 22px; font-weight: 800; color: #BAFF5C; line-height: 1.1; font-variant-numeric: tabular-nums; }
-.countdown-word { font-size: 9px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.4px; margin-top: 1px; }
-.countdown-sep { font-size: 22px; font-weight: 800; color: #002868; }
-.countdown-link { display: block; margin-top: 4px; font-size: 11px; font-weight: 700; color: #002868; text-decoration: underline; text-underline-offset: 2px; }
-.countdown-source { display: block; text-align: center; margin-top: 3px; font-size: 9px; font-style: italic; color: rgba(0,40,104,0.55); text-decoration: none; }
+.countdown-label { font-size: 8px; font-weight: 800; color: #002868; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 2px; }
+.countdown-clock { display: flex; justify-content: center; align-items: center; gap: 5px; }
+.countdown-unit { display: flex; flex-direction: column; align-items: center; background: #002868; border-radius: 6px; padding: 2px 7px; min-width: 34px; }
+.countdown-num { font-size: 16px; font-weight: 800; color: #BAFF5C; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.countdown-word { font-size: 7px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.4px; margin-top: 1px; }
+.countdown-sep { font-size: 16px; font-weight: 800; color: #002868; }
+.countdown-link { display: block; margin-top: 2px; font-size: 9px; font-weight: 700; color: #002868; text-decoration: underline; text-underline-offset: 2px; }
+.countdown-source { display: block; text-align: center; margin-top: 1px; font-size: 8px; font-style: italic; color: rgba(0,40,104,0.55); text-decoration: none; }
 .countdown-source:hover { text-decoration: underline; }
 </style>
 </head>
