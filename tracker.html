@@ -275,6 +275,8 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
 .rep-party-badge { font-size: 9px; font-weight: 800; border-radius: 4px; padding: 2px 7px; letter-spacing: 0.5px; flex-shrink: 0; }
 .rep-party-badge.D { background: #DBEAFE; color: #1E40AF; }
 .rep-party-badge.R { background: #FEE2E2; color: #D93B3B; }
+.rep-card-photo { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+.rep-card-photo-fallback { width: 48px; height: 48px; border-radius: 50%; background: #E5E7EB; color: #002868; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', Georgia, serif; font-weight: 900; font-size: 15px; flex-shrink: 0; }
 .rep-bio-link { font-size: 10px; color: #9CA3AF; text-decoration: underline; text-underline-offset: 2px; }
 .rep-bio-link:hover { color: #002868; }
 .rep-ga-btn { display: inline-block; background: #F0FFF0; border: 1.5px solid #BAFF5C; color: #002868; border-radius: 8px; padding: 9px 14px; font-size: 11px; font-weight: 700; text-decoration: none; font-family: 'Inter', sans-serif; margin-top: 4px; }
@@ -1127,16 +1129,32 @@ function buildRepCard(leg, roleLabel, candidates) {
     ? '<a href="' + esc(leg.url) + '" target="_blank" rel="noopener" class="rep-bio-link">View bio ↗</a>'
     : '';
 
+  var photoHtml = leg.photo_url
+    ? '<img src="' + esc(leg.photo_url) + '" alt="Photo of ' + esc(leg.name) + '" class="rep-card-photo" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';">' +
+      '<div class="rep-card-photo-fallback" style="display:none;">' + esc(getInitials(leg.name)) + '</div>'
+    : '<div class="rep-card-photo-fallback">' + esc(getInitials(leg.name)) + '</div>';
+
   return '<div class="rep-card">' +
     '<div class="rep-card-top">' +
-      '<div>' +
-        nameHtml +
-        '<div class="rep-card-role">' + esc(roleLabel) + ' · District ' + esc(String(leg.district)) + '</div>' +
+      '<div style="display:flex;align-items:center;gap:10px;">' +
+        photoHtml +
+        '<div>' +
+          nameHtml +
+          '<div class="rep-card-role">' + esc(roleLabel) + ' · District ' + esc(String(leg.district)) + '</div>' +
+        '</div>' +
       '</div>' +
     '</div>' +
     (bioLink ? '<div style="margin-bottom:10px;">' + bioLink + '</div>' : '') +
     buildChallengers(candidates || [], leg.chamber) +
   '</div>';
+}
+
+function getInitials(name) {
+  var clean = (name || '').replace(/^(Rep\.|Sen\.)\s*/, '');
+  var parts = clean.split(' ').filter(Boolean);
+  var first = parts[0] ? parts[0][0] : '';
+  var last  = parts.length > 1 ? parts[parts.length - 1][0] : '';
+  return (first + last).toUpperCase();
 }
 
 function buildChallengers(candidates, chamber) {
@@ -1224,12 +1242,21 @@ function lookUpLegislator(el) {
       function legCard(leg, label) {
         if (!leg) return '';
         var titlePrefix = (label || '').toLowerCase().indexOf('senat') !== -1 ? 'Sen. ' : 'Rep. ';
+        var photoHtml = leg.photo_url
+          ? '<img src="' + esc(leg.photo_url) + '" alt="Photo of ' + esc(leg.name) + '" style="width:34px;height:34px;border-radius:50%;object-fit:cover;flex-shrink:0;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';">' +
+            '<div style="display:none;width:34px;height:34px;border-radius:50%;background:#E5E7EB;color:#002868;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0;">' + esc(getInitials(leg.name)) + '</div>'
+          : '<div style="width:34px;height:34px;border-radius:50%;background:#E5E7EB;color:#002868;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0;">' + esc(getInitials(leg.name)) + '</div>';
         return '<div style="background:#F9FAFB;border:1.5px solid #E5E7EB;border-radius:8px;padding:9px 11px;margin-bottom:6px;">' +
           '<div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:#6B7280;margin-bottom:4px;">' + label + '</div>' +
-          '<div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">' +
-            '<span style="font-size:12px;font-weight:700;color:#111827;">' + titlePrefix + leg.name + '</span>' +
+          '<div style="display:flex;align-items:center;gap:8px;">' +
+            photoHtml +
+            '<div style="flex:1;min-width:0;">' +
+              '<div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">' +
+                '<span style="font-size:12px;font-weight:700;color:#111827;">' + titlePrefix + leg.name + '</span>' +
+              '</div>' +
+              (leg.url ? '<a href="' + leg.url + '" target="_blank" rel="noopener" style="font-size:10px;color:#002868;font-weight:600;text-decoration:none;display:inline-block;margin-top:4px;">GA profile →</a>' : '') +
+            '</div>' +
           '</div>' +
-          (leg.url ? '<a href="' + leg.url + '" target="_blank" rel="noopener" style="font-size:10px;color:#002868;font-weight:600;text-decoration:none;display:inline-block;margin-top:4px;">GA profile →</a>' : '') +
         '</div>';
       }
       var html = '';
