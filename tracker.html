@@ -1243,17 +1243,15 @@ function lookUpLegislator(el) {
         if (!leg) return '';
         var titlePrefix = (label || '').toLowerCase().indexOf('senat') !== -1 ? 'Sen. ' : 'Rep. ';
         var photoHtml = leg.photo_url
-          ? '<img src="' + esc(leg.photo_url) + '" alt="Photo of ' + esc(leg.name) + '" style="width:56px;height:56px;border-radius:50%;object-fit:cover;flex-shrink:0;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';">' +
-            '<div style="display:none;width:56px;height:56px;border-radius:50%;background:#E5E7EB;color:#002868;align-items:center;justify-content:center;font-weight:800;font-size:16px;flex-shrink:0;">' + esc(getInitials(leg.name)) + '</div>'
-          : '<div style="width:56px;height:56px;border-radius:50%;background:#E5E7EB;color:#002868;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;flex-shrink:0;">' + esc(getInitials(leg.name)) + '</div>';
-        return '<div style="background:#F9FAFB;border:1.5px solid #E5E7EB;border-radius:8px;padding:9px 11px;margin-bottom:6px;">' +
-          '<div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:#6B7280;margin-bottom:4px;">' + label + '</div>' +
-          '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">' +
+          ? '<img src="' + esc(leg.photo_url) + '" alt="Photo of ' + esc(leg.name) + '" style="width:52px;height:52px;border-radius:50%;object-fit:cover;flex-shrink:0;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';">' +
+            '<div style="display:none;width:52px;height:52px;border-radius:50%;background:#E5E7EB;color:#002868;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0;">' + esc(getInitials(leg.name)) + '</div>'
+          : '<div style="width:52px;height:52px;border-radius:50%;background:#E5E7EB;color:#002868;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0;">' + esc(getInitials(leg.name)) + '</div>';
+        return '<div style="background:#F9FAFB;border:1.5px solid #E5E7EB;border-radius:8px;padding:12px 14px;margin-bottom:6px;">' +
+          '<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">' +
             '<div style="flex:1;min-width:0;">' +
-              '<div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">' +
-                '<span style="font-size:12px;font-weight:700;color:#111827;">' + titlePrefix + leg.name + '</span>' +
-              '</div>' +
-              (leg.url ? '<a href="' + leg.url + '" target="_blank" rel="noopener" style="font-size:10px;color:#002868;font-weight:600;text-decoration:none;display:inline-block;margin-top:4px;">GA profile →</a>' : '') +
+              '<div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:#6B7280;margin-bottom:4px;">' + label + '</div>' +
+              '<span style="font-size:12px;font-weight:700;color:#111827;">' + titlePrefix + leg.name + '</span>' +
+              (leg.url ? '<div><a href="' + leg.url + '" target="_blank" rel="noopener" style="font-size:10px;color:#002868;font-weight:600;text-decoration:none;display:inline-block;margin-top:4px;">GA profile →</a></div>' : '') +
             '</div>' +
             photoHtml +
           '</div>' +
