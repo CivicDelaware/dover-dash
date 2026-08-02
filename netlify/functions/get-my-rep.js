@@ -85,7 +85,7 @@ exports.handler = async function (event) {
   let legislators = [];
   try {
     const legRes = await fetch(
-      `${SUPABASE_URL}/rest/v1/legislators?select=assembly_member_id,name,party,chamber,district,url&session_number=eq.${session}`,
+      `${SUPABASE_URL}/rest/v1/legislators?select=assembly_member_id,name,party,chamber,district,url,photo_url&session_number=eq.${session}`,
       { headers: SB }
     );
     if (legRes.ok) {
