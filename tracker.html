@@ -628,6 +628,37 @@ function renderSessionCountdown() {
 renderSessionCountdown();
 
 function initApp() {
+  // Deep link: ?screen=lookup jumps straight to the legislator lookup panel,
+  // skipping profile selection and the bill list entirely. Built for email
+  // CTAs ("see how your legislator voted before you vote") where asking
+  // someone to pick a profile first would lose them before they get there.
+  if (new URLSearchParams(window.location.search).get('screen') === 'lookup') {
+    var profilesScreen = document.getElementById('screen-profiles');
+    var billsScreen     = document.getElementById('screen-bills');
+    if (profilesScreen) profilesScreen.style.display = 'none';
+    if (billsScreen) {
+      billsScreen.style.display = 'block';
+      // Hide everything on the results screen that assumes a profile was
+      // picked — filter tabs, bill list, empty state — since none of that
+      // has any data behind it on this path. Only Get Involved (and the
+      // legislator lookup inside it) is relevant here.
+      var filterRow = billsScreen.querySelector('.filter-row');
+      if (filterRow) filterRow.style.display = 'none';
+      var billsList = document.getElementById('bills-list');
+      if (billsList) billsList.style.display = 'none';
+      var billsLoading = document.getElementById('bills-loading');
+      if (billsLoading) billsLoading.style.display = 'none';
+      var billsEmpty = document.getElementById('bills-empty');
+      if (billsEmpty) billsEmpty.style.display = 'none';
+      var giCard = billsScreen.querySelector('.gi-card');
+      if (giCard) {
+        giCard.style.display = '';
+        var lookupBtn = giCard.querySelector('.gi-action-row[onclick*="toggleLegLookup"]');
+        if (lookupBtn) toggleLegLookup(lookupBtn);
+      }
+    }
+  }
+
   // Fetch Supabase data and patch the DOM in-place (no rebuild = no blink)
   fetch('/.netlify/functions/get-bills?meta=true')
     .then(function(res) { return res.json(); })
@@ -948,7 +979,7 @@ function renderBills() {
     var synopsisBlock = bill.synopsis
       ? '<div id="' + synId + '" class="bill-synopsis-full"><span class="bill-rationale-label">Official bill synopsis</span><p class="bill-synopsis-text">' + esc(bill.synopsis) + '</p></div>'
       : '';
-    var synopsisHtml = rationaleText ? '<div class="bill-rationale"><span class="bill-rationale-label">AI Summary</span><span id="' + rationaleId + '" class="bill-rationale-body">' + esc(rationaleText) + '</span></div>' + synopsisBlock + '<button class="bill-read-more" onclick="toggleBillText(\'' + rationaleId + '\',this)">Read more</button>' : '';
+    var synopsisHtml = rationaleText ? '<div class="bill-rationale"><span class="bill-rationale-label">AI Summary</span><span id="' + rationaleId + '" class="bill-rationale-body">' + esc(rationaleText) + '</span></div>' + synopsisBlock + '<button class="bill-read-more" onclick="toggleBillText(\'' + rationaleId + '\',this)">Read more (official bill synopsis)</button>' : '';
     var bodyHtml = !rationaleText && bodyText ? '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' : '';
     var readMore = !rationaleText && bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more</button>' : '';
     var timelineHtml = renderTimeline(bill.stages);
