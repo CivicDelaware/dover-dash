@@ -122,8 +122,6 @@ body {
 .bill-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
 .bill-num { font-size: 11px; font-weight: 800; color: #9CA3AF; letter-spacing: 0.3px; }
 .bill-cat-chip { display: inline-block; font-size: 9px; font-weight: 700; color: #6B7280; background: #F3F4F6; border-radius: 4px; padding: 2px 6px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
-.bill-cat-group-header { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 800; color: #002868; text-transform: uppercase; letter-spacing: 0.6px; padding: 12px 4px 4px; border-bottom: 1.5px solid #E5E7EB; margin-bottom: 2px; }
-.bill-cat-group-header:first-child { padding-top: 2px; }
 .dir-badge { display: none; }
 .bill-nickname { font-size: 15px; font-weight: 800; color: #002868; margin-bottom: 3px; line-height: 1.3; display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
 .bill-title-text { flex: 1 1 auto; min-width: 0; overflow-wrap: break-word; word-break: break-word; }
@@ -928,7 +926,6 @@ function renderBills() {
   // Get Involved is always visible now, independent of whether the bill
   // list for the current tab is collapsed behind "See all" or not.
   if (giCard) giCard.style.display = '';
-  var lastCatLabel = undefined; // sentinel — never matches a real label or null
   var html = visibleBills.map(function(bill) {
     var prof      = bill.profiles[key];
     var direction = prof ? prof.direction : null;
@@ -953,19 +950,7 @@ function renderBills() {
     var statusLine = '';
     var catLabel  = bill.category ? (CATEGORY_LABELS[bill.category] || bill.category) : null;
     var catChip   = catLabel ? '<span class="bill-cat-chip">' + esc(catLabel) + '</span>' : '';
-    // Group header: emit once, right before the first card of each category
-    // (categories already sorted alphabetically above; uncategorized last).
-    var groupHeader = '';
-    if (catLabel !== lastCatLabel) {
-      // "Consumer Privacy" header suppressed on request — the per-card
-      // category chip already shows it, so the section heading felt
-      // redundant right at the top of the list. Bills stay in their normal
-      // sorted position; only the divider/heading text is hidden.
-      if (catLabel !== 'Consumer Privacy') {
-        groupHeader = '<div class="bill-cat-group-header">' + esc(catLabel || 'Uncategorized') + '</div>';
-      }
-      lastCatLabel = catLabel;
-    }
+    var groupHeader = ''; // navy section headers removed — per-card chip already shows category, no need for both.
     var rawNickname = bill.nickname || bill.bill_number;
     // Newer AI-generated nicknames already end in "Bill" by design; older
     // ones (raw ShortTitle-derived, or pre-rewrite) don't. Only append it
