@@ -45,8 +45,9 @@ body {
 .brand { font-family: 'Playfair Display', Georgia, serif; font-size: 28px; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 8px; }
 .brand em { color: #BAFF5C; font-style: italic; }
 .tagline { font-size: 11px; color: rgba(255,255,255,0.75); margin-bottom: 10px; line-height: 1.5; }
-.session-pill { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.session-pill { display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: center; column-gap: 6px; row-gap: 2px; }
 .session-line { font-size: 9px; font-weight: 400; color: rgba(255,255,255,0.85); letter-spacing: 0.5px; text-transform: uppercase; line-height: 1; }
+.session-sep { color: rgba(255,255,255,0.35); font-size: 9px; }
 .session-dot { color: #D93B3B; font-size: 7px; vertical-align: middle; }
 .header-divider { width: 56px; height: 1px; background: rgba(255,255,255,0.2); margin: 12px auto 0; }
 
@@ -154,6 +155,7 @@ body {
 .bill-synopsis-text { font-size: 11.5px; color: #9CA3AF; line-height: 1.55; margin-bottom: 8px; padding-top: 8px; border-top: 1px solid #F3F4F6; }
 .bill-rationale { font-size: 11px; color: #002868; border-radius: 6px; padding: 7px 10px; margin-bottom: 8px; line-height: 1.5; font-weight: 500; }
 .bill-rationale-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #9CA3AF; display: block; margin-bottom: 3px; }
+.bill-synopsis-hint { font-size: 10.5px; color: #6B7280; font-style: italic; margin: 5px 0 1px; }
 .bill-sponsor { font-size: 11px; color: #9CA3AF; margin-bottom: 14px; }
 .bill-sponsor a { color: #9CA3AF; font-weight: 400; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: #9CA3AF; }
 .bill-sponsor a:hover { color: #D93B3B; border-bottom-color: #D93B3B; }
@@ -291,33 +293,33 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
 .app-footer-brand em { color: #BAFF5C; font-style: italic; }
 .app-footer-tagline { font-size: 10px; color: rgba(255,255,255,0.55); letter-spacing: 0.5px; margin-bottom: 14px; font-family: 'Inter', sans-serif; }
 .app-footer-divider { border: none; border-top: 1px solid rgba(255,255,255,0.12); margin: 0 0 14px; }
-.app-footer-disclaimer { font-size: 8px; color: rgba(255,255,255,0.85); line-height: 1.6; margin-bottom: 10px; font-family: 'Times New Roman', Times, Georgia, serif; font-style: italic; }
+.app-footer-disclaimer { font-size: 10.5px; color: rgba(255,255,255,0.85); line-height: 1.6; margin-bottom: 10px; font-family: 'Times New Roman', Times, Georgia, serif; font-style: italic; }
 .app-footer-disclaimer a { color: rgba(255,255,255,0.85); text-decoration: underline; text-underline-offset: 2px; }
-.app-footer-copy { font-size: 8px; color: #fff; font-family: 'Inter', sans-serif; }
+.app-footer-copy { font-size: 9.5px; color: #fff; font-family: 'Inter', sans-serif; }
 .app-footer-copy a { color: #fff; text-decoration: none; }
 
 /* ── SESSION COUNTDOWN (now nested inside .header, not a standalone banner) ── */
 .session-countdown { margin-top: 12px; }
-.countdown-label { font-size: 9px; font-weight: 800; color: #BAFF5C; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
-.countdown-link { display: block; font-size: 11px; font-weight: 700; color: #fff; text-decoration: underline; text-underline-offset: 2px; }
+.countdown-label { display: inline-block; margin-right: 6px; font-size: 9px; font-weight: 800; color: #BAFF5C; text-transform: uppercase; letter-spacing: 0.5px; }
+.countdown-link { font-size: 11px; font-weight: 700; color: #fff; text-decoration: underline; text-underline-offset: 2px; }
 </style>
 </head>
 <body>
 <div id="app">
 
   <div class="header" id="home-header">
-    <div class="eyebrow" id="txt-eyebrow">Delaware's Legislative Bill Tracker</div>
     <div class="brand">Dover <em>Dash</em></div>
 <div class="session-pill">
       <span class="session-line" id="txt-session-1">153rd General Assembly · 2024–2026</span>
+      <span class="session-sep">·</span>
       <span class="session-line"><span class="session-dot">● </span><span id="txt-session-2">Session Ended June 30</span></span>
     </div>
 
     <div class="header-divider"></div>
 
     <div class="session-countdown" id="session-countdown">
-      <div class="countdown-label">Next Legislative Session Begins</div>
-      <a class="countdown-link" href="https://legis.delaware.gov/docs/default-source/default-document-library/2027_Legislative_Calendar.pdf" target="_blank" rel="noopener">Jan. 12, 2027 (Tues.) · View Calendar</a>
+      <div class="countdown-label">Next session starts:</div>
+      <a class="countdown-link" href="https://legis.delaware.gov/docs/default-source/default-document-library/2027_Legislative_Calendar.pdf" target="_blank" rel="noopener">January 12, 2027</a>
     </div>
   </div>
 
@@ -432,7 +434,7 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
   </div>
 
   <div class="app-footer">
-    <div class="app-footer-disclaimer" id="footer-disclaimer">(Dover Dash is a project of Civic Delaware. Content is interpretive, not legal or financial advice.)</div>
+    <div class="app-footer-disclaimer" id="footer-disclaimer">(Disclaimer: Dover Dash is an independent, nonpartisan project of Civic Delaware. Content is interpretive, not legal or tax advice; talk to a lawyer or accountant for guidance specific to you.<br><br>We match bills to your profile, give each one a memorable nickname, and label what cost it hits, so you don't have to skim hundreds of bills a session and find the ones that actually affect you.<br><br>Summaries are AI-written, in plain English, and we always show the bill's own official synopsis right next to it. You never have to just take our word for it, you can check it yourself.<br><br>Found an error or have feedback? Email us. We want this tool to be genuinely useful to the people using it.)</div>
     <div class="app-footer-copy">© 2026 Civic Delaware · <a href="mailto:info@civicdelaware.com">info@civicdelaware.com</a></div>
   </div>
 
@@ -598,25 +600,23 @@ function renderSessionCountdown() {
 
   var target, label, calendarYear;
   if (now < sessionStart) {
-    target = sessionStart; label = 'Next Legislative Session Begins'; calendarYear = thisYear;
+    target = sessionStart; label = 'Next session starts'; calendarYear = thisYear;
   } else if (now <= sessionEnd) {
-    target = sessionEnd; label = 'Legislative Session Ends'; calendarYear = thisYear;
+    target = sessionEnd; label = 'Session ends'; calendarYear = thisYear;
   } else {
     // Past June 30 — roll over to next year's session start automatically.
     target = secondTuesdayOfJanuary(thisYear + 1);
-    label = 'Next Legislative Session Begins';
+    label = 'Next session starts';
     calendarYear = thisYear + 1;
   }
 
-  var pad = function(n) { return n < 10 ? '0' + n : String(n); };
   var labelEl = el.querySelector('.countdown-label');
-  if (labelEl) labelEl.textContent = label;
+  if (labelEl) labelEl.textContent = label + ':';
 
   var linkEl = el.querySelector('.countdown-link');
   if (linkEl) {
-    var mm = pad(target.getMonth() + 1), dd = pad(target.getDate());
-    var dow = target.toLocaleDateString('en-US', { weekday: 'short' });
-    linkEl.textContent = mm + '/' + dd + '/' + calendarYear + ' (' + dow + ') \u00b7 View Calendar';
+    var monthName = target.toLocaleDateString('en-US', { month: 'long' });
+    linkEl.textContent = monthName + ' ' + target.getDate() + ', ' + calendarYear;
     // NOTE: the calendar PDF URL itself still needs a manual check once a
     // year — Delaware doesn't publish next year's PDF far in advance, and
     // the filename pattern isn't confirmed stable long-term. The date math
@@ -949,7 +949,8 @@ function renderBills() {
     var synopsisBlock = bill.synopsis
       ? '<div id="' + synId + '" class="bill-synopsis-full"><span class="bill-rationale-label">Official bill synopsis</span><p class="bill-synopsis-text">' + esc(bill.synopsis) + '</p></div>'
       : '';
-    var synopsisHtml = rationaleText ? '<div class="bill-rationale"><span class="bill-rationale-label">AI Summary</span><span id="' + rationaleId + '" class="bill-rationale-body">' + esc(rationaleText) + '</span></div>' + synopsisBlock + '<button class="bill-read-more" onclick="toggleBillText(\'' + rationaleId + '\',this)">Read more</button>' : '';
+    var synopsisHint = bill.synopsis ? '<div class="bill-synopsis-hint">📄 Official bill synopsis available below</div>' : '';
+    var synopsisHtml = rationaleText ? '<div class="bill-rationale"><span class="bill-rationale-label">AI Summary</span><span id="' + rationaleId + '" class="bill-rationale-body">' + esc(rationaleText) + '</span></div>' + synopsisHint + synopsisBlock + '<button class="bill-read-more" onclick="toggleBillText(\'' + rationaleId + '\',this)">Read more</button>' : '';
     var bodyHtml = !rationaleText && bodyText ? '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' : '';
     var readMore = !rationaleText && bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more</button>' : '';
     var timelineHtml = renderTimeline(bill.stages);
