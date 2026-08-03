@@ -48,6 +48,7 @@ body {
 .session-pill { display: flex; flex-direction: column; align-items: center; gap: 3px; }
 .session-line { font-size: 9px; font-weight: 400; color: rgba(255,255,255,0.85); letter-spacing: 0.5px; text-transform: uppercase; line-height: 1; }
 .session-dot { color: #D93B3B; font-size: 7px; vertical-align: middle; }
+.header-divider { width: 56px; height: 1px; background: rgba(255,255,255,0.2); margin: 12px auto 0; }
 
 
 /* ── PROFILE PICKER ── */
@@ -120,6 +121,8 @@ body {
 .bill-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
 .bill-num { font-size: 11px; font-weight: 800; color: #9CA3AF; letter-spacing: 0.3px; }
 .bill-cat-chip { display: inline-block; font-size: 9px; font-weight: 700; color: #6B7280; background: #F3F4F6; border-radius: 4px; padding: 2px 6px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+.bill-cat-group-header { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 800; color: #002868; text-transform: uppercase; letter-spacing: 0.6px; padding: 12px 4px 4px; border-bottom: 1.5px solid #E5E7EB; margin-bottom: 2px; }
+.bill-cat-group-header:first-child { padding-top: 2px; }
 .dir-badge { display: none; }
 .bill-nickname { font-size: 15px; font-weight: 800; color: #002868; margin-bottom: 3px; line-height: 1.3; display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
 .bill-title-text { flex: 1 1 auto; min-width: 0; overflow-wrap: break-word; word-break: break-word; }
@@ -293,14 +296,14 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
 .app-footer-copy a { color: #fff; text-decoration: none; }
 
 /* ── SESSION COUNTDOWN (now nested inside .header, not a standalone banner) ── */
-.session-countdown { margin-top: 8px; }
-.countdown-label { font-size: 8px; font-weight: 800; color: rgba(255,255,255,0.65); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px; }
-.countdown-clock { display: flex; justify-content: center; align-items: center; gap: 4px; }
-.countdown-unit { display: flex; flex-direction: column; align-items: center; background: #BAFF5C; border-radius: 5px; padding: 2px 6px; min-width: 28px; }
-.countdown-num { font-size: 13px; font-weight: 800; color: #002868; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.session-countdown { margin-top: 14px; }
+.countdown-label { font-size: 9px; font-weight: 800; color: #BAFF5C; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 7px; }
+.countdown-clock { display: flex; justify-content: center; align-items: center; gap: 5px; }
+.countdown-unit { display: flex; flex-direction: column; align-items: center; background: #BAFF5C; border-radius: 5px; padding: 3px 7px; min-width: 30px; }
+.countdown-num { font-size: 14px; font-weight: 800; color: #002868; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .countdown-word { font-size: 6px; font-weight: 700; color: #002868; text-transform: uppercase; letter-spacing: 0.3px; margin-top: 0; }
-.countdown-sep { font-size: 13px; font-weight: 800; color: rgba(255,255,255,0.5); }
-.countdown-link { display: block; margin-top: 3px; font-size: 9px; font-weight: 700; color: #BAFF5C; text-decoration: underline; text-underline-offset: 2px; }
+.countdown-sep { font-size: 14px; font-weight: 800; color: rgba(255,255,255,0.4); }
+.countdown-link { display: block; margin-top: 8px; font-size: 9px; font-weight: 700; color: #BAFF5C; text-decoration: underline; text-underline-offset: 2px; }
 </style>
 </head>
 <body>
@@ -313,6 +316,8 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
       <span class="session-line" id="txt-session-1">153rd General Assembly · 2024–2026</span>
       <span class="session-line"><span class="session-dot">● </span><span id="txt-session-2">Session Ended June 30</span></span>
     </div>
+
+    <div class="header-divider"></div>
 
     <div class="session-countdown" id="session-countdown">
       <div class="countdown-label">Next Legislative Session Begins</div>
@@ -898,6 +903,18 @@ function renderBills() {
     return p && p.direction === dir;
   });
   bills.sort(function(a, b) {
+    // Group by category alphabetically first (uncategorized bills sort to
+    // the end, not mixed in alphabetically — "Uncategorized" would
+    // otherwise land in the middle of the alphabet and look arbitrary).
+    var ca = a.category ? (CATEGORY_LABELS[a.category] || a.category) : null;
+    var cb = b.category ? (CATEGORY_LABELS[b.category] || b.category) : null;
+    if (ca !== cb) {
+      if (ca === null) return 1;
+      if (cb === null) return -1;
+      var caL = ca.toLowerCase(), cbL = cb.toLowerCase();
+      if (caL !== cbL) return caL < cbL ? -1 : 1;
+    }
+    // Within the same category, alphabetical by nickname as before.
     var ta = (a.nickname || a.full_code || a.bill_number || '').toLowerCase();
     var tb = (b.nickname || b.full_code || b.bill_number || '').toLowerCase();
     return ta < tb ? -1 : ta > tb ? 1 : 0;
@@ -935,6 +952,7 @@ function renderBills() {
   // Get Involved is always visible now, independent of whether the bill
   // list for the current tab is collapsed behind "See all" or not.
   if (giCard) giCard.style.display = '';
+  var lastCatLabel = undefined; // sentinel — never matches a real label or null
   var html = visibleBills.map(function(bill) {
     var prof      = bill.profiles[key];
     var direction = prof ? prof.direction : null;
@@ -957,8 +975,15 @@ function renderBills() {
     }
     var statusBadge = statusLabel ? '<span class="bill-status-badge ' + statusBadgeClass + '">' + statusLabel + dateStr + '</span>' : '';
     var statusLine = '';
-    var catLabel  = bill.category ? (CATEGORY_LABELS[bill.category] || null) : null;
+    var catLabel  = bill.category ? (CATEGORY_LABELS[bill.category] || bill.category) : null;
     var catChip   = catLabel ? '<span class="bill-cat-chip">' + esc(catLabel) + '</span>' : '';
+    // Group header: emit once, right before the first card of each category
+    // (categories already sorted alphabetically above; uncategorized last).
+    var groupHeader = '';
+    if (catLabel !== lastCatLabel) {
+      groupHeader = '<div class="bill-cat-group-header">' + esc(catLabel || 'Uncategorized') + '</div>';
+      lastCatLabel = catLabel;
+    }
     var rawNickname = bill.nickname || bill.bill_number;
     // Newer AI-generated nicknames already end in "Bill" by design; older
     // ones (raw ShortTitle-derived, or pre-rewrite) don't. Only append it
@@ -991,7 +1016,7 @@ function renderBills() {
     var shareUrl   = bill.url || window.location.href;
     var shareText  = nickname + ' — ' + billCode + '. Check this Delaware bill on Dover Dash.';
     var shareBtn   = '<div class="bill-share-row"><button class="bill-share-btn" onclick="shareBillCard(this)">Share</button></div>';
-    return '<div class="' + cardClass + '" data-share-url="' + esc(shareUrl) + '" data-share-text="' + esc(shareText) + '">' + '<div class="bill-nickname"><span class="bill-title-text">' + esc(nickname) + '</span>' + rightMeta + '</div>' + '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + '</div>' + sponsorHtml + synopsisHtml + bodyHtml + readMore + shareBtn + timelineHtml + '</div>';
+    return groupHeader + '<div class="' + cardClass + '" data-share-url="' + esc(shareUrl) + '" data-share-text="' + esc(shareText) + '">' + '<div class="bill-nickname"><span class="bill-title-text">' + esc(nickname) + '</span>' + rightMeta + '</div>' + '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + '</div>' + sponsorHtml + synopsisHtml + bodyHtml + readMore + shareBtn + timelineHtml + '</div>';
   }).join('');
   if (showExpand) {
     html += '<div style="padding:14px 16px;text-align:center;"><button onclick="expandFilter(\'' + currentFilter + '\')" style="background:none;border:1.5px solid #002868;border-radius:20px;padding:8px 20px;font-size:12px;font-weight:700;color:#002868;cursor:pointer;font-family:\'Inter\',sans-serif;">See all ' + bills.length + ' bills ↓</button></div>';
