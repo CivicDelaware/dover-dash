@@ -296,14 +296,9 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
 .app-footer-copy a { color: #fff; text-decoration: none; }
 
 /* ── SESSION COUNTDOWN (now nested inside .header, not a standalone banner) ── */
-.session-countdown { margin-top: 14px; }
-.countdown-label { font-size: 9px; font-weight: 800; color: #BAFF5C; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 7px; }
-.countdown-clock { display: flex; justify-content: center; align-items: center; gap: 5px; }
-.countdown-unit { display: flex; flex-direction: column; align-items: center; background: #BAFF5C; border-radius: 5px; padding: 3px 7px; min-width: 30px; }
-.countdown-num { font-size: 14px; font-weight: 800; color: #002868; line-height: 1.1; font-variant-numeric: tabular-nums; }
-.countdown-word { font-size: 6px; font-weight: 700; color: #002868; text-transform: uppercase; letter-spacing: 0.3px; margin-top: 0; }
-.countdown-sep { font-size: 14px; font-weight: 800; color: rgba(255,255,255,0.4); }
-.countdown-link { display: block; margin-top: 8px; font-size: 9px; font-weight: 700; color: #BAFF5C; text-decoration: underline; text-underline-offset: 2px; }
+.session-countdown { margin-top: 12px; }
+.countdown-label { font-size: 9px; font-weight: 800; color: #BAFF5C; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
+.countdown-link { display: block; font-size: 11px; font-weight: 700; color: #fff; text-decoration: underline; text-underline-offset: 2px; }
 </style>
 </head>
 <body>
@@ -321,15 +316,6 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
 
     <div class="session-countdown" id="session-countdown">
       <div class="countdown-label">Next Legislative Session Begins</div>
-      <div class="countdown-clock">
-        <div class="countdown-unit"><span class="countdown-num" id="cd-days">--</span><span class="countdown-word">Days</span></div>
-        <div class="countdown-sep">:</div>
-        <div class="countdown-unit"><span class="countdown-num" id="cd-hours">--</span><span class="countdown-word">Hrs</span></div>
-        <div class="countdown-sep">:</div>
-        <div class="countdown-unit"><span class="countdown-num" id="cd-mins">--</span><span class="countdown-word">Min</span></div>
-        <div class="countdown-sep">:</div>
-        <div class="countdown-unit"><span class="countdown-num" id="cd-secs">--</span><span class="countdown-word">Sec</span></div>
-      </div>
       <a class="countdown-link" href="https://legis.delaware.gov/docs/default-source/default-document-library/2027_Legislative_Calendar.pdf" target="_blank" rel="noopener">Jan. 12, 2027 (Tues.) · View Calendar</a>
     </div>
   </div>
@@ -340,49 +326,20 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
 
     <div class="prof-grid" id="prof-grid">
       <button class="prof-btn" data-profile-key="homeowner" onclick="selectProfile('homeowner',this)"><span class="prof-em">🏠</span><div class="prof-label">Homeowner</div><span class="prof-circle"></span></button>
-      <button class="prof-btn" data-profile-key="renter"    onclick="selectProfile('renter',this)"><span class="prof-em">🔑</span><div class="prof-label">Renter</div><span class="prof-circle"></span></button>
+      <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">🏪</span><div class="prof-label">Small Business Owner</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🌅</span><div class="prof-label">Retiree / Senior</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-label">Veteran / Military Family</div><span class="prof-circle"></span></button>
       <button type="button" class="prof-divider" id="prof-divider"></button>
       <div class="prof-overflow-hint" id="prof-overflow-hint"></div>
       <button class="prof-btn" data-profile-key="workpro"   onclick="selectProfile('workpro',this)"><span class="prof-em">💼</span><div class="prof-label">Private Sector Employee</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="pubsec"    onclick="selectProfile('pubsec',this)"><span class="prof-em">🏛️</span><div class="prof-label">Public Sector Employee</div><span class="prof-circle"></span></button>
-      <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">🏪</span><div class="prof-label">Small Business Owner</div><span class="prof-circle"></span></button>
+      <button class="prof-btn" data-profile-key="renter"    onclick="selectProfile('renter',this)"><span class="prof-em">🔑</span><div class="prof-label">Renter</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="landlord"  onclick="selectProfile('landlord',this)"><span class="prof-em">🏘️</span><div class="prof-label">Landlord</div><span class="prof-circle"></span></button>
     </div>
 
     <div class="see-results-wrap">
       <div class="see-results-hint" id="see-results-hint">Pick a profile above to continue</div>
       <button class="see-results-btn" id="see-results-btn" onclick="goToBills()">See my results</button>
-    </div>
-
-    <!-- ── GET INVOLVED (home screen copy) ── -->
-    <div class="gi-card">
-      <div class="gi-header">
-        <div class="gi-title">Get Involved!</div>
-      </div>
-      <div class="gi-action-list">
-        <button class="gi-action-row" onclick="toggleLegLookup(this)" aria-expanded="false">
-          <span class="gi-action-icon">🏛️</span>
-          <span class="gi-action-label">Look up your legislator</span>
-          <svg class="gi-leg-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="gi-leg-panel" style="display:none;padding:8px 2px 2px;">
-          <div style="display:flex;gap:6px;margin-bottom:6px;">
-            <input type="text" class="gi-leg-addr gi-addr-input" placeholder="123 Main St, Wilmington, DE" onkeydown="if(event.key==='Enter')lookUpLegislator(this);" />
-            <button class="gi-addr-btn" onclick="lookUpLegislator(this)">Find</button>
-          </div>
-          <div class="gi-leg-loading" style="display:none;">Looking up…</div>
-          <div class="gi-leg-error"   style="display:none;"></div>
-          <div class="gi-leg-results" style="display:none;"></div>
-        </div>
-        <a href="https://sg001-harmony.sliq.net/00329/Harmony/en/View/UpcomingEvents/20240109/-1" target="_blank" rel="noopener" class="gi-action-row">
-          <span class="gi-action-icon">📺</span>
-          <span class="gi-action-label">Watch live hearings</span>
-          <span class="gi-action-arrow">→</span>
-        </a>
-        <a class="countdown-source" href="https://legis.delaware.gov" target="_blank" rel="noopener" style="padding:0 2px;">(Source: Delaware General Assembly)</a>
-      </div>
     </div>
 
   </div>
@@ -651,7 +608,6 @@ function renderSessionCountdown() {
   }
 
   var pad = function(n) { return n < 10 ? '0' + n : String(n); };
-  var timer;
   var labelEl = el.querySelector('.countdown-label');
   if (labelEl) labelEl.textContent = label;
 
@@ -667,23 +623,7 @@ function renderSessionCountdown() {
     // quick glance each January.
   }
 
-  function tick() {
-    var diff = target - new Date();
-    if (diff <= 0) {
-      clearInterval(timer);
-      renderSessionCountdown(); // phase just ended — recompute immediately
-      return;
-    }
-    var totalSeconds = Math.floor(diff / 1000);
-    document.getElementById('cd-days').textContent  = Math.floor(totalSeconds / 86400);
-    document.getElementById('cd-hours').textContent = pad(Math.floor((totalSeconds % 86400) / 3600));
-    document.getElementById('cd-mins').textContent  = pad(Math.floor((totalSeconds % 3600) / 60));
-    document.getElementById('cd-secs').textContent  = pad(totalSeconds % 60);
-  }
-
-  tick();
   el.classList.add('show');
-  timer = setInterval(tick, 1000);
 }
 renderSessionCountdown();
 
