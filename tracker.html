@@ -41,12 +41,6 @@ body {
   margin: 14px 14px 0; padding: 16px 20px 14px;
   text-align: center;
 }
-/* When the countdown banner is showing above it, the header no longer needs
-   its own top rounding — the banner owns that edge instead, so the two read
-   as one continuous card. Once the countdown auto-hides (after Jan 12,
-   2027), this rule no longer applies and the header's default rounding above
-   takes over again correctly. */
-.session-countdown.show + .header { border-radius: 0; }
 .eyebrow { font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.6); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
 .brand { font-family: 'Playfair Display', Georgia, serif; font-size: 28px; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 8px; }
 .brand em { color: #BAFF5C; font-style: italic; }
@@ -298,37 +292,19 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
 .app-footer-copy { font-size: 8px; color: #fff; font-family: 'Inter', sans-serif; }
 .app-footer-copy a { color: #fff; text-decoration: none; }
 
-/* ── SESSION COUNTDOWN BANNER ── */
-.session-countdown { display: none; background: #BAFF5C; padding: 5px 12px 4px; font-family: 'Inter', sans-serif; text-align: center; margin: 14px 14px 0; border-radius: 16px 16px 0 0; }
-.session-countdown.show { display: block; }
-.countdown-label { font-size: 8px; font-weight: 800; color: #002868; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 2px; }
-.countdown-clock { display: flex; justify-content: center; align-items: center; gap: 5px; }
-.countdown-unit { display: flex; flex-direction: column; align-items: center; background: #002868; border-radius: 6px; padding: 2px 7px; min-width: 34px; }
-.countdown-num { font-size: 16px; font-weight: 800; color: #BAFF5C; line-height: 1.1; font-variant-numeric: tabular-nums; }
-.countdown-word { font-size: 7px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.4px; margin-top: 1px; }
-.countdown-sep { font-size: 16px; font-weight: 800; color: #002868; }
-.countdown-link { display: block; margin-top: 2px; font-size: 9px; font-weight: 700; color: #002868; text-decoration: underline; text-underline-offset: 2px; }
-.countdown-source { display: block; text-align: center; margin-top: 1px; font-size: 8px; font-style: italic; color: rgba(0,40,104,0.55); text-decoration: none; }
-.countdown-source:hover { text-decoration: underline; }
+/* ── SESSION COUNTDOWN (now nested inside .header, not a standalone banner) ── */
+.session-countdown { margin-top: 8px; }
+.countdown-label { font-size: 8px; font-weight: 800; color: rgba(255,255,255,0.65); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px; }
+.countdown-clock { display: flex; justify-content: center; align-items: center; gap: 4px; }
+.countdown-unit { display: flex; flex-direction: column; align-items: center; background: #BAFF5C; border-radius: 5px; padding: 2px 6px; min-width: 28px; }
+.countdown-num { font-size: 13px; font-weight: 800; color: #002868; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.countdown-word { font-size: 6px; font-weight: 700; color: #002868; text-transform: uppercase; letter-spacing: 0.3px; margin-top: 0; }
+.countdown-sep { font-size: 13px; font-weight: 800; color: rgba(255,255,255,0.5); }
+.countdown-link { display: block; margin-top: 3px; font-size: 9px; font-weight: 700; color: #BAFF5C; text-decoration: underline; text-underline-offset: 2px; }
 </style>
 </head>
 <body>
 <div id="app">
-
-  <div class="session-countdown" id="session-countdown">
-    <div class="countdown-label">Next Legislative Session Begins</div>
-    <div class="countdown-clock">
-      <div class="countdown-unit"><span class="countdown-num" id="cd-days">--</span><span class="countdown-word">Days</span></div>
-      <div class="countdown-sep">:</div>
-      <div class="countdown-unit"><span class="countdown-num" id="cd-hours">--</span><span class="countdown-word">Hrs</span></div>
-      <div class="countdown-sep">:</div>
-      <div class="countdown-unit"><span class="countdown-num" id="cd-mins">--</span><span class="countdown-word">Min</span></div>
-      <div class="countdown-sep">:</div>
-      <div class="countdown-unit"><span class="countdown-num" id="cd-secs">--</span><span class="countdown-word">Sec</span></div>
-    </div>
-    <a class="countdown-link" href="https://legis.delaware.gov/docs/default-source/default-document-library/2027_Legislative_Calendar.pdf" target="_blank" rel="noopener">Jan. 12, 2027 (Tues.) · View Calendar</a>
-    <a class="countdown-source" href="https://legis.delaware.gov" target="_blank" rel="noopener">(Source: Delaware General Assembly)</a>
-  </div>
 
   <div class="header" id="home-header">
     <div class="eyebrow" id="txt-eyebrow">Delaware's Legislative Bill Tracker</div>
@@ -336,6 +312,20 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
 <div class="session-pill">
       <span class="session-line" id="txt-session-1">153rd General Assembly · 2024–2026</span>
       <span class="session-line"><span class="session-dot">● </span><span id="txt-session-2">Session Ended June 30</span></span>
+    </div>
+
+    <div class="session-countdown" id="session-countdown">
+      <div class="countdown-label">Next Legislative Session Begins</div>
+      <div class="countdown-clock">
+        <div class="countdown-unit"><span class="countdown-num" id="cd-days">--</span><span class="countdown-word">Days</span></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit"><span class="countdown-num" id="cd-hours">--</span><span class="countdown-word">Hrs</span></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit"><span class="countdown-num" id="cd-mins">--</span><span class="countdown-word">Min</span></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit"><span class="countdown-num" id="cd-secs">--</span><span class="countdown-word">Sec</span></div>
+      </div>
+      <a class="countdown-link" href="https://legis.delaware.gov/docs/default-source/default-document-library/2027_Legislative_Calendar.pdf" target="_blank" rel="noopener">Jan. 12, 2027 (Tues.) · View Calendar</a>
     </div>
   </div>
 
@@ -969,7 +959,11 @@ function renderBills() {
     var statusLine = '';
     var catLabel  = bill.category ? (CATEGORY_LABELS[bill.category] || null) : null;
     var catChip   = catLabel ? '<span class="bill-cat-chip">' + esc(catLabel) + '</span>' : '';
-    var nickname  = (bill.nickname || bill.bill_number) + ' Bill';
+    var rawNickname = bill.nickname || bill.bill_number;
+    // Newer AI-generated nicknames already end in "Bill" by design; older
+    // ones (raw ShortTitle-derived, or pre-rewrite) don't. Only append it
+    // if it's not already there, so we never render "...Bill Bill".
+    var nickname  = /\bbill$/i.test(rawNickname) ? rawNickname : rawNickname + ' Bill';
     var bodyText  = bill.plain_english || bill.synopsis || '';
     var billCode  = bill.bill_number;
     var billNumHtml = bill.url
