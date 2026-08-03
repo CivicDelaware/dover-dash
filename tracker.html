@@ -155,7 +155,7 @@ body {
 .bill-synopsis-text { font-size: 11.5px; color: #9CA3AF; line-height: 1.55; margin-bottom: 8px; padding-top: 8px; border-top: 1px solid #F3F4F6; }
 .bill-rationale { font-size: 11px; color: #002868; border-radius: 6px; padding: 7px 10px; margin-bottom: 8px; line-height: 1.5; font-weight: 500; }
 .bill-rationale-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #9CA3AF; display: block; margin-bottom: 3px; }
-.bill-synopsis-hint { font-size: 10.5px; color: #6B7280; font-style: italic; margin: 5px 0 1px; }
+.bill-synopsis-hint { font-size: 10px; color: #6B7280; font-style: italic; }
 .bill-sponsor { font-size: 11px; color: #9CA3AF; margin-bottom: 14px; }
 .bill-sponsor a { color: #9CA3AF; font-weight: 400; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: #9CA3AF; }
 .bill-sponsor a:hover { color: #D93B3B; border-bottom-color: #D93B3B; }
@@ -168,7 +168,8 @@ body {
 .bill-what-label { font-size: 10px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: #9CA3AF; margin-bottom: 4px; }
 .bill-synopsis-full { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #E5E7EB; }
 .bill-ga-link { font-size: 11px; font-weight: 700; color: #002868; text-decoration: underline; text-underline-offset: 2px; }
-.bill-read-more { font-size: 10px; font-weight: 400; color: #002868; background: none; border: none; padding: 4px 0 0; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: underline; text-underline-offset: 2px; display: block; text-align: left; }
+.bill-read-more { font-size: 10px; font-weight: 400; color: #002868; background: none; border: none; padding: 0; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: underline; text-underline-offset: 2px; }
+.bill-expand-row { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; gap: 8px; }
 .primary-nudge:hover { color: #D93B3B; }
 .bills-empty { background: #fff; padding: 36px 24px; text-align: center; }
 .bills-empty-icon { font-size: 32px; margin-bottom: 10px; }
@@ -949,8 +950,8 @@ function renderBills() {
     var synopsisBlock = bill.synopsis
       ? '<div id="' + synId + '" class="bill-synopsis-full"><span class="bill-rationale-label">Official bill synopsis</span><p class="bill-synopsis-text">' + esc(bill.synopsis) + '</p></div>'
       : '';
-    var synopsisHint = bill.synopsis ? '<div class="bill-synopsis-hint">📄 Official bill synopsis available below</div>' : '';
-    var synopsisHtml = rationaleText ? '<div class="bill-rationale"><span class="bill-rationale-label">AI Summary</span><span id="' + rationaleId + '" class="bill-rationale-body">' + esc(rationaleText) + '</span></div>' + synopsisHint + synopsisBlock + '<button class="bill-read-more" onclick="toggleBillText(\'' + rationaleId + '\',this)">Read more</button>' : '';
+    var synopsisHint = bill.synopsis ? '<span class="bill-synopsis-hint">📄 Includes official synopsis</span>' : '<span></span>';
+    var synopsisHtml = rationaleText ? '<div class="bill-rationale"><span class="bill-rationale-label">AI Summary</span><span id="' + rationaleId + '" class="bill-rationale-body">' + esc(rationaleText) + '</span></div>' + synopsisBlock + '<div class="bill-expand-row">' + synopsisHint + '<button class="bill-read-more" onclick="toggleBillText(\'' + rationaleId + '\',this)">Read more</button></div>' : '';
     var bodyHtml = !rationaleText && bodyText ? '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' : '';
     var readMore = !rationaleText && bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more</button>' : '';
     var timelineHtml = renderTimeline(bill.stages);
