@@ -737,6 +737,21 @@ var CATEGORY_LABELS = {
   'Welfare / Human Services':                 'Social Services & Benefits',
 };
 
+// Each profile's most-relevant category sorts first in their results,
+// everything else alphabetical after it. Values are the RESOLVED display
+// labels (the right-hand side of CATEGORY_LABELS above), since that's what
+// the sort comparator actually compares against — not the raw category key.
+var PROFILE_CATEGORY_PRIORITY = {
+  homeowner: 'Your Utility Bill',
+  renter:    'Your Utility Bill',
+  landlord:  'Property & Real Estate',
+  senior:    'Your Retirement Savings',
+  smallbiz:  'Consumer & Privacy Rights',
+  veteran:   'Military & Veterans',
+  workpro:   'Your Job & Wages',
+  pubsec:    'State Government',
+};
+
 var currentProfileKey = null;
 var allBills = [];
 var currentFilter = 'Helps You';
@@ -872,19 +887,22 @@ function renderBills() {
     return p && p.direction === dir;
   });
   bills.sort(function(a, b) {
-    // Group by category. "Public Utilities" is pinned first given how many
-    // tracked bills this session are utility/data-center related — everyone
-    // landing on results right now cares about that category most. Every
-    // other category stays alphabetical after it. Uncategorized bills sort
-    // to the very end, not mixed in alphabetically.
+    // Group by category. Each profile has its own priority category (see
+    // PROFILE_CATEGORY_PRIORITY above) that sorts first for that profile
+    // specifically — e.g. Landlord sees Property & Real Estate first,
+    // Veteran sees Military & Veterans first. Every other category stays
+    // alphabetical after it. Uncategorized bills sort to the very end.
+    var priority = PROFILE_CATEGORY_PRIORITY[key] || null;
     var ca = a.category ? (CATEGORY_LABELS[a.category] || a.category) : null;
     var cb = b.category ? (CATEGORY_LABELS[b.category] || b.category) : null;
     if (ca !== cb) {
       if (ca === null) return 1;
       if (cb === null) return -1;
-      var caIsUtil = ca === 'Public Utilities';
-      var cbIsUtil = cb === 'Public Utilities';
-      if (caIsUtil !== cbIsUtil) return caIsUtil ? -1 : 1;
+      if (priority) {
+        var caIsPriority = ca === priority;
+        var cbIsPriority = cb === priority;
+        if (caIsPriority !== cbIsPriority) return caIsPriority ? -1 : 1;
+      }
       var caL = ca.toLowerCase(), cbL = cb.toLowerCase();
       if (caL !== cbL) return caL < cbL ? -1 : 1;
     }
