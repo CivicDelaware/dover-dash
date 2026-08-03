@@ -121,6 +121,7 @@ body {
 .bill-card.hy { border-left-color: #65A30D; }
 .bill-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
 .bill-num { font-size: 11px; font-weight: 800; color: #9CA3AF; letter-spacing: 0.3px; }
+.bill-cat-chip { display: inline-block; font-size: 9px; font-weight: 700; color: #6B7280; background: #F3F4F6; border-radius: 4px; padding: 2px 6px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
 .bill-cat-group-header { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 800; color: #002868; text-transform: uppercase; letter-spacing: 0.6px; padding: 12px 4px 4px; border-bottom: 1.5px solid #E5E7EB; margin-bottom: 2px; }
 .bill-cat-group-header:first-child { padding-top: 2px; }
 .dir-badge { display: none; }
@@ -951,11 +952,18 @@ function renderBills() {
     var statusBadge = statusLabel ? '<span class="bill-status-badge ' + statusBadgeClass + '">' + statusLabel + dateStr + '</span>' : '';
     var statusLine = '';
     var catLabel  = bill.category ? (CATEGORY_LABELS[bill.category] || bill.category) : null;
+    var catChip   = catLabel ? '<span class="bill-cat-chip">' + esc(catLabel) + '</span>' : '';
     // Group header: emit once, right before the first card of each category
     // (categories already sorted alphabetically above; uncategorized last).
     var groupHeader = '';
     if (catLabel !== lastCatLabel) {
-      groupHeader = '<div class="bill-cat-group-header">' + esc(catLabel || 'Uncategorized') + '</div>';
+      // "Consumer Privacy" header suppressed on request — the per-card
+      // category chip already shows it, so the section heading felt
+      // redundant right at the top of the list. Bills stay in their normal
+      // sorted position; only the divider/heading text is hidden.
+      if (catLabel !== 'Consumer Privacy') {
+        groupHeader = '<div class="bill-cat-group-header">' + esc(catLabel || 'Uncategorized') + '</div>';
+      }
       lastCatLabel = catLabel;
     }
     var rawNickname = bill.nickname || bill.bill_number;
@@ -986,7 +994,7 @@ function renderBills() {
     var bodyHtml = !rationaleText && bodyText ? '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' : '';
     var readMore = !rationaleText && bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more</button>' : '';
     var timelineHtml = renderTimeline(bill.stages);
-    var rightMeta  = (statusBadge && !timelineHtml) ? '<div class="bill-card-meta">' + statusBadge + '</div>' : '';
+    var rightMeta  = (catChip || (statusBadge && !timelineHtml)) ? '<div class="bill-card-meta">' + catChip + (timelineHtml ? '' : statusBadge) + '</div>' : '';
     var shareUrl   = bill.url || window.location.href;
     var shareText  = nickname + ' — ' + billCode + '. Check this Delaware bill on Dover Dash.';
     var shareBtn   = '<div class="bill-share-row"><button class="bill-share-btn" onclick="shareBillCard(this)">Share</button></div>';
