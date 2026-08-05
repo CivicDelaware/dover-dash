@@ -125,6 +125,7 @@ body {
 .bill-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
 .bill-num { font-size: 11px; font-weight: 800; color: #9CA3AF; letter-spacing: 0.3px; }
 .bill-cat-chip { display: inline-block; font-size: 9px; font-weight: 700; color: #6B7280; background: #F3F4F6; border-radius: 4px; padding: 2px 6px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+.bill-topic-chip { display: inline-block; font-size: 9px; font-weight: 700; color: #002868; background: #EEF2FF; border-radius: 4px; padding: 2px 6px; letter-spacing: 0.2px; margin-bottom: 3px; }
 .dir-badge { display: none; }
 .bill-nickname { font-size: 15px; font-weight: 800; color: #002868; margin-bottom: 3px; line-height: 1.3; display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
 .bill-title-text { flex: 1 1 auto; min-width: 0; overflow-wrap: break-word; word-break: break-word; }
@@ -338,7 +339,7 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
       <button class="prof-btn" data-profile-key="pubsec"    onclick="selectProfile('pubsec',this)"><span class="prof-em">🏛️</span><div class="prof-label">Public Sector Employee</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="renter"    onclick="selectProfile('renter',this)"><span class="prof-em">🔑</span><div class="prof-label">Renter</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="landlord"  onclick="selectProfile('landlord',this)"><span class="prof-em">🏘️</span><div class="prof-label">Landlord</div><span class="prof-circle"></span></button>
-      <button class="prof-btn" data-profile-key="estates"   onclick="selectProfile('estates',this)"><span class="prof-em">📜</span><div class="prof-label">Estates & Trusts</div><span class="prof-circle"></span></button>
+      <button class="prof-btn" data-profile-key="estates"   onclick="selectProfile('estates',this)"><span class="prof-em">📜</span><div class="prof-label">Estate Planning / Inheritance</div><span class="prof-circle"></span></button>
     </div>
 
     <div class="see-results-wrap">
@@ -461,7 +462,7 @@ var PROFILES = {
   workpro:   { emoji: '💼', label: 'Private Sector Employee', stat: 'Delaware\'s private sector spans finance, pharma & professional services' },
   veteran:   { emoji: '🎖️', label: 'Veteran / Military Family', stat: 'Delaware is home to Dover Air Force Base, one of the largest in the U.S.', statSource: 'U.S. Dept. of Defense', statUrl: 'https://www.dover.af.mil/' },
   landlord:  { emoji: '🏘️', label: 'Landlord',            stat: 'About 29% of Delaware households are renters',                            statSource: 'U.S. Census Bureau, ACS 2023', statUrl: 'https://www.census.gov/quickfacts/fact/table/DE' },
-  estates:   { emoji: '📜', label: 'Estates & Trusts',    stat: null },
+  estates:   { emoji: '📜', label: 'Estate Planning / Inheritance', stat: null },
 };
 
 // Ordered profile keys — used by renderProfileGrid() when Supabase doesn't return an order
@@ -1004,6 +1005,11 @@ function renderBills() {
     var billNumHtml = bill.url
       ? '<a href="' + esc(bill.url) + '" target="_blank" rel="noopener" class="bill-num-link">' + esc(billCode) + '</a>'
       : '<span class="bill-num">' + esc(billCode) + '</span>';
+    // Sub-topic tag (e.g. "Trust Administration", "Wills & Probate") — set
+    // per-profile on the classifications row, not detected here. Shows a
+    // bill's specific angle within a broader persona (Estate Planning /
+    // Inheritance) without needing a whole separate profile checkbox for it.
+    var topicTagHtml = (prof && prof.topic_tag) ? '<span class="bill-topic-chip">' + esc(prof.topic_tag) + '</span>' : '';
     var sponsorTitle = bill.primary_sponsor ? (/^[Ss]/.test(billCode) ? 'Sen. ' : 'Rep. ') : '';
     var sponsorHtml = bill.primary_sponsor
       ? (bill.legislator_url
@@ -1026,7 +1032,7 @@ function renderBills() {
     var shareUrl   = bill.url || window.location.href;
     var shareText  = nickname + ' — ' + billCode + '. Check this Delaware bill on Dover Dash.';
     var shareBtn   = '<div class="bill-share-row"><button class="bill-share-btn" onclick="shareBillCard(this)">Share</button></div>';
-    return groupHeader + '<div class="' + cardClass + '" data-share-url="' + esc(shareUrl) + '" data-share-text="' + esc(shareText) + '">' + '<div class="bill-nickname"><span class="bill-title-text">' + esc(nickname) + '</span>' + rightMeta + '</div>' + '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + '</div>' + sponsorHtml + synopsisHtml + bodyHtml + readMore + shareBtn + timelineHtml + '</div>';
+    return groupHeader + '<div class="' + cardClass + '" data-share-url="' + esc(shareUrl) + '" data-share-text="' + esc(shareText) + '">' + '<div class="bill-nickname"><span class="bill-title-text">' + esc(nickname) + '</span>' + rightMeta + '</div>' + '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + topicTagHtml + '</div>' + sponsorHtml + synopsisHtml + bodyHtml + readMore + shareBtn + timelineHtml + '</div>';
   }).join('');
   if (showExpand) {
     html += '<div style="padding:14px 16px;text-align:center;"><button onclick="expandFilter(\'' + currentFilter + '\')" style="background:none;border:1.5px solid #002868;border-radius:20px;padding:8px 20px;font-size:12px;font-weight:700;color:#002868;cursor:pointer;font-family:\'Inter\',sans-serif;">See all ' + bills.length + ' bills ↓</button></div>';
