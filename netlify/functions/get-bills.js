@@ -125,51 +125,67 @@ exports.handler = async function (event) {
   if (category) {
     try {
       const catSelect = "id,session_number,bill_number,full_code,long_title,nickname,origin_chamber,category,intro_date,passed_date,amendments,legislation_id,status,stage,synopsis,plain_english,legislation_url,primary_sponsor,sponsor_person_id,legislator_url";
-      let catBillsUrl;
-      if (titleNum) {
-        // Broadened match: a bill qualifies if EITHER its primary category
-        // matches (deterministic first-title-cited rule) OR it cites this
-        // title number anywhere in its long_title. Catches real cases like
-        // HB 400, which has category="Banking" (Title 5 cited first) but
-        // genuinely amends Title 12 Chapter 38 with direct fee increases --
-        // category alone would have hidden it. Word-boundary regex (\y on
-        // both sides) avoids matching "Title 120" or similar as "Title 12".
-        const orExpr = `(category.eq.${category},long_title.imatch.\\yTITLE ${titleNum}\\y)`;
-        const catBillsParams = new URLSearchParams({
-          select:         catSelect,
-          session_number: `eq.${session}`,
-          or:             orExpr,
-        });
-        catBillsUrl = `${SUPABASE_URL}/rest/v1/bills?${catBillsParams}`;
-      } else {
-        const catBillsParams = new URLSearchParams({
-          select:         catSelect,
-          session_number: `eq.${session}`,
-          category:       `eq.${category}`,
-        });
-        catBillsUrl = `${SUPABASE_URL}/rest/v1/bills?${catBillsParams}`;
-      }
-      const catBillsRes = await fetch(catBillsUrl, { headers: SB_HEADERS });
-      if (!catBillsRes.ok) {
-        console.error("Category bills fetch error:", await catBillsRes.text());
+
+      // 1. Always include bills whose primary category matches directly.
+      const catOnlyParams = new URLSearchParams({
+        select:         catSelect,
+        session_number: `eq.${session}`,
+        category:       `eq.${category}`,
+      });
+      const catOnlyRes = await fetch(`${SUPABASE_URL}/rest/v1/bills?${catOnlyParams}`, { headers: SB_HEADERS });
+      if (!catOnlyRes.ok) {
+        console.error("Category bills fetch error:", await catOnlyRes.text());
         return { statusCode: 502, headers: CORS, body: JSON.stringify({ error: "Upstream error" }) };
       }
-      const rawCatBillsData = await catBillsRes.json();
-      // Manual exclusions -- bills that technically clear the broadened
-      // category-OR-title match but are editorial judgment calls to leave
-      // out of a specific category's Beta view. Session-scoped so this
-      // doesn't accidentally exclude a same-numbered bill in a future GA.
-      // HB 400 (153): genuinely amends Title 12 Ch. 38 with real statutory
-      // trust fee increases, but it's fundamentally an omnibus Secretary
-      // of State fee bill spanning corporations, LLCs, and trademarks --
-      // showing it under "Wills & Inheritance" would be misleading even
-      // though the underlying fact (real fee increase) is accurate.
-      const CATEGORY_EXCLUSIONS = new Set([
-        "153:HB 400",
-      ]);
-      const catBillsData = rawCatBillsData.filter(
-        (b) => !CATEGORY_EXCLUSIONS.has(`${b.session_number}:${b.bill_number}`)
-      );
+      const catOnlyBills = await catOnlyRes.json();
+      const byId = {};
+      catOnlyBills.forEach((b) => { byId[b.id] = b; });
+
+      // 2. Broadened match: bills outside this category that still cite the
+      // relevant title number AND contain a real subject-matter keyword --
+      // title citation alone isn't enough (see HB 400: cites Title 12 in a
+      // 45-section omnibus fee bill with zero actual estate/trust content).
+      // This mirrors match_bills_to_profile()'s own two-tier discipline:
+      // Tier 1 (title citation) is a gate, never sufficient alone; Tier 2
+      // (subject keyword) is what actually confirms relevance. Category is
+      // mapped to the persona whose keyword list backs this check -- only
+      // "Estates & Fiduciary Relations" -> estates exists today; extend
+      // this map if more categories get a Beta browse-by-topic page.
+      const CATEGORY_TO_PROFILE = {
+        "Estates & Fiduciary Relations": "estates",
+      };
+      const mappedProfile = CATEGORY_TO_PROFILE[category];
+
+      if (titleNum && mappedProfile) {
+        const kwParams = new URLSearchParams({
+          select:      "keyword",
+          profile_key: `eq.${mappedProfile}`,
+          keyword_type: "eq.subject",
+        });
+        const kwRes = await fetch(`${SUPABASE_URL}/rest/v1/keywords?${kwParams}`, { headers: SB_HEADERS });
+        const subjectKeywords = kwRes.ok ? (await kwRes.json()).map((k) => k.keyword) : [];
+
+        if (subjectKeywords.length > 0) {
+          const titleCiteParams = new URLSearchParams({
+            select:         catSelect,
+            session_number: `eq.${session}`,
+            long_title:     `imatch.\\yTITLE ${titleNum}\\y`,
+          });
+          const titleCiteRes = await fetch(`${SUPABASE_URL}/rest/v1/bills?${titleCiteParams}`, { headers: SB_HEADERS });
+          if (titleCiteRes.ok) {
+            const titleCiteBills = await titleCiteRes.json();
+            const kwRegexes = subjectKeywords.map((kw) => new RegExp("\\b" + kw, "i"));
+            titleCiteBills.forEach((b) => {
+              if (byId[b.id]) return; // already included via direct category match
+              const haystack = `${b.long_title || ""} ${b.synopsis || ""}`;
+              const hasSubjectMatch = kwRegexes.some((re) => re.test(haystack));
+              if (hasSubjectMatch) byId[b.id] = b;
+            });
+          }
+        }
+      }
+
+      const catBillsData = Object.values(byId);
       const catBillIds = catBillsData.map((b) => b.id);
 
       let catClassMap = {};
