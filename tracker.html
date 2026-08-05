@@ -170,6 +170,7 @@ body {
 .bill-synopsis-full { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #E5E7EB; }
 .bill-ga-link { font-size: 11px; font-weight: 700; color: #002868; text-decoration: underline; text-underline-offset: 2px; }
 .bill-read-more { font-size: 10px; font-weight: 400; color: #002868; background: none; border: none; padding: 4px 0 0; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: underline; text-underline-offset: 2px; display: block; text-align: left; }
+.read-more-arrow { text-decoration: none; margin-left: 2px; display: inline-block; }
 .primary-nudge:hover { color: #D93B3B; }
 .bills-empty { background: #fff; padding: 36px 24px; text-align: center; }
 .bills-empty-icon { font-size: 32px; margin-bottom: 10px; }
@@ -917,10 +918,10 @@ function renderCategoryBills() {
     var bodyHtml, readMore;
     if (bill.plain_english) {
       bodyHtml = '<div class="bill-rationale"><span class="bill-rationale-label">AI Summary</span><span id="' + plainId + '" class="bill-rationale-body">' + esc(bill.plain_english) + '</span></div>' + synopsisBlock;
-      readMore = bill.synopsis ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more (official bill synopsis)</button>' : '';
+      readMore = bill.synopsis ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more <span class="read-more-arrow">▾</span></button>' : '';
     } else {
       bodyHtml = bill.synopsis ? '<p class="bill-plain" id="' + plainId + '">' + esc(bill.synopsis) + '</p>' : '';
-      readMore = bill.synopsis ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more</button>' : '';
+      readMore = bill.synopsis ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more <span class="read-more-arrow">▾</span></button>' : '';
     }
     // No direction here -- this bill may not have cleared any profile's
     // gate at all, so there's no Helps You/Watch Out badge to show.
@@ -992,7 +993,9 @@ function toggleBillText(id, btn) {
   var el = document.getElementById(id);
   if (!el) return;
   var isExpanded = el.classList.toggle('expanded');
-  btn.textContent = isExpanded ? 'Read less' : 'Read more';
+  btn.innerHTML = isExpanded
+    ? 'Read less <span class="read-more-arrow">▴</span>'
+    : 'Read more <span class="read-more-arrow">▾</span>';
   var synEl = document.getElementById('bs-' + id.slice(3));
   if (synEl) synEl.style.display = isExpanded ? 'block' : 'none';
 }
@@ -1182,9 +1185,9 @@ function renderBills() {
     var synopsisBlock = bill.synopsis
       ? '<div id="' + synId + '" class="bill-synopsis-full"><span class="bill-rationale-label">Official bill synopsis</span><p class="bill-synopsis-text">' + esc(bill.synopsis) + '</p></div>'
       : '';
-    var synopsisHtml = rationaleText ? '<div class="bill-rationale"><span class="bill-rationale-label">AI Summary</span><span id="' + rationaleId + '" class="bill-rationale-body">' + esc(rationaleText) + '</span></div>' + synopsisBlock + '<button class="bill-read-more" onclick="toggleBillText(\'' + rationaleId + '\',this)">Read more (official bill synopsis)</button>' : '';
+    var synopsisHtml = rationaleText ? '<div class="bill-rationale"><span class="bill-rationale-label">AI Summary</span><span id="' + rationaleId + '" class="bill-rationale-body">' + esc(rationaleText) + '</span></div>' + synopsisBlock + '<button class="bill-read-more" onclick="toggleBillText(\'' + rationaleId + '\',this)">Read more <span class="read-more-arrow">▾</span></button>' : '';
     var bodyHtml = !rationaleText && bodyText ? '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' : '';
-    var readMore = !rationaleText && bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more</button>' : '';
+    var readMore = !rationaleText && bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more <span class="read-more-arrow">▾</span></button>' : '';
     var timelineHtml = renderTimeline(bill.stages);
     var rightMeta  = (catChip || (statusBadge && !timelineHtml)) ? '<div class="bill-card-meta">' + catChip + (timelineHtml ? '' : statusBadge) + '</div>' : '';
     var shareUrl   = bill.url || window.location.href;
