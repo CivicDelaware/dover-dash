@@ -12,8 +12,11 @@
  *
  * Query params:
  *   ?profile=homeowner    — filter by profile key (optional)
- *   ?session=153          — override current session (optional)
- *   ?direction=Watch+Out  — filter by direction (optional)
+ *   ?category=X           — filter by bills.category directly, independent
+ *                            of any profile classification (optional, Beta
+ *                            browse-by-topic feature)
+ *   ?session=153           — override current session (optional)
+ *   ?direction=Watch+Out   — filter by direction (optional)
  */
 
 function fixLegUrl(url) {
@@ -43,6 +46,7 @@ exports.handler = async function (event) {
   const q         = event.queryStringParameters || {};
   const session   = parseInt(q.session || CURRENT_SESSION, 10);
   const profile   = q.profile   || null;
+  const category  = q.category  || null;
   const direction = q.direction || null;
   const metaOnly  = q.meta === 'true';
 
@@ -105,6 +109,81 @@ exports.handler = async function (event) {
       headers:    CORS,
       body:       JSON.stringify({ profiles, config, tickerMessage, categoryLabels }),
     };
+  }
+
+  // ── Category mode (Beta): fetch bills directly by category, independent
+  // of any profile classification. Used for the "Browse by topic" Beta
+  // deep link -- shows every bill in a subject area (e.g. Estates &
+  // Fiduciary Relations) regardless of whether it ever cleared a persona's
+  // keyword gate. Classifications are still attached where they exist,
+  // purely as bonus context ("also matches: Small Business Owner"), never
+  // required. This branch must come before the profile branch below and
+  // must return early -- without it, a category-only request falls through
+  // to the profile logic, finds no profile param either, and returns every
+  // bill in the session with no filter applied at all.
+  if (category) {
+    try {
+      const catBillsParams = new URLSearchParams({
+        select:         "id,session_number,bill_number,full_code,long_title,nickname,origin_chamber,category,intro_date,passed_date,amendments,legislation_id,status,stage,synopsis,plain_english,legislation_url,primary_sponsor,sponsor_person_id,legislator_url",
+        session_number: `eq.${session}`,
+        category:       `eq.${category}`,
+      });
+      const catBillsRes = await fetch(`${SUPABASE_URL}/rest/v1/bills?${catBillsParams}`, { headers: SB_HEADERS });
+      if (!catBillsRes.ok) {
+        console.error("Category bills fetch error:", await catBillsRes.text());
+        return { statusCode: 502, headers: CORS, body: JSON.stringify({ error: "Upstream error" }) };
+      }
+      const catBillsData = await catBillsRes.json();
+      const catBillIds = catBillsData.map((b) => b.id);
+
+      let catClassMap = {};
+      if (catBillIds.length > 0) {
+        const catClassParams = new URLSearchParams({
+          select:         "bill_id,profile_key,direction,rationale,topic_tag",
+          session_number: `eq.${session}`,
+          bill_id:        `in.(${catBillIds.join(",")})`,
+        });
+        const catClassRes = await fetch(`${SUPABASE_URL}/rest/v1/classifications?${catClassParams}`, { headers: SB_HEADERS });
+        if (catClassRes.ok) {
+          const catClassData = await catClassRes.json();
+          catClassData.forEach((c) => {
+            if (!catClassMap[c.bill_id]) catClassMap[c.bill_id] = {};
+            catClassMap[c.bill_id][c.profile_key] = { direction: c.direction, rationale: c.rationale, topic_tag: c.topic_tag || null };
+          });
+        }
+      }
+
+      const catBills = catBillsData.map((b) => ({
+        session:        b.session_number,
+        bill_number:    b.bill_number,
+        full_code:      b.full_code || b.bill_number,
+        bill_text:      b.long_title || "",
+        nickname:       b.nickname  || "",
+        origin_chamber: b.origin_chamber || "",
+        category:       b.category  || "",
+        intro_date:     b.intro_date || "",
+        passed_date:    b.passed_date || "",
+        amendments:     b.amendments || 0,
+        legislation_id: b.legislation_id || "",
+        status:         b.status || "",
+        stage:          b.stage  || "",
+        synopsis:       b.synopsis || "",
+        plain_english:  b.plain_english || "",
+        url:            b.legislation_url || (b.legislation_id ? `https://legis.delaware.gov/BillDetail?LegislationId=${b.legislation_id}` : ""),
+        primary_sponsor: b.primary_sponsor || "",
+        legislator_url:  fixLegUrl(b.legislator_url),
+        profiles:        catClassMap[b.id] || {},
+      }));
+
+      return {
+        statusCode: 200,
+        headers:    CORS,
+        body:       JSON.stringify({ bills: catBills, count: catBills.length, session, category }),
+      };
+    } catch (err) {
+      console.error("get-bills category error:", err);
+      return { statusCode: 500, headers: CORS, body: JSON.stringify({ error: err.message }) };
+    }
   }
 
   try {
