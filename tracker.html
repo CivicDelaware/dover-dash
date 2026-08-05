@@ -101,9 +101,11 @@ body {
 .filter-btn { border: none; border-radius: 20px; padding: 7px 14px; font-size: 11px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; transition: all .12s; white-space: nowrap; background: #F3F4F6; color: #374151; }
 .filter-btn.wo { background: #FEE2E2; color: #D93B3B; }
 .filter-btn.hy { background: #ECFCCB; color: #365314; }
+.filter-btn.neutral { background: #F3F4F6; color: #4B5563; }
 .filter-btn.active { background: #002868; color: #BAFF5C; }
 .filter-btn.wo.active { background: #D93B3B; color: #fff; }
 .filter-btn.hy.active { background: #65A30D; color: #fff; }
+.filter-btn.neutral.active { background: #4B5563; color: #fff; }
 .bill-share-btn { font-size: 10px; font-weight: 400; color: #9CA3AF; background: none; border: none; padding: 0; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: underline; text-underline-offset: 2px; }
 .bill-share-btn:hover { color: #002868; }
 .bill-share-row { display: flex; justify-content: flex-end; margin-top: 8px; }
@@ -119,6 +121,7 @@ body {
 .bill-card { padding: 14px 16px; background: #fff; border-radius: 12px; border-left: 4px solid transparent; border: 1.5px solid #E5E7EB; border-left-width: 4px; }
 .bill-card.wo { border-left-color: #D93B3B; }
 .bill-card.hy { border-left-color: #65A30D; }
+.bill-card.neutral { border-left-color: #9CA3AF; }
 .bill-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
 .bill-num { font-size: 11px; font-weight: 800; color: #9CA3AF; letter-spacing: 0.3px; }
 .bill-cat-chip { display: inline-block; font-size: 9px; font-weight: 700; color: #6B7280; background: #F3F4F6; border-radius: 4px; padding: 2px 6px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
@@ -365,6 +368,7 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
     <div class="filter-row">
       <button class="filter-btn hy active" id="filter-hy" onclick="setFilter('Helps You')">Helps You</button>
       <button class="filter-btn wo" id="filter-wo" onclick="setFilter('Watch Out')">Watch Out</button>
+      <button class="filter-btn neutral" id="filter-neutral" onclick="setFilter('Neutral')">Informational</button>
     </div>
     <div class="bills-loading" id="bills-loading">
       <div class="loading-spinner"></div>
@@ -757,7 +761,7 @@ var PROFILE_CATEGORY_PRIORITY = {
 var currentProfileKey = null;
 var allBills = [];
 var currentFilter = 'Helps You';
-var expanded = { 'Watch Out': false, 'Helps You': false };
+var expanded = { 'Watch Out': false, 'Helps You': false, 'Neutral': false };
 
 var pendingProfileKey = null;
 function selectProfile(key, btn) {
@@ -780,7 +784,7 @@ function goToBills() {
   }
   currentProfileKey = key;
   currentFilter = 'Helps You';
-  expanded = { 'Watch Out': false, 'Helps You': false };
+  expanded = { 'Watch Out': false, 'Helps You': false, 'Neutral': false };
   var p = PROFILES[key];
   document.getElementById('bills-nav-emoji').textContent = p.emoji;
   document.getElementById('bills-nav-profile').textContent = p.label;
@@ -837,6 +841,7 @@ function toggleBillText(id, btn) {
 function setFilterUI(dir) {
   document.getElementById('filter-wo').className  = 'filter-btn wo' + (dir === 'Watch Out' ? ' active' : '');
   document.getElementById('filter-hy').className  = 'filter-btn hy' + (dir === 'Helps You' ? ' active' : '');
+  document.getElementById('filter-neutral').className = 'filter-btn neutral' + (dir === 'Neutral' ? ' active' : '');
 }
 
 function shareBillCard(btn) {
@@ -866,6 +871,7 @@ function loadBills(profile) {
   // stay visible while this profile's data is still loading.
   document.getElementById('filter-wo').textContent = 'Watch Out';
   document.getElementById('filter-hy').textContent = 'Helps You';
+  document.getElementById('filter-neutral').textContent = 'Informational';
   fetch('/.netlify/functions/get-bills?profile=' + encodeURIComponent(profile))
     .then(function(res) { if (!res.ok) throw new Error('API error ' + res.status); return res.json(); })
     .then(function(data) {
@@ -919,8 +925,10 @@ function renderBills() {
   var emptyEl = document.getElementById('bills-empty');
   var woCount = allBills.filter(function(b) { var p = b.profiles[key]; return p && p.direction === 'Watch Out'; }).length;
   var hyCount = allBills.filter(function(b) { var p = b.profiles[key]; return p && p.direction === 'Helps You'; }).length;
+  var neutralCount = allBills.filter(function(b) { var p = b.profiles[key]; return p && p.direction === 'Neutral'; }).length;
   document.getElementById('filter-wo').textContent = 'Watch Out · ' + woCount;
   document.getElementById('filter-hy').textContent = 'Helps You · ' + hyCount;
+  document.getElementById('filter-neutral').textContent = 'Informational · ' + neutralCount;
   countEl.textContent = allBills.length + ' passed bills affected this profile';
   var giCard = document.querySelector('#screen-bills .gi-card');
   if (allBills.length === 0) {
@@ -951,7 +959,8 @@ function renderBills() {
     var direction = prof ? prof.direction : null;
     var isWO      = direction === 'Watch Out';
     var isHY      = direction === 'Helps You';
-    var cardClass = 'bill-card' + (isWO ? ' wo' : isHY ? ' hy' : '');
+    var isNeutral = direction === 'Neutral';
+    var cardClass = 'bill-card' + (isWO ? ' wo' : isHY ? ' hy' : isNeutral ? ' neutral' : '');
     var dirBadge  = '';
     var rawStatus = (bill.status || '').toLowerCase();
     var isPassing = rawStatus.includes('sign') || rawStatus.includes('approv') || rawStatus.includes('pass') || rawStatus.includes('veto');
