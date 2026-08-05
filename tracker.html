@@ -633,11 +633,26 @@ function renderSessionCountdown() {
 renderSessionCountdown();
 
 function initApp() {
+  var deepLinkScreen = new URLSearchParams(window.location.search).get('screen');
+
+  // Deep link: ?screen=category&cat=X jumps straight to a Beta topic-browse
+  // view for that category, skipping profile selection entirely. Mirrors
+  // the ?screen=lookup pattern below -- gives the Beta browse-by-topic
+  // feature a real, shareable, bookmarkable URL without needing a second
+  // HTML file or duplicating any of this page's shell/CSS/JS.
+  if (deepLinkScreen === 'category') {
+    var catKey = new URLSearchParams(window.location.search).get('cat');
+    if (catKey) {
+      var displayLabel = CATEGORY_LABELS[catKey] || catKey;
+      goToCategory(catKey, displayLabel);
+    }
+  }
+
   // Deep link: ?screen=lookup jumps straight to the legislator lookup panel,
   // skipping profile selection and the bill list entirely. Built for email
   // CTAs ("see how your legislator voted before you vote") where asking
   // someone to pick a profile first would lose them before they get there.
-  if (new URLSearchParams(window.location.search).get('screen') === 'lookup') {
+  if (deepLinkScreen === 'lookup') {
     var profilesScreen = document.getElementById('screen-profiles');
     var billsScreen     = document.getElementById('screen-bills');
     if (profilesScreen) profilesScreen.style.display = 'none';
@@ -708,6 +723,15 @@ function initApp() {
 }
 
 document.addEventListener('DOMContentLoaded', initApp);
+
+// Beta: Delaware Code title number shown as a subtitle on category pages,
+// for the professional half of the audience who thinks in title numbers.
+// Manually maintained, mirroring TITLE_CATEGORY_MAP in scrape-legislation
+// in reverse -- fine for now with one live category, revisit if/when more
+// categories get added to the Beta browse-by-topic feature.
+var CATEGORY_TITLE_MAP = {
+  'Estates & Fiduciary Relations': 'Title 12',
+};
 
 var CATEGORY_LABELS = {
   'Agriculture':                              'Food & Farming',
@@ -784,6 +808,7 @@ function goToBills() {
     return;
   }
   currentProfileKey = key;
+  currentCategoryKey = null;
   currentFilter = 'Helps You';
   expanded = { 'Watch Out': false, 'Helps You': false, 'Neutral': false };
   var p = PROFILES[key];
@@ -794,10 +819,100 @@ function goToBills() {
   document.getElementById('home-header').style.display = 'none';
   document.getElementById('bills-nav-header').style.display = 'flex';
   document.getElementById('screen-bills').style.display = 'block';
+  document.querySelector('.filter-row').style.display = 'flex';
   setFilterUI('Helps You');
   loadBills(key);
   if (typeof gtag !== 'undefined') gtag('event', 'select_profile', { profile: key });
   window.scrollTo(0, 0);
+}
+
+// ── BETA: BROWSE BY TOPIC ─────────────────────────────────────────────────
+// Fetches bills by bills.category directly, independent of any profile's
+// classifications -- shows every bill in a subject area regardless of
+// whether it ever cleared a persona's keyword gate. No Helps You/Watch Out
+// split here since there's no profile direction to filter by; the filter
+// row is hidden entirely for this mode.
+var currentCategoryKey = null;
+function goToCategory(categoryKey, displayLabel) {
+  currentProfileKey = null;
+  currentCategoryKey = categoryKey;
+  pendingProfileKey = null;
+  document.getElementById('bills-nav-emoji').textContent = '🧪';
+  document.getElementById('bills-nav-profile').textContent = displayLabel + ' (Beta)';
+  var titleRef = CATEGORY_TITLE_MAP[categoryKey];
+  document.getElementById('bills-nav-stat').textContent = titleRef ? 'Delaware Code ' + titleRef : '';
+  document.getElementById('screen-profiles').style.display = 'none';
+  document.getElementById('home-header').style.display = 'none';
+  document.getElementById('bills-nav-header').style.display = 'flex';
+  document.getElementById('screen-bills').style.display = 'block';
+  document.querySelector('.filter-row').style.display = 'none';
+  loadBillsByCategory(categoryKey);
+  if (typeof gtag !== 'undefined') gtag('event', 'browse_category_beta', { category: categoryKey });
+  window.scrollTo(0, 0);
+}
+
+function loadBillsByCategory(categoryKey) {
+  document.getElementById('bills-loading').style.display = 'block';
+  document.getElementById('bills-list').innerHTML = '';
+  document.getElementById('bills-empty').style.display = 'none';
+  document.querySelector('#screen-bills .gi-card').style.visibility = 'hidden';
+  document.getElementById('bill-count-bar').textContent = '';
+  document.getElementById('bills-nav-sep').textContent = '';
+  fetch('/.netlify/functions/get-bills?category=' + encodeURIComponent(categoryKey))
+    .then(function(res) { if (!res.ok) throw new Error('API error ' + res.status); return res.json(); })
+    .then(function(data) {
+      allBills = data.bills || [];
+      document.getElementById('bills-loading').style.display = 'none';
+      renderCategoryBills();
+      document.querySelector('#screen-bills .gi-card').style.visibility = '';
+    })
+    .catch(function() {
+      document.getElementById('bills-loading').innerHTML =
+        '<div style="color:#D93B3B;font-size:12px;padding:20px;">Error loading bills. Please refresh and try again.</div>';
+    });
+}
+
+function renderCategoryBills() {
+  var listEl  = document.getElementById('bills-list');
+  var emptyEl = document.getElementById('bills-empty');
+  var countEl = document.getElementById('bill-count-bar');
+  var giCard  = document.querySelector('#screen-bills .gi-card');
+  countEl.textContent = allBills.length + ' passed bills in this topic';
+  if (allBills.length === 0) {
+    listEl.innerHTML = '';
+    emptyEl.style.display = 'block';
+    document.getElementById('empty-title').textContent = 'No bills found';
+    document.getElementById('empty-sub').textContent = 'Nothing passed in this category yet this session.';
+    if (giCard) giCard.style.display = '';
+    return;
+  }
+  emptyEl.style.display = 'none';
+  if (giCard) giCard.style.display = '';
+  var html = allBills.map(function(bill) {
+    var rawNickname = bill.nickname || bill.bill_number;
+    var nickname  = /\bbill$/i.test(rawNickname) ? rawNickname : rawNickname + ' Bill';
+    var bodyText  = bill.plain_english || bill.synopsis || '';
+    var billNumHtml = bill.url
+      ? '<a href="' + esc(bill.url) + '" target="_blank" rel="noopener" class="bill-num-link">' + esc(bill.bill_number) + '</a>'
+      : '<span class="bill-num">' + esc(bill.bill_number) + '</span>';
+    var plainId = 'bpc-' + bill.bill_number.replace(/\s+/g, '-');
+    var bodyHtml  = bodyText ? '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' : '';
+    var readMore  = bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more</button>' : '';
+    // No direction here -- this bill may not have cleared any profile's
+    // gate at all, so there's no Helps You/Watch Out badge to show.
+    var matchedProfiles = Object.keys(bill.profiles || {});
+    var matchNote = matchedProfiles.length
+      ? '<div style="font-size:10px;color:#9CA3AF;margin-top:4px;">Also matches: ' + matchedProfiles.map(function(k) { return esc(PROFILES[k] ? PROFILES[k].label : k); }).join(', ') + '</div>'
+      : '';
+    var shareUrl  = bill.url || window.location.href;
+    var shareText = nickname + ' — ' + bill.bill_number + '. Check this Delaware bill on Dover Dash.';
+    var shareBtn  = '<div class="bill-share-row"><button class="bill-share-btn" onclick="shareBillCard(this)">Share</button></div>';
+    return '<div class="bill-card" data-share-url="' + esc(shareUrl) + '" data-share-text="' + esc(shareText) + '">' +
+      '<div class="bill-nickname"><span class="bill-title-text">' + esc(nickname) + '</span></div>' +
+      '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + '</div>' +
+      bodyHtml + readMore + matchNote + shareBtn + '</div>';
+  }).join('');
+  listEl.innerHTML = html;
 }
 
 function backToProfiles() {
@@ -815,6 +930,7 @@ function backToProfiles() {
   document.querySelectorAll('.prof-btn').forEach(function(b) { b.classList.remove('selected'); });
   document.getElementById('see-results-btn').classList.remove('ready');
   pendingProfileKey = null;
+  currentCategoryKey = null;
   window.scrollTo(0, 0);
 }
 
