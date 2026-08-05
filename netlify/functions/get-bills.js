@@ -154,7 +154,22 @@ exports.handler = async function (event) {
         console.error("Category bills fetch error:", await catBillsRes.text());
         return { statusCode: 502, headers: CORS, body: JSON.stringify({ error: "Upstream error" }) };
       }
-      const catBillsData = await catBillsRes.json();
+      const rawCatBillsData = await catBillsRes.json();
+      // Manual exclusions -- bills that technically clear the broadened
+      // category-OR-title match but are editorial judgment calls to leave
+      // out of a specific category's Beta view. Session-scoped so this
+      // doesn't accidentally exclude a same-numbered bill in a future GA.
+      // HB 400 (153): genuinely amends Title 12 Ch. 38 with real statutory
+      // trust fee increases, but it's fundamentally an omnibus Secretary
+      // of State fee bill spanning corporations, LLCs, and trademarks --
+      // showing it under "Wills & Inheritance" would be misleading even
+      // though the underlying fact (real fee increase) is accurate.
+      const CATEGORY_EXCLUSIONS = new Set([
+        "153:HB 400",
+      ]);
+      const catBillsData = rawCatBillsData.filter(
+        (b) => !CATEGORY_EXCLUSIONS.has(`${b.session_number}:${b.bill_number}`)
+      );
       const catBillIds = catBillsData.map((b) => b.id);
 
       let catClassMap = {};
