@@ -876,6 +876,20 @@ function loadBills(profile) {
     .then(function(res) { if (!res.ok) throw new Error('API error ' + res.status); return res.json(); })
     .then(function(data) {
       allBills = data.bills || [];
+      // Default to whichever direction actually has bills for this
+      // profile, rather than always assuming 'Helps You' -- a persona
+      // that's 100% Neutral (or 100% Watch Out) would otherwise land a
+      // visitor on an empty tab by default. Priority order: Helps You,
+      // then Watch Out, then Neutral -- only falls through to the next
+      // one if the current one is genuinely empty for this profile.
+      var key = currentProfileKey;
+      var hyN = allBills.filter(function(b) { var p = b.profiles[key]; return p && p.direction === 'Helps You'; }).length;
+      var woN = allBills.filter(function(b) { var p = b.profiles[key]; return p && p.direction === 'Watch Out'; }).length;
+      var neutralN = allBills.filter(function(b) { var p = b.profiles[key]; return p && p.direction === 'Neutral'; }).length;
+      if (hyN > 0) currentFilter = 'Helps You';
+      else if (woN > 0) currentFilter = 'Watch Out';
+      else if (neutralN > 0) currentFilter = 'Neutral';
+      setFilterUI(currentFilter);
       // Bills archive bar is static — text already set in HTML
       document.getElementById('bills-loading').style.display = 'none';
       renderBills();
