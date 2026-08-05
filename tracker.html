@@ -889,13 +889,26 @@ function renderCategoryBills() {
   var html = allBills.map(function(bill) {
     var rawNickname = bill.nickname || bill.bill_number;
     var nickname  = /\bbill$/i.test(rawNickname) ? rawNickname : rawNickname + ' Bill';
-    var bodyText  = bill.plain_english || bill.synopsis || '';
     var billNumHtml = bill.url
       ? '<a href="' + esc(bill.url) + '" target="_blank" rel="noopener" class="bill-num-link">' + esc(bill.bill_number) + '</a>'
       : '<span class="bill-num">' + esc(bill.bill_number) + '</span>';
-    var plainId = 'bpc-' + bill.bill_number.replace(/\s+/g, '-');
-    var bodyHtml  = bodyText ? '<p class="bill-plain" id="' + plainId + '">' + esc(bodyText) + '</p>' : '';
-    var readMore  = bodyText ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more</button>' : '';
+    var suffix   = bill.bill_number.replace(/\s+/g, '-');
+    var plainId  = 'bp-' + suffix;
+    var synId    = 'bs-' + suffix;
+    // Same pattern as the main persona cards: AI summary up top when it
+    // exists, official synopsis always available behind "Read more" --
+    // never one or the other, both when both exist.
+    var synopsisBlock = bill.synopsis
+      ? '<div id="' + synId + '" class="bill-synopsis-full"><span class="bill-rationale-label">Official bill synopsis</span><p class="bill-synopsis-text">' + esc(bill.synopsis) + '</p></div>'
+      : '';
+    var bodyHtml, readMore;
+    if (bill.plain_english) {
+      bodyHtml = '<div class="bill-rationale"><span class="bill-rationale-label">AI Summary</span><span id="' + plainId + '" class="bill-rationale-body">' + esc(bill.plain_english) + '</span></div>' + synopsisBlock;
+      readMore = bill.synopsis ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more (official bill synopsis)</button>' : '';
+    } else {
+      bodyHtml = bill.synopsis ? '<p class="bill-plain" id="' + plainId + '">' + esc(bill.synopsis) + '</p>' : '';
+      readMore = bill.synopsis ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more</button>' : '';
+    }
     // No direction here -- this bill may not have cleared any profile's
     // gate at all, so there's no Helps You/Watch Out badge to show.
     var matchedProfiles = Object.keys(bill.profiles || {});
