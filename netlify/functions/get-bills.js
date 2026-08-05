@@ -153,6 +153,7 @@ exports.handler = async function (event) {
       // this map if more categories get a Beta browse-by-topic page.
       const CATEGORY_TO_PROFILE = {
         "Estates & Fiduciary Relations": "estates",
+        "Domestic Relations": "familylaw",
       };
       const mappedProfile = CATEGORY_TO_PROFILE[category];
 
@@ -166,10 +167,16 @@ exports.handler = async function (event) {
         const subjectKeywords = kwRes.ok ? (await kwRes.json()).map((k) => k.keyword) : [];
 
         if (subjectKeywords.length > 0) {
+          // Matches the title number anywhere between "AMEND" and "OF THE
+          // DELAWARE CODE" -- not just an exact "TITLE N" phrase. The
+          // stricter pattern silently missed bills phrased "TITLES 10 AND
+          // 13" (plural, last title in a list) -- HB 357 and SB 250 both
+          // would have been dropped entirely under the old regex. Verified
+          // against all known Title 12 and Title 13 bills before swapping.
           const titleCiteParams = new URLSearchParams({
             select:         catSelect,
             session_number: `eq.${session}`,
-            long_title:     `imatch.\\yTITLE ${titleNum}\\y`,
+            long_title:     `imatch.AMEND.*\\y${titleNum}\\y.*OF THE DELAWARE CODE`,
           });
           const titleCiteRes = await fetch(`${SUPABASE_URL}/rest/v1/bills?${titleCiteParams}`, { headers: SB_HEADERS });
           if (titleCiteRes.ok) {
