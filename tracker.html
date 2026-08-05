@@ -456,10 +456,11 @@ var PROFILES = {
   workpro:   { emoji: '💼', label: 'Private Sector Employee', stat: 'Delaware\'s private sector spans finance, pharma & professional services' },
   veteran:   { emoji: '🎖️', label: 'Veteran / Military Family', stat: 'Delaware is home to Dover Air Force Base, one of the largest in the U.S.', statSource: 'U.S. Dept. of Defense', statUrl: 'https://www.dover.af.mil/' },
   landlord:  { emoji: '🏘️', label: 'Landlord',            stat: 'About 29% of Delaware households are renters',                            statSource: 'U.S. Census Bureau, ACS 2023', statUrl: 'https://www.census.gov/quickfacts/fact/table/DE' },
+  estates:   { emoji: '📜', label: 'Estates & Trusts',    stat: null },
 };
 
 // Ordered profile keys — used by renderProfileGrid() when Supabase doesn't return an order
-var PROFILE_KEYS_DEFAULT = ['homeowner','renter','landlord','senior','veteran','workpro','smallbiz','pubsec'];
+var PROFILE_KEYS_DEFAULT = ['homeowner','renter','landlord','senior','veteran','workpro','smallbiz','pubsec','estates'];
 
 function renderProfileGrid(orderedKeys) {
   // Build the grid once from scratch — only called on first render
