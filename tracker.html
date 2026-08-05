@@ -918,7 +918,7 @@ function renderCategoryBills() {
     var bodyHtml, readMore;
     if (bill.plain_english) {
       bodyHtml = '<div class="bill-rationale"><span class="bill-rationale-label">AI Summary</span><span id="' + plainId + '" class="bill-rationale-body">' + esc(bill.plain_english) + '</span></div>' + synopsisBlock;
-      readMore = bill.synopsis ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more <span class="read-more-arrow">▾</span></button>' : '';
+      readMore = bill.synopsis ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more (official bill synopsis) <span class="read-more-arrow">▾</span></button>' : '';
     } else {
       bodyHtml = bill.synopsis ? '<p class="bill-plain" id="' + plainId + '">' + esc(bill.synopsis) + '</p>' : '';
       readMore = bill.synopsis ? '<button class="bill-read-more" onclick="toggleBillText(\'' + plainId + '\',this)">Read more <span class="read-more-arrow">▾</span></button>' : '';
@@ -943,17 +943,13 @@ function renderCategoryBills() {
       catDateStr = ' · ' + (catD.getMonth()+1) + '/' + catD.getDate() + '/' + String(catD.getFullYear()).slice(2);
     }
     var statusBadge = statusLabel ? '<div class="bill-card-meta"><span class="bill-status-badge ' + statusBadgeClass + '">' + esc(statusLabel + catDateStr) + '</span></div>' : '';
-    var matchedProfiles = Object.keys(bill.profiles || {});
-    var matchNote = matchedProfiles.length
-      ? '<div style="font-size:10px;color:#9CA3AF;margin-top:4px;">Also matches: ' + matchedProfiles.map(function(k) { return esc(PROFILES[k] ? PROFILES[k].label : k); }).join(', ') + '</div>'
-      : '';
     var shareUrl  = bill.url || window.location.href;
     var shareText = nickname + ' — ' + bill.bill_number + '. Check this Delaware bill on Dover Dash.';
     var shareBtn  = '<div class="bill-share-row"><button class="bill-share-btn" onclick="shareBillCard(this)">Share</button></div>';
     return '<div class="bill-card" data-share-url="' + esc(shareUrl) + '" data-share-text="' + esc(shareText) + '">' +
       '<div class="bill-nickname"><span class="bill-title-text">' + esc(nickname) + '</span>' + statusBadge + '</div>' +
       '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + '</div>' +
-      bodyHtml + readMore + matchNote + shareBtn + '</div>';
+      bodyHtml + readMore + shareBtn + '</div>';
   }).join('');
   listEl.innerHTML = html;
 }
