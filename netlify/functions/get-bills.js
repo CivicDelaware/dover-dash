@@ -112,7 +112,7 @@ exports.handler = async function (event) {
     //    when a profile was requested — so we only pull the ~1/9th of rows that are
     //    actually relevant, instead of every profile's classifications every time.
     const classParams = new URLSearchParams({
-      select:         "bill_id,profile_key,direction,rationale",
+      select:         "bill_id,profile_key,direction,rationale,topic_tag",
       session_number: `eq.${session}`,
     });
     if (profile) classParams.set("profile_key", `eq.${profile}`);
@@ -124,13 +124,13 @@ exports.handler = async function (event) {
     }
     const classData = await classRes.json();
 
-    // 2. Build classification map: bill_id → { profile_key: { direction, rationale } }
+    // 2. Build classification map: bill_id → { profile_key: { direction, rationale, topic_tag } }
     //    and collect the set of bill IDs actually relevant to this request.
     const classMap = {};
     const relevantBillIds = new Set();
     classData.forEach((c) => {
       if (!classMap[c.bill_id]) classMap[c.bill_id] = {};
-      classMap[c.bill_id][c.profile_key] = { direction: c.direction, rationale: c.rationale };
+      classMap[c.bill_id][c.profile_key] = { direction: c.direction, rationale: c.rationale, topic_tag: c.topic_tag || null };
       relevantBillIds.add(c.bill_id);
     });
 
