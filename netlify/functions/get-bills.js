@@ -47,6 +47,7 @@ exports.handler = async function (event) {
   const session   = parseInt(q.session || CURRENT_SESSION, 10);
   const profile   = q.profile   || null;
   const category  = q.category  || null;
+  const titleNum  = q.title     || null;
   const direction = q.direction || null;
   const metaOnly  = q.meta === 'true';
 
@@ -123,12 +124,32 @@ exports.handler = async function (event) {
   // bill in the session with no filter applied at all.
   if (category) {
     try {
-      const catBillsParams = new URLSearchParams({
-        select:         "id,session_number,bill_number,full_code,long_title,nickname,origin_chamber,category,intro_date,passed_date,amendments,legislation_id,status,stage,synopsis,plain_english,legislation_url,primary_sponsor,sponsor_person_id,legislator_url",
-        session_number: `eq.${session}`,
-        category:       `eq.${category}`,
-      });
-      const catBillsRes = await fetch(`${SUPABASE_URL}/rest/v1/bills?${catBillsParams}`, { headers: SB_HEADERS });
+      const catSelect = "id,session_number,bill_number,full_code,long_title,nickname,origin_chamber,category,intro_date,passed_date,amendments,legislation_id,status,stage,synopsis,plain_english,legislation_url,primary_sponsor,sponsor_person_id,legislator_url";
+      let catBillsUrl;
+      if (titleNum) {
+        // Broadened match: a bill qualifies if EITHER its primary category
+        // matches (deterministic first-title-cited rule) OR it cites this
+        // title number anywhere in its long_title. Catches real cases like
+        // HB 400, which has category="Banking" (Title 5 cited first) but
+        // genuinely amends Title 12 Chapter 38 with direct fee increases --
+        // category alone would have hidden it. Word-boundary regex (\y on
+        // both sides) avoids matching "Title 120" or similar as "Title 12".
+        const orExpr = `(category.eq.${category},long_title.imatch.\\yTITLE ${titleNum}\\y)`;
+        const catBillsParams = new URLSearchParams({
+          select:         catSelect,
+          session_number: `eq.${session}`,
+          or:             orExpr,
+        });
+        catBillsUrl = `${SUPABASE_URL}/rest/v1/bills?${catBillsParams}`;
+      } else {
+        const catBillsParams = new URLSearchParams({
+          select:         catSelect,
+          session_number: `eq.${session}`,
+          category:       `eq.${category}`,
+        });
+        catBillsUrl = `${SUPABASE_URL}/rest/v1/bills?${catBillsParams}`;
+      }
+      const catBillsRes = await fetch(catBillsUrl, { headers: SB_HEADERS });
       if (!catBillsRes.ok) {
         console.error("Category bills fetch error:", await catBillsRes.text());
         return { statusCode: 502, headers: CORS, body: JSON.stringify({ error: "Upstream error" }) };
