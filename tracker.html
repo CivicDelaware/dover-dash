@@ -856,7 +856,20 @@ function loadBillsByCategory(categoryKey) {
   document.querySelector('#screen-bills .gi-card').style.visibility = 'hidden';
   document.getElementById('bill-count-bar').textContent = '';
   document.getElementById('bills-nav-sep').textContent = '';
-  fetch('/.netlify/functions/get-bills?category=' + encodeURIComponent(categoryKey))
+  // Also send the title number (from CATEGORY_TITLE_MAP) so the backend
+  // can broaden matching beyond just bills.category -- a bill like HB 400
+  // has category="Banking" (first-title-cited rule) but genuinely amends
+  // Title 12 Chapter 38 with real fee increases, so category alone misses
+  // it. Falls back to category-only matching if no title number is mapped.
+  var titleNum = null;
+  var titleRefForFetch = CATEGORY_TITLE_MAP[categoryKey];
+  if (titleRefForFetch) {
+    var m = /Title (\d+)/i.exec(titleRefForFetch);
+    if (m) titleNum = m[1];
+  }
+  var fetchUrl = '/.netlify/functions/get-bills?category=' + encodeURIComponent(categoryKey);
+  if (titleNum) fetchUrl += '&title=' + encodeURIComponent(titleNum);
+  fetch(fetchUrl)
     .then(function(res) { if (!res.ok) throw new Error('API error ' + res.status); return res.json(); })
     .then(function(data) {
       allBills = data.bills || [];
@@ -1109,7 +1122,7 @@ function renderBills() {
     var statusLabel = rawStatus.includes('sign') ? '✓ Signed by Governor'
                     : rawStatus.includes('approv') ? '✓ Signed by Governor'
                     : rawStatus.includes('veto override') ? '✓ Veto Overridden'
-                    : rawStatus.includes('pass') ? '✓ Passed'
+                    : rawStatus.includes('pass') ? 'Ready for Governor'
                     : (bill.status ? bill.status : '');
     var statusBadgeClass = rawStatus.includes('veto') ? 'veto' : (rawStatus.includes('sign') || rawStatus.includes('approv')) ? '' : isPassing ? 'passed' : 'np';
     var dateStr = '';
