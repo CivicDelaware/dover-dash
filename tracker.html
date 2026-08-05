@@ -924,6 +924,24 @@ function renderCategoryBills() {
     }
     // No direction here -- this bill may not have cleared any profile's
     // gate at all, so there's no Helps You/Watch Out badge to show.
+    // Status badge -- same logic as the main persona cards, including the
+    // Ready for Governor / Signed by Governor distinction. This renderer
+    // never had a status badge before; category-mode bills can include
+    // ones still awaiting signature (e.g. HB 253), so it matters here too.
+    var rawStatus = (bill.status || '').toLowerCase();
+    var isPassing = rawStatus.includes('sign') || rawStatus.includes('approv') || rawStatus.includes('pass') || rawStatus.includes('veto');
+    var statusLabel = rawStatus.includes('sign') ? '✓ Signed by Governor'
+                    : rawStatus.includes('approv') ? '✓ Signed by Governor'
+                    : rawStatus.includes('veto override') ? '✓ Veto Overridden'
+                    : rawStatus.includes('pass') ? 'Ready for Governor'
+                    : (bill.status ? bill.status : '');
+    var statusBadgeClass = rawStatus.includes('veto') ? 'veto' : (rawStatus.includes('sign') || rawStatus.includes('approv')) ? '' : isPassing ? 'passed' : 'np';
+    var catDateStr = '';
+    if (bill.passed_date) {
+      var catD = new Date(bill.passed_date + 'T00:00:00');
+      catDateStr = ' · ' + (catD.getMonth()+1) + '/' + catD.getDate() + '/' + String(catD.getFullYear()).slice(2);
+    }
+    var statusBadge = statusLabel ? '<div class="bill-card-meta"><span class="bill-status-badge ' + statusBadgeClass + '">' + esc(statusLabel + catDateStr) + '</span></div>' : '';
     var matchedProfiles = Object.keys(bill.profiles || {});
     var matchNote = matchedProfiles.length
       ? '<div style="font-size:10px;color:#9CA3AF;margin-top:4px;">Also matches: ' + matchedProfiles.map(function(k) { return esc(PROFILES[k] ? PROFILES[k].label : k); }).join(', ') + '</div>'
@@ -932,7 +950,7 @@ function renderCategoryBills() {
     var shareText = nickname + ' — ' + bill.bill_number + '. Check this Delaware bill on Dover Dash.';
     var shareBtn  = '<div class="bill-share-row"><button class="bill-share-btn" onclick="shareBillCard(this)">Share</button></div>';
     return '<div class="bill-card" data-share-url="' + esc(shareUrl) + '" data-share-text="' + esc(shareText) + '">' +
-      '<div class="bill-nickname"><span class="bill-title-text">' + esc(nickname) + '</span></div>' +
+      '<div class="bill-nickname"><span class="bill-title-text">' + esc(nickname) + '</span>' + statusBadge + '</div>' +
       '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + '</div>' +
       bodyHtml + readMore + matchNote + shareBtn + '</div>';
   }).join('');
