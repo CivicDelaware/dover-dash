@@ -98,6 +98,7 @@ body {
 .profile-stat-line { font-size: 10px; color: #9CA3AF; margin-top: 4px; line-height: 1.4; }
 .profile-section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #9CA3AF; margin-bottom: 6px; }
 .filter-row { background: #fff; padding: 10px 14px; display: flex; gap: 6px; border-bottom: 1px solid #E5E7EB; justify-content: center; }
+.senior-estates-hint { background: #fff; padding: 0 14px 10px; text-align: center; font-size: 11px; color: #6B7280; font-family: 'Inter', sans-serif; border-bottom: 1px solid #E5E7EB; }
 .filter-btn { border: none; border-radius: 20px; padding: 7px 14px; font-size: 11px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; transition: all .12s; white-space: nowrap; background: #F3F4F6; color: #374151; }
 .filter-btn.wo { background: #FEE2E2; color: #D93B3B; }
 .filter-btn.hy { background: #ECFCCB; color: #365314; }
@@ -336,7 +337,7 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
       <button class="prof-btn" data-profile-key="homeowner" onclick="selectProfile('homeowner',this)"><span class="prof-em">🏠</span><div class="prof-label">Homeowner</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="parent"    onclick="selectProfile('parent',this)"><span class="prof-em">🚸</span><div style="display:flex;flex-direction:column;"><div class="prof-label">Parent &amp; Family</div><div style="font-size:10px;font-weight:400;color:#9CA3AF;line-height:1.3;font-style:italic;font-family:'Times New Roman',Times,serif;">(new profile added by popular demand!)</div></div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="youngpro"  onclick="selectProfile('youngpro',this)"><span class="prof-em">👔</span><div style="display:flex;flex-direction:column;"><div class="prof-label">Young Professionals</div><div style="font-size:10px;font-weight:400;color:#9CA3AF;line-height:1.3;font-style:italic;font-family:'Times New Roman',Times,serif;">(new profile added by popular demand!)</div></div><span class="prof-circle"></span></button>
-      <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🌅</span><div class="prof-label">Retiree / Senior</div><span class="prof-circle"></span></button>
+      <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🌅</span><div style="display:flex;flex-direction:column;"><div class="prof-label">Retiree / Senior</div><div style="font-size:10px;font-weight:400;color:#9CA3AF;line-height:1.3;font-style:italic;font-family:'Times New Roman',Times,serif;">(includes estates &amp; trusts legislation)</div></div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-label">Veteran / Military Family</div><span class="prof-circle"></span></button>
       <button type="button" class="prof-divider" id="prof-divider"></button>
       <div class="prof-overflow-hint" id="prof-overflow-hint"></div>
@@ -393,6 +394,7 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
       <button class="filter-btn wo" id="filter-wo" onclick="setFilter('Watch Out')">Watch Out</button>
       <button class="filter-btn neutral" id="filter-neutral" onclick="setFilter('Neutral')">Informational</button>
     </div>
+    <div class="senior-estates-hint" id="senior-estates-hint" style="display:none;">Includes estate &amp; trust bills — see the Informational tab</div>
     <div class="bills-loading" id="bills-loading">
       <div class="loading-spinner"></div>
       <div class="loading-sub" id="txt-loading-sub">Loading your bill…</div>
@@ -898,6 +900,7 @@ function loadBillsByCategory(categoryKey) {
   document.getElementById('bills-list').innerHTML = '';
   document.getElementById('bills-empty').style.display = 'none';
   document.querySelector('#screen-bills .gi-card').style.visibility = 'hidden';
+  document.getElementById('senior-estates-hint').style.display = 'none';
   document.getElementById('bill-count-bar').textContent = '';
   document.getElementById('bills-nav-sep').textContent = '';
   // Also send the title number (from CATEGORY_TITLE_MAP) so the backend
@@ -1075,6 +1078,7 @@ function loadBills(profile) {
   document.getElementById('bills-list').innerHTML = '';
   document.getElementById('bills-empty').style.display = 'none';
   document.querySelector('#screen-bills .gi-card').style.visibility = 'hidden';
+  document.getElementById('senior-estates-hint').style.display = 'none';
   document.getElementById('bill-count-bar').textContent = '';
   document.getElementById('bills-nav-sep').textContent = '';
   // Reset stat labels immediately so the PREVIOUS profile's counts never
@@ -1104,6 +1108,7 @@ function loadBills(profile) {
       document.getElementById('bills-loading').style.display = 'none';
       renderBills();
       document.querySelector('#screen-bills .gi-card').style.visibility = '';
+      document.getElementById('senior-estates-hint').style.display = (currentProfileKey === 'senior') ? 'block' : 'none';
     })
     .catch(function() {
       document.getElementById('bills-loading').innerHTML =
