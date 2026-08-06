@@ -334,7 +334,8 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
 
     <div class="prof-grid" id="prof-grid">
       <button class="prof-btn" data-profile-key="homeowner" onclick="selectProfile('homeowner',this)"><span class="prof-em">🏠</span><div class="prof-label">Homeowner</div><span class="prof-circle"></span></button>
-      <button class="prof-btn" data-profile-key="parent"    onclick="selectProfile('parent',this)"><span class="prof-em">👨‍👩‍👧</span><div style="display:flex;flex-direction:column;"><div class="prof-label">Parent &amp; Family</div><div style="font-size:10px;font-weight:400;color:#9CA3AF;line-height:1.3;">(new profile added by popular demand!)</div></div><span class="prof-circle"></span></button>
+      <button class="prof-btn" data-profile-key="parent"    onclick="selectProfile('parent',this)"><span class="prof-em">🚸</span><div style="display:flex;flex-direction:column;"><div class="prof-label">Parent &amp; Family</div><div style="font-size:10px;font-weight:400;color:#9CA3AF;line-height:1.3;font-style:italic;font-family:'Times New Roman',Times,serif;">(new profile added by popular demand!)</div></div><span class="prof-circle"></span></button>
+      <button class="prof-btn" data-profile-key="youngpro"  onclick="selectProfile('youngpro',this)"><span class="prof-em">👔</span><div style="display:flex;flex-direction:column;"><div class="prof-label">Young Professionals</div><div style="font-size:10px;font-weight:400;color:#9CA3AF;line-height:1.3;font-style:italic;font-family:'Times New Roman',Times,serif;">(new profile added by popular demand!)</div></div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🌅</span><div class="prof-label">Retiree / Senior</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-label">Veteran / Military Family</div><span class="prof-circle"></span></button>
       <button type="button" class="prof-divider" id="prof-divider"></button>
@@ -466,11 +467,12 @@ var PROFILES = {
   workpro:   { emoji: '💼', label: 'Private Sector Employee', stat: 'Delaware\'s private sector spans finance, pharma & professional services' },
   veteran:   { emoji: '🎖️', label: 'Veteran / Military Family', stat: 'Delaware is home to Dover Air Force Base, one of the largest in the U.S.', statSource: 'U.S. Dept. of Defense', statUrl: 'https://www.dover.af.mil/' },
   landlord:  { emoji: '🏘️', label: 'Landlord',            stat: 'About 29% of Delaware households are renters',                            statSource: 'U.S. Census Bureau, ACS 2023', statUrl: 'https://www.census.gov/quickfacts/fact/table/DE' },
-  parent:    { emoji: '👨‍👩‍👧', label: 'Parent & Family',  stat: 'About 1 in 5 Delawareans is under age 18',            statSource: 'U.S. Census Bureau, ACS 2023', statUrl: 'https://www.census.gov/quickfacts/fact/table/DE' },
+  parent:    { emoji: '🚸', label: 'Parent & Family',  stat: 'About 1 in 5 Delawareans is under age 18',            statSource: 'U.S. Census Bureau, ACS 2023', statUrl: 'https://www.census.gov/quickfacts/fact/table/DE' },
+  youngpro:  { emoji: '👔', label: 'Young Professionals',  description: 'Early in a specific career or profession -- not necessarily young in age, but navigating career-launch costs, first-job protections, or the transitions (a new job, a move, a first professional license) that come with getting established.', stat: 'About 1 in 4 Delawareans is between ages 25 and 44', statSource: 'U.S. Census Bureau, ACS 2019-2023', statUrl: 'https://www.point2homes.com/US/Neighborhood/DE-Demographics.html' },
 };
 
 // Ordered profile keys — used by renderProfileGrid() when Supabase doesn't return an order
-var PROFILE_KEYS_DEFAULT = ['homeowner','renter','landlord','senior','veteran','workpro','smallbiz','pubsec','parent'];
+var PROFILE_KEYS_DEFAULT = ['homeowner','renter','landlord','senior','veteran','workpro','smallbiz','pubsec','parent','youngpro'];
 
 function renderProfileGrid(orderedKeys) {
   // Build the grid once from scratch — only called on first render
@@ -558,7 +560,7 @@ function patchProfileGrid(profiles) {
   // (Supabase emoji column is stale; HTML + PROFILES fallback are source of truth for emojis)
   profiles.forEach(function(p) {
     var existing = PROFILES[p.key] || {};
-    PROFILES[p.key] = { emoji: existing.emoji || p.emoji, label: p.label, stat: p.stat };
+    PROFILES[p.key] = { emoji: existing.emoji || p.emoji, label: p.label, stat: p.stat, description: existing.description };
     var btn = grid.querySelector('[data-profile-key="' + p.key + '"]');
     if (!btn) return;
     var labelEl = btn.querySelector('.prof-label');
@@ -821,7 +823,9 @@ function goToBills() {
   var p = PROFILES[key];
   document.getElementById('bills-nav-emoji').textContent = p.emoji;
   document.getElementById('bills-nav-profile').textContent = p.label;
-  document.getElementById('bills-nav-stat').innerHTML = '';
+  document.getElementById('bills-nav-stat').innerHTML = p.description
+    ? '<div style="max-width:320px;margin:0 auto;font-size:11px;line-height:1.4;">' + esc(p.description) + '</div>'
+    : '';
   document.getElementById('screen-profiles').style.display = 'none';
   document.getElementById('home-header').style.display = 'none';
   document.getElementById('bills-nav-header').style.display = 'flex';
@@ -848,7 +852,7 @@ function goToCategory(categoryKey, displayLabel) {
   // a scroll fits Wills & Inheritance but not Family & Divorce Law.
   var CATEGORY_EMOJI_MAP = {
     'Estates & Fiduciary Relations': '📜',
-    'Domestic Relations': '👨‍👩‍👧',
+    'Domestic Relations': '⚖️',
     'Education': '🎒',
   };
   document.getElementById('bills-nav-emoji').textContent = CATEGORY_EMOJI_MAP[categoryKey] || '📋';
