@@ -823,9 +823,7 @@ function goToBills() {
   var p = PROFILES[key];
   document.getElementById('bills-nav-emoji').textContent = p.emoji;
   document.getElementById('bills-nav-profile').textContent = p.label;
-  document.getElementById('bills-nav-stat').innerHTML = p.description
-    ? '<div style="max-width:320px;margin:0 auto;font-size:11px;line-height:1.4;">' + esc(p.description) + '</div>'
-    : '';
+  document.getElementById('bills-nav-stat').innerHTML = '';
   document.getElementById('screen-profiles').style.display = 'none';
   document.getElementById('home-header').style.display = 'none';
   document.getElementById('bills-nav-header').style.display = 'flex';
