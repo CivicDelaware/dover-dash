@@ -837,10 +837,25 @@ function goToCategory(categoryKey, displayLabel) {
   currentProfileKey = null;
   currentCategoryKey = categoryKey;
   pendingProfileKey = null;
-  document.getElementById('bills-nav-emoji').textContent = '📜';
+  // Category-specific emoji instead of one icon for every Beta page --
+  // a scroll fits Wills & Inheritance but not Family & Divorce Law.
+  var CATEGORY_EMOJI_MAP = {
+    'Estates & Fiduciary Relations': '📜',
+    'Domestic Relations': '👨‍👩‍👧',
+  };
+  document.getElementById('bills-nav-emoji').textContent = CATEGORY_EMOJI_MAP[categoryKey] || '📋';
   document.getElementById('bills-nav-profile').textContent = displayLabel + ' (Beta)';
   var titleRef = CATEGORY_TITLE_MAP[categoryKey];
-  document.getElementById('bills-nav-stat').textContent = titleRef ? 'Delaware Code ' + titleRef : '';
+  var billsNavStat = document.getElementById('bills-nav-stat');
+  if (titleRef) {
+    var titleNumForLink = (/Title (\d+)/i.exec(titleRef) || [])[1];
+    var titleUrl = titleNumForLink ? 'https://delcode.delaware.gov/title' + titleNumForLink + '/index.html' : null;
+    billsNavStat.innerHTML = titleUrl
+      ? 'Delaware Code <a href="' + titleUrl + '" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">' + esc(titleRef) + '</a>'
+      : 'Delaware Code ' + esc(titleRef);
+  } else {
+    billsNavStat.textContent = '';
+  }
   document.getElementById('screen-profiles').style.display = 'none';
   document.getElementById('home-header').style.display = 'none';
   document.getElementById('bills-nav-header').style.display = 'flex';
