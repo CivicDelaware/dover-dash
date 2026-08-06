@@ -352,6 +352,23 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
       <button class="see-results-btn" id="see-results-btn" onclick="goToBills()">See my results</button>
     </div>
 
+    <div class="gi-card" style="margin-top:16px;">
+      <div class="gi-subscribe-section" style="border-top:none;">
+        <div class="gi-subscribe-label">Subscribe to be the first to know when we add new profiles or features like multi-select</div>
+        <div style="display:flex;flex-direction:column;gap:6px;" class="gi-email-row">
+          <div style="display:flex;gap:6px;">
+            <input type="text" class="gi-email-input gi-first-name" placeholder="First name" style="flex:1;" />
+            <input type="text" class="gi-email-input gi-last-name" placeholder="Last name" style="flex:1;" />
+          </div>
+          <div style="display:flex;gap:6px;">
+            <input type="email" class="gi-email-input gi-email" placeholder="your@email.com" style="flex:1;" />
+            <button class="gi-email-btn" onclick="doGiSubscribe(this)">Subscribe</button>
+          </div>
+        </div>
+        <div class="gi-email-success" style="display:none;margin-top:8px;">✓ You are on the list!</div>
+      </div>
+    </div>
+
   </div>
 
   <div class="bills-nav-header" id="bills-nav-header" style="display:none">
@@ -415,7 +432,7 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
         <a class="countdown-source" href="https://legis.delaware.gov" target="_blank" rel="noopener" style="padding:0 2px;">(Source: Delaware General Assembly)</a>
       </div>
       <div class="gi-subscribe-section">
-        <div class="gi-subscribe-label">Get notified when the next session starts in Jan. 2027</div>
+        <div class="gi-subscribe-label">Subscribe to be the first to know when we add new profiles or features like multi-select</div>
         <div style="display:flex;flex-direction:column;gap:6px;" class="gi-email-row">
           <div style="display:flex;gap:6px;">
             <input type="text" class="gi-email-input gi-first-name" placeholder="First name" style="flex:1;" />
