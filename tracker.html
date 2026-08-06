@@ -907,6 +907,14 @@ function renderCategoryBills() {
     var billNumHtml = bill.url
       ? '<a href="' + esc(bill.url) + '" target="_blank" rel="noopener" class="bill-num-link">' + esc(bill.bill_number) + '</a>'
       : '<span class="bill-num">' + esc(bill.bill_number) + '</span>';
+    // Sponsor info -- same logic as the main persona cards. Never had this
+    // either; same class of gap as the missing status badge.
+    var catSponsorTitle = bill.primary_sponsor ? (/^[Ss]/.test(bill.bill_number) ? 'Sen. ' : 'Rep. ') : '';
+    var catSponsorHtml = bill.primary_sponsor
+      ? (bill.legislator_url
+          ? '<div class="bill-sponsor">Sponsored by <a href="' + esc(bill.legislator_url) + '" target="_blank" rel="noopener">' + catSponsorTitle + esc(bill.primary_sponsor) + '</a></div>'
+          : '<div class="bill-sponsor">Sponsored by ' + catSponsorTitle + esc(bill.primary_sponsor) + '</div>')
+      : '';
     var suffix   = bill.bill_number.replace(/\s+/g, '-');
     var plainId  = 'bp-' + suffix;
     var synId    = 'bs-' + suffix;
@@ -950,7 +958,7 @@ function renderCategoryBills() {
     return '<div class="bill-card" data-share-url="' + esc(shareUrl) + '" data-share-text="' + esc(shareText) + '">' +
       '<div class="bill-nickname"><span class="bill-title-text">' + esc(nickname) + '</span>' + statusBadge + '</div>' +
       '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + '</div>' +
-      bodyHtml + readMore + shareBtn + '</div>';
+      catSponsorHtml + bodyHtml + readMore + shareBtn + '</div>';
   }).join('');
   listEl.innerHTML = html;
 }
