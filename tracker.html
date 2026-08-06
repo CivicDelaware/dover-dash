@@ -158,6 +158,9 @@ body {
 .bill-rationale { font-size: 11px; color: #002868; border-radius: 6px; padding: 7px 10px; margin-bottom: 8px; line-height: 1.5; font-weight: 500; }
 .bill-rationale-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #9CA3AF; display: block; margin-bottom: 3px; }
 .bill-sponsor { font-size: 11px; color: #9CA3AF; margin-bottom: 14px; }
+.bill-current-law { font-size: 10px; color: #9CA3AF; margin: 2px 0 8px; }
+.bill-current-law a { color: #9CA3AF; text-decoration: underline; text-underline-offset: 2px; }
+.bill-current-law a:hover { color: #002868; }
 .bill-sponsor a { color: #9CA3AF; font-weight: 400; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: #9CA3AF; }
 .bill-sponsor a:hover { color: #D93B3B; border-bottom-color: #D93B3B; }
 .primary-cta { font-size: 10px; font-weight: 700; color: #D93B3B; margin-top: 8px; }
@@ -331,7 +334,7 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
 
     <div class="prof-grid" id="prof-grid">
       <button class="prof-btn" data-profile-key="homeowner" onclick="selectProfile('homeowner',this)"><span class="prof-em">🏠</span><div class="prof-label">Homeowner</div><span class="prof-circle"></span></button>
-      <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">🏪</span><div class="prof-label">Small Business Owner</div><span class="prof-circle"></span></button>
+      <button class="prof-btn" data-profile-key="parent"    onclick="selectProfile('parent',this)"><span class="prof-em">👨‍👩‍👧</span><div style="display:flex;flex-direction:column;"><div class="prof-label">Parent &amp; Family</div><div style="font-size:10px;font-weight:400;color:#9CA3AF;line-height:1.3;">(new profile added by popular demand!)</div></div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🌅</span><div class="prof-label">Retiree / Senior</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-label">Veteran / Military Family</div><span class="prof-circle"></span></button>
       <button type="button" class="prof-divider" id="prof-divider"></button>
@@ -340,6 +343,7 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
       <button class="prof-btn" data-profile-key="pubsec"    onclick="selectProfile('pubsec',this)"><span class="prof-em">🏛️</span><div class="prof-label">Public Sector Employee</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="renter"    onclick="selectProfile('renter',this)"><span class="prof-em">🔑</span><div class="prof-label">Renter</div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="landlord"  onclick="selectProfile('landlord',this)"><span class="prof-em">🏘️</span><div class="prof-label">Landlord</div><span class="prof-circle"></span></button>
+      <button class="prof-btn" data-profile-key="smallbiz"  onclick="selectProfile('smallbiz',this)"><span class="prof-em">🏪</span><div class="prof-label">Small Business Owner</div><span class="prof-circle"></span></button>
     </div>
 
     <div class="see-results-wrap">
@@ -462,10 +466,11 @@ var PROFILES = {
   workpro:   { emoji: '💼', label: 'Private Sector Employee', stat: 'Delaware\'s private sector spans finance, pharma & professional services' },
   veteran:   { emoji: '🎖️', label: 'Veteran / Military Family', stat: 'Delaware is home to Dover Air Force Base, one of the largest in the U.S.', statSource: 'U.S. Dept. of Defense', statUrl: 'https://www.dover.af.mil/' },
   landlord:  { emoji: '🏘️', label: 'Landlord',            stat: 'About 29% of Delaware households are renters',                            statSource: 'U.S. Census Bureau, ACS 2023', statUrl: 'https://www.census.gov/quickfacts/fact/table/DE' },
+  parent:    { emoji: '👨‍👩‍👧', label: 'Parent & Family',  stat: 'About 1 in 5 Delawareans is under age 18',            statSource: 'U.S. Census Bureau, ACS 2023', statUrl: 'https://www.census.gov/quickfacts/fact/table/DE' },
 };
 
 // Ordered profile keys — used by renderProfileGrid() when Supabase doesn't return an order
-var PROFILE_KEYS_DEFAULT = ['homeowner','renter','landlord','senior','veteran','workpro','smallbiz','pubsec'];
+var PROFILE_KEYS_DEFAULT = ['homeowner','renter','landlord','senior','veteran','workpro','smallbiz','pubsec','parent'];
 
 function renderProfileGrid(orderedKeys) {
   // Build the grid once from scratch — only called on first render
@@ -731,6 +736,7 @@ document.addEventListener('DOMContentLoaded', initApp);
 var CATEGORY_TITLE_MAP = {
   'Estates & Fiduciary Relations': 'Title 12',
   'Domestic Relations': 'Title 13',
+  'Education': 'Title 14',
 };
 
 var CATEGORY_LABELS = {
@@ -781,6 +787,7 @@ var PROFILE_CATEGORY_PRIORITY = {
   veteran:   'Military & Veterans',
   workpro:   'Your Job & Wages',
   pubsec:    'State Government',
+  parent:    'Schools & Education',
 };
 
 var currentProfileKey = null;
@@ -842,6 +849,7 @@ function goToCategory(categoryKey, displayLabel) {
   var CATEGORY_EMOJI_MAP = {
     'Estates & Fiduciary Relations': '📜',
     'Domestic Relations': '👨‍👩‍👧',
+    'Education': '🎒',
   };
   document.getElementById('bills-nav-emoji').textContent = CATEGORY_EMOJI_MAP[categoryKey] || '📋';
   document.getElementById('bills-nav-profile').textContent = displayLabel + ' (Beta)';
@@ -930,6 +938,7 @@ function renderCategoryBills() {
           ? '<div class="bill-sponsor">Sponsored by <a href="' + esc(bill.legislator_url) + '" target="_blank" rel="noopener">' + catSponsorTitle + esc(bill.primary_sponsor) + '</a></div>'
           : '<div class="bill-sponsor">Sponsored by ' + catSponsorTitle + esc(bill.primary_sponsor) + '</div>')
       : '';
+    var catCurrentLawHtml = currentLawLinksHtml(bill.long_title);
     var suffix   = bill.bill_number.replace(/\s+/g, '-');
     var plainId  = 'bp-' + suffix;
     var synId    = 'bs-' + suffix;
@@ -973,7 +982,7 @@ function renderCategoryBills() {
     return '<div class="bill-card" data-share-url="' + esc(shareUrl) + '" data-share-text="' + esc(shareText) + '">' +
       '<div class="bill-nickname"><span class="bill-title-text">' + esc(nickname) + '</span>' + statusBadge + '</div>' +
       '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + '</div>' +
-      catSponsorHtml + bodyHtml + readMore + shareBtn + '</div>';
+      catSponsorHtml + catCurrentLawHtml + bodyHtml + readMore + shareBtn + '</div>';
   }).join('');
   listEl.innerHTML = html;
 }
@@ -1197,6 +1206,7 @@ function renderBills() {
           ? '<div class="bill-sponsor">Sponsored by <a href="' + esc(bill.legislator_url) + '" target="_blank" rel="noopener">' + sponsorTitle + esc(bill.primary_sponsor) + '</a></div>'
           : '<div class="bill-sponsor">Sponsored by ' + sponsorTitle + esc(bill.primary_sponsor) + '</div>')
       : '';
+    var currentLawHtml = currentLawLinksHtml(bill.long_title);
 
     var plainId     = 'bp-' + bill.bill_number.replace(/\s+/g, '-');
     var rationaleId = 'br-' + bill.bill_number.replace(/\s+/g, '-');
@@ -1213,7 +1223,7 @@ function renderBills() {
     var shareUrl   = bill.url || window.location.href;
     var shareText  = nickname + ' — ' + billCode + '. Check this Delaware bill on Dover Dash.';
     var shareBtn   = '<div class="bill-share-row"><button class="bill-share-btn" onclick="shareBillCard(this)">Share</button></div>';
-    return groupHeader + '<div class="' + cardClass + '" data-share-url="' + esc(shareUrl) + '" data-share-text="' + esc(shareText) + '">' + '<div class="bill-nickname"><span class="bill-title-text">' + esc(nickname) + '</span>' + rightMeta + '</div>' + '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + topicTagHtml + '</div>' + sponsorHtml + synopsisHtml + bodyHtml + readMore + shareBtn + timelineHtml + '</div>';
+    return groupHeader + '<div class="' + cardClass + '" data-share-url="' + esc(shareUrl) + '" data-share-text="' + esc(shareText) + '">' + '<div class="bill-nickname"><span class="bill-title-text">' + esc(nickname) + '</span>' + rightMeta + '</div>' + '<div class="bill-top" style="margin-bottom:8px;">' + billNumHtml + topicTagHtml + '</div>' + sponsorHtml + currentLawHtml + synopsisHtml + bodyHtml + readMore + shareBtn + timelineHtml + '</div>';
   }).join('');
   if (showExpand) {
     html += '<div style="padding:14px 16px;text-align:center;"><button onclick="expandFilter(\'' + currentFilter + '\')" style="background:none;border:1.5px solid #002868;border-radius:20px;padding:8px 20px;font-size:12px;font-weight:700;color:#002868;cursor:pointer;font-family:\'Inter\',sans-serif;">See all ' + bills.length + ' bills ↓</button></div>';
@@ -1224,6 +1234,31 @@ function renderBills() {
 function esc(str) {
   if (!str) return '';
   return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// Extracts every Delaware Code title number a bill cites and links each to
+// its real page on delcode.delaware.gov, so anyone reading a bill card can
+// check the current law it amends, not just what changed. Same robust
+// "match anywhere in the AMEND...OF THE DELAWARE CODE clause" approach used
+// for the category-broadening fix -- handles "TITLE 12" and "TITLES 10 AND
+// 13" phrasing alike, and correctly lists every title on multi-title bills
+// (e.g. HB 400 cites five) rather than just the first.
+function currentLawLinksHtml(longTitle) {
+  if (!longTitle) return '';
+  var m = /AMEND\s+(.*?)\s+OF THE DELAWARE CODE/i.exec(longTitle);
+  if (!m) return '';
+  var numbers = m[1].match(/\d+/g);
+  if (!numbers) return '';
+  var seen = {};
+  var unique = numbers.filter(function(n) {
+    if (seen[n]) return false;
+    seen[n] = true;
+    return true;
+  });
+  var links = unique.map(function(n) {
+    return '<a href="https://delcode.delaware.gov/title' + n + '/index.html" target="_blank" rel="noopener">Title ' + n + '</a>';
+  });
+  return '<div class="bill-current-law">Current Delaware Code: ' + links.join(' · ') + '</div>';
 }
 
 // ── BILL LIFECYCLE TIMELINE ──────────────────────────────────────────────────
