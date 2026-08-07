@@ -986,12 +986,13 @@ function renderCategoryBills() {
     // ones still awaiting signature (e.g. HB 253), so it matters here too.
     var rawStatus = (bill.status || '').toLowerCase();
     var isPassing = rawStatus.includes('sign') || rawStatus.includes('approv') || rawStatus.includes('pass') || rawStatus.includes('veto');
-    var statusLabel = rawStatus.includes('sign') ? '✓ Signed by Governor'
+    var statusLabel = rawStatus.includes('w/o sign') ? '✓ Enacted into Law'
+                    : rawStatus.includes('sign') ? '✓ Signed by Governor'
                     : rawStatus.includes('approv') ? '✓ Signed by Governor'
                     : rawStatus.includes('veto override') ? '✓ Veto Overridden'
                     : rawStatus.includes('pass') ? 'Ready for Governor'
                     : (bill.status ? bill.status : '');
-    var statusBadgeClass = rawStatus.includes('veto') ? 'veto' : (rawStatus.includes('sign') || rawStatus.includes('approv')) ? '' : isPassing ? 'passed' : 'np';
+    var statusBadgeClass = rawStatus.includes('veto') ? 'veto' : (rawStatus.includes('w/o sign') || rawStatus.includes('sign') || rawStatus.includes('approv')) ? '' : isPassing ? 'passed' : 'np';
     var catDateStr = '';
     if (bill.passed_date) {
       var catD = new Date(bill.passed_date + 'T00:00:00');
@@ -1193,12 +1194,13 @@ function renderBills() {
     var dirBadge  = '';
     var rawStatus = (bill.status || '').toLowerCase();
     var isPassing = rawStatus.includes('sign') || rawStatus.includes('approv') || rawStatus.includes('pass') || rawStatus.includes('veto');
-    var statusLabel = rawStatus.includes('sign') ? '✓ Signed by Governor'
+    var statusLabel = rawStatus.includes('w/o sign') ? '✓ Enacted into Law'
+                    : rawStatus.includes('sign') ? '✓ Signed by Governor'
                     : rawStatus.includes('approv') ? '✓ Signed by Governor'
                     : rawStatus.includes('veto override') ? '✓ Veto Overridden'
                     : rawStatus.includes('pass') ? 'Ready for Governor'
                     : (bill.status ? bill.status : '');
-    var statusBadgeClass = rawStatus.includes('veto') ? 'veto' : (rawStatus.includes('sign') || rawStatus.includes('approv')) ? '' : isPassing ? 'passed' : 'np';
+    var statusBadgeClass = rawStatus.includes('veto') ? 'veto' : (rawStatus.includes('w/o sign') || rawStatus.includes('sign') || rawStatus.includes('approv')) ? '' : isPassing ? 'passed' : 'np';
     var dateStr = '';
     if (bill.passed_date) {
       var d = new Date(bill.passed_date + 'T00:00:00');
