@@ -56,10 +56,10 @@ body {
 /* ── PROFILE PICKER ── */
 #screen-profiles { margin: 0 14px; background: #fff; border-radius: 0 0 16px 16px; padding: 20px 16px 20px; }
 .pick-title { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 900; color: #002868; margin-bottom: 4px; }
-.pick-sub { font-size: 11px; font-weight: 600; color: #6B7280; margin-bottom: 4px; line-height: 1.4; min-height: 34px; }
+.pick-sub { font-size: 11px; font-weight: 600; color: #5D6470; margin-bottom: 4px; line-height: 1.4; min-height: 34px; }
 .pick-sub-hint { font-size: 13px; font-weight: 800; color: #002868; margin-bottom: 14px; line-height: 1.4; }
 .prof-grid { display: flex; flex-direction: column; gap: 8px; }
-.prof-overflow-hint { text-align: center; font-size: 10px; color: #9CA3AF; padding: 0 12px 6px; line-height: 1.4; display: none; }
+.prof-overflow-hint { text-align: center; font-size: 10px; color: #70757E; padding: 0 12px 6px; line-height: 1.4; display: none; }
 .prof-btn { border: 1.5px solid #E5E7EB; border-radius: 10px; padding: 12px 16px; cursor: pointer; display: flex; flex-direction: row; align-items: center; gap: 12px; text-align: left; background: #fff; font-family: 'Inter', sans-serif; width: 100%; min-height: 56px; transition: border-color .12s, background .12s; }
 .prof-btn.selected { border-color: #002868; background: #EFF3FB; }
 .prof-circle { width: 16px; height: 16px; border-radius: 4px; border: 2px solid #D1D5DB; background: #fff; margin-left: auto; flex-shrink: 0; transition: background .15s, border-color .15s; }
@@ -67,7 +67,7 @@ body {
 .prof-divider { display: none; width: 100%; text-align: center; font-size: 12px; font-weight: 700; color: #002868; padding: 8px 0; background: none; border: none; font-family: 'Inter', sans-serif; cursor: pointer; }
 .prof-divider:hover { text-decoration: underline; }
 .see-results-wrap { position: relative; text-align: center; margin-top: 16px; }
-.see-results-btn { display: inline-block; width: auto; min-width: 180px; margin: 0; padding: 12px 28px; background: #D1D5DB; color: #6B7280; border: none; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; cursor: not-allowed; transition: background .15s, color .15s; }
+.see-results-btn { display: inline-block; width: auto; min-width: 180px; margin: 0; padding: 12px 28px; background: #D1D5DB; color: #5D6470; border: none; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; cursor: not-allowed; transition: background .15s, color .15s; }
 .see-results-btn.ready { background: #D93B3B; color: #fff; cursor: pointer; }
 .see-results-hint { position: absolute; left: 50%; bottom: 100%; transform: translateX(-50%); margin-bottom: 6px; background: #111827; color: #fff; font-size: 11px; font-weight: 600; padding: 6px 10px; border-radius: 6px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .15s; }
 .see-results-hint.show { opacity: 1; }
@@ -77,9 +77,9 @@ body {
 
 .prof-em { font-size: 22px; line-height: 1; font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji", sans-serif; }
 .prof-label { font-size: 14px; font-weight: 700; color: #111827; line-height: 1.3; }
-.prof-sub { font-size: 10px; color: #6B7280; margin-top: 3px; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.prof-sub { font-size: 10px; color: #5D6470; margin-top: 3px; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .prof-submit-btn { width: 100%; background: #002868; color: #BAFF5C; border: none; border-radius: 10px; padding: 13px; font-size: 14px; font-weight: 800; font-family: 'Inter', sans-serif; cursor: pointer; margin-top: 10px; letter-spacing: 0.2px; }
-.pick-footer { font-size: 10px; color: #9CA3AF; text-align: center; margin-top: 8px; }
+.pick-footer { font-size: 10px; color: #70757E; text-align: center; margin-top: 8px; }
 
 /* ── BILLS NAV HEADER ── */
 .bills-nav-header { background: #002868; margin: 14px 14px 0; border-radius: 10px 10px 0 0; padding: 12px 16px 20px; display: flex; flex-direction: column; gap: 10px; }
@@ -96,10 +96,10 @@ body {
 .bills-hero { background: #fff; padding: 16px 16px 14px; text-align: center; }
 .profile-hero-emoji { display: block; font-size: 38px; line-height: 1; margin-bottom: 6px; }
 .bills-profile-label { display: block; font-size: 17px; font-weight: 800; color: #111827; }
-.profile-stat-line { font-size: 10px; color: #9CA3AF; margin-top: 4px; line-height: 1.4; }
-.profile-section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #9CA3AF; margin-bottom: 6px; }
+.profile-stat-line { font-size: 10px; color: #70757E; margin-top: 4px; line-height: 1.4; }
+.profile-section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #70757E; margin-bottom: 6px; }
 .filter-row { background: #fff; padding: 10px 14px; display: flex; gap: 6px; border-bottom: 1px solid #E5E7EB; justify-content: center; }
-.senior-estates-hint { background: #fff; padding: 0 14px 10px; text-align: center; font-size: 11px; color: #6B7280; font-family: 'Inter', sans-serif; border-bottom: 1px solid #E5E7EB; }
+.senior-estates-hint { background: #fff; padding: 0 14px 10px; text-align: center; font-size: 11px; color: #5D6470; font-family: 'Inter', sans-serif; border-bottom: 1px solid #E5E7EB; }
 .filter-btn { border: none; border-radius: 20px; padding: 7px 14px; font-size: 11px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; transition: all .12s; white-space: nowrap; background: #F3F4F6; color: #374151; }
 .filter-btn.wo { background: #FEE2E2; color: #D93B3B; }
 .filter-btn.hy { background: #ECFCCB; color: #365314; }
@@ -108,7 +108,7 @@ body {
 .filter-btn.wo.active { background: #D93B3B; color: #fff; }
 .filter-btn.hy.active { background: #65A30D; color: #fff; }
 .filter-btn.neutral.active { background: #4B5563; color: #fff; }
-.bill-share-btn { font-size: 10px; font-weight: 400; color: #9CA3AF; background: none; border: none; padding: 0; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: underline; text-underline-offset: 2px; }
+.bill-share-btn { font-size: 10px; font-weight: 400; color: #70757E; background: none; border: none; padding: 0; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: underline; text-underline-offset: 2px; }
 .bill-share-btn:hover { color: #002868; }
 .bill-share-row { display: flex; justify-content: flex-end; margin-top: 8px; }
 #bill-count-bar { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; color: #fff; }
@@ -117,16 +117,16 @@ body {
 .bills-loading { background: #fff; padding: 40px 16px; text-align: center; }
 .loading-spinner { width: 36px; height: 36px; border: 3px solid rgba(0,40,104,0.15); border-top-color: #002868; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto; }
 @keyframes spin { to { transform: rotate(360deg); } }
-.loading-sub { font-size: 11px; color: #9CA3AF; margin-top: 6px; font-family: 'Inter', sans-serif; }
+.loading-sub { font-size: 11px; color: #70757E; margin-top: 6px; font-family: 'Inter', sans-serif; }
 @keyframes namepulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
 .bills-list { background: #fff; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; }
 .bill-card { padding: 14px 16px; background: #fff; border-radius: 12px; border-left: 4px solid transparent; border: 1.5px solid #E5E7EB; border-left-width: 4px; }
 .bill-card.wo { border-left-color: #D93B3B; }
 .bill-card.hy { border-left-color: #65A30D; }
-.bill-card.neutral { border-left-color: #9CA3AF; }
+.bill-card.neutral { border-left-color: #70757E; }
 .bill-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
-.bill-num { font-size: 11px; font-weight: 800; color: #9CA3AF; letter-spacing: 0.3px; }
-.bill-cat-chip { display: inline-block; font-size: 9px; font-weight: 700; color: #6B7280; background: #F3F4F6; border-radius: 4px; padding: 2px 6px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+.bill-num { font-size: 11px; font-weight: 800; color: #70757E; letter-spacing: 0.3px; }
+.bill-cat-chip { display: inline-block; font-size: 9px; font-weight: 700; color: #5D6470; background: #F3F4F6; border-radius: 4px; padding: 2px 6px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
 .bill-topic-chip { display: inline-block; font-size: 9px; font-weight: 700; color: #002868; background: #EEF2FF; border-radius: 4px; padding: 2px 6px; letter-spacing: 0.2px; margin-bottom: 3px; }
 .dir-badge { display: none; }
 .bill-nickname { font-size: 15px; font-weight: 800; color: #002868; margin-bottom: 3px; line-height: 1.3; display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
@@ -148,30 +148,30 @@ body {
 .bt-dot { width: 10px; height: 10px; border-radius: 50%; background: #E5E7EB; border: 2px solid #fff; box-shadow: 0 0 0 1px #E5E7EB; z-index: 1; }
 .bt-step.reached .bt-dot { background: #002868; box-shadow: 0 0 0 1px #002868; }
 .bt-step.current .bt-dot { background: #BAFF5C; box-shadow: 0 0 0 1px #002868; }
-.bt-label { font-size: 8px; color: #9CA3AF; text-transform: uppercase; letter-spacing: 0.3px; margin-top: 4px; text-align: center; line-height: 1.2; }
+.bt-label { font-size: 8px; color: #70757E; text-transform: uppercase; letter-spacing: 0.3px; margin-top: 4px; text-align: center; line-height: 1.2; }
 .bt-step.reached .bt-label, .bt-step.current .bt-label { color: #002868; font-weight: 700; }
 .bt-line { position: absolute; top: 4px; left: 50%; width: 100%; height: 2px; background: #E5E7EB; z-index: 0; }
 .bt-step.reached .bt-line { background: #002868; }
 .bt-step:first-child .bt-line { display: none; }
-.bill-num-link { font-size: 11px; font-weight: 800; color: #9CA3AF; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: #9CA3AF; }
+.bill-num-link { font-size: 11px; font-weight: 800; color: #70757E; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: #70757E; }
 .bill-num-link:hover { color: #D93B3B; }
-.bill-official { font-size: 9px; color: #9CA3AF; line-height: 1.4; margin-bottom: 8px; font-style: italic; }
-.bill-synopsis-text { font-size: 11.5px; color: #9CA3AF; line-height: 1.55; margin-bottom: 8px; padding-top: 8px; border-top: 1px solid #F3F4F6; }
+.bill-official { font-size: 9px; color: #70757E; line-height: 1.4; margin-bottom: 8px; font-style: italic; }
+.bill-synopsis-text { font-size: 11.5px; color: #70757E; line-height: 1.55; margin-bottom: 8px; padding-top: 8px; border-top: 1px solid #F3F4F6; }
 .bill-rationale { font-size: 11px; color: #002868; border-radius: 6px; padding: 7px 10px; margin-bottom: 8px; line-height: 1.5; font-weight: 500; }
-.bill-rationale-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #9CA3AF; display: block; margin-bottom: 3px; }
-.bill-sponsor { font-size: 11px; color: #9CA3AF; margin-bottom: 14px; }
-.bill-current-law { font-size: 10px; color: #9CA3AF; margin: 2px 0 8px; }
-.bill-current-law a { color: #9CA3AF; text-decoration: underline; text-underline-offset: 2px; }
+.bill-rationale-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #70757E; display: block; margin-bottom: 3px; }
+.bill-sponsor { font-size: 11px; color: #70757E; margin-bottom: 14px; }
+.bill-current-law { font-size: 10px; color: #70757E; margin: 2px 0 8px; }
+.bill-current-law a { color: #70757E; text-decoration: underline; text-underline-offset: 2px; }
 .bill-current-law a:hover { color: #002868; }
-.bill-sponsor a { color: #9CA3AF; font-weight: 400; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: #9CA3AF; }
+.bill-sponsor a { color: #70757E; font-weight: 400; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: #70757E; }
 .bill-sponsor a:hover { color: #D93B3B; border-bottom-color: #D93B3B; }
 .primary-cta { font-size: 10px; font-weight: 700; color: #D93B3B; margin-top: 8px; }
 .primary-nudge { font-size: 10px; color: #002868; font-weight: 600; margin-top: 6px; line-height: 1.4; text-decoration: none; display: block; border-bottom: 1px solid #BAFF5C; padding-bottom: 2px; width: fit-content; }
-.bill-plain { font-size: 12px; color: #9CA3AF; line-height: 1.55; margin-bottom: 0; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+.bill-plain { font-size: 12px; color: #70757E; line-height: 1.55; margin-bottom: 0; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
 .bill-plain.expanded { -webkit-line-clamp: unset; }
 .bill-rationale-body { display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
 .bill-rationale-body.expanded { -webkit-line-clamp: unset; }
-.bill-what-label { font-size: 10px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: #9CA3AF; margin-bottom: 4px; }
+.bill-what-label { font-size: 10px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: #70757E; margin-bottom: 4px; }
 .bill-synopsis-full { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #E5E7EB; }
 .bill-ga-link { font-size: 11px; font-weight: 700; color: #002868; text-decoration: underline; text-underline-offset: 2px; }
 .bill-read-more { font-size: 10px; font-weight: 400; color: #002868; background: none; border: none; padding: 4px 0 0; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: underline; text-underline-offset: 2px; display: block; text-align: left; }
@@ -180,7 +180,7 @@ body {
 .bills-empty { background: #fff; padding: 36px 24px; text-align: center; }
 .bills-empty-icon { font-size: 32px; margin-bottom: 10px; }
 .bills-empty-title { font-family: 'Playfair Display', Georgia, serif; font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 6px; }
-.bills-empty-sub { font-size: 12px; color: #6B7280; line-height: 1.5; }
+.bills-empty-sub { font-size: 12px; color: #5D6470; line-height: 1.5; }
 /* --- Get Involved card — lime green matching the "Dash" brand accent,
    following the same lime-card/navy-inset pattern already established by
    .session-countdown elsewhere in this file, rather than inventing a new
@@ -201,13 +201,13 @@ body {
 .gi-addr-input { flex: 1; border: 1.5px solid #D1D5DB; border-radius: 8px; padding: 9px 10px; font-size: 12px; font-family: 'Inter', sans-serif; outline: none; min-width: 0; color: #111827; background: #fff; -webkit-box-shadow: 0 0 0 1000px #fff inset; }
 .gi-addr-input:focus { border-color: #D1D5DB; }
 .gi-addr-btn { background: #002868; color: #BAFF5C; border: none; border-radius: 8px; padding: 9px 13px; font-size: 12px; font-weight: 800; cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap; }
-.gi-loading { font-size: 11px; color: #6B7280; text-align: center; padding: 8px 0; }
+.gi-loading { font-size: 11px; color: #5D6470; text-align: center; padding: 8px 0; }
 .gi-error { font-size: 11px; color: #D93B3B; padding: 6px 0; line-height: 1.4; }
 .gi-results { margin-top: 6px; }
-.gi-matched-addr { font-size: 10px; color: #6B7280; margin-bottom: 8px; font-style: italic; line-height: 1.4; }
+.gi-matched-addr { font-size: 10px; color: #5D6470; margin-bottom: 8px; font-style: italic; line-height: 1.4; }
 .gi-district-info { font-size: 11px; color: #002868; font-weight: 700; margin-bottom: 10px; background: #EEF2FF; border-radius: 6px; padding: 7px 10px; }
 .gi-race { margin-bottom: 10px; }
-.gi-race-title { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: #6B7280; margin-bottom: 5px; }
+.gi-race-title { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: #5D6470; margin-bottom: 5px; }
 .gi-candidate { display: flex; justify-content: space-between; align-items: center; background: #fff; border: 1.5px solid #E5E7EB; border-radius: 8px; padding: 8px 10px; margin-bottom: 4px; gap: 8px; }
 .gi-cand-name { font-size: 12px; font-weight: 700; color: #111827; }
 .gi-cand-web { font-size: 10px; color: #002868; font-weight: 600; text-decoration: none; display: block; margin-top: 2px; }
@@ -215,22 +215,22 @@ body {
 .gi-cand-party.dem { background: #DBEAFE; color: #1E40AF; }
 .gi-cand-party.rep { background: #FEE2E2; color: #991B1B; }
 .gi-cand-party.other { background: #F3F4F6; color: #374151; }
-.gi-eligibility-note { font-size: 10px; color: #6B7280; margin-top: 8px; line-height: 1.5; padding: 8px 10px; background: #F9FAFB; border-radius: 6px; border: 1px solid #E5E7EB; }
+.gi-eligibility-note { font-size: 10px; color: #5D6470; margin-top: 8px; line-height: 1.5; padding: 8px 10px; background: #F9FAFB; border-radius: 6px; border: 1px solid #E5E7EB; }
 .gi-dates { display: flex; flex-direction: column; gap: 7px; }
 .gi-date-row { display: flex; align-items: center; gap: 10px; }
 .gi-date-badge { font-size: 10px; font-weight: 800; color: #002868; background: #EEF2FF; border-radius: 5px; padding: 3px 7px; min-width: 58px; text-align: center; flex-shrink: 0; white-space: nowrap; }
 .gi-date-badge.primary { background: #002868; color: #BAFF5C; }
 .gi-date-badge.general { background: #002868; color: #BAFF5C; }
 .gi-date-desc { font-size: 11px; color: #374151; line-height: 1.3; }
-.gi-email-sub { font-size: 11px; color: #6B7280; margin-bottom: 10px; line-height: 1.5; }
+.gi-email-sub { font-size: 11px; color: #5D6470; margin-bottom: 10px; line-height: 1.5; }
 .gi-email-row { display: flex; gap: 6px; }
 .gi-email-input { flex: 1; border: 1.5px solid #D1D5DB; border-radius: 8px; padding: 9px 10px; font-size: 12px; font-family: 'Inter', sans-serif; outline: none; min-width: 0; background: #fff; }
 .gi-email-input:focus { border-color: #002868; }
 .gi-email-btn { background: #002868; color: #BAFF5C; border: none; border-radius: 8px; padding: 9px 14px; font-size: 12px; font-weight: 800; cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap; }
 .gi-email-btn:hover { background: #001f52; }
 .gi-email-success { font-size: 12px; color: #002868; font-weight: 700; }
-.gi-source { font-size: 10px; color: #9CA3AF; margin-top: 10px; line-height: 1.5; }
-.gi-source a { color: #6B7280; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.gi-source { font-size: 10px; color: #70757E; margin-top: 10px; line-height: 1.5; }
+.gi-source a { color: #5D6470; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
 .gi-action-list { display: flex; flex-direction: column; padding: 0 16px 8px; gap: 6px; }
 .countdown-source { display: block; text-align: center; font-size: 10px; font-style: italic; color: rgba(0,40,104,0.6); text-decoration: underline; text-underline-offset: 2px; margin-top: 4px; }
 .gi-action-row { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: none; border-radius: 8px; text-decoration: none; background: #002868; transition: background .12s; }
@@ -261,40 +261,40 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
 .rep-election-date-val { font-size: 13px; font-weight: 800; color: #fff; line-height: 1.2; }
 .rep-inner { padding: 16px 16px 20px; }
 .rep-section-title { font-family: 'Playfair Display', Georgia, serif; font-size: 16px; font-weight: 900; color: #002868; margin-bottom: 4px; }
-.rep-section-sub { font-size: 11px; color: #9CA3AF; margin-bottom: 14px; line-height: 1.4; }
+.rep-section-sub { font-size: 11px; color: #70757E; margin-bottom: 14px; line-height: 1.4; }
 .rep-email-section { margin-top: 18px; padding: 13px 14px; background: #fff; border: 1.5px solid #E5E7EB; border-radius: 10px; }
 .rep-email-title { font-size: 12px; font-weight: 800; color: #111827; margin-bottom: 3px; }
-.rep-email-sub-text { font-size: 10px; color: #6B7280; margin-bottom: 9px; line-height: 1.4; }
+.rep-email-sub-text { font-size: 10px; color: #5D6470; margin-bottom: 9px; line-height: 1.4; }
 .rep-ga-section { margin-top: 14px; padding-top: 13px; border-top: 1px solid #E5E7EB; }
-.rep-ga-context { font-size: 10px; color: #9CA3AF; margin-bottom: 6px; line-height: 1.4; }
+.rep-ga-context { font-size: 10px; color: #70757E; margin-bottom: 6px; line-height: 1.4; }
 .rep-addr-row { display: flex; gap: 8px; }
 .rep-addr-input { flex: 1; border: 1.5px solid #E5E7EB; border-radius: 8px; padding: 9px 12px; font-size: 12px; font-family: 'Inter', sans-serif; color: #002868; outline: none; }
 .rep-addr-input:focus { border-color: #002868; }
 .rep-addr-btn { background: #002868; color: #BAFF5C; border: none; border-radius: 8px; padding: 9px 14px; font-size: 11px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap; }
 .rep-addr-btn:hover { background: #001a4d; }
-.rep-loading { text-align: center; padding: 20px 0; font-size: 11px; color: #9CA3AF; display: none; }
+.rep-loading { text-align: center; padding: 20px 0; font-size: 11px; color: #70757E; display: none; }
 .rep-error { font-size: 11px; color: #D93B3B; margin-top: 10px; display: none; }
 .rep-cards { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
 .rep-card { background: #fff; border-radius: 12px; border: 1.5px solid #E5E7EB; padding: 14px 16px; }
 .rep-card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
 .rep-card-name { font-family: 'Playfair Display', Georgia, serif; font-size: 15px; font-weight: 900; color: #002868; }
-.rep-card-role { font-size: 10px; color: #9CA3AF; margin-top: 2px; }
+.rep-card-role { font-size: 10px; color: #70757E; margin-top: 2px; }
 .rep-party-badge { font-size: 9px; font-weight: 800; border-radius: 4px; padding: 2px 7px; letter-spacing: 0.5px; flex-shrink: 0; }
 .rep-party-badge.D { background: #DBEAFE; color: #1E40AF; }
 .rep-party-badge.R { background: #FEE2E2; color: #D93B3B; }
 .rep-card-photo { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
 .rep-card-photo-fallback { width: 48px; height: 48px; border-radius: 50%; background: #E5E7EB; color: #002868; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', Georgia, serif; font-weight: 900; font-size: 15px; flex-shrink: 0; }
-.rep-bio-link { font-size: 10px; color: #9CA3AF; text-decoration: underline; text-underline-offset: 2px; }
+.rep-bio-link { font-size: 10px; color: #70757E; text-decoration: underline; text-underline-offset: 2px; }
 .rep-bio-link:hover { color: #002868; }
 .rep-ga-btn { display: inline-block; background: #F0FFF0; border: 1.5px solid #BAFF5C; color: #002868; border-radius: 8px; padding: 9px 14px; font-size: 11px; font-weight: 700; text-decoration: none; font-family: 'Inter', sans-serif; margin-top: 4px; }
 .rep-ga-btn:hover { background: #BAFF5C; }
 .rep-challengers { border-top: 1px solid #F3F4F6; margin-top: 12px; padding-top: 10px; }
-.rep-challengers-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: #9CA3AF; margin-bottom: 8px; }
+.rep-challengers-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: #70757E; margin-bottom: 8px; }
 .rep-challenger-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
 .rep-challenger-name { font-size: 12px; font-weight: 700; color: #111827; }
 .rep-challenger-web { font-size: 10px; color: #002868; font-weight: 600; text-decoration: none; flex-shrink: 0; }
 .rep-challenger-web:hover { text-decoration: underline; }
-.rep-no-challengers { font-size: 11px; color: #9CA3AF; }
+.rep-no-challengers { font-size: 11px; color: #70757E; }
 .app-footer { background: #002868; padding: 14px 16px 16px; text-align: center; margin: 0 14px 14px; border-radius: 0 0 16px 16px; }
 .app-footer-brand { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 900; color: #fff; margin-bottom: 4px; }
 .app-footer-brand em { color: #BAFF5C; font-style: italic; }
@@ -302,6 +302,10 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
 .app-footer-divider { border: none; border-top: 1px solid rgba(255,255,255,0.12); margin: 0 0 14px; }
 .app-footer-disclaimer { font-size: 10.5px; color: rgba(255,255,255,0.85); line-height: 1.6; margin-bottom: 10px; font-family: 'Times New Roman', Times, Georgia, serif; font-style: italic; }
 .app-footer-disclaimer a { color: rgba(255,255,255,0.85); text-decoration: underline; text-underline-offset: 2px; }
+.footer-more { display: none; }
+.footer-more.expanded { display: inline; }
+.footer-toggle { font-family: 'Inter', sans-serif; font-style: normal; font-size: 11px; font-weight: 600; color: #BAFF5C; text-decoration: none; }
+.footer-toggle:hover { text-decoration: underline; }
 .app-footer-copy { font-size: 9.5px; color: #fff; font-family: 'Inter', sans-serif; }
 .app-footer-copy a { color: #fff; text-decoration: none; }
 
@@ -338,9 +342,9 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
 
     <div class="prof-grid" id="prof-grid">
       <button class="prof-btn" data-profile-key="homeowner" onclick="selectProfile('homeowner',this)"><span class="prof-em">🏠</span><div class="prof-label">Homeowner</div><span class="prof-circle"></span></button>
-      <button class="prof-btn" data-profile-key="parent"    onclick="selectProfile('parent',this)"><span class="prof-em">🚸</span><div style="display:flex;flex-direction:column;"><div class="prof-label">Parent &amp; Family</div><div style="font-size:10px;font-weight:400;color:#9CA3AF;line-height:1.3;font-style:italic;font-family:'Times New Roman',Times,serif;">(new profile added by popular demand!)</div></div><span class="prof-circle"></span></button>
-      <button class="prof-btn" data-profile-key="youngpro"  onclick="selectProfile('youngpro',this)"><span class="prof-em">👔</span><div style="display:flex;flex-direction:column;"><div class="prof-label">Young Professionals</div><div style="font-size:10px;font-weight:400;color:#9CA3AF;line-height:1.3;font-style:italic;font-family:'Times New Roman',Times,serif;">(new profile added by popular demand!)</div></div><span class="prof-circle"></span></button>
-      <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🌅</span><div style="display:flex;flex-direction:column;"><div class="prof-label">Retiree / Senior</div><div style="font-size:10px;font-weight:400;color:#9CA3AF;line-height:1.3;font-style:italic;font-family:'Times New Roman',Times,serif;">(includes estates &amp; trusts legislation)</div></div><span class="prof-circle"></span></button>
+      <button class="prof-btn" data-profile-key="parent"    onclick="selectProfile('parent',this)"><span class="prof-em">🚸</span><div style="display:flex;flex-direction:column;"><div class="prof-label">Parent &amp; Family</div><div style="font-size:10px;font-weight:400;color:#70757E;line-height:1.3;font-style:italic;font-family:'Times New Roman',Times,serif;">(new profile added by popular demand!)</div></div><span class="prof-circle"></span></button>
+      <button class="prof-btn" data-profile-key="youngpro"  onclick="selectProfile('youngpro',this)"><span class="prof-em">👔</span><div style="display:flex;flex-direction:column;"><div class="prof-label">Young Professionals</div><div style="font-size:10px;font-weight:400;color:#70757E;line-height:1.3;font-style:italic;font-family:'Times New Roman',Times,serif;">(new profile added by popular demand!)</div></div><span class="prof-circle"></span></button>
+      <button class="prof-btn" data-profile-key="senior"    onclick="selectProfile('senior',this)"><span class="prof-em">🌅</span><div style="display:flex;flex-direction:column;"><div class="prof-label">Retiree / Senior</div><div style="font-size:10px;font-weight:400;color:#70757E;line-height:1.3;font-style:italic;font-family:'Times New Roman',Times,serif;">(includes estates &amp; trusts legislation)</div></div><span class="prof-circle"></span></button>
       <button class="prof-btn" data-profile-key="veteran"   onclick="selectProfile('veteran',this)"><span class="prof-em">🎖️</span><div class="prof-label">Veteran / Military Family</div><span class="prof-circle"></span></button>
       <button type="button" class="prof-divider" id="prof-divider"></button>
       <div class="prof-overflow-hint" id="prof-overflow-hint"></div>
@@ -418,7 +422,7 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
         <button class="gi-action-row" onclick="toggleLegLookup(this)" aria-expanded="false">
           <span class="gi-action-icon">🏛️</span>
           <span class="gi-action-label">Look up your legislator</span>
-          <svg class="gi-leg-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="gi-leg-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="#70757E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="gi-leg-panel" style="display:none;padding:8px 2px 2px;">
           <div style="display:flex;gap:6px;margin-bottom:6px;">
@@ -464,7 +468,7 @@ button.gi-action-row[aria-expanded="true"]:hover { background: #001433; }
   </div>
 
   <div class="app-footer">
-    <div class="app-footer-disclaimer" id="footer-disclaimer">(Disclaimer: Dover Dash is an independent, nonpartisan project of Civic Delaware. Content is interpretive, not legal or tax advice; talk to a lawyer or accountant for guidance specific to you.<br><br>We match bills to your profile, give each one a memorable nickname, and label what cost it hits, so you don't have to skim hundreds of bills a session and find the ones that actually affect you.<br><br>Summaries are AI-written, in plain English, and we always show the bill's own official synopsis right next to it. You never have to just take our word for it, you can check it yourself.<br><br>Found an error or have feedback? Email us. We want this tool to be genuinely useful to the people using it.)</div>
+    <div class="app-footer-disclaimer" id="footer-disclaimer">(Disclaimer: Dover Dash is an independent, nonpartisan project of Civic Delaware. Content is interpretive, not legal or tax advice; talk to a lawyer or accountant for guidance specific to you.<br><br><span class="footer-more" id="footer-more">We match bills to your profile, give each one a memorable nickname, and label what cost it hits, so you don't have to skim hundreds of bills a session and find the ones that actually affect you.<br><br>Summaries are AI-written, in plain English, and we always show the bill's own official synopsis right next to it. You never have to just take our word for it, you can check it yourself.<br><br></span><a href="#" class="footer-toggle" id="footer-toggle" onclick="toggleFooterMore(event)">How this works &#9662;</a><br><br>Found an error or have feedback? Email us. We want this tool to be genuinely useful to the people using it.)</div>
     <div class="app-footer-copy">© 2026 Civic Delaware · <a href="mailto:info@civicdelaware.com">info@civicdelaware.com</a> · <a href="/terms.html">Terms of Service</a> · <a href="/privacy.html">Privacy Policy</a> · <a href="/accessibility.html">Accessibility</a></div>
   </div>
 
@@ -820,6 +824,14 @@ var currentFilter = 'Helps You';
 var expanded = { 'Watch Out': false, 'Helps You': false, 'Neutral': false };
 
 var pendingProfileKey = null;
+
+function toggleFooterMore(event) {
+  event.preventDefault();
+  var more = document.getElementById('footer-more');
+  var toggle = document.getElementById('footer-toggle');
+  var isExpanded = more.classList.toggle('expanded');
+  toggle.innerHTML = isExpanded ? 'Show less &#9652;' : 'How this works &#9662;';
+}
 function selectProfile(key, btn) {
   pendingProfileKey = key;
   document.querySelectorAll('.prof-btn').forEach(function(b) { b.classList.remove('selected'); });
@@ -1382,12 +1394,12 @@ function lookUpRep() {
       }
       html += '<div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px;padding:4px 0 8px;">' +
         '<span style="background:#002868;color:#BAFF5C;border-radius:4px;padding:2px 7px;font-size:9px;font-weight:800;">Sep 15</span>' +
-        '<span style="font-size:10px;color:#9CA3AF;">Primary</span>' +
+        '<span style="font-size:10px;color:#70757E;">Primary</span>' +
         '<span style="background:#002868;color:#BAFF5C;border-radius:4px;padding:2px 7px;font-size:9px;font-weight:800;margin-left:4px;">Nov 3</span>' +
-        '<span style="font-size:10px;color:#9CA3AF;">General Election</span>' +
+        '<span style="font-size:10px;color:#70757E;">General Election</span>' +
         '<a href="https://ivote.de.gov" target="_blank" rel="noopener" style="margin-left:auto;font-size:10px;font-weight:700;color:#002868;text-decoration:none;white-space:nowrap;">Register to vote →</a>' +
       '</div>';
-      cardsEl.innerHTML     = html || '<p style="font-size:12px;color:#9CA3AF;text-align:center;">No legislator data found for that address.</p>';
+      cardsEl.innerHTML     = html || '<p style="font-size:12px;color:#70757E;text-align:center;">No legislator data found for that address.</p>';
       cardsEl.style.display = 'flex';
     })
     .catch(function() {
@@ -1530,7 +1542,7 @@ function lookUpLegislator(el) {
           '<div style="display:flex;align-items:center;gap:12px;">' +
             photoHtml +
             '<div style="flex:1;min-width:0;">' +
-              '<div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:#6B7280;margin-bottom:4px;">' + label + '</div>' +
+              '<div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:#5D6470;margin-bottom:4px;">' + label + '</div>' +
               '<span style="font-size:12px;font-weight:700;color:#111827;">' + titlePrefix + leg.name + '</span>' +
               (leg.url ? '<div><a href="' + leg.url + '" target="_blank" rel="noopener" style="font-size:10px;color:#002868;font-weight:600;text-decoration:none;display:inline-block;margin-top:4px;">GA profile →</a></div>' : '') +
             '</div>' +
@@ -1540,7 +1552,7 @@ function lookUpLegislator(el) {
       var html = '';
       if (data.rep)     html += legCard(data.rep,     'House District ' + data.house_district);
       if (data.senator) html += legCard(data.senator, 'Senate District ' + data.senate_district);
-      if (!html) html = '<div style="font-size:11px;color:#6B7280;padding:6px 0;">No legislators found for this address.</div>';
+      if (!html) html = '<div style="font-size:11px;color:#5D6470;padding:6px 0;">No legislators found for this address.</div>';
       var resEl = card.querySelector('.gi-leg-results');
       resEl.innerHTML = html;
       resEl.style.display = 'block';
@@ -1625,7 +1637,7 @@ function renderCandidates(data) {
   if (senateKey && data.senate && data.senate[senateKey]) {
     html += renderRace('State Senate — District ' + senateKey + ' Primary', data.senate[senateKey]);
   } else if (senateKey) {
-    html += '<div class="gi-race"><div class="gi-race-title">State Senate — District ' + esc(senateKey) + '</div><div style="font-size:11px;color:#6B7280;padding:4px 0;">No contested primary in your district.</div></div>';
+    html += '<div class="gi-race"><div class="gi-race-title">State Senate — District ' + esc(senateKey) + '</div><div style="font-size:11px;color:#5D6470;padding:4px 0;">No contested primary in your district.</div></div>';
   }
 
   // House district
@@ -1633,7 +1645,7 @@ function renderCandidates(data) {
   if (houseKey && data.house && data.house[houseKey]) {
     html += renderRace('State House — District ' + houseKey + ' Primary', data.house[houseKey]);
   } else if (houseKey) {
-    html += '<div class="gi-race"><div class="gi-race-title">State House — District ' + esc(houseKey) + '</div><div style="font-size:11px;color:#6B7280;padding:4px 0;">No contested primary in your district.</div></div>';
+    html += '<div class="gi-race"><div class="gi-race-title">State House — District ' + esc(houseKey) + '</div><div style="font-size:11px;color:#5D6470;padding:4px 0;">No contested primary in your district.</div></div>';
   }
 
   // Statewide
